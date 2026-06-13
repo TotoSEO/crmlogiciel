@@ -58,27 +58,29 @@
 }
 .site-ambient__blob {
   position: absolute;
-  width: 45vw;
-  min-width: 28rem;
+  width: 50vw;
+  min-width: 30rem;
   aspect-ratio: 1;
   border-radius: var(--radius-blob);
-  filter: blur(80px);
+  /* Flou très large + opacité minime : un voile de couleur à peine perceptible,
+     qui ne doit jamais gêner la lecture. */
+  filter: blur(120px);
 }
 .site-ambient__blob--1 {
-  top: -12vw;
-  right: -8vw;
+  top: -14vw;
+  right: -10vw;
   background: var(--grad-cool);
-  opacity: 0.32;
+  opacity: 0.1;
 }
 .site-ambient__blob--2 {
-  top: 38%;
-  left: -14vw;
+  top: 40%;
+  left: -16vw;
   background: var(--grad-aqua);
-  opacity: 0.26;
+  opacity: 0.07;
 }
 .site-ambient__blob--3 {
-  bottom: -14vw;
-  right: 6vw;
+  bottom: -16vw;
+  right: 4vw;
   background: var(--grad-sunset);
-  opacity: 0.2;
+  opacity: 0.06;
 }

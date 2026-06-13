@@ -1,0 +1,83 @@
+---
+/**
+ * FeatureCard — colonne de fonctionnalité (dans <FeatureGrid>).
+ * Pictogramme centré, titre, texte (slot), bouton optionnel (centré).
+ * Le bouton n'apparaît que si `href` ET `cta` sont fournis.
+ * not-prose : la carte gère sa propre mise en forme (titre non Hn = outline propre).
+ */
+import Button from './Button.astro';
+
+interface Props {
+  icon: string;
+  title: string;
+  href?: string;
+  cta?: string;
+  palette?: 'blue' | 'teal' | 'orange' | 'green';
+}
+const { icon, title, href, cta, palette = 'blue' } = Astro.props;
+const hasButton = Boolean(href && cta);
+---
+
+<article
+  class="fcard glass not-prose"
+  style={`--c: var(--${palette}); --glass-tint: var(--${palette});`}
+>
+  <span class="fcard__icon" aria-hidden="true">{icon}</span>
+  <p class="fcard__title">{title}</p>
+  <div class="fcard__desc"><slot /></div>
+  {
+    hasButton && (
+      <div class="fcard__cta">
+        <Button href={href} variant="subtle">
+          {cta}
+        </Button>
+      </div>
+    )
+  }
+</article>
+
+<style>
+  .fcard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-3);
+    padding: var(--space-8) var(--space-6);
+    border-radius: var(--radius-xl);
+  }
+  .fcard > * {
+    position: relative;
+    z-index: 1;
+  }
+  .fcard__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: var(--radius-full);
+    font-size: var(--text-2xl);
+    background: color-mix(in srgb, var(--c) 16%, #fff);
+    border: var(--rule-hair) solid color-mix(in srgb, var(--c) 35%, transparent);
+    box-shadow: var(--shadow-raise);
+  }
+  .fcard__title {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+    color: var(--ink);
+  }
+  .fcard__desc {
+    font-size: var(--text-base);
+    color: var(--text-muted);
+  }
+  .fcard__desc :global(p) {
+    margin: 0;
+  }
+  /* Pousse le bouton en bas pour aligner les cartes de hauteurs inégales. */
+  .fcard__cta {
+    margin-top: auto;
+    padding-top: var(--space-2);
+  }
+</style>

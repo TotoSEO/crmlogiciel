@@ -1,0 +1,41 @@
+---
+/**
+ * FeatureGrid — grille de colonnes de fonctionnalités (charte « FeatureColumns »).
+ * Conteneur 3 ou 4 colonnes égales (~33 % / 25 %) avec marges (gap), responsive.
+ * À remplir de <FeatureCard>.
+ */
+interface Props {
+  cols?: 3 | 4;
+}
+const { cols = 3 } = Astro.props;
+---
+
+<div class={`featuregrid featuregrid--${cols}`}>
+  <slot />
+</div>
+
+<style>
+  .featuregrid {
+    display: grid;
+    gap: var(--space-5);
+    margin-block: var(--space-8);
+  }
+  .featuregrid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .featuregrid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 920px) {
+    .featuregrid--3,
+    .featuregrid--4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .featuregrid--3,
+    .featuregrid--4 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,77 @@
+---
+/**
+ * MediaText — bloc texte + image (ou image + texte via `reverse`).
+ * Image dans un cadre de verre ; le texte (slot) reste stylé par .prose.
+ * Pas de classe not-prose : le contenu textuel doit garder la typo d'article.
+ */
+interface Props {
+  src: string;
+  alt: string;
+  /** true = image à gauche, texte à droite. false = texte à gauche, image à droite. */
+  reverse?: boolean;
+  caption?: string;
+  eager?: boolean;
+}
+const { src, alt, reverse = false, caption, eager = false } = Astro.props;
+---
+
+<div class={`mediatext ${reverse ? 'is-reverse' : ''}`}>
+  <figure class="mediatext__media glass not-prose" style="--glass-tint: var(--teal)">
+    <img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    {caption && <figcaption>{caption}</figcaption>}
+  </figure>
+  <div class="mediatext__text">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .mediatext {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: var(--space-8);
+    margin-block: var(--space-8);
+  }
+  /* Image à gauche quand reverse. */
+  .mediatext.is-reverse .mediatext__media {
+    order: -1;
+  }
+  .mediatext__media {
+    margin: 0;
+    padding: var(--space-3);
+    border-radius: var(--radius-xl);
+  }
+  .mediatext__media img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--glass-border);
+  }
+  .mediatext__media figcaption {
+    position: relative;
+    z-index: 1;
+    margin-top: var(--space-2);
+    padding-inline: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    text-align: center;
+  }
+  .mediatext__text > :first-child {
+    margin-top: 0;
+  }
+
+  @media (max-width: 720px) {
+    .mediatext {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+    /* En mobile, l'image passe toujours avant le texte. */
+    .mediatext .mediatext__media,
+    .mediatext.is-reverse .mediatext__media {
+      order: -1;
+    }
+  }
+</style>

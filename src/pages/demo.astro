@@ -23,6 +23,9 @@ import Button from '../components/blocks/Button.astro';
 import Columns from '../components/blocks/Columns.astro';
 import Figure from '../components/blocks/Figure.astro';
 import Faq from '../components/blocks/Faq.astro';
+import MediaText from '../components/blocks/MediaText.astro';
+import FeatureGrid from '../components/blocks/FeatureGrid.astro';
+import FeatureCard from '../components/blocks/FeatureCard.astro';
 import Demo from '../components/DemoBlock.astro';
 
 const slug = 'pipeline-commercial';
@@ -136,6 +139,90 @@ const pageSchema = graph(
             <li>Mesurer le taux de conversion</li>
           </ol>
         </Columns>
+      </Demo>
+
+      <Demo label="Deux colonnes de texte">
+        <Columns cols={2}>
+          <div>
+            <p>
+              Colonne de gauche : un paragraphe de texte courant pour comparer deux idées côte à
+              côte, ou présenter un avant / après.
+            </p>
+          </div>
+          <div>
+            <p>
+              Colonne de droite : un second paragraphe équilibré. Sur mobile, les colonnes se
+              replient l'une sous l'autre automatiquement.
+            </p>
+          </div>
+        </Columns>
+      </Demo>
+
+      <Demo label="Texte + image">
+        <MediaText src="/images/demo-placeholder.svg" alt="Illustration du pipeline">
+          <h3>Un visuel à droite</h3>
+          <p>
+            Le texte occupe la colonne de gauche, l'image la droite. Idéal pour illustrer une notion
+            sans casser le fil de lecture. La typographie reste celle de l'article.
+          </p>
+          <ul>
+            <li>Image dans un cadre de verre</li>
+            <li>Vertically centré avec le texte</li>
+          </ul>
+        </MediaText>
+      </Demo>
+
+      <Demo label="Image + texte (inversé)">
+        <MediaText src="/images/demo-placeholder.svg" alt="Illustration du pipeline" reverse>
+          <h3>Un visuel à gauche</h3>
+          <p>
+            Avec l'option <code>reverse</code>, l'image passe à gauche et le texte à droite. On
+            alterne les deux sens au fil de l'article pour rythmer la page.
+          </p>
+        </MediaText>
+      </Demo>
+
+      <Demo label="Colonnes de fonctionnalités (3 colonnes, picto + texte + bouton)">
+        <FeatureGrid cols={3}>
+          <FeatureCard
+            icon="🎯"
+            title="Pipeline clair"
+            palette="blue"
+            href="#"
+            cta="En savoir plus"
+          >
+            Visualisez chaque opportunité, de la prise de contact à la signature.
+          </FeatureCard>
+          <FeatureCard icon="⚡" title="Automatisation" palette="teal" href="#" cta="Découvrir">
+            Relances, tâches et e-mails déclenchés automatiquement, sans oubli.
+          </FeatureCard>
+          <FeatureCard
+            icon="📊"
+            title="Tableaux de bord"
+            palette="orange"
+            href="#"
+            cta="Voir un exemple"
+          >
+            Des indicateurs fiables pour piloter l'activité commerciale au quotidien.
+          </FeatureCard>
+        </FeatureGrid>
+      </Demo>
+
+      <Demo label="Colonnes de fonctionnalités (4 colonnes, sans bouton)">
+        <FeatureGrid cols={4}>
+          <FeatureCard icon="🔍" title="Centraliser" palette="blue">
+            Toutes les données client au même endroit.
+          </FeatureCard>
+          <FeatureCard icon="🤝" title="Fidéliser" palette="teal">
+            Un suivi personnalisé à chaque étape.
+          </FeatureCard>
+          <FeatureCard icon="📈" title="Convertir" palette="orange">
+            Plus de leads transformés en clients.
+          </FeatureCard>
+          <FeatureCard icon="🛡️" title="Sécuriser" palette="green">
+            Conformité RGPD et données protégées.
+          </FeatureCard>
+        </FeatureGrid>
       </Demo>
 
       <Demo label="Avantages / Inconvénients">
