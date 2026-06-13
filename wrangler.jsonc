@@ -1,13 +1,13 @@
 {
-	"compatibility_date": "2026-06-13",
-	"compatibility_flags": ["global_fetch_strictly_public"],
-	"name": "crmlogiciel",
-	"main": "@astrojs/cloudflare/entrypoints/server",
-	"assets": {
-		"directory": "./dist",
-		"binding": "ASSETS"
-	},
-	"observability": {
-		"enabled": true
-	}
+  // Déploiement Cloudflare 100 % statique (Workers Static Assets).
+  // Aucun `main` (pas de Worker SSR), aucun binding (pas de provisioning KV/Images) :
+  // Cloudflare sert directement le dossier `dist/` généré par `astro build`.
+  "name": "crmlogiciel",
+  "compatibility_date": "2026-06-13",
+  "assets": {
+    "directory": "./dist"
+  },
+  "observability": {
+    "enabled": true
+  }
 }
