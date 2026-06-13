@@ -58,6 +58,13 @@ const {
   </head>
 
   <body>
+    {/* Fond ambiant global (halos colorés flous, plein écran, derrière tout). */}
+    <div class="site-ambient" aria-hidden="true">
+      <span class="site-ambient__blob site-ambient__blob--1"></span>
+      <span class="site-ambient__blob site-ambient__blob--2"></span>
+      <span class="site-ambient__blob site-ambient__blob--3"></span>
+    </div>
+
     <a href="#contenu" class="skip-link">Aller au contenu</a>
     {chrome && <Nav />}
     <main id="contenu">

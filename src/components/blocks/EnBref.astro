@@ -10,7 +10,7 @@ interface Props {
 const { points, title = 'En bref' } = Astro.props;
 ---
 
-<aside class="enbref glass" style="--glass-tint: var(--blue)" aria-label={title}>
+<aside class="enbref glass not-prose" style="--glass-tint: var(--blue)" aria-label={title}>
   <p class="enbref__title">
     <span class="enbref__dot" aria-hidden="true"></span>
     {title}

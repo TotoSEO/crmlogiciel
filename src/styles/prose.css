@@ -1,7 +1,11 @@
 /* =============================================================================
    Prose — typographie du corps d'article (portée .prose)
    S'applique au Markdown rendu et aux contenus longs. Listes à puces et
-   numérotées stylées aux couleurs de la charte. CSS classique, tokens charte.
+   numérotées stylées aux couleurs de la charte.
+
+   Garde-fou : les sélecteurs n'atteignent PAS les sous-arbres marqués
+   `.not-prose` (les blocs réutilisables, qui gèrent leur propre style). Ainsi
+   un composant inséré dans .prose ne reçoit ni double puce ni filet de titre.
    ============================================================================= */
 
 .prose {
@@ -11,11 +15,13 @@
   max-width: var(--measure-text);
 }
 
-/* ---- Rythme vertical ---- */
-.prose > * + * {
+/* Rythme vertical (hors composants) */
+.prose > :not(.not-prose) + :not(.not-prose) {
   margin-top: var(--space-5);
 }
-.prose h2 {
+
+/* ---- Titres ---- */
+.prose :where(h2):not(:where(.not-prose, .not-prose *)) {
   position: relative;
   margin-top: var(--space-16);
   margin-bottom: var(--space-5);
@@ -23,8 +29,7 @@
   font-size: clamp(var(--text-3xl), 3.4vw, var(--text-4xl));
   letter-spacing: var(--tracking-tight);
 }
-/* Accent dégradé sous le H2 (segmentation forte des sections). */
-.prose h2::after {
+.prose :where(h2):not(:where(.not-prose, .not-prose *))::after {
   content: '';
   position: absolute;
   left: 0;
@@ -34,15 +39,14 @@
   border-radius: var(--radius-full);
   background: var(--grad-brand);
 }
-.prose h3 {
+.prose :where(h3):not(:where(.not-prose, .not-prose *)) {
   position: relative;
   margin-top: var(--space-10);
   margin-bottom: var(--space-3);
   padding-left: var(--space-4);
   font-size: var(--text-2xl);
 }
-/* Filet vertical de marque devant le H3. */
-.prose h3::before {
+.prose :where(h3):not(:where(.not-prose, .not-prose *))::before {
   content: '';
   position: absolute;
   left: 0;
@@ -52,25 +56,25 @@
   border-radius: var(--radius-full);
   background: var(--blue);
 }
-.prose h4 {
+.prose :where(h4):not(:where(.not-prose, .not-prose *)) {
   margin-top: var(--space-6);
   font-size: var(--text-xl);
 }
 
 /* ---- Liens ---- */
-.prose a {
+.prose :where(a):not(:where(.not-prose, .not-prose *)) {
   color: var(--text-link);
   text-decoration: underline;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 0.16em;
   text-decoration-color: color-mix(in srgb, var(--blue) 35%, transparent);
 }
-.prose a:hover {
+.prose :where(a):not(:where(.not-prose, .not-prose *)):hover {
   text-decoration-color: var(--blue);
 }
 
 /* ---- Liste à puces ---- */
-.prose ul {
+.prose :where(ul):not(:where(.not-prose, .not-prose *)) {
   list-style: none;
   margin-left: 0;
   padding-left: 0;
@@ -78,11 +82,11 @@
   flex-direction: column;
   gap: var(--space-3);
 }
-.prose ul > li {
+.prose :where(ul):not(:where(.not-prose, .not-prose *)) > li {
   position: relative;
   padding-left: var(--space-6);
 }
-.prose ul > li::before {
+.prose :where(ul):not(:where(.not-prose, .not-prose *)) > li::before {
   content: '';
   position: absolute;
   left: 0;
@@ -94,7 +98,7 @@
 }
 
 /* ---- Liste numérotée (compteur stylé) ---- */
-.prose ol {
+.prose :where(ol):not(:where(.not-prose, .not-prose *)) {
   list-style: none;
   counter-reset: item;
   margin-left: 0;
@@ -103,12 +107,12 @@
   flex-direction: column;
   gap: var(--space-3);
 }
-.prose ol > li {
+.prose :where(ol):not(:where(.not-prose, .not-prose *)) > li {
   position: relative;
   padding-left: var(--space-10);
   counter-increment: item;
 }
-.prose ol > li::before {
+.prose :where(ol):not(:where(.not-prose, .not-prose *)) > li::before {
   content: counter(item);
   position: absolute;
   left: 0;
@@ -126,15 +130,15 @@
   font-size: var(--text-sm);
 }
 
-/* Listes imbriquées : décalage doux */
-.prose li > ul,
-.prose li > ol {
+/* Listes imbriquées */
+.prose :where(li):not(:where(.not-prose, .not-prose *)) > ul,
+.prose :where(li):not(:where(.not-prose, .not-prose *)) > ol {
   margin-top: var(--space-3);
   margin-left: var(--space-4);
 }
 
 /* ---- Citation simple (hors PullQuote) ---- */
-.prose blockquote {
+.prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
   margin: 0;
   padding-left: var(--space-5);
   border-left: var(--rule-strong) solid var(--blue);
@@ -143,7 +147,7 @@
 }
 
 /* ---- Code inline ---- */
-.prose code {
+.prose :where(code):not(:where(.not-prose, .not-prose *)) {
   padding: 0.1em 0.4em;
   border-radius: var(--radius-sm);
   background: var(--surface-sunk);
@@ -151,8 +155,8 @@
   font-size: 0.92em;
 }
 
-/* ---- Filet de séparation ---- */
-.prose hr {
+/* ---- Filet ---- */
+.prose :where(hr):not(:where(.not-prose, .not-prose *)) {
   border: none;
   border-top: var(--rule-hair) solid var(--border-default);
   margin-block: var(--space-10);

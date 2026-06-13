@@ -15,7 +15,7 @@ interface Props {
 const { items, title = 'Questions fréquentes' } = Astro.props;
 ---
 
-<section class="faq">
+<section class="faq not-prose">
   <h2 class="faq__title">{title}</h2>
   <div class="faq__list">
     {

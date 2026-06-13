@@ -10,11 +10,13 @@ html {
   scroll-behavior: smooth;
   /* Décalage pour les ancres sous le menu sticky (sommaire/barre de lecture). */
   scroll-padding-top: var(--space-20);
+  /* Canvas de page : le body est transparent pour laisser voir le fond ambiant. */
+  background-color: var(--canvas);
 }
 
 body {
   margin: 0;
-  background-color: var(--surface-page);
+  background-color: transparent;
   color: var(--text-body);
   font-family: var(--font-body);
   font-size: var(--text-lg);

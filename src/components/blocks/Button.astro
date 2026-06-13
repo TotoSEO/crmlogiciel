@@ -12,7 +12,7 @@ interface Props {
   target?: string;
 }
 const { href, variant = 'primary', type = 'button', rel, target } = Astro.props;
-const cls = `btn btn--${variant}`;
+const cls = `btn not-prose btn--${variant}`;
 const Tag = href ? 'a' : 'button';
 ---
 

@@ -44,38 +44,41 @@
 }
 
 /* -----------------------------------------------------------------------------
-   Halos décoratifs flous : posés derrière un conteneur pour que le verre
-   réfracte de la couleur. À placer dans un élément en position absolue.
+   Fond ambiant GLOBAL : halos colorés flous plein écran, derrière tout le site
+   (position: fixed → clippé aux bords de l'écran, donc aucun bord net visible).
+   Le body est transparent ; le canvas blanc est porté par <html>.
+   z-index: -1 → toujours derrière le contenu.
    ----------------------------------------------------------------------------- */
-.ambient {
-  position: absolute;
+.site-ambient {
+  position: fixed;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
-.ambient__blob {
+.site-ambient__blob {
   position: absolute;
-  width: 38rem;
-  height: 38rem;
+  width: 45vw;
+  min-width: 28rem;
+  aspect-ratio: 1;
   border-radius: var(--radius-blob);
-  filter: blur(60px);
-  opacity: 0.5;
+  filter: blur(80px);
 }
-.ambient__blob--1 {
-  top: -10rem;
-  right: -8rem;
+.site-ambient__blob--1 {
+  top: -12vw;
+  right: -8vw;
   background: var(--grad-cool);
-}
-.ambient__blob--2 {
-  top: 30%;
-  left: -12rem;
-  background: var(--grad-aqua);
-  opacity: 0.4;
-}
-.ambient__blob--3 {
-  bottom: -12rem;
-  right: 10%;
-  background: var(--grad-sunset);
   opacity: 0.32;
+}
+.site-ambient__blob--2 {
+  top: 38%;
+  left: -14vw;
+  background: var(--grad-aqua);
+  opacity: 0.26;
+}
+.site-ambient__blob--3 {
+  bottom: -14vw;
+  right: 6vw;
+  background: var(--grad-sunset);
+  opacity: 0.2;
 }

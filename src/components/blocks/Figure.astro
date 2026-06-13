@@ -14,7 +14,7 @@ interface Props {
 const { src, alt, caption, width, height, eager = false } = Astro.props;
 ---
 
-<figure class="figure glass" style="--glass-tint: var(--teal)">
+<figure class="figure glass not-prose" style="--glass-tint: var(--teal)">
   <img
     src={src}
     alt={alt}

@@ -18,7 +18,7 @@ const stars = Array.from({ length: max }, (_, i) => {
 const aria = `${label ? label + ' : ' : ''}${clamped.toLocaleString('fr-FR')} sur ${max}`;
 ---
 
-<div class="rating" role="img" aria-label={aria}>
+<div class="rating not-prose" role="img" aria-label={aria}>
   <span class="rating__stars" aria-hidden="true">
     {
       stars.map((fill) => (

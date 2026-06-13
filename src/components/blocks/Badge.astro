@@ -11,7 +11,7 @@ interface Props {
 const { tone = 'neutral', pop = false } = Astro.props;
 ---
 
-<span class={`badge badge--${tone} ${pop ? 'badge--pop' : ''}`}><slot /></span>
+<span class={`badge not-prose badge--${tone} ${pop ? 'badge--pop' : ''}`}><slot /></span>
 
 <style>
   .badge {

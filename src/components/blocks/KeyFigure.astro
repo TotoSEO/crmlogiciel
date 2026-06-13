@@ -11,7 +11,10 @@ interface Props {
 const { value, label, palette = 'blue' } = Astro.props;
 ---
 
-<div class="keyfig glass" style={`--c: var(--${palette}); --glass-tint: var(--${palette});`}>
+<div
+  class="keyfig glass not-prose"
+  style={`--c: var(--${palette}); --glass-tint: var(--${palette});`}
+>
   <span class="keyfig__value">{value}</span>
   <span class="keyfig__label">{label}</span>
 </div>
