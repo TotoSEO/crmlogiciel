@@ -1,0 +1,93 @@
+---
+/**
+ * Head / SEO — crm-logiciel.fr
+ * Rendu à l'intérieur du <head> par BaseLayout. Produit l'ensemble des balises
+ * SEO essentielles dans le HTML source : title, meta description, canonical
+ * auto-référent (slash final), robots, OpenGraph, Twitter Card, favicon,
+ * préchargement des polices critiques. Le JSON-LD est injecté via le slot
+ * « head » de BaseLayout (jamais via un gestionnaire de balises).
+ */
+import { SITE, absoluteUrl } from '../config/site';
+
+interface Props {
+  /** Titre de la page (sans la marque ; la marque est ajoutée sauf rawTitle). */
+  title: string;
+  description: string;
+  /** Slug servant au canonical auto-référent ('' = accueil). */
+  canonicalSlug: string;
+  ogType?: 'website' | 'article';
+  /** Chemin ou URL de l'image OG ; défaut : image de marque. */
+  ogImage?: string;
+  /** Désactive l'indexation (pages techniques / brouillons). */
+  noindex?: boolean;
+  /** Empêche l'ajout automatique de « · crm-logiciel.fr » au titre. */
+  rawTitle?: boolean;
+  /** Dates ISO 8601 pour les pages de type article. */
+  publishedTime?: string;
+  modifiedTime?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalSlug,
+  ogType = 'website',
+  ogImage = SITE.defaultOgImage,
+  noindex = false,
+  rawTitle = false,
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
+
+const fullTitle = rawTitle ? title : `${title} · ${SITE.name}`;
+const canonical = absoluteUrl(canonicalSlug);
+const ogImageUrl = new URL(ogImage, SITE.url).href;
+const robots = noindex ? 'noindex, nofollow' : 'index, follow';
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={robots} />
+<link rel="canonical" href={canonical} />
+
+{/* OpenGraph */}
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:locale" content={SITE.locale} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImageUrl} />
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+
+{/* Twitter Card */}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+{SITE.twitter && <meta name="twitter:site" content={SITE.twitter} />}
+
+{/* Favicon */}
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+
+{/* Préchargement des polices critiques (corps + titre du hero) */}
+<link
+  rel="preload"
+  href="/fonts/archivo-latin-400-normal.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
+<link
+  rel="preload"
+  href="/fonts/space-grotesk-latin-700-normal.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>

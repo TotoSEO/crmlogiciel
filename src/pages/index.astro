@@ -1,284 +1,74 @@
 ---
-import '../styles/global.css';
+/**
+ * Accueil — version Phase 1 (squelette dans BaseLayout + JSON-LD home).
+ * La home éditoriale complète (héritage 2007, timeline, EEAT) est construite
+ * en Phase 2b. Laissée noindex tant que le contenu n'est pas finalisé.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { SITE } from '../config/site';
+import { organization, website, graph } from '../lib/schema';
 
-// Page de validation Phase 0 (Fondations).
-// Démontre que les couleurs, polices, glass, gradients, ombres et animations
-// de la charte sont correctement câblés. Le contenu réel (home éditoriale)
-// est construit en Phase 2b.
-const annee = new Date().getFullYear();
+const homeSchema = graph(organization(), website());
 ---
 
-<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>crm-logiciel.fr — Fondations</title>
-    <meta
-      name="description"
-      content="Page de validation des fondations techniques de crm-logiciel.fr."
-    />
+<BaseLayout
+  title={SITE.longName}
+  description={SITE.description}
+  canonicalSlug=""
+  ogType="website"
+  rawTitle
+  noindex
+>
+  <Fragment slot="head">
+    <JsonLd schema={homeSchema} />
+  </Fragment>
 
-    <!-- Préchargement des polices critiques (corps + titre du hero). -->
-    <link
-      rel="preload"
-      href="/fonts/archivo-latin-400-normal.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/space-grotesk-latin-700-normal.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+  <section class="home-hero">
+    <div class="container">
+      <p class="kicker is-data">Média de référence · CRM</p>
+      <h1 class="home-hero__title">
+        Comprendre, choisir et utiliser un <span class="degrade">CRM</span>, sans jargon.
+      </h1>
+      <p class="home-hero__lead">
+        Domaine historique actif depuis 2007, de retour avec des guides indépendants et une base
+        technique irréprochable, lisible par les humains comme par les moteurs de réponse.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-  </head>
-
-  <body>
-    <a href="#contenu" class="skip-link">Aller au contenu</a>
-
-    <main id="contenu" class="fonds">
-      <!-- Décors flottants (glass + blobs), purement visuels. -->
-      <span class="blob blob--violet anim-float" aria-hidden="true"></span>
-      <span class="blob blob--teal anim-float anim-delay-3" aria-hidden="true"></span>
-
-      <section class="hero container">
-        <p class="kicker anim-fade-up is-data">Fondations · Phase 0</p>
-
-        <h1 class="hero__titre anim-fade-up anim-delay-1">
-          Le média de référence sur les <span class="degrade">logiciels CRM</span> en France.
-        </h1>
-
-        <p class="hero__chapo anim-fade-up anim-delay-2">
-          Domaine historique actif depuis 2007, de retour avec un socle technique
-          irréprochable&nbsp;: rapide, entièrement crawlable, lisible par les humains comme par les
-          moteurs de réponse.
-        </p>
-
-        <div class="hero__actions anim-fade-up anim-delay-3">
-          <a href="#palette" class="btn btn--primaire">Voir la charte</a>
-          <a href="#palette" class="btn btn--fantome">Phase suivante&nbsp;: architecture</a>
-        </div>
-
-        <!-- Carte glassmorphism : démonstration de l'effet verre de la charte. -->
-        <div class="carte-glass anim-fade-up anim-delay-4" id="palette">
-          <p class="carte-glass__label is-data">Palette de marque</p>
-          <ul class="palette" role="list">
-            <li><span class="pastille" style="background: var(--blue)"></span>Violet</li>
-            <li><span class="pastille" style="background: var(--teal)"></span>Teal</li>
-            <li><span class="pastille" style="background: var(--orange)"></span>Orange</li>
-            <li><span class="pastille" style="background: var(--green)"></span>Émeraude</li>
-            <li><span class="pastille" style="background: var(--minium)"></span>Corail</li>
-            <li><span class="pastille" style="background: var(--ink)"></span>Encre</li>
-          </ul>
-          <p class="carte-glass__note">
-            Polices auto-hébergées&nbsp;: <strong>Space Grotesk</strong> (titres),
-            <strong>Archivo</strong> (corps), <strong class="is-data">IBM Plex Mono</strong> (données).
-          </p>
-        </div>
-      </section>
-
-      <footer class="pied container">
-        <p class="is-data">crm-logiciel.fr · © {annee} · Fondations validées</p>
-      </footer>
-    </main>
-
-    <style>
-      /* Styles spécifiques à la page de validation (CSS classique scoped).
-         S'appuient exclusivement sur les tokens de la charte. */
-
-      .fonds {
-        position: relative;
-        min-height: 100svh;
-        overflow: hidden;
-        background:
-          radial-gradient(60% 50% at 15% 0%, var(--blue-tint) 0%, transparent 60%),
-          radial-gradient(50% 45% at 100% 10%, var(--teal-tint) 0%, transparent 55%),
-          var(--surface-page);
-        display: flex;
-        flex-direction: column;
-      }
-
-      .hero {
-        flex: 1;
-        padding-block: clamp(var(--space-16), 12vw, var(--space-24));
-        position: relative;
-        z-index: 1;
-      }
-
-      .kicker {
-        margin: 0 0 var(--space-5);
-        font-size: var(--text-2xs);
-        font-weight: var(--font-weight-semibold);
-        letter-spacing: var(--tracking-kicker);
-        text-transform: uppercase;
-        color: var(--blue);
-      }
-
-      .hero__titre {
-        max-width: 18ch;
-        font-size: clamp(var(--text-4xl), 7vw, var(--text-7xl));
-        line-height: var(--leading-tight);
-      }
-
-      .degrade {
-        background: var(--grad-iris);
-        background-size: 200% 200%;
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        animation: gradient-pan 12s ease infinite;
-      }
-
-      .hero__chapo {
-        max-width: var(--measure-narrow);
-        margin-top: var(--space-6);
-        font-size: var(--text-xl);
-        color: var(--text-muted);
-      }
-
-      .hero__actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-4);
-        margin-top: var(--space-8);
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        min-height: var(--tap-min);
-        padding: var(--space-3) var(--space-6);
-        border-radius: var(--radius-full);
-        font-family: var(--font-ui);
-        font-weight: var(--font-weight-semibold);
-        font-size: var(--text-base);
-        transition:
-          transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
-          box-shadow 0.2s ease,
-          background 0.2s ease;
-      }
-      .btn:hover {
-        transform: translateY(-2px);
-        text-decoration: none;
-      }
-      .btn--primaire {
-        background: var(--blue);
-        color: #fff;
-        box-shadow: var(--shadow-glow);
-      }
-      .btn--primaire:hover {
-        background: var(--blue-ink);
-        color: #fff;
-      }
-      .btn--fantome {
-        background: var(--surface-card);
-        color: var(--ink);
-        border: var(--rule-hair) solid var(--border-strong);
-        box-shadow: var(--shadow-pop-violet);
-      }
-      .btn--fantome:hover {
-        color: var(--ink);
-      }
-
-      /* ---- Carte glassmorphism ---- */
-      .carte-glass {
-        margin-top: clamp(var(--space-12), 8vw, var(--space-20));
-        max-width: 540px;
-        padding: var(--space-8);
-        border-radius: var(--radius-xl);
-        background: var(--glass-bg-strong);
-        border: var(--rule-hair) solid var(--glass-border);
-        box-shadow: var(--shadow-soft), var(--glass-highlight);
-        backdrop-filter: blur(var(--glass-blur));
-        -webkit-backdrop-filter: blur(var(--glass-blur));
-      }
-      .carte-glass__label {
-        margin: 0 0 var(--space-4);
-        font-size: var(--text-2xs);
-        letter-spacing: var(--tracking-kicker);
-        text-transform: uppercase;
-        color: var(--text-muted);
-      }
-      .palette {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-4);
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        font-size: var(--text-sm);
-        color: var(--text-body);
-      }
-      .palette li {
-        display: flex;
-        align-items: center;
-        gap: var(--space-2);
-      }
-      .pastille {
-        width: 1.25rem;
-        height: 1.25rem;
-        border-radius: var(--radius-full);
-        box-shadow: var(--shadow-raise);
-      }
-      .carte-glass__note {
-        margin-top: var(--space-6);
-        font-size: var(--text-sm);
-        color: var(--text-muted);
-      }
-      .carte-glass__note strong {
-        color: var(--text-strong);
-        font-weight: var(--font-weight-semibold);
-      }
-
-      /* ---- Blobs décoratifs flottants ---- */
-      .blob {
-        position: absolute;
-        z-index: 0;
-        width: 420px;
-        height: 420px;
-        border-radius: var(--radius-blob);
-        filter: blur(8px);
-        opacity: 0.5;
-        pointer-events: none;
-      }
-      .blob--violet {
-        top: -120px;
-        right: -80px;
-        background: var(--grad-cool);
-      }
-      .blob--teal {
-        bottom: -160px;
-        left: -120px;
-        background: var(--grad-aqua);
-      }
-
-      .pied {
-        position: relative;
-        z-index: 1;
-        padding-block: var(--space-8);
-        border-top: var(--rule-hair) solid var(--border-default);
-        font-size: var(--text-sm);
-        color: var(--text-faint);
-      }
-
-      /* ---- Responsive mobile ---- */
-      @media (max-width: 640px) {
-        .carte-glass {
-          padding: var(--space-6);
-        }
-        .hero__actions .btn {
-          flex: 1 1 auto;
-          justify-content: center;
-        }
-      }
-    </style>
-  </body>
-</html>
+<style>
+  .home-hero {
+    padding-block: clamp(var(--space-16), 10vw, var(--space-24));
+    background:
+      radial-gradient(60% 50% at 12% 0%, var(--blue-tint) 0%, transparent 60%),
+      radial-gradient(45% 40% at 100% 0%, var(--teal-tint) 0%, transparent 55%);
+  }
+  .kicker {
+    margin-bottom: var(--space-5);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+  .home-hero__title {
+    max-width: 20ch;
+    font-size: clamp(var(--text-4xl), 6vw, var(--text-6xl));
+  }
+  .degrade {
+    background: var(--grad-iris);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-pan 12s ease infinite;
+  }
+  .home-hero__lead {
+    max-width: var(--measure-narrow);
+    margin-top: var(--space-6);
+    font-size: var(--text-xl);
+    color: var(--text-muted);
+  }
+</style>

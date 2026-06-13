@@ -1,0 +1,136 @@
+---
+/**
+ * Page de démonstration — validation Phase 1 (non indexée).
+ * Prouve qu'une page de type guide rend, dans le HTML source : un <head>
+ * complet (title/description/canonical/OG/Twitter), un fil d'Ariane, et le
+ * JSON-LD adéquat (Article + Person + BreadcrumbList + FAQPage) via le layout
+ * global. Le template d'article réel est construit en Phase 2b.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { breadcrumb, getPage } from '../config/content-map';
+import { absoluteUrl } from '../config/site';
+import { article, person, breadcrumbList, faqPage, graph } from '../lib/schema';
+
+// Page d'exemple : un satellite du cluster « Utiliser ».
+const slug = 'pipeline-commercial';
+const page = getPage(slug)!;
+const crumbs = breadcrumb(slug);
+
+const datePublished = '2026-06-14T09:00:00+02:00';
+const dateModified = '2026-06-14T09:00:00+02:00';
+
+const sampleFaq = [
+  {
+    question: 'Quelles étapes définir dans un pipeline commercial ?',
+    answer:
+      'Les étapes types vont de la prise de contact à la signature : qualification, proposition, négociation, puis clôture gagnée ou perdue.',
+  },
+  {
+    question: 'Combien d’étapes un pipeline doit-il comporter ?',
+    answer:
+      'En général entre cinq et sept étapes : assez pour suivre la progression, assez peu pour rester lisible et réellement utilisé par les commerciaux.',
+  },
+];
+
+const pageSchema = graph(
+  article({
+    headline: 'Le pipeline commercial : structurer son cycle de vente',
+    description: page.label,
+    slug,
+    datePublished,
+    dateModified,
+  }),
+  person(),
+  breadcrumbList(crumbs, absoluteUrl(slug)),
+  faqPage(sampleFaq),
+);
+---
+
+<BaseLayout
+  title="Le pipeline commercial (démo Phase 1)"
+  description="Page de démonstration validant le head SEO, le fil d'Ariane et le JSON-LD du template de guide."
+  canonicalSlug={slug}
+  ogType="article"
+  publishedTime={datePublished}
+  modifiedTime={dateModified}
+  noindex
+>
+  <Fragment slot="head">
+    <JsonLd schema={pageSchema} />
+  </Fragment>
+
+  <article class="container demo-article">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <ol>
+        {
+          crumbs.map((c, i) => (
+            <li>
+              {c.href && i < crumbs.length - 1 ? (
+                <a href={c.href}>{c.label}</a>
+              ) : (
+                <span aria-current="page">{c.label}</span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <h1>Le pipeline commercial</h1>
+    <p class="demo-note">
+      Cette page valide les systèmes transverses de la Phase 1. Inspecte la source (Ctrl+U) : le <code
+        >&lt;head&gt;</code
+      > est complet et le JSON-LD (Article, Person, BreadcrumbList, FAQPage) est présent dans le HTML,
+      sans JavaScript.
+    </p>
+
+    <h2>Exemple de section</h2>
+    <p>
+      Le contenu réel des 27 pages est intégré en Phase 3 depuis les fichiers Markdown. Ici, seul le
+      câblage technique est démontré.
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .demo-article {
+    padding-block: var(--space-12) var(--space-16);
+    max-width: var(--measure-text);
+  }
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0 0 var(--space-6);
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .breadcrumb li:not(:last-child)::after {
+    content: '›';
+    margin-left: var(--space-2);
+    color: var(--text-faint);
+  }
+  .breadcrumb [aria-current='page'] {
+    color: var(--ink-80);
+  }
+  .demo-article h1 {
+    margin-bottom: var(--space-5);
+  }
+  .demo-article h2 {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+  }
+  .demo-article p {
+    margin-bottom: var(--space-4);
+  }
+  .demo-note {
+    padding: var(--space-4) var(--space-5);
+    background: var(--surface-notebook);
+    border-left: var(--rule-strong) solid var(--blue);
+    border-radius: var(--radius-md);
+    font-size: var(--text-base);
+  }
+</style>

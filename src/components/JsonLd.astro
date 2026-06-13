@@ -1,0 +1,17 @@
+---
+/**
+ * JsonLd — injecte un graphe de données structurées dans le HTML source.
+ * Rendu via <script type="application/ld+json"> directement dans la page
+ * (jamais via un gestionnaire de balises), pour le SEO et le GEO.
+ */
+interface Props {
+  /** Objet JSON-LD (idéalement issu de graph() dans src/lib/schema.ts). */
+  schema: Record<string, unknown>;
+}
+const { schema } = Astro.props;
+// JSON.stringify sans espaces superflus ; les chevrons sont échappés pour
+// éviter toute fermeture prématurée du <script>.
+const json = JSON.stringify(schema).replace(/</g, '\\u003c');
+---
+
+<script type="application/ld+json" set:html={json} is:inline />

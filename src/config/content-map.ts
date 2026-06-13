@@ -1,0 +1,262 @@
+/**
+ * Carte d'architecture éditoriale — crm-logiciel.fr (arborescence de lancement)
+ *
+ * 27 URLs plates en /slug/ (slash final), accueil = '/'.
+ * Les clusters (Comprendre / Choisir / Utiliser) servent au MENU et au FIL
+ * D'ARIANE uniquement : ce ne sont PAS des segments d'URL.
+ *
+ * Chaque cluster a un PILIER (page d'entrée de l'univers). Faute de page « hub »
+ * par cluster, c'est le pilier qui sert de niveau intermédiaire dans le fil
+ * d'Ariane (ex. : Accueil > Mettre en place un CRM > Le pipeline commercial).
+ *
+ * Les libellés ci-dessous servent au menu et aux ancres internes ; le <title>
+ * et le H1 de chaque page viennent du frontmatter (collection `pages`, Phase 3).
+ *
+ * Structure plate volontaire : avis, comparatifs et secteurs s'ajouteront plus
+ * tard sans rien casser.
+ */
+
+import { path } from './site';
+
+export type ClusterId = 'comprendre' | 'choisir' | 'utiliser' | 'transverse';
+
+export interface PageNode {
+  /** Slug = nom de fichier Markdown, sans slash. '' pour l'accueil. */
+  slug: string;
+  /** Libellé court pour le menu et les ancres internes. */
+  label: string;
+  /** Libellé encore plus court pour le fil d'Ariane (défaut : label). */
+  breadcrumbLabel?: string;
+  cluster: ClusterId;
+  /** Pilier = page d'entrée du cluster (niveau intermédiaire du fil d'Ariane). */
+  pillar?: boolean;
+}
+
+export interface Cluster {
+  id: ClusterId;
+  /** Libellé affiché en tête de menu. */
+  label: string;
+  /** Slug du pilier (cible du libellé de tête + niveau de fil d'Ariane). */
+  pillarSlug: string;
+  /** Apparaît dans le menu principal au lancement ? */
+  inNav: boolean;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Clusters                                                                    */
+/* -------------------------------------------------------------------------- */
+
+export const CLUSTERS: Cluster[] = [
+  { id: 'comprendre', label: 'Comprendre', pillarSlug: 'qu-est-ce-qu-un-crm', inNav: true },
+  { id: 'choisir', label: 'Choisir', pillarSlug: 'comment-choisir-crm', inNav: true },
+  { id: 'utiliser', label: 'Utiliser', pillarSlug: 'mise-en-place-crm', inNav: true },
+  // Transverse : pas un cluster de menu déroulant (lien direct « Méthodologie »).
+  { id: 'transverse', label: 'Transverse', pillarSlug: 'methodologie', inNav: false },
+];
+
+/* -------------------------------------------------------------------------- */
+/* Les 27 pages de lancement                                                   */
+/* -------------------------------------------------------------------------- */
+
+export const PAGES: PageNode[] = [
+  // Accueil (racine)
+  { slug: '', label: 'Accueil', cluster: 'transverse' },
+
+  // Transverse
+  { slug: 'methodologie', label: 'Notre méthodologie de test', cluster: 'transverse' },
+
+  // Comprendre (8)
+  {
+    slug: 'qu-est-ce-qu-un-crm',
+    label: "Qu'est-ce qu'un CRM ?",
+    cluster: 'comprendre',
+    pillar: true,
+  },
+  { slug: 'fonctionnalites-crm', label: "Les fonctionnalités d'un CRM", cluster: 'comprendre' },
+  { slug: 'types-de-crm', label: 'Les types de CRM', cluster: 'comprendre' },
+  {
+    slug: 'crm-vs-erp',
+    label: 'CRM vs ERP : quelles différences ?',
+    breadcrumbLabel: 'CRM vs ERP',
+    cluster: 'comprendre',
+  },
+  {
+    slug: 'crm-excel',
+    label: 'CRM sur Excel : modèle gratuit et limites',
+    breadcrumbLabel: 'CRM sur Excel',
+    cluster: 'comprendre',
+  },
+  {
+    slug: 'gestion-relation-client',
+    label: 'La gestion de la relation client (GRC)',
+    breadcrumbLabel: 'Gestion de la relation client',
+    cluster: 'comprendre',
+  },
+  {
+    slug: 'avantages-inconvenients-crm',
+    label: "Avantages et inconvénients d'un CRM",
+    breadcrumbLabel: 'Avantages et inconvénients',
+    cluster: 'comprendre',
+  },
+  { slug: 'lexique-crm', label: 'Lexique du CRM', cluster: 'comprendre' },
+
+  // Choisir (6)
+  {
+    slug: 'comment-choisir-crm',
+    label: 'Comment choisir son CRM',
+    cluster: 'choisir',
+    pillar: true,
+  },
+  {
+    slug: 'prix-crm',
+    label: 'Prix d’un CRM : combien ça coûte vraiment',
+    breadcrumbLabel: "Prix d'un CRM",
+    cluster: 'choisir',
+  },
+  {
+    slug: 'cahier-des-charges-crm',
+    label: 'Cahier des charges CRM : méthode et modèle',
+    breadcrumbLabel: 'Cahier des charges CRM',
+    cluster: 'choisir',
+  },
+  {
+    slug: 'migration-crm',
+    label: 'Changer de CRM : réussir sa migration',
+    breadcrumbLabel: 'Migration de CRM',
+    cluster: 'choisir',
+  },
+  {
+    slug: 'questions-demo-crm',
+    label: 'Les questions à poser avant de signer',
+    breadcrumbLabel: 'Questions avant la démo',
+    cluster: 'choisir',
+  },
+  {
+    slug: 'crm-sur-mesure',
+    label: 'CRM sur mesure : développer ou acheter ?',
+    breadcrumbLabel: 'CRM sur mesure',
+    cluster: 'choisir',
+  },
+
+  // Utiliser (11)
+  {
+    slug: 'mise-en-place-crm',
+    label: 'Mettre en place un CRM : la méthode',
+    breadcrumbLabel: 'Mettre en place un CRM',
+    cluster: 'utiliser',
+    pillar: true,
+  },
+  { slug: 'pipeline-commercial', label: 'Le pipeline commercial', cluster: 'utiliser' },
+  { slug: 'fichier-client', label: 'Le fichier client', cluster: 'utiliser' },
+  { slug: 'lead-scoring', label: 'Le lead scoring', cluster: 'utiliser' },
+  { slug: 'segmentation-client', label: 'La segmentation client', cluster: 'utiliser' },
+  {
+    slug: 'automatisation-commerciale',
+    label: "L'automatisation commerciale",
+    cluster: 'utiliser',
+  },
+  {
+    slug: 'tableau-de-bord-commercial',
+    label: 'KPI et tableau de bord commercial',
+    breadcrumbLabel: 'Tableau de bord commercial',
+    cluster: 'utiliser',
+  },
+  {
+    slug: 'suivi-commercial',
+    label: 'Le suivi commercial au quotidien',
+    breadcrumbLabel: 'Suivi commercial',
+    cluster: 'utiliser',
+  },
+  { slug: 'crm-ia', label: 'CRM et intelligence artificielle', cluster: 'utiliser' },
+  {
+    slug: 'crm-rgpd',
+    label: 'CRM et RGPD : être conforme',
+    breadcrumbLabel: 'CRM et RGPD',
+    cluster: 'utiliser',
+  },
+  {
+    slug: 'echec-projet-crm',
+    label: 'Pourquoi les projets CRM échouent',
+    breadcrumbLabel: 'Échecs de projet CRM',
+    cluster: 'utiliser',
+  },
+];
+
+/* -------------------------------------------------------------------------- */
+/* Helpers                                                                     */
+/* -------------------------------------------------------------------------- */
+
+/** Map slug → PageNode pour les accès directs. */
+const PAGE_BY_SLUG = new Map(PAGES.map((p) => [p.slug, p]));
+
+export function getPage(slug: string): PageNode | undefined {
+  return PAGE_BY_SLUG.get(slug.replace(/^\/+|\/+$/g, ''));
+}
+
+export function getCluster(id: ClusterId): Cluster | undefined {
+  return CLUSTERS.find((c) => c.id === id);
+}
+
+/** Toutes les pages d'un cluster (hors accueil), dans l'ordre de déclaration. */
+export function pagesOf(clusterId: ClusterId): PageNode[] {
+  return PAGES.filter((p) => p.cluster === clusterId && p.slug !== '');
+}
+
+/** Libellé de fil d'Ariane d'une page (court si défini, sinon label). */
+export function crumbLabel(page: PageNode): string {
+  return page.breadcrumbLabel ?? page.label;
+}
+
+export interface Crumb {
+  label: string;
+  /** URL avec slash final ; undefined pour le dernier élément (page courante). */
+  href?: string;
+}
+
+/**
+ * Construit le fil d'Ariane d'une page.
+ * - satellite d'un cluster : Accueil > [pilier] > [page]
+ * - pilier d'un cluster    : Accueil > [pilier]
+ * - transverse (méthodo)   : Accueil > [page]
+ * - accueil                : [] (pas de fil d'Ariane)
+ */
+export function breadcrumb(slug: string): Crumb[] {
+  const page = getPage(slug);
+  if (!page || page.slug === '') return [];
+
+  const crumbs: Crumb[] = [{ label: 'Accueil', href: path('') }];
+  const cluster = getCluster(page.cluster);
+
+  // Niveau intermédiaire = pilier du cluster, sauf si la page EST le pilier
+  // ou si le cluster est transverse (pas de pilier intermédiaire affiché).
+  if (cluster && cluster.id !== 'transverse' && !page.pillar) {
+    const pillar = getPage(cluster.pillarSlug);
+    if (pillar) {
+      crumbs.push({ label: crumbLabel(pillar), href: path(pillar.slug) });
+    }
+  }
+
+  crumbs.push({ label: crumbLabel(page) });
+  return crumbs;
+}
+
+/** Arbre de navigation principal : clusters de menu + leurs pages. */
+export interface NavItem {
+  label: string;
+  href: string;
+  children?: { label: string; href: string }[];
+}
+
+export function navTree(): NavItem[] {
+  const items: NavItem[] = CLUSTERS.filter((c) => c.inNav).map((c) => ({
+    label: c.label,
+    href: path(c.pillarSlug),
+    children: pagesOf(c.id).map((p) => ({ label: p.label, href: path(p.slug) })),
+  }));
+
+  // Lien direct vers la méthodologie (transverse, sans déroulant).
+  const methodo = getPage('methodologie');
+  if (methodo) items.push({ label: 'Méthodologie', href: path(methodo.slug) });
+
+  return items;
+}

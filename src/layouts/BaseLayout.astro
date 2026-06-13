@@ -1,0 +1,68 @@
+---
+/**
+ * BaseLayout — squelette global de toutes les pages.
+ * Compose <head> (via Head + slot « head » pour le JSON-LD), la navigation,
+ * le contenu (slot par défaut) et le footer. Le contenu essentiel est rendu
+ * dans le HTML source, sans dépendance au JavaScript.
+ */
+import '../styles/global.css';
+import Head from '../components/Head.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../config/site';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalSlug: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  noindex?: boolean;
+  rawTitle?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  /** Affiche l'en-tête et le pied de page (défaut : oui). */
+  chrome?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalSlug,
+  ogType,
+  ogImage,
+  noindex,
+  rawTitle,
+  publishedTime,
+  modifiedTime,
+  chrome = true,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <Head
+      title={title}
+      description={description}
+      canonicalSlug={canonicalSlug}
+      ogType={ogType}
+      ogImage={ogImage}
+      noindex={noindex}
+      rawTitle={rawTitle}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+    />
+    {/* Emplacement du JSON-LD (injecté dans la source par chaque page). */}
+    <slot name="head" />
+  </head>
+
+  <body>
+    <a href="#contenu" class="skip-link">Aller au contenu</a>
+    {chrome && <Nav />}
+    <main id="contenu">
+      <slot />
+    </main>
+    {chrome && <Footer />}
+  </body>
+</html>
