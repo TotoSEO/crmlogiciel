@@ -1,0 +1,13 @@
+# En-têtes Cloudflare (Workers Static Assets) — crm-logiciel.fr
+
+# Assets hashés par Astro (le nom change à chaque modification du contenu) :
+# cache immuable 1 an, plus aucune revalidation réseau sur les visites répétées.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Polices auto-hébergées : stables, cache long immuable.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Le HTML reste volontairement en revalidation immédiate (must-revalidate par
+# défaut) pour que toute mise à jour de contenu soit prise en compte aussitôt.
