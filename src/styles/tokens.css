@@ -1,0 +1,244 @@
+/* =============================================================================
+   Design tokens — crm-logiciel.fr
+   Source de vérité : Charte-graphique-crm-logiciel.html.
+   Bloc @theme (Tailwind v4) = valeurs primitives → exposées en variables CSS
+   globales ET génératrices d'utilitaires. Les alias sémantiques, gradients,
+   glass et ombres « pop » sont déclarés en :root aux noms exacts de la charte,
+   pour un usage direct dans le CSS classique.
+   ============================================================================= */
+
+@theme {
+  /* ---- Couleurs : surfaces ---- */
+  --color-paper: #ffffff;
+  --color-paper-warm: #f4f2ff;
+  --color-paper-sunk: #f3f1fb;
+  --color-canvas: #ffffff;
+  --color-data-white: #ffffff;
+
+  /* ---- Couleurs : encre (indigo profond) ---- */
+  --color-ink: #16123a;
+  --color-ink-80: #3a3560;
+  --color-ink-55: #6e6a8c;
+  --color-ink-35: #a6a2c2;
+
+  /* ---- Couleurs : violet (marque primaire) ---- */
+  --color-blue: #6457f9;
+  --color-blue-ink: #4f3fe0;
+  --color-blue-tint: #eceafe;
+
+  /* ---- Couleurs : teal (accent secondaire) ---- */
+  --color-teal: #00c2b8;
+  --color-teal-ink: #009e96;
+  --color-teal-tint: #def7f5;
+
+  /* ---- Couleurs : orange (accent tertiaire) ---- */
+  --color-orange: #ff8a00;
+  --color-orange-ink: #e07700;
+  --color-orange-tint: #ffefd6;
+
+  /* ---- Couleurs : corail (négatif) ---- */
+  --color-minium: #fb2c57;
+  --color-minium-ink: #e11147;
+  --color-minium-tint: #ffe4ea;
+
+  /* ---- Couleurs : émeraude (positif) ---- */
+  --color-green: #00b894;
+  --color-green-ink: #009478;
+  --color-green-tint: #d6f6ee;
+
+  /* ---- Filets ---- */
+  --color-hairline: #ece8fa;
+  --color-hairline-strong: #dcd6f2;
+
+  /* ---- Familles typographiques ---- */
+  --font-display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-ui: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-data: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* ---- Échelle typographique (base 16px) ---- */
+  --text-2xs: 0.6875rem; /* 11 */
+  --text-xs: 0.8125rem; /* 13 */
+  --text-sm: 0.875rem; /* 14 */
+  --text-base: 1rem; /* 16 */
+  --text-lg: 1.0625rem; /* 17 */
+  --text-xl: 1.1875rem; /* 19 */
+  --text-2xl: 1.375rem; /* 22 */
+  --text-3xl: 1.75rem; /* 28 */
+  --text-4xl: 2.125rem; /* 34 */
+  --text-5xl: 2.75rem; /* 44 */
+  --text-6xl: 3.5rem; /* 56 */
+  --text-7xl: 4.25rem; /* 68 */
+
+  /* ---- Graisses ---- */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+
+  /* ---- Interlignes ---- */
+  --leading-tight: 1.04;
+  --leading-snug: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  /* ---- Interlettrage ---- */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-kicker: 0.14em;
+
+  /* ---- Espacements (base 4px) ---- */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+
+  /* ---- Rayons ---- */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+  --radius-2xl: 40px;
+  --radius-full: 999px;
+
+  /* ---- Ombres : douces lumineuses ---- */
+  --shadow-soft: 0 22px 50px -30px rgba(46, 32, 100, 0.3);
+  --shadow-raise: 0 14px 32px -20px rgba(46, 32, 100, 0.26);
+  --shadow-glow: 0 24px 48px -22px rgba(100, 87, 249, 0.38);
+  --shadow-glow-teal: 0 22px 44px -18px rgba(0, 194, 184, 0.4);
+  --shadow-disc: 0 18px 32px -16px rgba(46, 32, 100, 0.45);
+
+  /* ---- Largeurs de contenu ---- */
+  --container-content: 1200px;
+  --container-wide: 1340px;
+}
+
+/* -----------------------------------------------------------------------------
+   Alias aux noms exacts de la charte + tokens non couverts par @theme
+   (gradients, glass, ombres « pop », filets, largeurs de texte, cibles tactiles).
+   Utilisables directement dans le CSS classique des composants.
+   ----------------------------------------------------------------------------- */
+:root {
+  /* Surfaces (noms charte) */
+  --paper: var(--color-paper);
+  --paper-warm: var(--color-paper-warm);
+  --paper-sunk: var(--color-paper-sunk);
+  --data-white: var(--color-data-white);
+  --canvas: var(--color-canvas);
+
+  /* Encre */
+  --ink: var(--color-ink);
+  --ink-80: var(--color-ink-80);
+  --ink-55: var(--color-ink-55);
+  --ink-35: var(--color-ink-35);
+
+  /* Violet / teal / orange / corail / émeraude */
+  --blue: var(--color-blue);
+  --blue-ink: var(--color-blue-ink);
+  --blue-tint: var(--color-blue-tint);
+  --teal: var(--color-teal);
+  --teal-ink: var(--color-teal-ink);
+  --teal-tint: var(--color-teal-tint);
+  --orange: var(--color-orange);
+  --orange-ink: var(--color-orange-ink);
+  --orange-tint: var(--color-orange-tint);
+  --minium: var(--color-minium);
+  --minium-ink: var(--color-minium-ink);
+  --minium-tint: var(--color-minium-tint);
+  --green: var(--color-green);
+  --green-ink: var(--color-green-ink);
+  --green-tint: var(--color-green-tint);
+
+  /* Filets */
+  --hairline: var(--color-hairline);
+  --hairline-strong: var(--color-hairline-strong);
+  --rule-ink: var(--color-ink);
+  --grid-line: rgba(100, 87, 249, 0.05);
+
+  /* Dégradés lumineux */
+  --grad-brand: linear-gradient(135deg, #6457f9 0%, #00c2b8 100%);
+  --grad-cool: linear-gradient(135deg, #7b6bff 0%, #6457f9 100%);
+  --grad-sunset: linear-gradient(135deg, #ff8a00 0%, #fb2c57 100%);
+  --grad-aqua: linear-gradient(135deg, #00c2b8 0%, #2d5bff 100%);
+  --grad-iris: linear-gradient(120deg, #6457f9 0%, #b14fff 50%, #ff8a00 100%);
+
+  /* Verre dépoli */
+  --glass-bg: rgba(255, 255, 255, 0.64);
+  --glass-bg-strong: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-blur: 22px;
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+
+  /* Alias sémantiques (charte) */
+  --surface-page: var(--canvas);
+  --surface-card: var(--data-white);
+  --surface-data: var(--data-white);
+  --surface-field: var(--data-white);
+  --surface-sunk: var(--paper-sunk);
+  --surface-notebook: var(--paper-warm);
+  --surface-glass: var(--glass-bg);
+  --text-strong: var(--ink);
+  --text-body: var(--ink-80);
+  --text-muted: var(--ink-55);
+  --text-faint: var(--ink-35);
+  --text-link: var(--blue);
+  --text-brand: var(--blue);
+  --border-default: var(--hairline);
+  --border-strong: var(--hairline-strong);
+  --border-ink: var(--rule-ink);
+  --accent: var(--orange);
+  --verdict-pos: var(--green);
+  --verdict-neg: var(--minium);
+
+  /* Ombres « pop » à décalage net */
+  --shadow-pop: 4px 4px 0 var(--ink);
+  --shadow-pop-violet: 4px 4px 0 var(--blue);
+  --shadow-pop-teal: 4px 4px 0 var(--teal);
+
+  /* Espacements (noms charte, pour le CSS classique) */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Épaisseurs de filet */
+  --rule-hair: 1px;
+  --rule-medium: 2px;
+  --rule-strong: 3px;
+  --rule-pop: 2.5px;
+
+  /* Coin organique (décors) */
+  --radius-blob: 42% 58% 63% 37% / 41% 44% 56% 59%;
+
+  /* Largeurs de contenu / lecture */
+  --measure-text: 68ch;
+  --measure-narrow: 52ch;
+  --content-max: 1200px;
+  --content-wide: 1340px;
+  --margin-note: 16rem;
+
+  /* Cible tactile mobile-first */
+  --tap-min: 44px;
+
+  /* Chiffres tabulaires */
+  --num-tabular: 'tnum' 1, 'lnum' 1;
+}

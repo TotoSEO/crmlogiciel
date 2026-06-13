@@ -1,0 +1,135 @@
+/* =============================================================================
+   Animations — crm-logiciel.fr
+   CSS pur, sans JavaScript. Uniquement transform/opacity (composited, 60 fps).
+   Désactivées automatiquement via prefers-reduced-motion (voir base.css).
+   ============================================================================= */
+
+/* ---- Entrée en fondu vers le haut ---- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ---- Apparition simple ---- */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---- Flottement doux (décors, blobs, badges) ---- */
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+/* ---- Panoramique de dégradé (fonds animés brand/iris) ---- */
+@keyframes gradient-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ---- Reflet glissant (effet « sheen » sur verre/CTA) ---- */
+@keyframes sheen {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}
+
+/* ---- Pulsation douce (pastilles, indicateurs « prochainement ») ---- */
+@keyframes pulse-soft {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.85;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Classes utilitaires d'animation (CSS classique, à poser sur les éléments)
+   ----------------------------------------------------------------------------- */
+.anim-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.anim-fade-in {
+  animation: fade-in 0.8s ease both;
+}
+.anim-float {
+  animation: float-soft 6s ease-in-out infinite;
+  will-change: transform;
+}
+.anim-pulse {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+
+/* Décalages en cascade pour orchestrer plusieurs entrées. */
+.anim-delay-1 {
+  animation-delay: 0.08s;
+}
+.anim-delay-2 {
+  animation-delay: 0.16s;
+}
+.anim-delay-3 {
+  animation-delay: 0.24s;
+}
+.anim-delay-4 {
+  animation-delay: 0.32s;
+}
+.anim-delay-5 {
+  animation-delay: 0.4s;
+}
+
+/* Dégradé animé : à combiner avec un fond en dégradé et background-size élargi. */
+.gradient-animated {
+  background-size: 200% 200%;
+  animation: gradient-pan 12s ease infinite;
+}
+
+/* -----------------------------------------------------------------------------
+   Barre de progression de lecture — CSS scroll-driven, sans JavaScript.
+   Amélioration progressive : ignorée par les navigateurs sans support.
+   ----------------------------------------------------------------------------- */
+@keyframes reading-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .reading-progress__bar {
+    transform-origin: 0 50%;
+    animation: reading-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}

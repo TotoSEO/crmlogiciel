@@ -1,0 +1,142 @@
+/* =============================================================================
+   Base — crm-logiciel.fr
+   Réglages globaux par-dessus le preflight de Tailwind. CSS classique,
+   piloté par les tokens de la charte.
+   ============================================================================= */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Décalage pour les ancres sous le menu sticky (sommaire/barre de lecture). */
+  scroll-padding-top: var(--space-20);
+}
+
+body {
+  margin: 0;
+  background-color: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-relaxed);
+  font-feature-settings:
+    'kern' 1,
+    'liga' 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Titres : display Space Grotesk ---- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--text-5xl);
+}
+h2 {
+  font-size: var(--text-3xl);
+}
+h3 {
+  font-size: var(--text-2xl);
+}
+h4 {
+  font-size: var(--text-xl);
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ---- Liens ---- */
+a {
+  color: var(--text-link);
+  text-decoration: none;
+  text-underline-offset: 0.16em;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+a:hover {
+  color: var(--blue-ink);
+  text-decoration: underline;
+}
+
+/* ---- Données chiffrées en mono, chiffres tabulaires ---- */
+.is-data,
+code,
+kbd,
+samp {
+  font-family: var(--font-data);
+  font-feature-settings: var(--num-tabular);
+}
+
+/* ---- Médias fluides ---- */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---- Accessibilité : focus visible cohérent ---- */
+:focus-visible {
+  outline: var(--rule-medium) solid var(--blue);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---- Conteneur de page standard ---- */
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
+/* ---- Lien d'évitement (accessibilité clavier) ---- */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: var(--space-3) var(--space-5);
+  background: var(--blue);
+  color: #fff;
+  border-radius: 0 0 var(--radius-md) 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* ---- Respect des préférences utilisateur : moins d'animation ---- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

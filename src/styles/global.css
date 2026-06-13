@@ -1,0 +1,16 @@
+/* =============================================================================
+   Feuille de styles globale — crm-logiciel.fr
+   Ordre d'import volontaire :
+   1. Tailwind (preflight + moteur d'utilitaires, alimenté par @theme)
+   2. Polices auto-hébergées (@font-face)
+   3. Tokens de la charte (@theme + alias :root)
+   4. Base typographique et réglages globaux
+   5. Animations (keyframes + classes)
+   ============================================================================= */
+
+@import 'tailwindcss';
+
+@import './fonts.css';
+@import './tokens.css';
+@import './base.css';
+@import './animations.css';
