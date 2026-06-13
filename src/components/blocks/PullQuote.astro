@@ -1,7 +1,7 @@
 ---
 /**
- * PullQuote — citation mise en avant (charte §04).
- * Auteur + rôle + initiales dans une pastille. Guillemet décoratif en marque.
+ * PullQuote — citation mise en avant (charte §04), sur verre dépoli.
+ * Auteur + rôle + initiales dans une pastille dégradée.
  */
 interface Props {
   author?: string;
@@ -11,7 +11,8 @@ interface Props {
 const { author, role, initials } = Astro.props;
 ---
 
-<figure class="pullquote">
+<figure class="pullquote glass" style="--glass-tint: var(--blue)">
+  <span class="pullquote__bigmark" aria-hidden="true">“</span>
   <blockquote class="pullquote__quote">
     <slot />
   </blockquote>
@@ -34,26 +35,27 @@ const { author, role, initials } = Astro.props;
 
 <style>
   .pullquote {
-    position: relative;
     margin-block: var(--space-8);
-    padding: var(--space-8) var(--space-8) var(--space-6);
-    background: var(--surface-notebook);
+    padding: var(--space-8);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-soft);
   }
-  .pullquote::before {
-    content: '“';
+  .pullquote__bigmark {
     position: absolute;
-    top: -0.2em;
+    top: -0.15em;
     left: var(--space-5);
+    z-index: 1;
     font-family: var(--font-display);
-    font-size: 6rem;
+    font-size: 7rem;
     line-height: 1;
-    color: var(--blue);
-    opacity: 0.25;
+    background: var(--grad-iris);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: 0.5;
   }
   .pullquote__quote {
     position: relative;
+    z-index: 1;
     margin: 0;
     font-family: var(--font-display);
     font-size: var(--text-2xl);
@@ -63,6 +65,8 @@ const { author, role, initials } = Astro.props;
     text-wrap: balance;
   }
   .pullquote__cite {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     gap: var(--space-3);
@@ -72,14 +76,15 @@ const { author, role, initials } = Astro.props;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.6rem;
+    height: 2.6rem;
     border-radius: var(--radius-full);
     background: var(--grad-cool);
     color: #fff;
     font-family: var(--font-ui);
     font-weight: var(--font-weight-bold);
     font-size: var(--text-sm);
+    box-shadow: var(--shadow-glow);
   }
   .pullquote__author {
     display: block;

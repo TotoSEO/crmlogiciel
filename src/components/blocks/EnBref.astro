@@ -1,7 +1,7 @@
 ---
 /**
- * EnBref — encart « En bref » en tête d'article (roadmap §4).
- * Liste de 3 à 5 points clés. Aux couleurs de la charte (glass + accent marque).
+ * EnBref — encart « En bref » en tête d'article (roadmap §4), en verre dépoli.
+ * Liste de 3 à 5 points clés, accent de marque.
  */
 interface Props {
   points: string[];
@@ -10,7 +10,7 @@ interface Props {
 const { points, title = 'En bref' } = Astro.props;
 ---
 
-<aside class="enbref" aria-label={title}>
+<aside class="enbref glass" style="--glass-tint: var(--blue)" aria-label={title}>
   <p class="enbref__title">
     <span class="enbref__dot" aria-hidden="true"></span>
     {title}
@@ -24,12 +24,11 @@ const { points, title = 'En bref' } = Astro.props;
   .enbref {
     margin-block: var(--space-6);
     padding: var(--space-6) var(--space-8);
-    background: var(--glass-bg-strong);
-    border: var(--rule-hair) solid var(--glass-border);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-soft);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
+  }
+  .enbref > * {
+    position: relative;
+    z-index: 1;
   }
   .enbref__title {
     display: flex;
@@ -44,10 +43,11 @@ const { points, title = 'En bref' } = Astro.props;
     color: var(--blue-ink);
   }
   .enbref__dot {
-    width: 0.6rem;
-    height: 0.6rem;
+    width: 0.65rem;
+    height: 0.65rem;
     border-radius: var(--radius-full);
     background: var(--grad-brand);
+    box-shadow: var(--shadow-glow);
   }
   .enbref__list {
     margin: 0;
@@ -67,7 +67,7 @@ const { points, title = 'En bref' } = Astro.props;
     content: '';
     position: absolute;
     left: 0;
-    top: 0.55em;
+    top: 0.5em;
     width: 0.85rem;
     height: 0.5rem;
     border-left: 2px solid var(--blue);

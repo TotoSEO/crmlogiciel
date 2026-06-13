@@ -16,14 +16,41 @@
   margin-top: var(--space-5);
 }
 .prose h2 {
-  margin-top: var(--space-12);
-  margin-bottom: var(--space-2);
-  font-size: var(--text-3xl);
+  position: relative;
+  margin-top: var(--space-16);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  font-size: clamp(var(--text-3xl), 3.4vw, var(--text-4xl));
+  letter-spacing: var(--tracking-tight);
+}
+/* Accent dégradé sous le H2 (segmentation forte des sections). */
+.prose h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 3.25rem;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--grad-brand);
 }
 .prose h3 {
-  margin-top: var(--space-8);
-  margin-bottom: var(--space-2);
+  position: relative;
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-3);
+  padding-left: var(--space-4);
   font-size: var(--text-2xl);
+}
+/* Filet vertical de marque devant le H3. */
+.prose h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.18em;
+  bottom: 0.18em;
+  width: 3px;
+  border-radius: var(--radius-full);
+  background: var(--blue);
 }
 .prose h4 {
   margin-top: var(--space-6);

@@ -1,6 +1,6 @@
 ---
 /**
- * KeyFigure — chiffre-clé (charte §04 « StatDiscs »).
+ * KeyFigure — chiffre-clé (charte §04 « StatDiscs »), sur verre dépoli teinté.
  * Grand nombre en mono, libellé court. À placer seul ou dans <Columns>.
  */
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 const { value, label, palette = 'blue' } = Astro.props;
 ---
 
-<div class="keyfig" style={`--c: var(--${palette}); --c-tint: var(--${palette}-tint);`}>
+<div class="keyfig glass" style={`--c: var(--${palette}); --glass-tint: var(--${palette});`}>
   <span class="keyfig__value">{value}</span>
   <span class="keyfig__label">{label}</span>
 </div>
@@ -23,8 +23,10 @@ const { value, label, palette = 'blue' } = Astro.props;
     gap: var(--space-2);
     padding: var(--space-6);
     border-radius: var(--radius-lg);
-    background: var(--c-tint);
-    border: var(--rule-hair) solid color-mix(in srgb, var(--c) 28%, transparent);
+  }
+  .keyfig > * {
+    position: relative;
+    z-index: 1;
   }
   .keyfig__value {
     font-family: var(--font-data);
@@ -32,7 +34,7 @@ const { value, label, palette = 'blue' } = Astro.props;
     font-size: var(--text-5xl);
     font-weight: var(--font-weight-bold);
     line-height: 1;
-    color: color-mix(in srgb, var(--c) 80%, var(--ink));
+    color: color-mix(in srgb, var(--c) 82%, var(--ink));
   }
   .keyfig__label {
     font-size: var(--text-sm);

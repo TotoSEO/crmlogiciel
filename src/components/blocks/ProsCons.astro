@@ -1,7 +1,7 @@
 ---
 /**
- * ProsCons — double colonne Avantages / Inconvénients (charte §04).
- * Vert = positif (verdict-pos), corail = négatif (verdict-neg). Titres en H3.
+ * ProsCons — Avantages / Inconvénients en deux panneaux de verre dépoli.
+ * Vert = positif, corail = négatif. Titres en H3.
  */
 interface Props {
   prosTitle?: string;
@@ -14,7 +14,7 @@ const { prosTitle = 'Avantages', consTitle = 'Inconvénients', pros, cons } = As
 ---
 
 <div class="proscons">
-  <section class="proscons__col proscons__col--pros">
+  <section class="proscons__col proscons__col--pros glass" style="--glass-tint: var(--green)">
     <h3 class="proscons__title">
       <span class="proscons__mark" aria-hidden="true">+</span>
       {prosTitle}
@@ -24,7 +24,7 @@ const { prosTitle = 'Avantages', consTitle = 'Inconvénients', pros, cons } = As
     </ul>
   </section>
 
-  <section class="proscons__col proscons__col--cons">
+  <section class="proscons__col proscons__col--cons glass" style="--glass-tint: var(--minium)">
     <h3 class="proscons__title">
       <span class="proscons__mark" aria-hidden="true">−</span>
       {consTitle}
@@ -43,18 +43,21 @@ const { prosTitle = 'Avantages', consTitle = 'Inconvénients', pros, cons } = As
     margin-block: var(--space-6);
   }
   .proscons__col {
-    padding: var(--space-5) var(--space-6);
+    padding: var(--space-6);
     border-radius: var(--radius-lg);
-    background: var(--surface-card);
-    border: var(--rule-hair) solid var(--border-default);
+  }
+  .proscons__col > * {
+    position: relative;
+    z-index: 1;
   }
   .proscons__col--pros {
-    box-shadow: var(--shadow-pop-teal);
-    border-color: color-mix(in srgb, var(--green) 35%, transparent);
+    box-shadow: var(--shadow-soft), var(--shadow-pop-teal), var(--glass-highlight);
   }
   .proscons__col--cons {
-    box-shadow: 4px 4px 0 var(--minium);
-    border-color: color-mix(in srgb, var(--minium) 35%, transparent);
+    box-shadow:
+      var(--shadow-soft),
+      4px 4px 0 var(--minium),
+      var(--glass-highlight);
   }
   .proscons__title {
     display: flex;
@@ -67,11 +70,12 @@ const { prosTitle = 'Avantages', consTitle = 'Inconvénients', pros, cons } = As
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.6rem;
+    height: 1.6rem;
     border-radius: var(--radius-full);
     font-weight: var(--font-weight-bold);
     color: #fff;
+    box-shadow: var(--shadow-raise);
   }
   .proscons__col--pros .proscons__mark {
     background: var(--green);

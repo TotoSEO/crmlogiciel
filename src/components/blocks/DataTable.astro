@@ -1,15 +1,13 @@
 ---
 /**
- * DataTable — tableau comparatif (charte §04).
+ * DataTable — tableau comparatif (charte §04) sur conteneur de verre dépoli.
  * En-tête en dégradé de marque, ligne « meilleur » surlignée, chiffres en mono.
- * Une cellule peut être une chaîne ou { value, tone: positive|negative|neutral }.
+ * Cellule : chaîne ou { value, tone: positive|negative|neutral }.
  */
 export interface Column {
   key: string;
   label: string;
-  /** Colonne sticky (premier libellé). */
   sticky?: boolean;
-  /** Aligne à droite + police mono (valeurs chiffrées). */
   num?: boolean;
 }
 type Cell = string | { value: string; tone?: 'positive' | 'negative' | 'neutral' };
@@ -27,7 +25,7 @@ const cellValue = (c: Cell) => (typeof c === 'string' ? c : c.value);
 const cellTone = (c: Cell) => (typeof c === 'string' ? undefined : c.tone);
 ---
 
-<div class="datatable-wrap">
+<div class="datatable-wrap glass glass--solid" style="--glass-tint: var(--blue)">
   <table class="datatable">
     {caption && <caption>{caption}</caption>}
     <thead>
@@ -72,16 +70,17 @@ const cellTone = (c: Cell) => (typeof c === 'string' ? undefined : c.tone);
 
 <style>
   .datatable-wrap {
+    position: relative;
+    z-index: 0;
     margin-block: var(--space-6);
-    overflow-x: auto;
+    overflow: hidden;
     border-radius: var(--radius-lg);
-    border: var(--rule-hair) solid var(--border-default);
-    box-shadow: var(--shadow-raise);
   }
   .datatable {
+    position: relative;
+    z-index: 1;
     width: 100%;
     border-collapse: collapse;
-    background: var(--surface-card);
     font-size: var(--text-sm);
   }
   .datatable caption {
@@ -93,7 +92,7 @@ const cellTone = (c: Cell) => (typeof c === 'string' ? undefined : c.tone);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
     color: var(--text-muted);
-    background: var(--surface-sunk);
+    background: color-mix(in srgb, var(--surface-sunk) 70%, transparent);
   }
   .datatable thead th {
     padding: var(--space-3) var(--space-4);
@@ -125,10 +124,10 @@ const cellTone = (c: Cell) => (typeof c === 'string' ? undefined : c.tone);
     font-feature-settings: var(--num-tabular);
   }
   .datatable tbody tr:nth-child(even) {
-    background: color-mix(in srgb, var(--surface-sunk) 55%, transparent);
+    background: color-mix(in srgb, var(--surface-sunk) 45%, transparent);
   }
   .datatable tbody tr.is-best {
-    background: var(--blue-tint);
+    background: color-mix(in srgb, var(--blue-tint) 80%, transparent);
   }
   .datatable tbody tr.is-best th {
     color: var(--blue-ink);

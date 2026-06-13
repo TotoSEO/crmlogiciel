@@ -1,8 +1,8 @@
 ---
 /**
- * Faq — FAQ en accordéon HTML natif (<details>), sans JavaScript (roadmap §3).
- * Les réponses sont dans la source (crawlables / GEO). Le JSON-LD FAQPage est
- * généré à part (lib/schema.ts) à partir des mêmes données.
+ * Faq — accordéon HTML natif (<details>), sans JavaScript (roadmap §3).
+ * Chaque question est un panneau de verre dépoli. Réponses dans la source (GEO).
+ * Le JSON-LD FAQPage est généré à part (lib/schema.ts) sur les mêmes données.
  */
 interface FaqItem {
   question: string;
@@ -20,10 +20,21 @@ const { items, title = 'Questions fréquentes' } = Astro.props;
   <div class="faq__list">
     {
       items.map((item, i) => (
-        <details class="faq__item" open={i === 0}>
+        <details class="faq__item glass" style="--glass-tint: var(--blue)" open={i === 0}>
           <summary class="faq__q">
-            <span>{item.question}</span>
-            <span class="faq__chevron" aria-hidden="true" />
+            <span class="faq__q-text">{item.question}</span>
+            <span class="faq__chevron" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14">
+                <path
+                  d="M6 9l6 6 6-6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
           </summary>
           <div class="faq__a">
             <p>{item.answer}</p>
@@ -39,29 +50,31 @@ const { items, title = 'Questions fréquentes' } = Astro.props;
     margin-block: var(--space-8);
   }
   .faq__title {
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
   }
   .faq__list {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-4);
   }
   .faq__item {
-    border: var(--rule-hair) solid var(--border-default);
-    border-radius: var(--radius-md);
-    background: var(--surface-card);
-    overflow: hidden;
+    border-radius: var(--radius-lg);
+    transition:
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
   }
   .faq__item[open] {
-    border-color: color-mix(in srgb, var(--blue) 40%, transparent);
-    box-shadow: var(--shadow-raise);
+    border-color: color-mix(in srgb, var(--blue) 45%, transparent);
+    box-shadow: var(--shadow-glow), var(--glass-highlight);
   }
   .faq__q {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    padding: var(--space-4) var(--space-5);
+    padding: var(--space-5) var(--space-6);
     cursor: pointer;
     font-family: var(--font-display);
     font-weight: var(--font-weight-semibold);
@@ -72,23 +85,36 @@ const { items, title = 'Questions fréquentes' } = Astro.props;
   .faq__q::-webkit-details-marker {
     display: none;
   }
+  .faq__q:hover .faq__q-text {
+    color: var(--blue-ink);
+  }
+  /* Pastille chevron */
   .faq__chevron {
     flex: none;
-    width: 0.6rem;
-    height: 0.6rem;
-    border-right: 2px solid var(--blue);
-    border-bottom: 2px solid var(--blue);
-    transform: rotate(45deg);
-    transition: transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-full);
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+    transition: transform 0.25s ease;
   }
   .faq__item[open] .faq__chevron {
-    transform: rotate(-135deg);
+    transform: rotate(180deg);
+    background: var(--blue);
+    color: #fff;
   }
   .faq__a {
-    padding: 0 var(--space-5) var(--space-5);
+    position: relative;
+    z-index: 1;
+    padding: 0 var(--space-6) var(--space-5);
     color: var(--text-body);
   }
   .faq__a p {
     margin: 0;
+    padding-top: var(--space-2);
+    border-top: var(--rule-hair) solid var(--border-default);
   }
 </style>

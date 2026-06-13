@@ -73,6 +73,13 @@ const pageSchema = graph(
   </Fragment>
 
   <div class="container demo-wrap">
+    {/* Halos colorés flous pour la réfraction du verre */}
+    <div class="ambient" aria-hidden="true">
+      <span class="ambient__blob ambient__blob--1"></span>
+      <span class="ambient__blob ambient__blob--2"></span>
+      <span class="ambient__blob ambient__blob--3"></span>
+    </div>
+
     {/* Fil d'Ariane */}
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
       <ol>
@@ -266,7 +273,14 @@ const pageSchema = graph(
 
 <style>
   .demo-wrap {
+    position: relative;
+    z-index: 0;
     padding-block: var(--space-12) var(--space-16);
+  }
+  /* Le contenu passe au-dessus des halos décoratifs. */
+  .demo-wrap > :not(.ambient) {
+    position: relative;
+    z-index: 1;
   }
   .breadcrumb ol {
     display: flex;

@@ -1,8 +1,7 @@
 ---
 /**
- * Callout — encadré de mise en avant (charte §04).
+ * Callout — encadré de mise en avant (charte §04), en verre dépoli teinté.
  * Tons : astuce (orange), a-retenir (violet), note (teal), attention (corail).
- * Contenu riche via slot. Titre optionnel.
  */
 type Tone = 'astuce' | 'a-retenir' | 'note' | 'attention';
 
@@ -25,9 +24,10 @@ const heading = title ?? t.label;
 ---
 
 <aside
-  class={`callout callout--${tone}`}
-  style={`--c: var(--${t.palette}); --c-tint: var(--${t.palette}-tint);`}
+  class={`callout glass callout--${tone}`}
+  style={`--c: var(--${t.palette}); --glass-tint: var(--${t.palette});`}
 >
+  <span class="callout__rail" aria-hidden="true"></span>
   <p class="callout__label">
     <span class="callout__icon" aria-hidden="true">{t.icon}</span>
     {heading}
@@ -38,13 +38,23 @@ const heading = title ?? t.label;
 <style>
   .callout {
     margin-block: var(--space-6);
-    padding: var(--space-5) var(--space-6);
-    background: var(--c-tint);
-    border: var(--rule-hair) solid color-mix(in srgb, var(--c) 30%, transparent);
-    border-left: var(--rule-strong) solid var(--c);
-    border-radius: var(--radius-md);
+    padding: var(--space-5) var(--space-6) var(--space-5) var(--space-8);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  /* Rail de couleur du ton, sur le bord gauche. */
+  .callout__rail {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: var(--c);
+    z-index: 1;
   }
   .callout__label {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     gap: var(--space-2);
@@ -54,12 +64,14 @@ const heading = title ?? t.label;
     font-size: var(--text-sm);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--c) 78%, var(--ink));
+    color: color-mix(in srgb, var(--c) 80%, var(--ink));
   }
   .callout__icon {
     font-size: var(--text-base);
   }
   .callout__body {
+    position: relative;
+    z-index: 1;
     color: var(--text-body);
     font-size: var(--text-base);
   }
