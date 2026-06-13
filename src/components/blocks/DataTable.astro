@@ -1,0 +1,161 @@
+---
+/**
+ * DataTable — tableau comparatif (charte §04).
+ * En-tête en dégradé de marque, ligne « meilleur » surlignée, chiffres en mono.
+ * Une cellule peut être une chaîne ou { value, tone: positive|negative|neutral }.
+ */
+export interface Column {
+  key: string;
+  label: string;
+  /** Colonne sticky (premier libellé). */
+  sticky?: boolean;
+  /** Aligne à droite + police mono (valeurs chiffrées). */
+  num?: boolean;
+}
+type Cell = string | { value: string; tone?: 'positive' | 'negative' | 'neutral' };
+export type Row = { _best?: boolean } & Record<string, Cell>;
+
+interface Props {
+  caption?: string;
+  columns: Column[];
+  rows: Row[];
+}
+
+const { caption, columns, rows } = Astro.props;
+
+const cellValue = (c: Cell) => (typeof c === 'string' ? c : c.value);
+const cellTone = (c: Cell) => (typeof c === 'string' ? undefined : c.tone);
+---
+
+<div class="datatable-wrap">
+  <table class="datatable">
+    {caption && <caption>{caption}</caption>}
+    <thead>
+      <tr>
+        {
+          columns.map((col) => (
+            <th scope="col" class={`${col.num ? 'is-num' : ''} ${col.sticky ? 'is-sticky' : ''}`}>
+              {col.label}
+            </th>
+          ))
+        }
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row) => (
+          <tr class={row._best ? 'is-best' : ''}>
+            {columns.map((col, i) => {
+              const cell = row[col.key];
+              const val = cell === undefined ? '' : cellValue(cell);
+              const tone = cell === undefined ? undefined : cellTone(cell);
+              const cls = [
+                col.num ? 'is-num' : '',
+                col.sticky ? 'is-sticky' : '',
+                tone ? `tone-${tone}` : '',
+              ].join(' ');
+              return i === 0 && col.sticky ? (
+                <th scope="row" class={cls}>
+                  {row._best && <span class="best-flag">Meilleur</span>}
+                  {val}
+                </th>
+              ) : (
+                <td class={cls}>{val}</td>
+              );
+            })}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .datatable-wrap {
+    margin-block: var(--space-6);
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    box-shadow: var(--shadow-raise);
+  }
+  .datatable {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface-card);
+    font-size: var(--text-sm);
+  }
+  .datatable caption {
+    caption-side: top;
+    text-align: left;
+    padding: var(--space-4) var(--space-5);
+    font-family: var(--font-data);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--surface-sunk);
+  }
+  .datatable thead th {
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--grad-brand);
+    white-space: nowrap;
+  }
+  .datatable tbody th,
+  .datatable tbody td {
+    padding: var(--space-3) var(--space-4);
+    border-top: var(--rule-hair) solid var(--border-default);
+    color: var(--text-body);
+    vertical-align: middle;
+  }
+  .datatable tbody th {
+    text-align: left;
+    font-weight: var(--font-weight-semibold);
+    color: var(--ink);
+  }
+  .is-num {
+    text-align: right;
+    font-family: var(--font-data);
+    font-feature-settings: var(--num-tabular);
+  }
+  .datatable tbody tr:nth-child(even) {
+    background: color-mix(in srgb, var(--surface-sunk) 55%, transparent);
+  }
+  .datatable tbody tr.is-best {
+    background: var(--blue-tint);
+  }
+  .datatable tbody tr.is-best th {
+    color: var(--blue-ink);
+  }
+  .best-flag {
+    display: inline-block;
+    margin-right: var(--space-2);
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-full);
+    background: var(--blue);
+    color: #fff;
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    vertical-align: middle;
+  }
+  .tone-positive {
+    color: var(--green-ink);
+    font-weight: var(--font-weight-semibold);
+  }
+  .tone-negative {
+    color: var(--minium-ink);
+    font-weight: var(--font-weight-semibold);
+  }
+  .tone-neutral {
+    color: var(--text-muted);
+  }
+</style>

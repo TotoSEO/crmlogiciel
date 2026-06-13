@@ -1,0 +1,55 @@
+---
+/**
+ * Badge — pastille d'étiquette (charte §04).
+ * Tons sémantiques ; option « pop » (ombre décalée nette).
+ */
+type Tone = 'neutral' | 'brand' | 'positive' | 'negative' | 'accent';
+interface Props {
+  tone?: Tone;
+  pop?: boolean;
+}
+const { tone = 'neutral', pop = false } = Astro.props;
+---
+
+<span class={`badge badge--${tone} ${pop ? 'badge--pop' : ''}`}><slot /></span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 0.25em 0.7em;
+    border-radius: var(--radius-full);
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--tracking-wide);
+    line-height: 1.4;
+    border: var(--rule-hair) solid transparent;
+  }
+  .badge--neutral {
+    background: var(--surface-sunk);
+    color: var(--ink-80);
+    border-color: var(--border-default);
+  }
+  .badge--brand {
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+  }
+  .badge--positive {
+    background: var(--green-tint);
+    color: var(--green-ink);
+  }
+  .badge--negative {
+    background: var(--minium-tint);
+    color: var(--minium-ink);
+  }
+  .badge--accent {
+    background: var(--orange-tint);
+    color: var(--orange-ink);
+  }
+  .badge--pop {
+    border-color: var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+</style>

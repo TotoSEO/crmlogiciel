@@ -1,0 +1,35 @@
+---
+/**
+ * Columns — disposition multi-colonnes (charte §04 « ColumnRow / FeatureColumns »).
+ * Chaque enfant direct devient une colonne. Replie en une colonne sur mobile.
+ */
+interface Props {
+  cols?: 2 | 3;
+  align?: 'start' | 'center' | 'stretch';
+}
+const { cols = 2, align = 'stretch' } = Astro.props;
+---
+
+<div class={`columns columns--${cols}`} style={`align-items:${align}`}>
+  <slot />
+</div>
+
+<style>
+  .columns {
+    display: grid;
+    gap: var(--space-5);
+    margin-block: var(--space-6);
+  }
+  .columns--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .columns--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 720px) {
+    .columns--2,
+    .columns--3 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

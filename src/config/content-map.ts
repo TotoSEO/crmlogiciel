@@ -32,6 +32,8 @@ export interface PageNode {
   pillar?: boolean;
 }
 
+export type Palette = 'blue' | 'teal' | 'orange' | 'green';
+
 export interface Cluster {
   id: ClusterId;
   /** Libellé affiché en tête de menu. */
@@ -40,6 +42,8 @@ export interface Cluster {
   pillarSlug: string;
   /** Apparaît dans le menu principal au lancement ? */
   inNav: boolean;
+  /** Couleur de la charte propre au cluster (segmentation visuelle du menu). */
+  palette: Palette;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -47,11 +51,35 @@ export interface Cluster {
 /* -------------------------------------------------------------------------- */
 
 export const CLUSTERS: Cluster[] = [
-  { id: 'comprendre', label: 'Comprendre', pillarSlug: 'qu-est-ce-qu-un-crm', inNav: true },
-  { id: 'choisir', label: 'Choisir', pillarSlug: 'comment-choisir-crm', inNav: true },
-  { id: 'utiliser', label: 'Utiliser', pillarSlug: 'mise-en-place-crm', inNav: true },
+  {
+    id: 'comprendre',
+    label: 'Comprendre',
+    pillarSlug: 'qu-est-ce-qu-un-crm',
+    inNav: true,
+    palette: 'blue',
+  },
+  {
+    id: 'choisir',
+    label: 'Choisir',
+    pillarSlug: 'comment-choisir-crm',
+    inNav: true,
+    palette: 'teal',
+  },
+  {
+    id: 'utiliser',
+    label: 'Utiliser',
+    pillarSlug: 'mise-en-place-crm',
+    inNav: true,
+    palette: 'orange',
+  },
   // Transverse : pas un cluster de menu déroulant (lien direct « Méthodologie »).
-  { id: 'transverse', label: 'Transverse', pillarSlug: 'methodologie', inNav: false },
+  {
+    id: 'transverse',
+    label: 'Transverse',
+    pillarSlug: 'methodologie',
+    inNav: false,
+    palette: 'green',
+  },
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -244,6 +272,7 @@ export function breadcrumb(slug: string): Crumb[] {
 export interface NavItem {
   label: string;
   href: string;
+  palette: Palette;
   children?: { label: string; href: string }[];
 }
 
@@ -251,12 +280,36 @@ export function navTree(): NavItem[] {
   const items: NavItem[] = CLUSTERS.filter((c) => c.inNav).map((c) => ({
     label: c.label,
     href: path(c.pillarSlug),
-    children: pagesOf(c.id).map((p) => ({ label: p.label, href: path(p.slug) })),
+    palette: c.palette,
+    // Le déroulant liste les satellites uniquement : le pilier est déjà la
+    // cible du libellé de tête (pas de lien en double).
+    children: pagesOf(c.id)
+      .filter((p) => p.slug !== c.pillarSlug)
+      .map((p) => ({ label: p.label, href: path(p.slug) })),
   }));
 
   // Lien direct vers la méthodologie (transverse, sans déroulant).
   const methodo = getPage('methodologie');
-  if (methodo) items.push({ label: 'Méthodologie', href: path(methodo.slug) });
+  if (methodo) items.push({ label: 'Méthodologie', href: path(methodo.slug), palette: 'green' });
 
   return items;
 }
+
+/** Les piliers de cluster (pages d'entrée), pour le footer et les hubs. */
+export function pillars(): { label: string; href: string; palette: Palette }[] {
+  return CLUSTERS.filter((c) => c.inNav).map((c) => {
+    const p = getPage(c.pillarSlug);
+    return { label: p?.label ?? c.label, href: path(c.pillarSlug), palette: c.palette };
+  });
+}
+
+/**
+ * Liens utilitaires (footer). Pages prévues d'avance : à créer ultérieurement
+ * (contenu légal/éditorial non encore fourni).
+ */
+export const UTILITY_LINKS: { label: string; slug: string }[] = [
+  { label: 'À propos', slug: 'a-propos' },
+  { label: 'Contact', slug: 'contact' },
+  { label: 'Mentions légales', slug: 'mentions-legales' },
+  { label: 'Politique de confidentialité', slug: 'politique-de-confidentialite' },
+];

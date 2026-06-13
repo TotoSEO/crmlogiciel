@@ -1,0 +1,72 @@
+---
+/**
+ * Button — bouton / CTA (charte §04). Rendu en <a> si href, sinon <button>.
+ * Variantes : primaire (plein marque), fantôme (contour + ombre pop), discret.
+ */
+type Variant = 'primary' | 'ghost' | 'subtle';
+interface Props {
+  href?: string;
+  variant?: Variant;
+  type?: 'button' | 'submit';
+  rel?: string;
+  target?: string;
+}
+const { href, variant = 'primary', type = 'button', rel, target } = Astro.props;
+const cls = `btn btn--${variant}`;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag class={cls} href={href} type={href ? undefined : type} rel={rel} target={target}>
+  <slot />
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: var(--tap-min);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-full);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-base);
+    cursor: pointer;
+    border: var(--rule-hair) solid transparent;
+    transition:
+      transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.18s ease,
+      background 0.18s ease;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+  .btn--primary {
+    background: var(--blue);
+    color: #fff;
+    box-shadow: var(--shadow-glow);
+  }
+  .btn--primary:hover {
+    background: var(--blue-ink);
+    color: #fff;
+  }
+  .btn--ghost {
+    background: var(--surface-card);
+    color: var(--ink);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-pop-violet);
+  }
+  .btn--ghost:hover {
+    color: var(--ink);
+  }
+  .btn--subtle {
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+  }
+  .btn--subtle:hover {
+    background: var(--surface-sunk);
+    color: var(--blue-ink);
+  }
+</style>

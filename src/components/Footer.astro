@@ -1,12 +1,14 @@
 ---
 /**
  * Footer — crm-logiciel.fr
- * Colonnes par cluster (maillage interne dans la source) + bloc de marque.
+ * Maillage interne resserré : liens vers les PILIERS uniquement (+ Méthodologie),
+ * colonne utilitaire (pages prévues d'avance), bloc de marque.
+ * Les intitulés de colonnes ne sont pas des Hn (pas de signal de titre concurrent).
  */
-import { CLUSTERS, pagesOf, getPage } from '../config/content-map';
+import { pillars, getPage, UTILITY_LINKS } from '../config/content-map';
 import { path, SITE } from '../config/site';
 
-const navClusters = CLUSTERS.filter((c) => c.inNav);
+const pillarLinks = pillars();
 const methodo = getPage('methodologie');
 const year = new Date().getFullYear();
 ---
@@ -16,37 +18,54 @@ const year = new Date().getFullYear();
     <div class="site-footer__brand">
       <a href={path('')} class="footer-brand">crm-logiciel<span>.fr</span></a>
       <p class="site-footer__pitch">
-        Le média indépendant de référence sur les logiciels CRM en France : comprendre, choisir et
-        utiliser un CRM, sans jargon.
+        Le site de conseil en CRM n°1 en France depuis 2007. Comprendre, apprendre, comparer,
+        choisir. Bienvenue sur notre site.
       </p>
-      {
-        methodo && (
-          <a href={path(methodo.slug)} class="site-footer__methodo">
-            {methodo.label} →
-          </a>
-        )
-      }
+      <p class="site-footer__since is-data">Nom de domaine actif depuis 2007</p>
     </div>
 
-    {
-      navClusters.map((cluster) => (
-        <nav class="site-footer__col" aria-label={cluster.label}>
-          <h2 class="site-footer__title">{cluster.label}</h2>
-          <ul>
-            {pagesOf(cluster.id).map((page) => (
-              <li>
-                <a href={path(page.slug)}>{page.label}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      ))
-    }
+    <nav class="site-footer__col" aria-label="Nos guides">
+      <p class="site-footer__title">Nos guides</p>
+      <ul>
+        {
+          pillarLinks.map((p) => (
+            <li>
+              <a href={p.href} style={`--dot: var(--${p.palette})`}>
+                <span class="dot" aria-hidden="true" />
+                {p.label}
+              </a>
+            </li>
+          ))
+        }
+        {
+          methodo && (
+            <li>
+              <a href={path(methodo.slug)} style="--dot: var(--green)">
+                <span class="dot" aria-hidden="true" />
+                {methodo.label}
+              </a>
+            </li>
+          )
+        }
+      </ul>
+    </nav>
+
+    <nav class="site-footer__col" aria-label="Le site">
+      <p class="site-footer__title">Le site</p>
+      <ul>
+        {
+          UTILITY_LINKS.map((l) => (
+            <li>
+              <a href={path(l.slug)}>{l.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
   </div>
 
   <div class="container site-footer__bottom">
     <p class="is-data">© {year} {SITE.name} · Tous droits réservés</p>
-    <p class="is-data site-footer__since">Nom de domaine actif depuis 2007</p>
   </div>
 </footer>
 
@@ -59,7 +78,7 @@ const year = new Date().getFullYear();
   }
   .site-footer__grid {
     display: grid;
-    grid-template-columns: 1.4fr repeat(3, 1fr);
+    grid-template-columns: 1.6fr 1fr 1fr;
     gap: var(--space-10) var(--space-8);
   }
   .footer-brand {
@@ -73,15 +92,14 @@ const year = new Date().getFullYear();
   }
   .site-footer__pitch {
     margin-top: var(--space-4);
-    max-width: 34ch;
+    max-width: 38ch;
     font-size: var(--text-sm);
     color: var(--text-muted);
   }
-  .site-footer__methodo {
-    display: inline-block;
+  .site-footer__since {
     margin-top: var(--space-5);
-    font-weight: var(--font-weight-semibold);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
   }
   .site-footer__title {
     font-family: var(--font-ui);
@@ -89,7 +107,7 @@ const year = new Date().getFullYear();
     font-weight: var(--font-weight-bold);
     letter-spacing: var(--tracking-kicker);
     text-transform: uppercase;
-    color: var(--text-faint);
+    color: var(--text-muted);
     margin-bottom: var(--space-4);
   }
   .site-footer__col ul {
@@ -98,25 +116,31 @@ const year = new Date().getFullYear();
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-3);
   }
   .site-footer__col a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
     font-size: var(--text-sm);
     color: var(--ink-80);
   }
   .site-footer__col a:hover {
     color: var(--blue);
   }
+  .site-footer__col .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-full);
+    background: var(--dot, var(--ink-35));
+    flex: none;
+  }
   .site-footer__bottom {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: var(--space-3);
     margin-top: var(--space-12);
     padding-top: var(--space-6);
     border-top: var(--rule-hair) solid var(--border-default);
     font-size: var(--text-xs);
-    color: var(--text-faint);
+    color: var(--text-muted);
   }
 
   @media (max-width: 860px) {

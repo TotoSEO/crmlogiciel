@@ -1,0 +1,78 @@
+---
+/**
+ * Rating — notation par étoiles (roadmap §3).
+ * Note /max, étoiles pleines/demi/vides en SVG, valeur chiffrée en mono.
+ * accessible : note exprimée en texte (aria-label) pour lecteurs d'écran et IA.
+ */
+interface Props {
+  value: number;
+  max?: number;
+  label?: string;
+}
+const { value, max = 5, label } = Astro.props;
+const clamped = Math.max(0, Math.min(value, max));
+const stars = Array.from({ length: max }, (_, i) => {
+  const fill = Math.max(0, Math.min(1, clamped - i));
+  return fill;
+});
+const aria = `${label ? label + ' : ' : ''}${clamped.toLocaleString('fr-FR')} sur ${max}`;
+---
+
+<div class="rating" role="img" aria-label={aria}>
+  <span class="rating__stars" aria-hidden="true">
+    {
+      stars.map((fill) => (
+        <svg viewBox="0 0 24 24" class="rating__star" style={`--fill:${Math.round(fill * 100)}%`}>
+          <path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 18l-5.9 3 1.2-6.5L2.5 9.4l6.6-.9z" />
+        </svg>
+      ))
+    }
+  </span>
+  <span class="rating__value"
+    >{clamped.toLocaleString('fr-FR')}<span class="rating__max">/{max}</span></span
+  >
+  {label && <span class="rating__label">{label}</span>}
+</div>
+
+<style>
+  .rating {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-block: var(--space-3);
+  }
+  .rating__stars {
+    display: inline-flex;
+    gap: 2px;
+  }
+  .rating__star {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .rating__star path {
+    fill: var(--orange);
+    /* Remplissage partiel : dégradé dur à --fill via clip non trivial → on
+       approxime par opacité de la portion vide (étoile pleine si fill>=50%). */
+  }
+  .rating__star {
+    color: var(--orange);
+  }
+  .rating__star path {
+    fill: color-mix(in srgb, var(--orange) var(--fill, 100%), var(--hairline-strong));
+  }
+  .rating__value {
+    font-family: var(--font-data);
+    font-feature-settings: var(--num-tabular);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+  }
+  .rating__max {
+    color: var(--text-faint);
+    font-weight: var(--font-weight-regular);
+  }
+  .rating__label {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+</style>

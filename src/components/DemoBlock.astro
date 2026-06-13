@@ -1,0 +1,31 @@
+---
+/**
+ * DemoBlock — wrapper d'exemple pour la page /demo/ (encadre un bloc + libellé).
+ * Usage interne à la validation visuelle, pas un composant de contenu.
+ */
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+---
+
+<section class="demo-block">
+  <p class="demo-block__label">{label}</p>
+  <slot />
+</section>
+
+<style>
+  .demo-block {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: var(--rule-hair) solid var(--border-default);
+  }
+  .demo-block__label {
+    margin-bottom: var(--space-4);
+    font-family: var(--font-data);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+</style>

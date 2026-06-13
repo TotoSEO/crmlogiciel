@@ -1,22 +1,23 @@
 ---
 /**
  * Navigation principale — crm-logiciel.fr
- * Clusters Comprendre / Choisir / Utiliser (libellé de tête → pilier, déroulant
- * listant les pages) + lien direct Méthodologie. Tous les liens sont présents
- * dans le HTML source (crawlables / GEO). Déroulants desktop en CSS (hover +
- * focus-within) ; menu mobile via case à cocher (fonctionne sans JavaScript).
+ * Clusters Comprendre / Choisir / Utiliser (libellé de tête → pilier ; déroulant
+ * = satellites uniquement, sans répéter le pilier) + lien direct Méthodologie.
+ * Chaque section porte sa couleur de charte (segmentation visuelle).
+ * Tous les liens sont dans le HTML source (crawlables / GEO). Déroulants desktop
+ * en CSS (hover + focus-within) ; menu mobile via case à cocher (sans JavaScript).
  */
 import { navTree } from '../config/content-map';
-import { path } from '../config/site';
-import { SITE } from '../config/site';
+import { path, SITE } from '../config/site';
 
 const items = navTree();
 const home = path('');
 const currentPath = path(Astro.url.pathname.replace(/^\/+|\/+$/g, ''));
 
-function isCurrent(href: string): boolean {
-  return href === currentPath;
-}
+const isCurrent = (href: string): boolean => href === currentPath;
+// Variables de couleur propres au cluster, injectées par élément.
+const clusterVars = (palette: string): string =>
+  `--cluster-color: var(--${palette}); --cluster-tint: var(--${palette}-tint);`;
 ---
 
 <header class="site-header">
@@ -39,12 +40,13 @@ function isCurrent(href: string): boolean {
         {
           items.map((item) =>
             item.children && item.children.length > 0 ? (
-              <li class="nav-item nav-item--has-children">
+              <li class="nav-item nav-item--has-children" style={clusterVars(item.palette)}>
                 <a
                   href={item.href}
                   class="nav-link"
                   aria-current={isCurrent(item.href) ? 'page' : undefined}
                 >
+                  <span class="nav-dot" aria-hidden="true" />
                   {item.label}
                   <span class="nav-caret" aria-hidden="true" />
                 </a>
@@ -63,12 +65,13 @@ function isCurrent(href: string): boolean {
                 </ul>
               </li>
             ) : (
-              <li class="nav-item">
+              <li class="nav-item" style={clusterVars(item.palette)}>
                 <a
                   href={item.href}
                   class="nav-link"
                   aria-current={isCurrent(item.href) ? 'page' : undefined}
                 >
+                  <span class="nav-dot" aria-hidden="true" />
                   {item.label}
                 </a>
               </li>
@@ -126,7 +129,7 @@ function isCurrent(href: string): boolean {
   .nav-list {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-1);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -138,7 +141,7 @@ function isCurrent(href: string): boolean {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-2) var(--space-4);
     border-radius: var(--radius-full);
     font-family: var(--font-ui);
     font-weight: var(--font-weight-medium);
@@ -148,23 +151,37 @@ function isCurrent(href: string): boolean {
       color 0.18s ease,
       background 0.18s ease;
   }
+  /* Pastille de couleur propre au cluster (identité au repos). */
+  .nav-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-full);
+    background: var(--cluster-color, var(--ink-35));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--cluster-color, var(--ink-35)) 18%, transparent);
+    transition: transform 0.18s ease;
+  }
   .nav-link:hover,
   .nav-item--has-children:hover .nav-link,
   .nav-item--has-children:focus-within .nav-link {
-    color: var(--blue);
-    background: var(--blue-tint);
+    color: var(--cluster-color, var(--blue));
+    background: var(--cluster-tint, var(--blue-tint));
     text-decoration: none;
   }
+  .nav-link:hover .nav-dot {
+    transform: scale(1.25);
+  }
   .nav-link[aria-current='page'] {
-    color: var(--blue);
+    color: var(--cluster-color, var(--blue));
   }
   .nav-caret {
-    width: 0.45rem;
-    height: 0.45rem;
+    width: 0.42rem;
+    height: 0.42rem;
+    margin-left: 0.1rem;
     border-right: 2px solid currentColor;
     border-bottom: 2px solid currentColor;
     transform: rotate(45deg) translateY(-1px);
     transition: transform 0.18s ease;
+    opacity: 0.7;
   }
   .nav-item--has-children:hover .nav-caret,
   .nav-item--has-children:focus-within .nav-caret {
@@ -176,12 +193,13 @@ function isCurrent(href: string): boolean {
     position: absolute;
     top: calc(100% + var(--space-2));
     left: 0;
-    min-width: 18rem;
+    min-width: 19rem;
     margin: 0;
     padding: var(--space-3);
     list-style: none;
     background: var(--surface-card);
     border: var(--rule-hair) solid var(--border-default);
+    border-top: var(--rule-strong) solid var(--cluster-color, var(--blue));
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-soft);
     opacity: 0;
@@ -204,11 +222,13 @@ function isCurrent(href: string): boolean {
     border-radius: var(--radius-sm);
     font-size: var(--text-sm);
     color: var(--ink-80);
+    border-left: 2px solid transparent;
   }
   .submenu__link:hover,
   .submenu__link[aria-current='page'] {
-    background: var(--blue-tint);
-    color: var(--blue);
+    background: var(--cluster-tint, var(--blue-tint));
+    color: var(--cluster-color, var(--blue));
+    border-left-color: var(--cluster-color, var(--blue));
     text-decoration: none;
   }
 
@@ -252,10 +272,9 @@ function isCurrent(href: string): boolean {
       transition: max-height 0.28s ease;
     }
     .nav-toggle:checked ~ .primary-nav {
-      max-height: 80vh;
+      max-height: 85vh;
       overflow-y: auto;
     }
-    /* Croix quand ouvert */
     .nav-toggle:checked ~ .nav-burger .nav-burger__bar:nth-child(1) {
       transform: translateY(7px) rotate(45deg);
     }
@@ -275,7 +294,7 @@ function isCurrent(href: string): boolean {
     .nav-link {
       border-radius: var(--radius-md);
     }
-    /* Déroulants toujours dépliés en mobile (pas de survol) */
+    /* Déroulants dépliés en mobile, accent couleur à gauche */
     .submenu {
       position: static;
       opacity: 1;
@@ -284,7 +303,10 @@ function isCurrent(href: string): boolean {
       min-width: 0;
       box-shadow: none;
       border: none;
-      padding: 0 0 var(--space-3) var(--space-4);
+      border-left: var(--rule-medium) solid var(--cluster-color, var(--blue));
+      border-radius: 0;
+      margin-left: var(--space-4);
+      padding: 0 0 var(--space-3) var(--space-3);
       transition: none;
     }
     .nav-caret {

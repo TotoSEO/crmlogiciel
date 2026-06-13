@@ -1,18 +1,30 @@
 ---
 /**
- * Page de démonstration — validation Phase 1 (non indexée).
- * Prouve qu'une page de type guide rend, dans le HTML source : un <head>
- * complet (title/description/canonical/OG/Twitter), un fil d'Ariane, et le
- * JSON-LD adéquat (Article + Person + BreadcrumbList + FAQPage) via le layout
- * global. Le template d'article réel est construit en Phase 2b.
+ * /demo/ — page de validation (non indexée).
+ * Phase 1 : head SEO complet + fil d'Ariane + JSON-LD dans la source.
+ * Phase 2a : showcase de TOUTE la bibliothèque de blocs réutilisables en
+ * condition réelle. Les templates n'utiliseront que des composants validés ici.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { breadcrumb, getPage } from '../config/content-map';
 import { absoluteUrl } from '../config/site';
-import { article, person, breadcrumbList, faqPage, graph } from '../lib/schema';
+import { article, organization, breadcrumbList, faqPage, graph } from '../lib/schema';
 
-// Page d'exemple : un satellite du cluster « Utiliser ».
+import EnBref from '../components/blocks/EnBref.astro';
+import Callout from '../components/blocks/Callout.astro';
+import ProsCons from '../components/blocks/ProsCons.astro';
+import DataTable from '../components/blocks/DataTable.astro';
+import PullQuote from '../components/blocks/PullQuote.astro';
+import KeyFigure from '../components/blocks/KeyFigure.astro';
+import Rating from '../components/blocks/Rating.astro';
+import Badge from '../components/blocks/Badge.astro';
+import Button from '../components/blocks/Button.astro';
+import Columns from '../components/blocks/Columns.astro';
+import Figure from '../components/blocks/Figure.astro';
+import Faq from '../components/blocks/Faq.astro';
+import Demo from '../components/DemoBlock.astro';
+
 const slug = 'pipeline-commercial';
 const page = getPage(slug)!;
 const crumbs = breadcrumb(slug);
@@ -20,7 +32,7 @@ const crumbs = breadcrumb(slug);
 const datePublished = '2026-06-14T09:00:00+02:00';
 const dateModified = '2026-06-14T09:00:00+02:00';
 
-const sampleFaq = [
+const faqItems = [
   {
     question: 'Quelles étapes définir dans un pipeline commercial ?',
     answer:
@@ -41,15 +53,15 @@ const pageSchema = graph(
     datePublished,
     dateModified,
   }),
-  person(),
+  organization(),
   breadcrumbList(crumbs, absoluteUrl(slug)),
-  faqPage(sampleFaq),
+  faqPage(faqItems),
 );
 ---
 
 <BaseLayout
-  title="Le pipeline commercial (démo Phase 1)"
-  description="Page de démonstration validant le head SEO, le fil d'Ariane et le JSON-LD du template de guide."
+  title="Bibliothèque de blocs (démo)"
+  description="Page de validation : head SEO, fil d'Ariane, JSON-LD et bibliothèque complète de blocs réutilisables."
   canonicalSlug={slug}
   ogType="article"
   publishedTime={datePublished}
@@ -60,7 +72,8 @@ const pageSchema = graph(
     <JsonLd schema={pageSchema} />
   </Fragment>
 
-  <article class="container demo-article">
+  <div class="container demo-wrap">
+    {/* Fil d'Ariane */}
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
       <ol>
         {
@@ -77,26 +90,183 @@ const pageSchema = graph(
       </ol>
     </nav>
 
-    <h1>Le pipeline commercial</h1>
-    <p class="demo-note">
-      Cette page valide les systèmes transverses de la Phase 1. Inspecte la source (Ctrl+U) : le <code
-        >&lt;head&gt;</code
-      > est complet et le JSON-LD (Article, Person, BreadcrumbList, FAQPage) est présent dans le HTML,
-      sans JavaScript.
-    </p>
+    <header class="demo-head">
+      <p class="demo-kicker is-data">Page de validation · Phase 2a</p>
+      <h1>Bibliothèque de blocs</h1>
+      <p class="demo-sub">
+        Chaque composant ci-dessous est réutilisable dans les contenus pour varier la lecture.
+        Inspecte la source : tout est en HTML, le JSON-LD y compris.
+      </p>
+    </header>
 
-    <h2>Exemple de section</h2>
-    <p>
-      Le contenu réel des 27 pages est intégré en Phase 3 depuis les fichiers Markdown. Ici, seul le
-      câblage technique est démontré.
-    </p>
-  </article>
+    <article class="prose">
+      <Demo label="Encart « En bref »">
+        <EnBref
+          points={[
+            'Le pipeline visualise le cycle de vente, étape par étape.',
+            'Cinq à sept étapes suffisent dans la majorité des cas.',
+            'Un pipeline propre = des prévisions de chiffre fiables.',
+          ]}
+        />
+      </Demo>
+
+      <Demo label="Titres (H2, H3, H4)">
+        <h2>Titre de section (H2)</h2>
+        <p>
+          Paragraphe d'introduction avec un <a href="#">lien contextuel</a>, du
+          <strong>texte fort</strong> et de l'<em>emphase</em>.
+        </p>
+        <h3>Sous-titre (H3)</h3>
+        <p>Texte courant sous un H3, dans la mesure de lecture confortable.</p>
+        <h4>Sous-sous-titre (H4)</h4>
+      </Demo>
+
+      <Demo label="Liste à puces / Liste numérotée">
+        <Columns cols={2}>
+          <ul>
+            <li>Qualification du besoin</li>
+            <li>Démonstration produit</li>
+            <li>Proposition commerciale</li>
+            <li>Négociation et signature</li>
+          </ul>
+          <ol>
+            <li>Définir les étapes du cycle</li>
+            <li>Nommer chaque étape clairement</li>
+            <li>Fixer un critère de passage</li>
+            <li>Mesurer le taux de conversion</li>
+          </ol>
+        </Columns>
+      </Demo>
+
+      <Demo label="Avantages / Inconvénients">
+        <ProsCons
+          pros={[
+            'Import de 3 000 contacts en 4 min 12 s',
+            'Pipeline clair, pris en main vite',
+            'Tarif transparent',
+          ]}
+          cons={['Reporting avancé réservé aux plans hauts', 'Support FR plus lent l’été']}
+        />
+      </Demo>
+
+      <Demo label="Tableau comparatif">
+        <DataTable
+          caption="Comparatif CRM · v2026-06"
+          columns={[
+            { key: 'nom', label: 'Outil', sticky: true },
+            { key: 'prix', label: 'Prix /mois', num: true },
+            { key: 'note', label: 'Note', num: true },
+            { key: 'verdict', label: 'Verdict' },
+          ]}
+          rows={[
+            {
+              _best: true,
+              nom: 'Pipedrive',
+              prix: '14,90 €',
+              note: { value: '8,4', tone: 'positive' },
+              verdict: 'Excellent rapport qualité-prix',
+            },
+            {
+              nom: 'HubSpot',
+              prix: '0 €',
+              note: { value: '8,1', tone: 'positive' },
+              verdict: 'Gratuit puissant, vite limité',
+            },
+            {
+              nom: 'Salesforce',
+              prix: '25,00 €',
+              note: { value: '7,2', tone: 'neutral' },
+              verdict: { value: 'Trop lourd pour une PME', tone: 'negative' },
+            },
+          ]}
+        />
+      </Demo>
+
+      <Demo label="Chiffres-clés (colonnes)">
+        <Columns cols={3}>
+          <KeyFigure value="68 %" label="des projets CRM sous-utilisés" palette="blue" />
+          <KeyFigure value="4 min" label="pour importer 3 000 contacts" palette="teal" />
+          <KeyFigure value="×2,3" label="de conversion avec un pipeline propre" palette="orange" />
+        </Columns>
+      </Demo>
+
+      <Demo label="Encadrés : Astuce / À retenir / Note / Attention">
+        <Callout tone="astuce">
+          Importez d'abord <strong>50 contacts test</strong> avant de migrer tout votre fichier.
+        </Callout>
+        <Callout tone="a-retenir">
+          Un pipeline n'est utile que s'il est mis à jour : la donnée périmée fausse les prévisions.
+        </Callout>
+        <Callout tone="note">
+          Les intitulés d'étapes doivent refléter l'action du client, pas celle du commercial.
+        </Callout>
+        <Callout tone="attention">
+          Ne multipliez pas les étapes : au-delà de sept, le pipeline n'est plus tenu à jour.
+        </Callout>
+      </Demo>
+
+      <Demo label="Citation mise en avant">
+        <PullQuote author="Julien Lefèvre" role="Auteur · testé sur compte réel" initials="JL">
+          Un CRM ne se choisit pas sur sa liste de fonctions, mais sur la friction qu'il retire à
+          vos commerciaux au quotidien.
+        </PullQuote>
+      </Demo>
+
+      <Demo label="Notation étoiles">
+        <Rating value={4.5} label="Facilité de prise en main" />
+        <br />
+        <Rating value={3} label="Richesse du reporting" />
+      </Demo>
+
+      <Demo label="Badges">
+        <div class="demo-inline">
+          <Badge tone="brand">Nouveau</Badge>
+          <Badge tone="positive">Recommandé</Badge>
+          <Badge tone="negative">À éviter</Badge>
+          <Badge tone="accent">Promo</Badge>
+          <Badge tone="neutral">Gratuit</Badge>
+          <Badge tone="brand" pop>Coup de cœur</Badge>
+        </div>
+      </Demo>
+
+      <Demo label="Boutons / CTA">
+        <div class="demo-inline">
+          <Button href="#" variant="primary">Comparer les CRM</Button>
+          <Button href="#" variant="ghost">Télécharger le modèle</Button>
+          <Button href="#" variant="subtle">En savoir plus</Button>
+        </div>
+      </Demo>
+
+      <Demo label="Image avec légende">
+        <Figure
+          src="/images/demo-placeholder.svg"
+          alt="Schéma d'un pipeline commercial en cinq étapes"
+          caption="Un pipeline commercial type, de la qualification à la signature."
+          width={1200}
+          height={675}
+        />
+      </Demo>
+
+      <Demo label="FAQ en accordéon (HTML, sans JS)">
+        <Faq items={faqItems} />
+      </Demo>
+
+      <Demo label="Configurateur (emplacement réservé)">
+        <div class="config-slot">
+          <Badge tone="accent">Prochainement</Badge>
+          <p>
+            Emplacement réservé au <strong>configurateur de CRM</strong>, mis en ligne avec les
+            fiches avis (phase ultérieure).
+          </p>
+        </div>
+      </Demo>
+    </article>
+  </div>
 </BaseLayout>
 
 <style>
-  .demo-article {
+  .demo-wrap {
     padding-block: var(--space-12) var(--space-16);
-    max-width: var(--measure-text);
   }
   .breadcrumb ol {
     display: flex;
@@ -116,21 +286,39 @@ const pageSchema = graph(
   .breadcrumb [aria-current='page'] {
     color: var(--ink-80);
   }
-  .demo-article h1 {
-    margin-bottom: var(--space-5);
+  .demo-head {
+    margin-bottom: var(--space-12);
   }
-  .demo-article h2 {
-    margin-top: var(--space-8);
-    margin-bottom: var(--space-3);
+  .demo-kicker {
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--blue);
   }
-  .demo-article p {
-    margin-bottom: var(--space-4);
+  .demo-head h1 {
+    margin: var(--space-3) 0;
+    font-size: clamp(var(--text-4xl), 6vw, var(--text-6xl));
   }
-  .demo-note {
-    padding: var(--space-4) var(--space-5);
-    background: var(--surface-notebook);
-    border-left: var(--rule-strong) solid var(--blue);
-    border-radius: var(--radius-md);
-    font-size: var(--text-base);
+  .demo-sub {
+    max-width: var(--measure-narrow);
+    font-size: var(--text-xl);
+    color: var(--text-muted);
+  }
+  .demo-inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .config-slot {
+    padding: var(--space-6);
+    border: var(--rule-medium) dashed var(--border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--surface-sunk);
+  }
+  .config-slot p {
+    margin-top: var(--space-3);
+    color: var(--text-muted);
   }
 </style>

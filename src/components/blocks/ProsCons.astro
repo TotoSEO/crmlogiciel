@@ -1,0 +1,116 @@
+---
+/**
+ * ProsCons — double colonne Avantages / Inconvénients (charte §04).
+ * Vert = positif (verdict-pos), corail = négatif (verdict-neg). Titres en H3.
+ */
+interface Props {
+  prosTitle?: string;
+  consTitle?: string;
+  pros: string[];
+  cons: string[];
+}
+
+const { prosTitle = 'Avantages', consTitle = 'Inconvénients', pros, cons } = Astro.props;
+---
+
+<div class="proscons">
+  <section class="proscons__col proscons__col--pros">
+    <h3 class="proscons__title">
+      <span class="proscons__mark" aria-hidden="true">+</span>
+      {prosTitle}
+    </h3>
+    <ul>
+      {pros.map((p) => <li>{p}</li>)}
+    </ul>
+  </section>
+
+  <section class="proscons__col proscons__col--cons">
+    <h3 class="proscons__title">
+      <span class="proscons__mark" aria-hidden="true">−</span>
+      {consTitle}
+    </h3>
+    <ul>
+      {cons.map((c) => <li>{c}</li>)}
+    </ul>
+  </section>
+</div>
+
+<style>
+  .proscons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+    margin-block: var(--space-6);
+  }
+  .proscons__col {
+    padding: var(--space-5) var(--space-6);
+    border-radius: var(--radius-lg);
+    background: var(--surface-card);
+    border: var(--rule-hair) solid var(--border-default);
+  }
+  .proscons__col--pros {
+    box-shadow: var(--shadow-pop-teal);
+    border-color: color-mix(in srgb, var(--green) 35%, transparent);
+  }
+  .proscons__col--cons {
+    box-shadow: 4px 4px 0 var(--minium);
+    border-color: color-mix(in srgb, var(--minium) 35%, transparent);
+  }
+  .proscons__title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+  }
+  .proscons__mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--radius-full);
+    font-weight: var(--font-weight-bold);
+    color: #fff;
+  }
+  .proscons__col--pros .proscons__mark {
+    background: var(--green);
+  }
+  .proscons__col--cons .proscons__mark {
+    background: var(--minium);
+  }
+  .proscons ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .proscons li {
+    position: relative;
+    padding-left: var(--space-5);
+    font-size: var(--text-base);
+    color: var(--text-body);
+  }
+  .proscons li::before {
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    font-weight: var(--font-weight-bold);
+  }
+  .proscons__col--pros li::before {
+    content: '✓';
+    color: var(--green-ink);
+  }
+  .proscons__col--cons li::before {
+    content: '✕';
+    color: var(--minium-ink);
+  }
+
+  @media (max-width: 640px) {
+    .proscons {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

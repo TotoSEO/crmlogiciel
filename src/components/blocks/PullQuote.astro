@@ -1,0 +1,94 @@
+---
+/**
+ * PullQuote — citation mise en avant (charte §04).
+ * Auteur + rôle + initiales dans une pastille. Guillemet décoratif en marque.
+ */
+interface Props {
+  author?: string;
+  role?: string;
+  initials?: string;
+}
+const { author, role, initials } = Astro.props;
+---
+
+<figure class="pullquote">
+  <blockquote class="pullquote__quote">
+    <slot />
+  </blockquote>
+  {
+    (author || role) && (
+      <figcaption class="pullquote__cite">
+        {initials && (
+          <span class="pullquote__avatar" aria-hidden="true">
+            {initials}
+          </span>
+        )}
+        <span>
+          {author && <span class="pullquote__author">{author}</span>}
+          {role && <span class="pullquote__role">{role}</span>}
+        </span>
+      </figcaption>
+    )
+  }
+</figure>
+
+<style>
+  .pullquote {
+    position: relative;
+    margin-block: var(--space-8);
+    padding: var(--space-8) var(--space-8) var(--space-6);
+    background: var(--surface-notebook);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+  }
+  .pullquote::before {
+    content: '“';
+    position: absolute;
+    top: -0.2em;
+    left: var(--space-5);
+    font-family: var(--font-display);
+    font-size: 6rem;
+    line-height: 1;
+    color: var(--blue);
+    opacity: 0.25;
+  }
+  .pullquote__quote {
+    position: relative;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--leading-snug);
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .pullquote__cite {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+  .pullquote__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-full);
+    background: var(--grad-cool);
+    color: #fff;
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+  }
+  .pullquote__author {
+    display: block;
+    font-weight: var(--font-weight-semibold);
+    color: var(--ink);
+  }
+  .pullquote__role {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+</style>

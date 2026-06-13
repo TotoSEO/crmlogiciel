@@ -1,0 +1,77 @@
+---
+/**
+ * EnBref — encart « En bref » en tête d'article (roadmap §4).
+ * Liste de 3 à 5 points clés. Aux couleurs de la charte (glass + accent marque).
+ */
+interface Props {
+  points: string[];
+  title?: string;
+}
+const { points, title = 'En bref' } = Astro.props;
+---
+
+<aside class="enbref" aria-label={title}>
+  <p class="enbref__title">
+    <span class="enbref__dot" aria-hidden="true"></span>
+    {title}
+  </p>
+  <ul class="enbref__list">
+    {points.map((p) => <li>{p}</li>)}
+  </ul>
+</aside>
+
+<style>
+  .enbref {
+    margin-block: var(--space-6);
+    padding: var(--space-6) var(--space-8);
+    background: var(--glass-bg-strong);
+    border: var(--rule-hair) solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+  }
+  .enbref__title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--blue-ink);
+  }
+  .enbref__dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: var(--radius-full);
+    background: var(--grad-brand);
+  }
+  .enbref__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .enbref__list li {
+    position: relative;
+    padding-left: var(--space-6);
+    color: var(--text-body);
+    font-size: var(--text-base);
+  }
+  .enbref__list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.85rem;
+    height: 0.5rem;
+    border-left: 2px solid var(--blue);
+    border-bottom: 2px solid var(--blue);
+    transform: rotate(-45deg);
+  }
+</style>

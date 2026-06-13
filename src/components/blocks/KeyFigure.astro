@@ -1,0 +1,41 @@
+---
+/**
+ * KeyFigure — chiffre-clé (charte §04 « StatDiscs »).
+ * Grand nombre en mono, libellé court. À placer seul ou dans <Columns>.
+ */
+interface Props {
+  value: string;
+  label: string;
+  palette?: 'blue' | 'teal' | 'orange' | 'green';
+}
+const { value, label, palette = 'blue' } = Astro.props;
+---
+
+<div class="keyfig" style={`--c: var(--${palette}); --c-tint: var(--${palette}-tint);`}>
+  <span class="keyfig__value">{value}</span>
+  <span class="keyfig__label">{label}</span>
+</div>
+
+<style>
+  .keyfig {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    background: var(--c-tint);
+    border: var(--rule-hair) solid color-mix(in srgb, var(--c) 28%, transparent);
+  }
+  .keyfig__value {
+    font-family: var(--font-data);
+    font-feature-settings: var(--num-tabular);
+    font-size: var(--text-5xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+    color: color-mix(in srgb, var(--c) 80%, var(--ink));
+  }
+  .keyfig__label {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+</style>
