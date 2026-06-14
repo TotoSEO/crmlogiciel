@@ -147,6 +147,24 @@ const guides = [
     </div>
   </section>
 
+  {/* ============ BANDEAU SPÉCIAL : LES MEILLEURS CRM GRATUITS ============ */}
+  <section class="freebanner" data-reveal>
+    <div class="container freebanner__inner">
+      <span class="freebanner__badge is-data" aria-hidden="true">0 €</span>
+      <div class="freebanner__text">
+        <p class="freebanner__kicker">Notre dossier</p>
+        <p class="freebanner__title">Les meilleurs CRM gratuits en 2026</p>
+        <p class="freebanner__sub">
+          Dix plans gratuits passés au crible : ce qui est vraiment offert, les plafonds cachés, et
+          pour quel profil le gratuit suffit durablement.
+        </p>
+      </div>
+      <a class="freebanner__cta" href={path('crm-gratuit')}>
+        Voir la sélection <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
   {/* ======================== 3. TIMELINE DES GUIDES ======================== */}
   <section id="guides" class="guides">
     <div class="container">
@@ -567,6 +585,99 @@ const guides = [
     color: var(--blue-ink);
   }
 
+  /* ===================== BANDEAU SPÉCIAL CRM GRATUITS ===================== */
+  .freebanner {
+    scroll-margin-top: 5rem;
+    padding-block: var(--space-8);
+    background:
+      radial-gradient(
+        60% 120% at 100% 0%,
+        color-mix(in srgb, var(--teal) 55%, transparent),
+        transparent 70%
+      ),
+      linear-gradient(120deg, var(--green-ink) 0%, var(--teal-ink) 100%);
+  }
+  .freebanner__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+  .freebanner__badge {
+    flex: none;
+    display: grid;
+    place-items: center;
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.18);
+    border: var(--rule-hair) solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    font-family: var(--font-data);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-4xl);
+    line-height: 1;
+  }
+  .freebanner__text {
+    flex: 1;
+    min-width: 0;
+  }
+  .freebanner__kicker {
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .freebanner__title {
+    margin-top: var(--space-1);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+    color: #fff;
+  }
+  .freebanner__sub {
+    margin-top: var(--space-2);
+    max-width: 60ch;
+    font-size: var(--text-base);
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .freebanner__cta {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-full);
+    background: #fff;
+    color: var(--green-ink);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-bold);
+    box-shadow: var(--shadow-raise);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .freebanner__cta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+    text-decoration: none;
+    color: var(--green-ink);
+  }
+  .freebanner__cta span {
+    transition: transform 0.18s ease;
+  }
+  .freebanner__cta:hover span {
+    transform: translateX(3px);
+  }
+  @media (max-width: 760px) {
+    .freebanner__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+  }
+</style>
+
+<style>
   /* ===================== EN-TÊTES DE SECTION ===================== */
   .section-head {
     text-align: center;

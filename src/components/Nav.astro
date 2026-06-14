@@ -67,7 +67,7 @@ const clusterVars = (palette: string): string =>
               <li class="nav-item" style={clusterVars(item.palette)}>
                 <a
                   href={item.href}
-                  class="nav-link"
+                  class:list={['nav-link', { 'nav-link--featured': item.featured }]}
                   aria-current={isCurrent(item.href) ? 'page' : undefined}
                 >
                   <span class="nav-dot" aria-hidden="true" />
@@ -191,6 +191,21 @@ const clusterVars = (palette: string): string =>
   }
   .nav-link[aria-current='page'] {
     color: var(--cluster-color, var(--blue));
+  }
+
+  /* ---- Lien mis en avant (CRM gratuits) ---- */
+  .nav-link--featured {
+    background: var(--green-tint);
+    color: var(--green-ink);
+    font-weight: var(--font-weight-semibold);
+  }
+  .nav-link--featured .nav-dot {
+    background: var(--green);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 20%, transparent);
+  }
+  .nav-link--featured:hover {
+    background: color-mix(in srgb, var(--green) 20%, transparent);
+    color: var(--green-ink);
   }
 
   /* ---- CTA « Test CRM » (mis en avant) ---- */

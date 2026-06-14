@@ -165,6 +165,12 @@ export const PAGES: PageNode[] = [
     breadcrumbLabel: 'CRM sur mesure',
     cluster: 'choisir',
   },
+  {
+    slug: 'crm-gratuit',
+    label: 'Les meilleurs CRM gratuits',
+    breadcrumbLabel: 'CRM gratuits',
+    cluster: 'choisir',
+  },
 
   // Utiliser (10)
   {
@@ -273,19 +279,35 @@ export interface NavItem {
   href: string;
   palette: Palette;
   children?: { label: string; href: string }[];
+  /** Lien mis en avant (page phare hors cluster). */
+  featured?: boolean;
 }
+
+/** Pages mises en avant directement dans la nav (exclues des déroulants). */
+const NAV_FEATURED = ['crm-gratuit'];
 
 export function navTree(): NavItem[] {
   const items: NavItem[] = CLUSTERS.filter((c) => c.inNav).map((c) => ({
     label: c.label,
     href: path(c.pillarSlug),
     palette: c.palette,
-    // Le déroulant liste les satellites uniquement : le pilier est déjà la
-    // cible du libellé de tête (pas de lien en double).
+    // Le déroulant liste les satellites uniquement (hors pilier et hors pages
+    // déjà mises en avant directement dans la nav).
     children: pagesOf(c.id)
-      .filter((p) => p.slug !== c.pillarSlug)
+      .filter((p) => p.slug !== c.pillarSlug && !NAV_FEATURED.includes(p.slug))
       .map((p) => ({ label: p.label, href: path(p.slug) })),
   }));
+
+  // Lien direct, mis en avant : les CRM gratuits (page phare).
+  const gratuit = getPage('crm-gratuit');
+  if (gratuit) {
+    items.push({
+      label: 'CRM gratuits',
+      href: path('crm-gratuit'),
+      palette: 'green',
+      featured: true,
+    });
+  }
 
   // Lien direct vers la méthodologie (transverse, sans déroulant).
   const methodo = getPage('methodologie');
