@@ -37,7 +37,7 @@ Un tableur fait l'affaire dans un cas précis : une petite structure, un seul ut
 
 Son attrait est évident. Il ne coûte rien, vous le maîtrisez déjà, et il se plie à votre façon de travailler sans contrainte. Vous ajoutez une colonne quand vous le voulez, vous organisez les données comme bon vous semble, et vous démarrez en cinq minutes. Pour qui veut simplement arrêter de gérer ses prospects sur un coin de carnet ou dans sa boîte mail, c'est déjà un grand pas.
 
-Le revers se paie plus tard, en temps perdu et en relances oubliées, et nous y reviendrons en détail. Quel que soit votre choix, tout part d'une base propre : prenez le temps de structurer votre [fichier client](/fichier-client/) avant de remplir la moindre ligne. Et sachez-le aussi d'emblée : un CRM gratuit ne vous coûtera pas plus cher qu'Excel, et il vous épargnera la plupart de ces limites. Si vous préférez démarrer avec l'outil que vous connaissez déjà, voici comment le faire proprement.
+Le revers se paie plus tard, en temps perdu et en relances oubliées, et nous y reviendrons en détail. Quel que soit votre choix, tout part d'une base propre : prenez le temps de structurer votre [fichier client](/fichier-client/) avant de remplir la moindre ligne. Et sachez-le aussi d'emblée : un [CRM gratuit](/crm-gratuit/) ne vous coûtera pas plus cher qu'Excel, et il vous épargnera la plupart de ces limites. Si vous préférez démarrer avec l'outil que vous connaissez déjà, voici comment le faire proprement.
 
 ## Ce qu'un CRM sur Excel doit contenir
 

@@ -1,11 +1,19 @@
 {
-  // Déploiement Cloudflare 100 % statique (Workers Static Assets).
-  // Aucun `main` (pas de Worker SSR), aucun binding (pas de provisioning KV/Images) :
-  // Cloudflare sert directement le dossier `dist/` généré par `astro build`.
+  // Deploiement Cloudflare : assets statiques (dist/) + un petit Worker en frontal.
+  // Le Worker (worker/index.js) n'est PAS du SSR : il intercepte seulement les
+  // anciennes URLs WordPress a query string (?p=, ?cat=, /feed/...) que _redirects
+  // ne peut pas matcher, puis delegue tout le reste a ASSETS (qui applique
+  // _redirects et _headers). "run_worker_first: true" => le Worker voit chaque
+  // requete avant les assets (necessaire pour inspecter la query string).
+  // NB : ce n'est PAS l'adaptateur SSR @astrojs/cloudflare (a ne pas reintroduire) ;
+  // aucun binding KV/Images, le site reste 100 % statique.
   "name": "crmlogiciel",
+  "main": "./worker/index.js",
   "compatibility_date": "2026-06-13",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true
   },
   "observability": {
     "enabled": true

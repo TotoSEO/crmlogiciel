@@ -256,7 +256,7 @@ const pageSchema = graph(...nodes);
           )
         }
 
-        <AuthorBio name={author} />
+        <AuthorBio name={author} hideMethodoLink={slug === 'methodologie'} />
       </div>
 
       <Toc items={tocAll} />

@@ -49,19 +49,26 @@ const clusterVars = (palette: string): string =>
                   {item.label}
                   <span class="nav-caret" aria-hidden="true" />
                 </a>
-                <ul class="submenu">
-                  {item.children.map((child) => (
-                    <li>
-                      <a
-                        href={child.href}
-                        class="submenu__link"
-                        aria-current={isCurrent(child.href) ? 'page' : undefined}
-                      >
-                        {child.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                <div class="submenu">
+                  <a class="submenu__pillar" href={item.href}>
+                    <span>{item.label} : le guide complet</span>
+                    <span class="submenu__pillar-arrow" aria-hidden="true">→</span>
+                  </a>
+                  <ul class="submenu__grid">
+                    {item.children.map((child) => (
+                      <li>
+                        <a
+                          href={child.href}
+                          class="submenu__card"
+                          aria-current={isCurrent(child.href) ? 'page' : undefined}
+                        >
+                          <span class="submenu__card-dot" aria-hidden="true" />
+                          <span class="submenu__card-label">{child.label}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </li>
             ) : (
               <li class="nav-item" style={clusterVars(item.palette)}>
@@ -252,20 +259,20 @@ const clusterVars = (palette: string): string =>
     transform: rotate(-135deg);
   }
 
-  /* ---- Déroulant (desktop) ---- */
+  /* ---- Déroulant (desktop) : mini méga-menu en grille ---- */
   .submenu {
     position: absolute;
     top: calc(100% + var(--space-2));
     left: 0;
-    min-width: 19rem;
+    width: max-content;
+    max-width: 36rem;
     margin: 0;
     padding: var(--space-3);
-    list-style: none;
     background: var(--surface-card);
     border: var(--rule-hair) solid var(--border-default);
     border-top: var(--rule-strong) solid var(--cluster-color, var(--blue));
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-raise);
     opacity: 0;
     visibility: hidden;
     transform: translateY(6px);
@@ -280,20 +287,73 @@ const clusterVars = (palette: string): string =>
     visibility: visible;
     transform: translateY(0);
   }
-  .submenu__link {
-    display: block;
+  /* Carte « pilier » en tête du déroulant (vers le guide complet) */
+  .submenu__pillar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-2);
+    border-radius: var(--radius-md);
+    background: var(--cluster-tint, var(--blue-tint));
+    color: var(--cluster-color, var(--blue));
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+  }
+  .submenu__pillar:hover {
+    background: color-mix(in srgb, var(--cluster-color, var(--blue)) 18%, transparent);
+    color: var(--cluster-color, var(--blue));
+    text-decoration: none;
+  }
+  .submenu__pillar-arrow {
+    transition: transform 0.18s ease;
+  }
+  .submenu__pillar:hover .submenu__pillar-arrow {
+    transform: translateX(3px);
+  }
+  /* Grille de liens (2 colonnes) */
+  .submenu__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .submenu__card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    height: 100%;
     padding: var(--space-2) var(--space-3);
     border-radius: var(--radius-sm);
     font-size: var(--text-sm);
+    line-height: 1.25;
     color: var(--ink-80);
-    border-left: 2px solid transparent;
   }
-  .submenu__link:hover,
-  .submenu__link[aria-current='page'] {
+  .submenu__card-dot {
+    flex: none;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: var(--radius-full);
+    background: var(--cluster-color, var(--ink-35));
+    opacity: 0.5;
+    transition:
+      transform 0.18s ease,
+      opacity 0.18s ease;
+  }
+  .submenu__card:hover,
+  .submenu__card[aria-current='page'] {
     background: var(--cluster-tint, var(--blue-tint));
     color: var(--cluster-color, var(--blue));
-    border-left-color: var(--cluster-color, var(--blue));
     text-decoration: none;
+  }
+  .submenu__card:hover .submenu__card-dot,
+  .submenu__card[aria-current='page'] .submenu__card-dot {
+    opacity: 1;
+    transform: scale(1.3);
   }
 
   /* ---- Bascule mobile (cachée en desktop) ---- */
@@ -358,20 +418,28 @@ const clusterVars = (palette: string): string =>
     .nav-link {
       border-radius: var(--radius-md);
     }
-    /* Déroulants dépliés en mobile, accent couleur à gauche */
+    /* Déroulants dépliés en mobile : 1 colonne, accent couleur à gauche */
     .submenu {
       position: static;
       opacity: 1;
       visibility: visible;
       transform: none;
-      min-width: 0;
+      width: auto;
+      max-width: none;
       box-shadow: none;
       border: none;
       border-left: var(--rule-medium) solid var(--cluster-color, var(--blue));
       border-radius: 0;
       margin-left: var(--space-4);
-      padding: 0 0 var(--space-3) var(--space-3);
+      padding: var(--space-1) 0 var(--space-3) var(--space-3);
       transition: none;
+    }
+    .submenu__grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .submenu__pillar {
+      margin-bottom: var(--space-1);
     }
     .nav-caret {
       display: none;

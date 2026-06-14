@@ -13,6 +13,8 @@ interface Props {
   bio?: string;
   initials?: string;
   photo?: string;
+  /** Masque le lien vers la méthodologie (ex. sur /methodologie/ pour éviter l'auto-lien). */
+  hideMethodoLink?: boolean;
 }
 const {
   name = DEFAULT_AUTHOR.name,
@@ -20,6 +22,7 @@ const {
   bio = DEFAULT_AUTHOR.bio,
   initials = DEFAULT_AUTHOR.initials,
   photo = DEFAULT_AUTHOR.photo,
+  hideMethodoLink = false,
 } = Astro.props;
 
 const methodo = getPage('methodologie');
@@ -45,7 +48,7 @@ const methodo = getPage('methodologie');
     <p class="author__role">{jobTitle}</p>
     <p class="author__bio">{bio}</p>
     {
-      methodo && (
+      methodo && !hideMethodoLink && (
         <p class="author__link">
           <a href={path(methodo.slug)}>Comment nous testons les CRM</a>
         </p>

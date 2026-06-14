@@ -184,7 +184,7 @@
 .prose :where(tbody tr:nth-child(even)):not(:where(.not-prose, .not-prose *)) {
   background: color-mix(in srgb, var(--surface-sunk) 50%, transparent);
 }
-.prose :where(table):not(:where(.not-prose, .not-prose *)) :where(strong) {
+.prose :where(tbody):not(:where(.not-prose, .not-prose *)) :where(strong) {
   color: var(--ink);
 }
 

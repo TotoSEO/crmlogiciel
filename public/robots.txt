@@ -1,12 +1,12 @@
-# robots.txt — crm-logiciel.fr
-# Aucun blocage global : tous les robots, moteurs de recherche comme moteurs de
-# réponse IA, peuvent crawler le site (GEO). L'indexation est pilotée page par
-# page via la balise meta robots (flag INDEXABLE jusqu'au lancement).
+# robots.txt - crm-logiciel.fr
+# Aucun blocage global : tous les robots (moteurs de recherche et moteurs de
+# reponse IA) peuvent crawler le site. L'indexation est pilotee page par page
+# via la balise meta robots.
 
 User-agent: *
 Allow: /
 
-# Moteurs de réponse IA — autorisés explicitement
+# Moteurs de reponse IA - autorises explicitement
 User-agent: GPTBot
 Allow: /
 

@@ -28,6 +28,8 @@ featuredImageAlt: "Plan d’architecte, compas et maquette, métaphore de la mis
 ---
 
 import Callout from '../../components/blocks/Callout.astro';
+import Columns from '../../components/blocks/Columns.astro';
+import MediaText from '../../components/blocks/MediaText.astro';
 
 La mise en place d'un CRM est un projet de 60 à 90 jours qui se déroule en cinq phases : cadrer le besoin et les rôles, préparer les données, paramétrer le strict nécessaire, former l'équipe, puis installer l'usage quotidien. La partie logicielle est la plus simple ; un outil se configure en quelques jours. Ce qui prend trois mois, c'est le reste : des données propres et une équipe qui change ses habitudes.
 
@@ -49,9 +51,8 @@ Reste la date de bascule, annoncée à l'équipe dès le premier jour : le jour 
 
 Le tableau vaut pour une PME jusqu'à une trentaine d'utilisateurs ; en dessous de cinq utilisateurs, divisez les durées par deux.
 
-|              |                      |                                     |                                        |
-| ------------ | -------------------- | ----------------------------------- | -------------------------------------- |
-| **Semaines** | **Phase**            | **Livrable**                        | **Signal d'alerte**                    |
+| Semaines | Phase | Livrable | Signal d'alerte |
+| --- | --- | --- | --- |
 | 1 à 2        | Cadrage              | Périmètre v1 signé par le sponsor   | Pas de sponsor nommé                   |
 | 3 à 4        | Données              | Fichier client nettoyé et importé   | « On nettoiera plus tard »             |
 | 5 à 6        | Paramétrage          | Pipeline et relances opérationnels  | Plus de 10 champs obligatoires         |
@@ -78,7 +79,11 @@ Tout le reste attendra d'être justifié par l'usage. Si vous générez du volum
 
 ## L'adoption : tout se joue dans les 30 premiers jours
 
+<MediaText src="/images/articles/mise-en-place-crm-media.jpg" alt="Un calendrier avec une série de jours cochés, métaphore de l'habitude quotidienne d'utilisation du CRM" reverse>
+
 La formation ne fait pas l'adoption, et confondre les deux est l'erreur la plus répandue du déploiement. Une demi-journée suffit pour former aux gestes de base ; ce qui transforme la formation en habitude, ce sont les trois leviers qui suivent.
+
+</MediaText>
 
 Commencez par le tableau de bord, et dès la première semaine, pas au troisième mois. Construisez votre [tableau de bord commercial](/tableau-de-bord-commercial/) autour de trois indicateurs (affaires créées, relances en retard, pipeline pondéré) : le simple fait que la direction les regarde chaque lundi fait plus pour la saisie que tous les rappels à l'ordre.
 
@@ -95,9 +100,18 @@ Et puis il y a l'exemplarité, le levier dont personne ne parle. Si le sponsor c
 
 ## Les deux angles morts
 
+<Columns cols={2}>
+  <div>
+
 Le premier angle mort est réglementaire. La [mise en conformité RGPD](/crm-rgpd/) se paramètre au déploiement, pas après : durées de conservation, base légale des contacts importés, consentements pour la prospection. Tout cela se règle en quelques heures au départ (le site de la [CNIL](https://www.cnil.fr) fait référence sur les obligations), et en plusieurs semaines de nettoyage si on le découvre un an plus tard.
 
+  </div>
+  <div>
+
 Le second angle mort est un faux chiffre, et il vaut la peine de s'y arrêter. On lit partout que « 50 à 70 % des projets CRM échouent » : le chiffre se promène depuis vingt ans, d'article en article, sans qu'on retrouve d'étude stable derrière. Je ne vous donnerai donc pas de taux. Ce que je peux vous donner, c'est plus utile : les [causes d'échec des projets CRM](/echec-projet-crm/) sont peu nombreuses, documentées et désamorçables une à une, et aucune n'est technique. Les connaître avant de démarrer vous servira plus que n'importe quel pourcentage.
+
+  </div>
+</Columns>
 
 ## Et l'IA, on l'active quand ?
 

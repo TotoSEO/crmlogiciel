@@ -1,9 +1,8 @@
 ---
 /**
  * /mentions-legales/ — page légale (LCEN).
- * Éditeur non professionnel (personne physique) : l'anonymat public est permis
- * dès lors que l'identité a été communiquée à l'hébergeur (LCEN art. 1-1, II,
- * ex-art. 6 III). Seuls le nom et l'adresse de l'hébergeur sont publiés.
+ * Éditeur non professionnel (personne physique) nommé : Julien Lefèvre.
+ * Hébergeur : Cloudflare, Inc.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
@@ -36,27 +35,20 @@ const pageSchema = graph(
     <div class="prose">
       <h2>Éditeur du site</h2>
       <p>
-        Le site <strong>crm-logiciel.fr</strong> est édité à titre non professionnel par une personne
-        physique, désignée ci-après « Julien L. ». Il est rédigé, maintenu et publié par cette même personne.
-      </p>
-      <p>
-        Conformément au droit reconnu aux éditeurs non professionnels par la loi n° 2004-575 du 21
-        juin 2004 pour la confiance dans l'économie numérique (LCEN, article 1-1, anciennement
-        article 6-III), l'éditeur a choisi de préserver son anonymat vis-à-vis du public. Son
-        identité complète et ses coordonnées ont été communiquées à l'hébergeur du site, qui est en
-        mesure de les transmettre à l'autorité judiciaire sur réquisition.
+        Le site <strong>crm-logiciel.fr</strong> est édité à titre non professionnel par
+        <strong>Julien Lefèvre</strong>, qui le rédige, le maintient et le publie.
       </p>
       <p>Contact : <a href="mailto:contact@crm-logiciel.fr">contact@crm-logiciel.fr</a></p>
 
       <h2>Directeur de la publication</h2>
-      <p>Julien L.</p>
+      <p>Julien Lefèvre</p>
 
       <h2>Hébergeur</h2>
       <p>
         Le site est hébergé par :<br />
         <strong>Cloudflare, Inc.</strong><br />
         101 Townsend Street, San Francisco, CA 94107, États-Unis<br />
-        <a href="https://www.cloudflare.com" rel="noopener" target="_blank">www.cloudflare.com</a>
+        <a href="https://www.cloudflare.com" rel="noopener nofollow" target="_blank">www.cloudflare.com</a>
       </p>
 
       <h2>Propriété intellectuelle</h2>
