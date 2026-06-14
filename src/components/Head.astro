@@ -73,8 +73,9 @@ const robots = noindex ? 'noindex, nofollow' : 'index, follow';
 {SITE.twitter && <meta name="twitter:site" content={SITE.twitter} />}
 
 {/* Favicon */}
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
 {/* Préchargement des polices critiques (corps + titre du hero) */}
 <link

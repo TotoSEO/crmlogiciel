@@ -12,12 +12,14 @@ interface Props {
   jobTitle?: string;
   bio?: string;
   initials?: string;
+  photo?: string;
 }
 const {
   name = DEFAULT_AUTHOR.name,
   jobTitle = DEFAULT_AUTHOR.jobTitle,
   bio = DEFAULT_AUTHOR.bio,
   initials = DEFAULT_AUTHOR.initials,
+  photo = DEFAULT_AUTHOR.photo,
 } = Astro.props;
 
 const methodo = getPage('methodologie');
@@ -28,7 +30,15 @@ const methodo = getPage('methodologie');
   style="--glass-tint: var(--blue)"
   aria-label={`À propos de ${name}`}
 >
-  <div class="author__avatar" aria-hidden="true">{initials}</div>
+  <div class="author__avatar">
+    {
+      photo ? (
+        <img src={photo} alt={`Photo de ${name}`} width="64" height="64" loading="lazy" />
+      ) : (
+        <span aria-hidden="true">{initials}</span>
+      )
+    }
+  </div>
   <div class="author__body">
     <p class="author__kicker">L'auteur</p>
     <p class="author__name">{name}</p>
@@ -61,6 +71,7 @@ const methodo = getPage('methodologie');
     flex: none;
     display: grid;
     place-items: center;
+    overflow: hidden;
     width: 4rem;
     height: 4rem;
     border-radius: var(--radius-full);
@@ -71,6 +82,11 @@ const methodo = getPage('methodologie');
     font-weight: var(--font-weight-bold);
     font-size: var(--text-xl);
     letter-spacing: 0.02em;
+  }
+  .author__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .author__kicker {
     font-size: var(--text-2xs);

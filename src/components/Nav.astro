@@ -23,8 +23,7 @@ const clusterVars = (palette: string): string =>
 <header class="site-header">
   <div class="site-header__inner container">
     <a href={home} class="brand" aria-label={`${SITE.name}, accueil`}>
-      <span class="brand__mark" aria-hidden="true"></span>
-      <span class="brand__name">crm-logiciel<span class="brand__tld">.fr</span></span>
+      <img class="brand__logo" src="/images/logo.png" alt={SITE.name} width="700" height="200" />
     </a>
 
     {/* Bascule mobile sans JS (hack case à cocher) */}
@@ -123,6 +122,16 @@ const clusterVars = (palette: string): string =>
   }
   .brand:hover {
     text-decoration: none;
+  }
+  .brand__logo {
+    display: block;
+    height: 2rem;
+    width: auto;
+  }
+  @media (max-width: 420px) {
+    .brand__logo {
+      height: 1.7rem;
+    }
   }
   .brand__mark {
     width: 1.4rem;

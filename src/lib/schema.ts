@@ -26,7 +26,7 @@ export function organization(): Json {
     name: SITE.name,
     url: `${SITE.url}/`,
     description: SITE.description,
-    // logo : à compléter dès qu'un fichier de logo est fourni.
+    logo: new URL('/images/logo.png', SITE.url).href,
   };
 }
 
@@ -49,6 +49,7 @@ export function person(name: string = DEFAULT_AUTHOR.name): Json {
     name,
     url: DEFAULT_AUTHOR.url,
     jobTitle: DEFAULT_AUTHOR.jobTitle,
+    image: new URL(DEFAULT_AUTHOR.photo, SITE.url).href,
   };
 }
 

@@ -39,8 +39,10 @@ export const DEFAULT_AUTHOR = {
   /** URL de la page auteur (à créer ultérieurement). */
   url: `${SITE.url}/`,
   jobTitle: 'Expert CRM et logiciels de gestion commerciale',
-  /** Initiales pour l'avatar tant qu'aucune photo n'est fournie. */
+  /** Initiales (repli si la photo est absente). */
   initials: 'JL',
+  /** Photo de l'auteur (portrait carré). */
+  photo: '/images/julien-lefevre.webp',
   /** Bio courte affichée dans le bloc auteur de fin d'article (EEAT). */
   bio: "Consultant CRM depuis plus de quinze ans, Julien Lefèvre a déployé des dizaines d'outils pour des entreprises de toutes tailles. Il a relancé crm-logiciel.fr avec une idée simple : aider chacun à trouver le bon logiciel, gratuitement et sans parti pris.",
 } as const;
