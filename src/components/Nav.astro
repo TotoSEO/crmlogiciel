@@ -40,17 +40,22 @@ const clusterVars = (palette: string): string =>
           items.map((item) =>
             item.children && item.children.length > 0 ? (
               <li class="nav-item nav-item--has-children" style={clusterVars(item.palette)}>
-                <a
-                  href={item.href}
-                  class="nav-link"
-                  aria-current={isCurrent(item.href) ? 'page' : undefined}
+                <span
+                  class:list={['nav-link', 'nav-link--trigger', { 'is-active': isCurrent(item.href) }]}
+                  role="button"
+                  aria-haspopup="true"
+                  tabindex="0"
                 >
                   <span class="nav-dot" aria-hidden="true" />
                   {item.label}
                   <span class="nav-caret" aria-hidden="true" />
-                </a>
+                </span>
                 <div class="submenu">
-                  <a class="submenu__pillar" href={item.href}>
+                  <a
+                    class="submenu__pillar"
+                    href={item.href}
+                    aria-current={isCurrent(item.href) ? 'page' : undefined}
+                  >
                     <span>{item.label} : le guide complet</span>
                     <span class="submenu__pillar-arrow" aria-hidden="true">→</span>
                   </a>
@@ -197,6 +202,14 @@ const clusterVars = (palette: string): string =>
     transform: scale(1.25);
   }
   .nav-link[aria-current='page'] {
+    color: var(--cluster-color, var(--blue));
+  }
+  /* Libellé de tête de cluster : déclencheur du déroulant, pas un lien (le pilier
+     n'est lié qu'une fois, via la carte « guide complet » du sous-menu). */
+  .nav-link--trigger {
+    cursor: default;
+  }
+  .nav-link--trigger.is-active {
     color: var(--cluster-color, var(--blue));
   }
 
