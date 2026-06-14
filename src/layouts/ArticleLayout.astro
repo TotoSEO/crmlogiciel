@@ -315,12 +315,15 @@ const pageSchema = graph(...nodes);
     display: grid;
     grid-template-columns: minmax(0, 1fr) 15rem;
     gap: var(--space-16);
-    align-items: start;
+    /* stretch (et non start) : l'aside occupe toute la hauteur de la ligne, ce
+       qui donne au sommaire la course nécessaire pour rester sticky. */
+    align-items: stretch;
     padding-block: var(--space-8) var(--space-12);
   }
   .article-body__main {
     min-width: 0;
-    max-width: var(--measure-text);
+    /* Conteneur de lecture élargi de 100px (demande Thomas). */
+    max-width: calc(var(--measure-text) + 100px);
   }
 
   /* ---------- Hub pilier : guides de l'univers ---------- */

@@ -1,16 +1,19 @@
 ---
 /**
- * Accueil — crm-logiciel.fr (Phase 2b).
+ * Accueil — crm-logiciel.fr (Phase 2b, version enrichie).
  * Construit d'après la proposition de home N1-01 : hero « héritage 2007 / de
  * retour », bandeau de transition, timeline de guides (le cœur), grille « par
  * besoin », section de confiance EEAT, bandeau CTA final.
  *
  * Réconciliation avec l'arborescence de lancement (27 URLs) : le configurateur
  * (/quel-crm/), le comparatif, les pages CRM gratuit et CRM par secteur sont
- * DIFFÉRÉS. Ils sont présentés en mode « prochainement » (badge, sans lien), ou
- * remplacés par des pages de lancement réelles dans la grille « par besoin ».
- * Tout le contenu est dans le HTML source ; le seul JS éventuel (reveal) est en
- * CSS scroll-driven, sans script.
+ * DIFFÉRÉS → présentés en « prochainement » (badge, sans lien), ou remplacés par
+ * des pages de lancement réelles dans la grille « par besoin ».
+ *
+ * Animations : CSS pur (réutilise src/styles/animations.css). Entrées du hero au
+ * chargement ; reveals des sections au scroll (scroll-driven, amélioration
+ * progressive). Tout le contenu reste dans le HTML source (GEO) et visible sous
+ * prefers-reduced-motion.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JsonLd from '../components/JsonLd.astro';
@@ -18,13 +21,12 @@ import Button from '../components/blocks/Button.astro';
 import Badge from '../components/blocks/Badge.astro';
 import FeatureGrid from '../components/blocks/FeatureGrid.astro';
 import FeatureCard from '../components/blocks/FeatureCard.astro';
-import { SITE, INDEXABLE, path } from '../config/site';
-import { DEFAULT_AUTHOR } from '../config/site';
+import { SITE, INDEXABLE, path, DEFAULT_AUTHOR } from '../config/site';
 import { organization, website, graph } from '../lib/schema';
 
 const homeSchema = graph(organization(), website());
 
-// Les étapes de la timeline (guides). `soon` = différé → présenté « prochainement ».
+// Étapes de la timeline (guides). `soon` = différé → présenté « prochainement ».
 const guides = [
   {
     n: 1,
@@ -73,33 +75,39 @@ const guides = [
 
   {/* ======================== 1. HERO ======================== */}
   <section class="hero">
+    <span class="hero__blob hero__blob--a" aria-hidden="true"></span>
+    <span class="hero__blob hero__blob--b" aria-hidden="true"></span>
+
     <div class="container hero__grid">
       <div class="hero__main">
-        <p class="hero__eyebrow is-data">Le blog français du CRM depuis 2007</p>
-        <h1 class="hero__title">
-          crm-logiciel.fr, le blog français <span class="degrade">n°1 du CRM</span>
+        <p class="hero__eyebrow is-data anim-fade-up">Le blog français du CRM depuis 2007</p>
+        <h1 class="hero__title anim-fade-up anim-delay-1">
+          crm-logiciel.fr, le blog français
+          <span class="degrade gradient-animated">n°1 du CRM</span>
         </h1>
-        <p class="hero__lead">
+        <p class="hero__lead anim-fade-up anim-delay-2">
           Après des années de silence, la référence française du CRM est de retour. La mission n'a
           pas changé : vous aider à trouver le logiciel qu'il vous faut, gratuitement et sans parti
           pris.
         </p>
-        <div class="hero__cta">
+        <div class="hero__cta anim-fade-up anim-delay-3">
           <Button href="#guides" variant="primary">Trouver mon CRM</Button>
           <Button href={path('qu-est-ce-qu-un-crm')} variant="ghost">Comprendre le CRM</Button>
         </div>
-        <ul class="hero__trust">
+        <ul class="hero__trust anim-fade-up anim-delay-4">
           <li>Tests indépendants</li>
           <li>Sans publicité déguisée</li>
           <li>Mis à jour en continu</li>
         </ul>
       </div>
 
-      {/* Visuel : pipeline CRM stylisé (décoratif). */}
-      <div class="hero__visual" aria-hidden="true">
-        <div class="hv glass">
+      {/* Visuel : pipeline CRM stylisé, animé (décoratif). */}
+      <div class="hero__visual anim-fade-up anim-delay-2" aria-hidden="true">
+        <div class="hv anim-float">
+          <span class="hv__sheen"></span>
           <div class="hv__bar">
             <span></span><span></span><span></span>
+            <em class="hv__bar-label is-data">Pipeline</em>
           </div>
           <div class="hv__board">
             <div class="hv__col">
@@ -109,12 +117,16 @@ const guides = [
             </div>
             <div class="hv__col">
               <span class="hv__coltitle">Proposition</span>
-              <span class="hv__card hv__card--accent"></span>
+              <span class="hv__card hv__card--accent">
+                <span class="hv__fill"></span>
+              </span>
               <span class="hv__card"></span>
             </div>
             <div class="hv__col">
               <span class="hv__coltitle">Signé</span>
-              <span class="hv__card hv__card--won"></span>
+              <span class="hv__card hv__card--won">
+                <span class="hv__check">✓</span>
+              </span>
             </div>
           </div>
         </div>
@@ -124,6 +136,7 @@ const guides = [
 
   {/* ======================== 2. BANDEAU « DE RETOUR » ======================== */}
   <section class="comeback">
+    <span class="comeback__sheen" aria-hidden="true"></span>
     <div class="container">
       <p>
         Pionnier du CRM en ligne depuis 2007, <strong>crm-logiciel.fr</strong> revient avec une ambition
@@ -135,9 +148,10 @@ const guides = [
   {/* ======================== 3. TIMELINE DES GUIDES ======================== */}
   <section id="guides" class="guides">
     <div class="container">
-      <header class="section-head">
+      <header class="section-head" data-reveal>
+        <p class="section-kicker is-data">Le parcours</p>
         <h2>Trouvez le CRM qu'il vous faut, étape par étape</h2>
-        <p>
+        <p class="section-sub">
           Pas besoin d'être expert. Suivez le parcours : chaque guide vous rapproche du bon choix,
           dans le bon ordre.
         </p>
@@ -146,7 +160,7 @@ const guides = [
       <ol class="timeline">
         {
           guides.map((g) => (
-            <li class="tl-item">
+            <li class="tl-item" data-reveal>
               <span class="tl-pastille is-data">{g.n}</span>
               <div class="tl-card glass">
                 <h3 class="tl-card__title">{g.title}</h3>
@@ -164,8 +178,8 @@ const guides = [
         }
 
         {/* Étape finale : le comparatif (différé). */}
-        <li class="tl-item tl-item--final">
-          <span class="tl-pastille tl-pastille--final" aria-hidden="true">★</span>
+        <li class="tl-item tl-item--final" data-reveal>
+          <span class="tl-pastille tl-pastille--final anim-pulse" aria-hidden="true">★</span>
           <div class="tl-card tl-card--final glass">
             <Badge tone="accent" pop>Prochainement</Badge>
             <h3 class="tl-card__title">Notre comparatif des meilleurs CRM pour 2027</h3>
@@ -173,16 +187,6 @@ const guides = [
               L'aboutissement de votre recherche : le classement complet des meilleurs CRM, testés
               un par un. En préparation, disponible très bientôt.
             </p>
-            <form class="notify" aria-label="Être prévenu du lancement du comparatif">
-              <input
-                type="email"
-                class="notify__input"
-                placeholder="Disponible au lancement"
-                aria-label="Votre adresse e-mail"
-                disabled
-              />
-              <Button variant="primary" type="button">Prévenez-moi</Button>
-            </form>
           </div>
         </li>
       </ol>
@@ -192,50 +196,58 @@ const guides = [
   {/* ======================== 4. EXPLORER PAR BESOIN ======================== */}
   <section class="byneed">
     <div class="container">
-      <header class="section-head">
+      <header class="section-head" data-reveal>
+        <p class="section-kicker is-data">Accès direct</p>
         <h2>Ou explorez selon votre besoin</h2>
       </header>
-      <FeatureGrid cols={3}>
-        <FeatureCard
-          icon="🚀"
-          title="Mettre en place un CRM"
-          palette="orange"
-          href={path('mise-en-place-crm')}
-          cta="Voir la méthode"
-        >
-          La méthode pour réussir le déploiement et l'adoption par l'équipe.
-        </FeatureCard>
-        <FeatureCard
-          icon="💶"
-          title="Combien coûte un CRM"
-          palette="teal"
-          href={path('prix-crm')}
-          cta="Décoder les prix"
-        >
-          Paliers, options, coûts cachés : le vrai budget d'un CRM, sans surprise.
-        </FeatureCard>
-        <FeatureCard
-          icon="📊"
-          title="CRM sur Excel"
-          palette="blue"
-          href={path('crm-excel')}
-          cta="Modèle gratuit"
-        >
-          Un modèle gratuit pour démarrer, et les limites à connaître avant de grandir.
-        </FeatureCard>
-      </FeatureGrid>
+      <div data-reveal>
+        <FeatureGrid cols={3}>
+          <FeatureCard
+            icon="🚀"
+            title="Mettre en place un CRM"
+            palette="orange"
+            href={path('mise-en-place-crm')}
+            cta="Voir la méthode"
+          >
+            La méthode pour réussir le déploiement et l'adoption par l'équipe.
+          </FeatureCard>
+          <FeatureCard
+            icon="💶"
+            title="Combien coûte un CRM"
+            palette="teal"
+            href={path('prix-crm')}
+            cta="Décoder les prix"
+          >
+            Paliers, options, coûts cachés : le vrai budget d'un CRM, sans surprise.
+          </FeatureCard>
+          <FeatureCard
+            icon="📊"
+            title="CRM sur Excel"
+            palette="blue"
+            href={path('crm-excel')}
+            cta="Modèle gratuit"
+          >
+            Un modèle gratuit pour démarrer, et les limites à connaître avant de grandir.
+          </FeatureCard>
+        </FeatureGrid>
+      </div>
     </div>
   </section>
 
   {/* ======================== 5. CONFIANCE (EEAT) ======================== */}
   <section class="trust">
+    <span class="trust__blob" aria-hidden="true"></span>
     <div class="container trust__grid">
-      <div class="trust__aside">
-        <div class="trust__avatar" aria-hidden="true">{DEFAULT_AUTHOR.initials}</div>
+      <div class="trust__aside" data-reveal>
+        <div class="trust__avatar-wrap">
+          <span class="trust__ring" aria-hidden="true"></span>
+          <div class="trust__avatar" aria-hidden="true">{DEFAULT_AUTHOR.initials}</div>
+        </div>
         <p class="trust__name">{DEFAULT_AUTHOR.name}</p>
         <p class="trust__role">{DEFAULT_AUTHOR.jobTitle}</p>
       </div>
-      <div class="trust__body">
+      <div class="trust__body" data-reveal>
+        <p class="section-kicker is-data">Notre promesse</p>
         <h2>Pourquoi faire confiance à nos guides ?</h2>
         <p class="trust__story">
           Derrière crm-logiciel.fr, il y a {DEFAULT_AUTHOR.name}, consultant qui a passé des années
@@ -277,13 +289,15 @@ const guides = [
 
   {/* ======================== 6. CTA FINAL ======================== */}
   <section class="finalcta">
-    <div class="container finalcta__inner">
+    <div class="container finalcta__inner" data-reveal>
+      <span class="finalcta__sheen" aria-hidden="true"></span>
       <h2>Prêt à trouver votre CRM ?</h2>
       <p>
         Commencez par le guide qui colle à votre situation. Le configurateur, lui, fera bientôt le
         tri pour vous.
       </p>
-      <Button href={path('comment-choisir-crm')} variant="ghost">Découvrir comment choisir</Button>
+      <Button href={path('comment-choisir-crm')} variant="primary">Découvrir comment choisir</Button
+      >
     </div>
   </section>
 </BaseLayout>
@@ -291,12 +305,43 @@ const guides = [
 <style>
   /* ===================== HERO ===================== */
   .hero {
+    position: relative;
+    overflow: hidden;
     padding-block: clamp(var(--space-12), 8vw, var(--space-24)) var(--space-16);
     background:
-      radial-gradient(55% 50% at 10% 0%, var(--blue-tint) 0%, transparent 60%),
-      radial-gradient(45% 45% at 100% 5%, var(--teal-tint) 0%, transparent 55%);
+      radial-gradient(60% 55% at 8% -5%, var(--blue-tint) 0%, transparent 60%),
+      radial-gradient(48% 48% at 102% 8%, var(--teal-tint) 0%, transparent 55%),
+      linear-gradient(180deg, color-mix(in srgb, var(--blue-tint) 35%, #fff) 0%, #fff 70%);
+  }
+  /* Halos décoratifs flottants */
+  .hero__blob {
+    position: absolute;
+    border-radius: var(--radius-blob);
+    filter: blur(60px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero__blob--a {
+    width: 24rem;
+    height: 24rem;
+    top: -6rem;
+    right: 6%;
+    background: var(--grad-cool);
+    opacity: 0.16;
+    animation: float-soft 9s ease-in-out infinite;
+  }
+  .hero__blob--b {
+    width: 18rem;
+    height: 18rem;
+    bottom: -5rem;
+    left: 2%;
+    background: var(--grad-aqua);
+    opacity: 0.13;
+    animation: float-soft 11s ease-in-out infinite reverse;
   }
   .hero__grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 55fr 45fr;
     gap: var(--space-12);
@@ -316,11 +361,9 @@ const guides = [
   }
   .degrade {
     background: var(--grad-iris);
-    background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: gradient-pan 12s ease infinite;
   }
   .hero__lead {
     margin-top: var(--space-6);
@@ -356,13 +399,31 @@ const guides = [
     font-weight: var(--font-weight-bold);
   }
 
-  /* Visuel pipeline stylisé */
+  /* ---- Visuel pipeline stylisé ---- */
   .hv {
+    position: relative;
     padding: var(--space-5);
     border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-glow), var(--glass-highlight);
+  }
+  .hv__sheen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    transform: translateX(-120%) skewX(-18deg);
+    animation: sheen 6.5s ease-in-out 1.5s infinite;
+    z-index: 2;
+    pointer-events: none;
   }
   .hv__bar {
+    position: relative;
+    z-index: 1;
     display: flex;
+    align-items: center;
     gap: var(--space-2);
     margin-bottom: var(--space-4);
   }
@@ -371,6 +432,26 @@ const guides = [
     height: 0.7rem;
     border-radius: var(--radius-full);
     background: var(--border-strong);
+  }
+  .hv__bar span:nth-child(1) {
+    background: var(--minium);
+    opacity: 0.6;
+  }
+  .hv__bar span:nth-child(2) {
+    background: var(--orange);
+    opacity: 0.6;
+  }
+  .hv__bar span:nth-child(3) {
+    background: var(--green);
+    opacity: 0.6;
+  }
+  .hv__bar-label {
+    margin-left: auto;
+    font-size: var(--text-2xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-style: normal;
   }
   .hv__board {
     position: relative;
@@ -396,10 +477,12 @@ const guides = [
     color: var(--text-muted);
   }
   .hv__card {
-    height: 1.5rem;
+    position: relative;
+    height: 1.6rem;
     border-radius: var(--radius-sm);
     background: var(--surface-sunk);
     border: var(--rule-hair) solid var(--border-default);
+    overflow: hidden;
   }
   .hv__card--sm {
     width: 70%;
@@ -407,28 +490,53 @@ const guides = [
   .hv__card--accent {
     background: var(--blue-tint);
     border-color: color-mix(in srgb, var(--blue) 30%, transparent);
-    animation: hv-pulse 3.2s ease-in-out infinite;
+  }
+  /* Barre de remplissage animée en boucle (progression d'une affaire). */
+  .hv__fill {
+    position: absolute;
+    inset: 0;
+    transform-origin: left center;
+    background: var(--grad-brand);
+    opacity: 0.85;
+    animation: hv-fill 4s ease-in-out infinite;
+  }
+  @keyframes hv-fill {
+    0% {
+      transform: scaleX(0.15);
+    }
+    55% {
+      transform: scaleX(0.85);
+    }
+    100% {
+      transform: scaleX(0.15);
+    }
   }
   .hv__card--won {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: var(--green-tint);
     border-color: color-mix(in srgb, var(--green) 35%, transparent);
+    animation: pulse-soft 3.2s ease-in-out infinite;
   }
-  @keyframes hv-pulse {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 transparent;
-    }
-    50% {
-      box-shadow: var(--shadow-glow);
-    }
+  .hv__check {
+    color: var(--green-ink);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
   }
 
   /* ===================== BANDEAU « DE RETOUR » ===================== */
   .comeback {
-    background: var(--blue-tint);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, var(--blue-tint), var(--teal-tint), var(--blue-tint));
+    background-size: 200% 100%;
+    animation: gradient-pan 16s ease infinite;
     padding-block: var(--space-5);
   }
   .comeback p {
+    position: relative;
+    z-index: 1;
     text-align: center;
     font-size: var(--text-lg);
     color: var(--blue-ink);
@@ -441,10 +549,18 @@ const guides = [
     margin-inline: auto;
     margin-bottom: var(--space-10);
   }
+  .section-kicker {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--blue);
+  }
   .section-head h2 {
     font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
   }
-  .section-head p {
+  .section-sub {
     margin-top: var(--space-4);
     font-size: var(--text-lg);
     color: var(--text-muted);
@@ -452,17 +568,17 @@ const guides = [
 
   /* ===================== TIMELINE ===================== */
   .guides {
+    position: relative;
     padding-block: var(--space-20);
   }
   .timeline {
     position: relative;
     list-style: none;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     max-width: 64rem;
-    margin-inline: auto;
   }
-  /* Le fil descendant (dégradé : violet → teal → orange estompé). */
+  /* Fil descendant : piste de base (faible). */
   .timeline::before {
     content: '';
     position: absolute;
@@ -471,11 +587,23 @@ const guides = [
     left: 50%;
     transform: translateX(-50%);
     width: 2px;
+    background: var(--border-strong);
+  }
+  /* Fil descendant : remplissage coloré qui progresse au scroll. */
+  .timeline::after {
+    content: '';
+    position: absolute;
+    top: 0.5rem;
+    bottom: 2rem;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%) scaleY(1);
+    transform-origin: top center;
     background: linear-gradient(
       180deg,
       var(--blue) 0%,
       var(--teal) 55%,
-      color-mix(in srgb, var(--orange) 50%, transparent) 100%
+      color-mix(in srgb, var(--orange) 60%, transparent) 100%
     );
   }
   .tl-item {
@@ -504,7 +632,9 @@ const guides = [
     color: #fff;
     font-weight: var(--font-weight-bold);
     font-size: var(--text-base);
-    box-shadow: var(--shadow-glow);
+    box-shadow:
+      var(--shadow-glow),
+      0 0 0 6px color-mix(in srgb, var(--blue) 12%, transparent);
     z-index: 1;
   }
   .tl-item:nth-child(odd) .tl-pastille {
@@ -516,6 +646,13 @@ const guides = [
   .tl-card {
     padding: var(--space-6);
     border-radius: var(--radius-lg);
+    transition:
+      transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.22s ease;
+  }
+  .tl-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glow), var(--glass-highlight);
   }
   .tl-card > * {
     position: relative;
@@ -572,23 +709,6 @@ const guides = [
     font-size: var(--text-2xl);
     margin-top: var(--space-3);
   }
-  .notify {
-    display: flex;
-    gap: var(--space-2);
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: var(--space-5);
-  }
-  .notify__input {
-    min-height: var(--tap-min);
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-full);
-    border: var(--rule-hair) solid var(--border-strong);
-    background: var(--surface-card);
-    font-family: var(--font-ui);
-    font-size: var(--text-sm);
-    min-width: 13rem;
-  }
 
   /* ===================== EXPLORER PAR BESOIN ===================== */
   .byneed {
@@ -597,11 +717,29 @@ const guides = [
 
   /* ===================== CONFIANCE (EEAT) ===================== */
   .trust {
-    background: var(--surface-sunk);
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(60% 80% at 100% 0%, var(--blue-tint) 0%, transparent 55%), var(--surface-sunk);
     border-block: var(--rule-hair) solid var(--border-default);
     padding-block: var(--space-20);
   }
+  .trust__blob {
+    position: absolute;
+    width: 22rem;
+    height: 22rem;
+    left: -6rem;
+    bottom: -8rem;
+    border-radius: var(--radius-blob);
+    background: var(--grad-aqua);
+    opacity: 0.1;
+    filter: blur(70px);
+    animation: float-soft 10s ease-in-out infinite;
+    pointer-events: none;
+  }
   .trust__grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 16rem 1fr;
     gap: var(--space-12);
@@ -610,12 +748,27 @@ const guides = [
   .trust__aside {
     text-align: center;
   }
+  .trust__avatar-wrap {
+    position: relative;
+    width: 8rem;
+    height: 8rem;
+    margin: 0 auto var(--space-4);
+  }
+  .trust__ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: var(--radius-full);
+    background: var(--grad-iris);
+    opacity: 0.45;
+    filter: blur(6px);
+    animation: pulse-soft 4s ease-in-out infinite;
+  }
   .trust__avatar {
+    position: relative;
     display: grid;
     place-items: center;
     width: 8rem;
     height: 8rem;
-    margin: 0 auto var(--space-4);
     border-radius: var(--radius-full);
     background: var(--grad-brand);
     color: #fff;
@@ -677,20 +830,37 @@ const guides = [
     padding-block: var(--space-20);
   }
   .finalcta__inner {
+    position: relative;
+    overflow: hidden;
     text-align: center;
-    max-width: 44rem;
+    max-width: 46rem;
     margin-inline: auto;
-    padding: var(--space-12) var(--space-8);
+    padding: var(--space-16) var(--space-8);
     border-radius: var(--radius-2xl);
     background:
       radial-gradient(
-        80% 120% at 50% 0%,
-        color-mix(in srgb, var(--blue) 18%, transparent),
+        90% 140% at 50% 0%,
+        color-mix(in srgb, var(--blue) 22%, transparent),
         transparent 70%
       ),
-      var(--surface-card);
-    border: var(--rule-hair) solid var(--border-default);
+      linear-gradient(135deg, color-mix(in srgb, var(--blue) 10%, #fff), #fff);
+    border: var(--rule-hair) solid color-mix(in srgb, var(--blue) 18%, var(--border-default));
     box-shadow: var(--shadow-soft);
+  }
+  .finalcta__sheen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: translateX(-150%) skewX(-18deg);
+    animation: sheen 7s ease-in-out 2s infinite;
+    pointer-events: none;
+  }
+  .finalcta__inner > :not(.finalcta__sheen) {
+    position: relative;
+    z-index: 1;
   }
   .finalcta h2 {
     font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
@@ -719,14 +889,17 @@ const guides = [
     .trust__story {
       margin-inline: auto;
     }
-    .pillars li {
+    .pillars {
       text-align: left;
+      max-width: 32rem;
+      margin-inline: auto;
     }
   }
 
   @media (max-width: 760px) {
     /* Timeline : fil à gauche, cartes alignées à gauche (proposition §3). */
-    .timeline::before {
+    .timeline::before,
+    .timeline::after {
       left: 1.2rem;
     }
     .tl-item,
@@ -752,25 +925,52 @@ const guides = [
     }
   }
 
-  /* Entrée au scroll (CSS scroll-driven, sans JS) — amélioration progressive.
-     Important : on n'anime QUE la translation, jamais l'opacité, pour ne jamais
-     risquer de laisser une carte invisible si la timeline ne s'applique pas comme
-     prévu (capture, impression, moteur). Le contenu reste toujours visible. */
+  /* ===================== REVEALS AU SCROLL ===================== */
+  /* Amélioration progressive : opacité animée UNIQUEMENT là où le scroll-driven
+     est supporté ET si l'utilisateur n'a pas demandé moins d'animation. Partout
+     ailleurs, le contenu reste pleinement visible (et présent dans la source). */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
-      .tl-card {
-        animation: tl-reveal linear both;
+      [data-reveal] {
+        opacity: 0;
+        animation: reveal-up linear both;
         animation-timeline: view();
-        animation-range: entry 0% cover 22%;
+        animation-range: entry 0% cover 32%;
+      }
+      /* Le fil de la timeline se remplit au défilement de la section. */
+      .timeline::after {
+        transform: translateX(-50%) scaleY(0);
+        animation: timeline-fill linear both;
+        animation-timeline: view();
+        animation-range: cover 0% cover 78%;
       }
     }
   }
-  @keyframes tl-reveal {
+  @keyframes reveal-up {
     from {
-      transform: translateY(22px);
+      opacity: 0;
+      transform: translateY(28px);
     }
     to {
+      opacity: 1;
       transform: none;
+    }
+  }
+  @keyframes timeline-fill {
+    from {
+      transform: translateX(-50%) scaleY(0);
+    }
+    to {
+      transform: translateX(-50%) scaleY(1);
+    }
+  }
+  @media (max-width: 760px) {
+    @supports (animation-timeline: view()) {
+      @media (prefers-reduced-motion: no-preference) {
+        .timeline::after {
+          transform: translateX(-50%) scaleY(0);
+        }
+      }
     }
   }
 </style>

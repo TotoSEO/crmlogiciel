@@ -45,6 +45,19 @@ const hasButton = Boolean(href && cta);
     gap: var(--space-3);
     padding: var(--space-8) var(--space-6);
     border-radius: var(--radius-xl);
+    transition:
+      transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.22s ease;
+  }
+  .fcard:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-glow), var(--glass-highlight);
+  }
+  .fcard__icon {
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .fcard:hover .fcard__icon {
+    transform: scale(1.08) rotate(-3deg);
   }
   .fcard > * {
     position: relative;
