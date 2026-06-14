@@ -137,13 +137,55 @@
   margin-left: var(--space-4);
 }
 
-/* ---- Citation simple (hors PullQuote) ---- */
+/* ---- Citation / encadré « mise en avant » (hors PullQuote) ----
+   Les citations Markdown (`>`) des articles sont rendues comme un encadré
+   discret, teinté marque, pour mettre une phrase en avant sans composant. */
 .prose :where(blockquote):not(:where(.not-prose, .not-prose *)) {
-  margin: 0;
-  padding-left: var(--space-5);
+  margin-block: var(--space-6);
+  padding: var(--space-5) var(--space-6);
   border-left: var(--rule-strong) solid var(--blue);
-  color: var(--text-muted);
-  font-style: italic;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background: var(--blue-tint);
+  color: var(--text-body);
+}
+.prose :where(blockquote):not(:where(.not-prose, .not-prose *)) :where(strong):first-child {
+  color: var(--blue-ink);
+}
+.prose :where(blockquote p):not(:where(.not-prose, .not-prose *)) {
+  margin: 0;
+}
+
+/* ---- Tableaux Markdown (comparatifs, grilles) ---- */
+.prose :where(table):not(:where(.not-prose, .not-prose *)) {
+  width: 100%;
+  margin-block: var(--space-6);
+  border-collapse: collapse;
+  font-size: var(--text-base);
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+}
+.prose :where(thead th):not(:where(.not-prose, .not-prose *)) {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+  background: var(--grad-brand);
+}
+.prose :where(tbody td):not(:where(.not-prose, .not-prose *)),
+.prose :where(tbody th):not(:where(.not-prose, .not-prose *)) {
+  padding: var(--space-3) var(--space-4);
+  border-top: var(--rule-hair) solid var(--border-default);
+  text-align: left;
+  vertical-align: top;
+}
+.prose :where(tbody tr:nth-child(even)):not(:where(.not-prose, .not-prose *)) {
+  background: color-mix(in srgb, var(--surface-sunk) 50%, transparent);
+}
+.prose :where(table):not(:where(.not-prose, .not-prose *)) :where(strong) {
+  color: var(--ink);
 }
 
 /* ---- Code inline ---- */
