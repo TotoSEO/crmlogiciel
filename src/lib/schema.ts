@@ -42,13 +42,15 @@ export function website(): Json {
   };
 }
 
-/** Person — auteur éditorial. */
+/** Person — auteur éditorial (E-E-A-T : bio + rattachement à la marque). */
 export function person(name: string = DEFAULT_AUTHOR.name): Json {
   return {
     '@type': 'Person',
     name,
     url: DEFAULT_AUTHOR.url,
     jobTitle: DEFAULT_AUTHOR.jobTitle,
+    description: DEFAULT_AUTHOR.bio,
+    worksFor: { '@id': ORG_ID },
     image: new URL(DEFAULT_AUTHOR.photo, SITE.url).href,
   };
 }

@@ -5,8 +5,10 @@
  * Principe : tout le contenu (42 questions + options, chacune en H3) est rendu
  * côté serveur → lisible par les humains et les IA, sans JavaScript. L'interactivité
  * (déverrouillage progressif, scoring, partage) est une île JS ajoutée par-dessus.
- * Les bonnes réponses vivent dans les données côté client (auto-test). Le JSON-LD
- * Quiz reste léger et N'EMBARQUE PAS le corrigé.
+ * Le JSON-LD Quiz embarque le corrigé COMPLET (chaque question, sa bonne réponse,
+ * ses distracteurs et l'explication) au format « Education Q&A / practice problems »
+ * de Google. Le corrigé est de toute façon déjà présent dans la source via les
+ * données client de l'auto-test : l'exposer en JSON-LD n'ajoute aucune fuite.
  *
  * Les options sont mélangées de façon déterministe (graine = id) pour éviter que la
  * bonne réponse soit toujours en première position.
@@ -55,10 +57,29 @@ const quizSchema = {
   description:
     'Quiz gratuit de 42 questions pour évaluer son niveau de connaissances sur les logiciels CRM, avec un score détaillé par thème.',
   educationalUse: 'Assessment',
+  learningResourceType: 'Quiz',
   isAccessibleForFree: true,
   inLanguage: 'fr',
   about: { '@type': 'Thing', name: 'Gestion de la relation client (CRM)' },
   url: absoluteUrl(slug),
+  numberOfQuestions: TOTAL,
+  // Corrigé complet, format « Education Q&A » de Google : chaque question, sa
+  // bonne réponse (acceptedAnswer + explication en commentaire) et ses distracteurs.
+  hasPart: QUESTIONS.map((q) => ({
+    '@type': 'Question',
+    eduQuestionType: 'Multiple choice',
+    text: q.question,
+    learningResourceType: 'Practice problem',
+    assesses: THEME_LABEL[q.theme],
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: q.options[q.answer],
+      comment: { '@type': 'Comment', text: q.explanation },
+    },
+    suggestedAnswer: q.options
+      .filter((_, i) => i !== q.answer)
+      .map((opt) => ({ '@type': 'Answer', text: opt })),
+  })),
 };
 const pageSchema = graph(quizSchema, organization(), breadcrumbList(crumbs, absoluteUrl(slug)));
 ---

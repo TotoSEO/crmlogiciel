@@ -8,9 +8,15 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
-import { INDEXABLE } from '../config/site';
+import JsonLd from '../components/JsonLd.astro';
+import { INDEXABLE, absoluteUrl } from '../config/site';
+import { organization, breadcrumbList, graph } from '../lib/schema';
 
 const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'Politique de confidentialité' }];
+const pageSchema = graph(
+  breadcrumbList(crumbs, absoluteUrl('politique-de-confidentialite')),
+  organization(),
+);
 ---
 
 <BaseLayout
@@ -19,6 +25,10 @@ const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'Politique de confiden
   canonicalSlug="politique-de-confidentialite"
   noindex={!INDEXABLE}
 >
+  <Fragment slot="head">
+    <JsonLd schema={pageSchema} />
+  </Fragment>
+
   <div class="container legal">
     <Breadcrumb crumbs={crumbs} />
     <h1 class="legal__title">Politique de confidentialité</h1>

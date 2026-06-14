@@ -42,7 +42,9 @@ const {
 const fullTitle = rawTitle ? title : `${title} · ${SITE.name}`;
 const canonical = absoluteUrl(canonicalSlug);
 const ogImageUrl = new URL(ogImage, SITE.url).href;
-const robots = noindex ? 'noindex, nofollow' : 'index, follow';
+const robots = noindex
+  ? 'noindex, nofollow'
+  : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 ---
 
 <meta charset="utf-8" />
