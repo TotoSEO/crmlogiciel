@@ -1,0 +1,137 @@
+---
+/**
+ * /a-propos/ — page À propos (signal E-E-A-T : qui édite le site, mission, méthode).
+ * Contenu repris de la bio de l'auteur et du positionnement du site ; à faire
+ * valider par Thomas avant d'enrichir (pas de claim non vérifiable ajouté).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Button from '../components/blocks/Button.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { DEFAULT_AUTHOR, absoluteUrl, path } from '../config/site';
+import { person, organization, breadcrumbList, graph } from '../lib/schema';
+
+const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'À propos' }];
+const pageSchema = graph(
+  person(),
+  organization(),
+  breadcrumbList(crumbs, absoluteUrl('a-propos')),
+);
+---
+
+<BaseLayout
+  title="À propos de crm-logiciel.fr"
+  description="Qui édite crm-logiciel.fr, média indépendant sur les logiciels CRM relancé sur un domaine actif depuis 2007 : notre mission, l'auteur et notre méthode."
+  canonicalSlug="a-propos"
+>
+  <Fragment slot="head">
+    <JsonLd schema={pageSchema} />
+  </Fragment>
+
+  <div class="container legal">
+    <Breadcrumb crumbs={crumbs} />
+    <h1 class="legal__title">À propos de crm-logiciel.fr</h1>
+
+    <div class="prose">
+      <p>
+        <strong>crm-logiciel.fr</strong> est un média indépendant consacré aux logiciels de gestion
+        de la relation client. Le site est relancé sur un nom de domaine actif depuis 2007, avec une
+        ambition simple : aider les entreprises à comprendre, choisir et utiliser un CRM, sans jamais
+        perdre de vue le terrain.
+      </p>
+
+      <h2>Notre mission</h2>
+      <p>
+        Le marché du CRM compte des centaines d'outils et autant de discours commerciaux. Notre rôle
+        est de remettre de la clarté : des explications accessibles, des méthodes concrètes et des
+        comparaisons indépendantes, pour que chacun trouve le logiciel qui lui convient,
+        gratuitement et sans parti pris. Le contenu est organisé en trois univers, du plus général
+        au plus opérationnel : <a href={path('qu-est-ce-qu-un-crm')}>comprendre</a> le CRM,
+        <a href={path('comment-choisir-crm')}>le choisir</a>, puis
+        <a href={path('mise-en-place-crm')}>le mettre en place et l'utiliser</a>.
+      </p>
+
+      <h2>Qui écrit ici</h2>
+      <div class="author-card not-prose">
+        <img
+          class="author-card__photo"
+          src={DEFAULT_AUTHOR.photo}
+          alt={`Photo de ${DEFAULT_AUTHOR.name}`}
+          width="96"
+          height="96"
+          loading="lazy"
+        />
+        <div>
+          <p class="author-card__name">{DEFAULT_AUTHOR.name}</p>
+          <p class="author-card__role">{DEFAULT_AUTHOR.jobTitle}</p>
+        </div>
+      </div>
+      <p>{DEFAULT_AUTHOR.bio}</p>
+
+      <h2>Comment nous travaillons</h2>
+      <p>
+        Nos recommandations reposent sur une méthode explicite plutôt que sur des classements tout
+        faits : nous expliquons comment nous évaluons les outils et sur quels critères, pour que vous
+        puissiez refaire le raisonnement chez vous. Le détail est public sur la page
+        <a href={path('methodologie')}>notre méthodologie de test</a>. Les contenus sont datés et
+        mis à jour à mesure que le marché évolue.
+      </p>
+
+      <h2>Nous contacter</h2>
+      <p>
+        Une question, une correction, une suggestion ? Écrivez-nous à
+        <a href="mailto:contact@crm-logiciel.fr">contact@crm-logiciel.fr</a>. Les informations
+        légales (éditeur, hébergeur) figurent dans les
+        <a href={path('mentions-legales')}>mentions légales</a>.
+      </p>
+
+      <div class="apropos-cta not-prose">
+        <Button href={path('test-connaissance-crm')} variant="primary">
+          Tester vos connaissances en CRM
+        </Button>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 48rem;
+    padding-block: var(--space-10) var(--space-16);
+  }
+  .legal__title {
+    margin-bottom: var(--space-6);
+    font-size: clamp(var(--text-4xl), 5vw, var(--text-5xl));
+  }
+  .author-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-block: var(--space-5);
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-xl);
+    border: var(--rule-hair) solid var(--border-default);
+    background: var(--surface-sunk);
+  }
+  .author-card__photo {
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    box-shadow: var(--shadow-soft);
+  }
+  .author-card__name {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+  }
+  .author-card__role {
+    margin-top: 2px;
+    font-size: var(--text-sm);
+    color: var(--blue-ink);
+  }
+  .apropos-cta {
+    margin-top: var(--space-8);
+  }
+</style>

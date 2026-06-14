@@ -1,0 +1,112 @@
+---
+/**
+ * Page 404 personnalisée. Servie par Cloudflare pour toute URL non trouvée
+ * (assets.not_found_handling = "404-page"), avec le statut HTTP 404.
+ * Garde l'utilisateur et le crawler sur le site (nav + liens vers les pages clés).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/blocks/Button.astro';
+import { path } from '../config/site';
+
+const links = [
+  { href: path('qu-est-ce-qu-un-crm'), label: "Qu'est-ce qu'un CRM ?" },
+  { href: path('comment-choisir-crm'), label: 'Comment choisir son CRM' },
+  { href: path('mise-en-place-crm'), label: 'Mettre en place un CRM' },
+  { href: path('crm-gratuit'), label: 'Les meilleurs CRM gratuits' },
+  { href: path('test-connaissance-crm'), label: 'Le test de connaissances CRM' },
+  { href: path('lexique-crm'), label: 'Le lexique du CRM' },
+];
+---
+
+<BaseLayout
+  title="Page introuvable (404)"
+  description="La page demandée n'existe pas ou a changé d'adresse. Retrouvez les guides CRM de crm-logiciel.fr."
+  canonicalSlug="404"
+>
+  <section class="nf container">
+    <p class="nf__code is-data" aria-hidden="true">404</p>
+    <h1 class="nf__title">Cette page a changé d'adresse, ou n'a jamais existé</h1>
+    <p class="nf__lead">
+      Le site a été refondu : certaines anciennes URL ont bougé. Pas de panique, voici par où
+      continuer.
+    </p>
+    <ul class="nf__links">
+      {
+        links.map((l) => (
+          <li>
+            <a href={l.href}>
+              <span class="nf__dot" aria-hidden="true" />
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="nf__cta">
+      <Button href={path('')} variant="primary">Retour à l'accueil</Button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    max-width: 44rem;
+    padding-block: var(--space-16) var(--space-24);
+    text-align: center;
+  }
+  .nf__code {
+    font-family: var(--font-data);
+    font-weight: var(--font-weight-bold);
+    font-size: clamp(var(--text-6xl), 18vw, 9rem);
+    line-height: 1;
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .nf__title {
+    margin-top: var(--space-4);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+  }
+  .nf__lead {
+    margin: var(--space-4) auto 0;
+    max-width: 38ch;
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+  }
+  .nf__links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2) var(--space-5);
+    max-width: 34rem;
+    margin: var(--space-10) auto 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+  }
+  .nf__links a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+    color: var(--ink-80);
+  }
+  .nf__links a:hover {
+    color: var(--blue-ink);
+  }
+  .nf__dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    flex: none;
+    border-radius: var(--radius-full);
+    background: var(--grad-brand);
+  }
+  .nf__cta {
+    margin-top: var(--space-10);
+  }
+  @media (max-width: 560px) {
+    .nf__links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,5 +1,11 @@
 # En-tetes Cloudflare (Workers Static Assets) - crm-logiciel.fr
 
+# Securite : applique a toutes les reponses (neutre pour le SEO).
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+
 # Assets hashes par Astro (le nom change a chaque modification du contenu) :
 # cache immuable 1 an, plus aucune revalidation reseau sur les visites repetees.
 /_astro/*

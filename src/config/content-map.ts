@@ -330,6 +330,7 @@ export function pillars(): { label: string; href: string; palette: Palette }[] {
  * quand son contenu sera fourni.
  */
 export const UTILITY_LINKS: { label: string; href: string }[] = [
+  { label: 'À propos', href: path('a-propos') },
   { label: 'Contact', href: 'mailto:contact@crm-logiciel.fr' },
   { label: 'Mentions légales', href: path('mentions-legales') },
   { label: 'Politique de confidentialité', href: path('politique-de-confidentialite') },

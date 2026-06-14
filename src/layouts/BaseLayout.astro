@@ -17,6 +17,9 @@ interface Props {
   canonicalSlug: string;
   ogType?: 'website' | 'article';
   ogImage?: string;
+  ogImageAlt?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
   noindex?: boolean;
   rawTitle?: boolean;
   publishedTime?: string;
@@ -31,6 +34,9 @@ const {
   canonicalSlug,
   ogType,
   ogImage,
+  ogImageAlt,
+  ogImageWidth,
+  ogImageHeight,
   noindex,
   rawTitle,
   publishedTime,
@@ -48,6 +54,9 @@ const {
       canonicalSlug={canonicalSlug}
       ogType={ogType}
       ogImage={ogImage}
+      ogImageAlt={ogImageAlt}
+      ogImageWidth={ogImageWidth}
+      ogImageHeight={ogImageHeight}
       noindex={noindex}
       rawTitle={rawTitle}
       publishedTime={publishedTime}

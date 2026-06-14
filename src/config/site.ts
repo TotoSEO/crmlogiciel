@@ -36,8 +36,8 @@ export const INDEXABLE = true;
  */
 export const DEFAULT_AUTHOR = {
   name: 'Julien Lefèvre',
-  /** URL de la page auteur (à créer ultérieurement). */
-  url: `${SITE.url}/`,
+  /** URL de la page auteur (page À propos). */
+  url: `${SITE.url}/a-propos/`,
   jobTitle: 'Expert CRM et logiciels de gestion commerciale',
   /** Initiales (repli si la photo est absente). */
   initials: 'JL',

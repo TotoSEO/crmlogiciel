@@ -139,6 +139,9 @@ const pageSchema = graph(...nodes);
   canonicalSlug={slug}
   ogType="article"
   ogImage={featuredImage}
+  ogImageAlt={featuredImage ? featuredImageAlt : undefined}
+  ogImageWidth={featuredImage ? 1280 : undefined}
+  ogImageHeight={featuredImage ? 731 : undefined}
   publishedTime={isoPublished}
   modifiedTime={isoModified}
   rawTitle
@@ -188,6 +191,8 @@ const pageSchema = graph(...nodes);
             featuredImage ? (
               <img
                 src={featuredImage}
+                srcset={`${featuredImage.replace(/\.jpg$/, '-640.jpg')} 640w, ${featuredImage} 1280w`}
+                sizes="(max-width: 760px) 92vw, 600px"
                 alt={featuredImageAlt ?? ''}
                 width="1280"
                 height="731"
