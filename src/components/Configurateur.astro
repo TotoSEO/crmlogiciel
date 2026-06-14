@@ -112,7 +112,7 @@ import { STEPS } from '../data/configurateur-crm';
       });
     }
 
-    function showStep(i: number, dir: number) {
+    function showStep(i: number, dir: number, scroll = true) {
       calc.hidden = true;
       results.hidden = true;
       progress.hidden = false;
@@ -136,7 +136,7 @@ import { STEPS } from '../data/configurateur-crm';
         const sel = answers[step.id];
         nextBtn.disabled = !(Array.isArray(sel) && sel.length > 0);
       }
-      root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (scroll) root.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function advance() {
@@ -230,7 +230,7 @@ import { STEPS } from '../data/configurateur-crm';
       } else if (target.closest('.cfg-restart')) restart();
     });
 
-    showStep(0, 1);
+    showStep(0, 1, false); // affichage initial : surtout pas de scroll automatique
   }
 </script>
 
