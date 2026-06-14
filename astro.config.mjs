@@ -2,13 +2,14 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // MDX : permet d'insérer les blocs validés (Callout, ProsCons, tableau…) dans
-  // le corps des articles, là où le contenu les appelle. 100 % build-time, aucun
-  // JavaScript runtime ajouté (cohérent avec l'exigence « tout dans le HTML »).
-  integrations: [mdx()],
+  // MDX : insère les blocs validés dans le corps des articles (build-time, sans JS).
+  // Sitemap : génère sitemap-index.xml au build (référencé dans robots.txt) ;
+  // /demo/ (page technique noindex) est exclue.
+  integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/demo/') })],
 
   // URL de production (canonicals, sitemap, OpenGraph).
   site: 'https://crm-logiciel.fr',
