@@ -3,8 +3,8 @@
  *   - Accueil : 1.0
  *   - Test de connaissances, CRM gratuit et piliers : 0.9
  *   - Autres articles : 0.8 (un cran en dessous)
- * Les pages techniques (/demo/) et utilitaires (mentions légales, politique de
- * confidentialité) sont exclues. Remplace @astrojs/sitemap, qui imposait un
+ * Les pages utilitaires (mentions légales, politique de confidentialité) sont
+ * exclues. Remplace @astrojs/sitemap, qui imposait un
  * sitemap-index.xml + sitemap-0.xml sans priorités utiles.
  */
 import type { APIRoute } from 'astro';

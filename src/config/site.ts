@@ -26,7 +26,7 @@ export const SITE = {
  * Interrupteur d'indexation global. Tant que le site est en phase de chauffe,
  * toutes les pages éditoriales restent en `noindex`. Passer à `true` au moment
  * du lancement (Phase 5) pour ouvrir l'indexation d'un coup. Les pages purement
- * techniques (ex. /demo/) restent en noindex en dur, indépendamment de ce flag.
+ * techniques pourraient rester en noindex en dur, indépendamment de ce flag.
  */
 export const INDEXABLE = true;
 
