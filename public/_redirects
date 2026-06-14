@@ -4,6 +4,10 @@
 # existante la plus proche pour éviter les 301 vers 404 — à re-pointer quand
 # ces pages seront publiées.
 
+# Ancien sitemap (@astrojs/sitemap) → sitemap unique
+/sitemap-index.xml /sitemap.xml 301
+/sitemap-0.xml /sitemap.xml 301
+
 /meilleur-logiciel-crm /comment-choisir-crm/ 301
 /logiciel-crm/ / 301
 /5/ / 301

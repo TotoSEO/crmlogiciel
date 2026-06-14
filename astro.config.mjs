@@ -2,23 +2,14 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
   // MDX : insère les blocs validés dans le corps des articles (build-time, sans JS).
-  // Sitemap : génère sitemap-index.xml au build (référencé dans robots.txt) ;
-  // /demo/ (page technique noindex) est exclue.
-  integrations: [
-    mdx(),
-    sitemap({
-      // Exclut les pages techniques/utilitaires du sitemap (contenu éditorial uniquement).
-      filter: (page) =>
-        !['/demo/', '/mentions-legales/', '/politique-de-confidentialite/'].some((p) =>
-          page.includes(p),
-        ),
-    }),
-  ],
+  // Le sitemap n'utilise PAS @astrojs/sitemap (qui imposait un index + sitemap-0.xml
+  // sans priorités) : il est généré sur mesure par src/pages/sitemap.xml.ts
+  // (sitemap unique avec priorités explicites).
+  integrations: [mdx()],
 
   // URL de production (canonicals, sitemap, OpenGraph).
   site: 'https://crm-logiciel.fr',

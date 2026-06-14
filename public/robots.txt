@@ -28,4 +28,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://crm-logiciel.fr/sitemap-index.xml
+Sitemap: https://crm-logiciel.fr/sitemap.xml
