@@ -303,12 +303,12 @@ export function pillars(): { label: string; href: string; palette: Palette }[] {
 }
 
 /**
- * Liens utilitaires (footer). Pages prévues d'avance : à créer ultérieurement
- * (contenu légal/éditorial non encore fourni).
+ * Liens utilitaires (footer). `href` final (chemin /slug/ ou mailto).
+ * Contact = lien e-mail direct (pas de page dédiée). « À propos » sera ajouté
+ * quand son contenu sera fourni.
  */
-export const UTILITY_LINKS: { label: string; slug: string }[] = [
-  { label: 'À propos', slug: 'a-propos' },
-  { label: 'Contact', slug: 'contact' },
-  { label: 'Mentions légales', slug: 'mentions-legales' },
-  { label: 'Politique de confidentialité', slug: 'politique-de-confidentialite' },
+export const UTILITY_LINKS: { label: string; href: string }[] = [
+  { label: 'Contact', href: 'mailto:contact@crm-logiciel.fr' },
+  { label: 'Mentions légales', href: path('mentions-legales') },
+  { label: 'Politique de confidentialité', href: path('politique-de-confidentialite') },
 ];

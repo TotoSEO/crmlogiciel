@@ -9,7 +9,16 @@ export default defineConfig({
   // MDX : insère les blocs validés dans le corps des articles (build-time, sans JS).
   // Sitemap : génère sitemap-index.xml au build (référencé dans robots.txt) ;
   // /demo/ (page technique noindex) est exclue.
-  integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/demo/') })],
+  integrations: [
+    mdx(),
+    sitemap({
+      // Exclut les pages techniques/utilitaires du sitemap (contenu éditorial uniquement).
+      filter: (page) =>
+        !['/demo/', '/mentions-legales/', '/politique-de-confidentialite/'].some((p) =>
+          page.includes(p),
+        ),
+    }),
+  ],
 
   // URL de production (canonicals, sitemap, OpenGraph).
   site: 'https://crm-logiciel.fr',

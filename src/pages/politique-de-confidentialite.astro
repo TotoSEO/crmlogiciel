@@ -1,0 +1,142 @@
+---
+/**
+ * /politique-de-confidentialite/ — information RGPD (art. 13).
+ * Site statique sans inscription : traitements minimaux (journaux techniques via
+ * l'hébergeur Cloudflare, e-mails de contact). Aucun cookie de suivi ni mesure
+ * d'audience. Mentions obligatoires : responsable, données, finalités, base
+ * légale, destinataires, transferts, durées, droits, réclamation CNIL.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { INDEXABLE } from '../config/site';
+
+const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'Politique de confidentialité' }];
+---
+
+<BaseLayout
+  title="Politique de confidentialité"
+  description="Politique de confidentialité de crm-logiciel.fr : données traitées, finalités, durées, vos droits RGPD et contact. Un site sans suivi publicitaire."
+  canonicalSlug="politique-de-confidentialite"
+  noindex={!INDEXABLE}
+>
+  <div class="container legal">
+    <Breadcrumb crumbs={crumbs} />
+    <h1 class="legal__title">Politique de confidentialité</h1>
+    <p class="legal__updated is-data">Dernière mise à jour : 14 juin 2026</p>
+
+    <div class="prose">
+      <p>
+        Cette politique explique quelles données personnelles sont traitées lorsque vous consultez
+        <strong>crm-logiciel.fr</strong>, dans quel but, et quels sont vos droits. Le site est conçu
+        pour collecter le strict minimum : pas d'inscription, pas d'espace membre, pas de publicité
+        ciblée.
+      </p>
+
+      <h2>Responsable du traitement</h2>
+      <p>
+        Les données sont traitées par l'éditeur du site (Julien L.), joignable à
+        <a href="mailto:contact@crm-logiciel.fr">contact@crm-logiciel.fr</a> (voir les
+        <a href="/mentions-legales/">mentions légales</a>).
+      </p>
+
+      <h2>Quelles données, et pour quoi faire</h2>
+      <p>Les traitements se limitent à :</p>
+      <ul>
+        <li>
+          <strong>Données techniques de connexion</strong> (adresse IP, type de navigateur et d'appareil,
+          pages consultées, horodatage), traitées par notre hébergeur Cloudflare pour assurer le fonctionnement,
+          la sécurité et la disponibilité du site.
+          <em>Base légale : intérêt légitime</em> (sécurité et bon fonctionnement du service).
+        </li>
+        <li>
+          <strong>Échanges par e-mail</strong> : si vous écrivez à contact@crm-logiciel.fr, votre adresse
+          et le contenu de votre message sont traités uniquement pour répondre à votre demande. <em
+            >Base légale : intérêt légitime ou consentement.</em
+          >
+        </li>
+      </ul>
+      <p>
+        Le <a href="/test-connaissance-crm/">test de connaissances CRM</a> fonctionne entièrement dans
+        votre navigateur : vos réponses et votre score ne sont ni transmis ni enregistrés sur un serveur.
+      </p>
+
+      <h2>Cookies</h2>
+      <p>
+        Le site n'utilise <strong>aucun cookie de suivi publicitaire ni de mesure d'audience</strong
+        >. Seuls des cookies strictement techniques peuvent être déposés par l'hébergeur Cloudflare
+        à des fins de sécurité (par exemple pour distinguer un visiteur humain d'un robot). Ces
+        cookies sont nécessaires au fonctionnement du service et exemptés de consentement.
+      </p>
+
+      <h2>Destinataires des données</h2>
+      <p>
+        Vos données ne sont ni vendues ni cédées. Elles peuvent être traitées par nos sous-traitants
+        techniques, agissant pour notre compte :
+      </p>
+      <ul>
+        <li><strong>Cloudflare, Inc.</strong> — hébergement, sécurité et distribution du site ;</li>
+        <li>le service de messagerie utilisé pour recevoir et traiter les e-mails de contact.</li>
+      </ul>
+
+      <h2>Transferts hors Union européenne</h2>
+      <p>
+        Notre hébergeur Cloudflare est une société américaine susceptible de traiter certaines
+        données en dehors de l'Union européenne. Ces transferts sont encadrés par des garanties
+        appropriées, notamment les clauses contractuelles types de la Commission européenne.
+      </p>
+
+      <h2>Durée de conservation</h2>
+      <ul>
+        <li>
+          Données techniques et journaux : conservées de façon limitée par l'hébergeur, le temps
+          nécessaire à la sécurité et au diagnostic.
+        </li>
+        <li>
+          E-mails de contact : conservés le temps de traiter votre demande, puis supprimés ou
+          archivés (au plus tard trois ans après le dernier échange).
+        </li>
+      </ul>
+
+      <h2>Vos droits</h2>
+      <p>
+        Conformément au Règlement général sur la protection des données (RGPD), vous disposez d'un
+        droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité
+        de vos données. Pour les exercer, écrivez à
+        <a href="mailto:contact@crm-logiciel.fr">contact@crm-logiciel.fr</a>.
+      </p>
+      <p>
+        Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une réclamation
+        auprès de la CNIL :
+        <a href="https://www.cnil.fr" rel="noopener" target="_blank">www.cnil.fr</a>.
+      </p>
+
+      <h2>Sécurité</h2>
+      <p>
+        Le site est servi intégralement en HTTPS. Les données sont protégées par les mesures de
+        sécurité de notre hébergeur et, surtout, par la minimisation des données collectées.
+      </p>
+
+      <h2>Modifications</h2>
+      <p>
+        Cette politique peut évoluer. En cas de changement, la date de dernière mise à jour indiquée
+        en haut de page sera actualisée.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 48rem;
+    padding-block: var(--space-10) var(--space-16);
+  }
+  .legal__title {
+    font-size: clamp(var(--text-4xl), 5vw, var(--text-5xl));
+  }
+  .legal__updated {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-8);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+</style>

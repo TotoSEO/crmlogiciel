@@ -1,0 +1,103 @@
+---
+/**
+ * /mentions-legales/ — page légale (LCEN).
+ * Éditeur non professionnel (personne physique) : l'anonymat public est permis
+ * dès lors que l'identité a été communiquée à l'hébergeur (LCEN art. 1-1, II,
+ * ex-art. 6 III). Seuls le nom et l'adresse de l'hébergeur sont publiés.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { INDEXABLE } from '../config/site';
+
+const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'Mentions légales' }];
+---
+
+<BaseLayout
+  title="Mentions légales"
+  description="Mentions légales du site crm-logiciel.fr : éditeur, directeur de la publication, hébergeur et conditions d'utilisation."
+  canonicalSlug="mentions-legales"
+  noindex={!INDEXABLE}
+>
+  <div class="container legal">
+    <Breadcrumb crumbs={crumbs} />
+    <h1 class="legal__title">Mentions légales</h1>
+    <p class="legal__updated is-data">Dernière mise à jour : 14 juin 2026</p>
+
+    <div class="prose">
+      <h2>Éditeur du site</h2>
+      <p>
+        Le site <strong>crm-logiciel.fr</strong> est édité à titre non professionnel par une personne
+        physique, désignée ci-après « Julien L. ». Il est rédigé, maintenu et publié par cette même personne.
+      </p>
+      <p>
+        Conformément au droit reconnu aux éditeurs non professionnels par la loi n° 2004-575 du 21
+        juin 2004 pour la confiance dans l'économie numérique (LCEN, article 1-1, anciennement
+        article 6-III), l'éditeur a choisi de préserver son anonymat vis-à-vis du public. Son
+        identité complète et ses coordonnées ont été communiquées à l'hébergeur du site, qui est en
+        mesure de les transmettre à l'autorité judiciaire sur réquisition.
+      </p>
+      <p>Contact : <a href="mailto:contact@crm-logiciel.fr">contact@crm-logiciel.fr</a></p>
+
+      <h2>Directeur de la publication</h2>
+      <p>Julien L.</p>
+
+      <h2>Hébergeur</h2>
+      <p>
+        Le site est hébergé par :<br />
+        <strong>Cloudflare, Inc.</strong><br />
+        101 Townsend Street, San Francisco, CA 94107, États-Unis<br />
+        <a href="https://www.cloudflare.com" rel="noopener" target="_blank">www.cloudflare.com</a>
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L'ensemble des contenus présents sur crm-logiciel.fr (textes, visuels, éléments graphiques,
+        structure et mise en forme) est protégé par le droit d'auteur. Toute reproduction,
+        représentation, modification ou diffusion, totale ou partielle, sans autorisation préalable
+        de l'éditeur, est interdite, sous réserve des exceptions prévues par la loi (courte citation
+        avec mention de la source, notamment).
+      </p>
+      <p>
+        Les marques, logos et noms des éditeurs de logiciels cités sur le site le sont à titre
+        informatif et demeurent la propriété de leurs titulaires respectifs.
+      </p>
+
+      <h2>Responsabilité</h2>
+      <p>
+        Les informations publiées sur crm-logiciel.fr sont fournies à titre indicatif et informatif.
+        Malgré le soin apporté à leur rédaction et à leur mise à jour, l'éditeur ne peut garantir
+        leur exhaustivité ni leur parfaite exactitude à tout instant, et ne saurait être tenu
+        responsable des décisions prises sur la seule base de ces contenus.
+      </p>
+      <p>
+        Le site peut contenir des liens vers des sites tiers, sur le contenu desquels l'éditeur
+        n'exerce aucun contrôle et décline toute responsabilité.
+      </p>
+
+      <h2>Données personnelles</h2>
+      <p>
+        Le traitement des données personnelles est détaillé dans notre
+        <a href="/politique-de-confidentialite/">politique de confidentialité</a>.
+      </p>
+
+      <h2>Droit applicable</h2>
+      <p>Les présentes mentions légales sont régies par le droit français.</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .legal {
+    max-width: 48rem;
+    padding-block: var(--space-10) var(--space-16);
+  }
+  .legal__title {
+    font-size: clamp(var(--text-4xl), 5vw, var(--text-5xl));
+  }
+  .legal__updated {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-8);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+</style>
