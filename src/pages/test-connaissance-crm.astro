@@ -347,10 +347,16 @@ const pageSchema = graph(quizSchema, organization(), breadcrumbList(crumbs, abso
 
         updateProgress();
 
-        // On déverrouille la suivante sans défiler : l'utilisateur lit d'abord la correction.
+        // Déverrouille la suivante, puis défile en douceur : on cadre la correction
+        // (verdict + explication) en haut, la question suivante apparaît juste en dessous.
         const idx = cards.indexOf(card);
         if (idx + 1 < total) {
-          setLocked(cards[idx + 1], false);
+          const next = cards[idx + 1];
+          setLocked(next, false);
+          const fbEl = card.querySelector<HTMLElement>('.q__feedback');
+          setTimeout(() => {
+            (fbEl ?? next).scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 450);
         } else {
           showResults();
         }
@@ -887,6 +893,7 @@ const pageSchema = graph(quizSchema, organization(), breadcrumbList(crumbs, abso
     border-radius: var(--radius-md);
     border-left: var(--rule-strong) solid var(--green);
     background: var(--green-tint);
+    scroll-margin-top: 6rem;
     animation: fade-up 0.4s ease both;
   }
   .q :global(.q__feedback.is-ko) {
