@@ -33,7 +33,7 @@ L'essentiel est là : la GRC est une politique d'entreprise, pas un logiciel. El
 
 Tapez « GRC » dans un moteur de recherche : la première page est tenue presque entièrement par des éditeurs de logiciels. Ce n'est pas un hasard. Quand la stratégie et l'outil portent le même nom, acheter l'outil donne l'impression d'avoir une stratégie. C'est rarement le cas.
 
-L'usage français a fini par répartir les rôles assez nettement. GRC désigne la démarche, CRM désigne [le logiciel CRM](https://crm-logiciel.fr/qu-est-ce-qu-un-crm/) qui la sert. Dans cette page, il sera toujours question de la démarche. Tout ce qui concerne l'outil, sa définition et son fonctionnement, vit dans son propre guide.
+L'usage français a fini par répartir les rôles assez nettement. GRC désigne la démarche, CRM désigne [le logiciel CRM](/qu-est-ce-qu-un-crm/) qui la sert. Dans cette page, il sera toujours question de la démarche. Tout ce qui concerne l'outil, sa définition et son fonctionnement, vit dans son propre guide.
 
 Un détail amusera les étudiants : l'État français a officiellement tranché la terminologie. La forme recommandée, publiée au Journal officiel du 26 mars 2004 par la Commission d'enrichissement de la langue française, est « gestion des relations avec la clientèle ». Vingt ans plus tard, personne ne l'emploie, pas même l'administration. L'usage a gagné, comme presque toujours en vocabulaire professionnel.
 
@@ -53,11 +53,11 @@ Ces principes ne coûtent rien et ne s'achètent pas. Ils décident pourtant de 
 
 Au-delà de cette typologie, la GRC se traduit par trois chantiers très concrets. Votre boulangère les mène sans jamais prononcer le mot : elle sait qui prend sa baguette bien cuite, qui vient le samedi pour les croissants, qui n'est pas passé depuis un mois. La GRC formalise, pour 2 000 ou 200 000 clients, ce qu'elle fait naturellement avec 200.
 
-Le premier chantier est la connaissance client. Il s'agit de rassembler ce que l'entreprise sait déjà, historique d'achat, échanges passés, préférences, et de l'organiser pour s'en servir. C'est ici qu'intervient la [segmentation client](https://crm-logiciel.fr/segmentation-client/), qui regroupe les clients par profils pour adapter le discours. On n'écrit pas la même chose à un client fidèle depuis huit ans et à un acheteur d'il y a trois semaines.
+Le premier chantier est la connaissance client. Il s'agit de rassembler ce que l'entreprise sait déjà, historique d'achat, échanges passés, préférences, et de l'organiser pour s'en servir. C'est ici qu'intervient la [segmentation client](/segmentation-client/), qui regroupe les clients par profils pour adapter le discours. On n'écrit pas la même chose à un client fidèle depuis huit ans et à un acheteur d'il y a trois semaines.
 
 Le deuxième chantier est le cycle de vie. Un prospect, un nouveau client, un client établi et un client sur le départ n'attendent pas la même attention. La plupart des entreprises concentrent leurs efforts sur l'avant-vente. La démarche GRC répartit l'attention sur tout le parcours, jusqu'au moment du renouvellement, que beaucoup ne voient pas venir faute de l'avoir noté quelque part.
 
-Le troisième chantier est la cohérence des points de contact. Téléphone, email, boutique, réseaux sociaux et service après-vente forment une seule conversation, et le client juge l'ensemble. Une promesse faite en rendez-vous doit se retrouver dans le devis, puis dans la bouche du support six mois plus tard. Au quotidien, cette continuité repose sur la discipline du [suivi commercial](https://crm-logiciel.fr/suivi-commercial/) : noter, relancer, tenir ce qui a été dit.
+Le troisième chantier est la cohérence des points de contact. Téléphone, email, boutique, réseaux sociaux et service après-vente forment une seule conversation, et le client juge l'ensemble. Une promesse faite en rendez-vous doit se retrouver dans le devis, puis dans la bouche du support six mois plus tard. Au quotidien, cette continuité repose sur la discipline du [suivi commercial](/suivi-commercial/) : noter, relancer, tenir ce qui a été dit.
 
 ## La fidélisation, cœur de la démarche
 
@@ -84,9 +84,9 @@ Pour une PME qui démarre, deux indicateurs suffisent : le taux de rétention, c
 
 ## La place de l'outil dans la démarche
 
-Une fois la politique posée, l'outil devient ce qu'il aurait toujours dû être : un exécutant. Il garde la mémoire des interactions, déclenche les relances au bon moment et calcule les indicateurs sans soirée Excel. Bien nourri, il transforme la démarche en [bénéfices concrets d'un CRM](https://crm-logiciel.fr/avantages-inconvenients-crm/) qui se mesurent. Mal nourri, il ne transforme rien, et ce second cas est fréquent.
+Une fois la politique posée, l'outil devient ce qu'il aurait toujours dû être : un exécutant. Il garde la mémoire des interactions, déclenche les relances au bon moment et calcule les indicateurs sans soirée Excel. Bien nourri, il transforme la démarche en [bénéfices concrets d'un CRM](/avantages-inconvenients-crm/) qui se mesurent. Mal nourri, il ne transforme rien, et ce second cas est fréquent.
 
-L'ordre des opérations est donc l'inverse de ce que suggèrent les éditeurs : la politique d'abord, l'équipement ensuite. Quand votre démarche tient sur le papier, [choisir l'outil adapté](https://crm-logiciel.fr/comment-choisir-crm/) devient un exercice court, parce que vos critères existent déjà.
+L'ordre des opérations est donc l'inverse de ce que suggèrent les éditeurs : la politique d'abord, l'équipement ensuite. Quand votre démarche tient sur le papier, [choisir l'outil adapté](/comment-choisir-crm/) devient un exercice court, parce que vos critères existent déjà.
 
 Pour rendre cette page utile dès ce soir, l'exercice tient sur une feuille. Écrivez votre politique de relation client en cinq décisions.
 

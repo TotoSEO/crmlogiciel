@@ -166,7 +166,7 @@ export const PAGES: PageNode[] = [
     cluster: 'choisir',
   },
 
-  // Utiliser (11)
+  // Utiliser (10)
   {
     slug: 'mise-en-place-crm',
     label: 'Mettre en place un CRM : la méthode',
@@ -195,7 +195,6 @@ export const PAGES: PageNode[] = [
     breadcrumbLabel: 'Suivi commercial',
     cluster: 'utiliser',
   },
-  { slug: 'crm-ia', label: 'CRM et intelligence artificielle', cluster: 'utiliser' },
   {
     slug: 'crm-rgpd',
     label: 'CRM et RGPD : être conforme',

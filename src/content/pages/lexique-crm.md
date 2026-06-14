@@ -22,7 +22,7 @@ faq:
     answer: "Pas tout à fait. Le funnel, ou entonnoir, décrit le parcours marketing d'un contact, du premier intérêt à l'achat, vu comme un volume qui se réduit à chaque étape. Le pipeline décrit le suivi commercial d'affaires identifiées, une par une, le long de vos étapes de vente. Le funnel raisonne en masse, le pipeline en affaires nommées."
 ---
 
-Chaque métier a son jargon, et le CRM ne fait pas exception. Dès la première démonstration, vous entendrez parler de leads, de pipeline, de scoring ou de MQL, souvent sans qu'on prenne le temps de définir ces mots. Cette page rassemble le vocabulaire courant du CRM avec des définitions courtes et lisibles, regroupées par famille. Elles s'appuient sur notre [définition complète du CRM](https://crm-logiciel.fr/qu-est-ce-qu-un-crm/), qui pose le concept en détail ; ici, on se concentre sur les mots, un par un. Inutile de tout mémoriser : gardez plutôt la page ouverte pendant vos rendez-vous avec les éditeurs.
+Chaque métier a son jargon, et le CRM ne fait pas exception. Dès la première démonstration, vous entendrez parler de leads, de pipeline, de scoring ou de MQL, souvent sans qu'on prenne le temps de définir ces mots. Cette page rassemble le vocabulaire courant du CRM avec des définitions courtes et lisibles, regroupées par famille. Elles s'appuient sur notre [définition complète du CRM](/qu-est-ce-qu-un-crm/), qui pose le concept en détail ; ici, on se concentre sur les mots, un par un. Inutile de tout mémoriser : gardez plutôt la page ouverte pendant vos rendez-vous avec les éditeurs.
 
 ## Les contacts : du premier échange au client
 
@@ -46,7 +46,7 @@ Le point de départ de tout CRM, c'est le contact. Plusieurs mots décrivent son
 
 C'est le cœur de l'usage commercial d'un CRM.
 
-- **Pipeline commercial** : la représentation visuelle de vos ventes en cours, réparties par étape. Terme central s'il en est, [le pipeline commercial](https://crm-logiciel.fr/pipeline-commercial/) mérite son guide dédié.
+- **Pipeline commercial** : la représentation visuelle de vos ventes en cours, réparties par étape. Terme central s'il en est, [le pipeline commercial](/pipeline-commercial/) mérite son guide dédié.
 
 - **Étape** (ou phase) : une position dans le pipeline, comme la prise de contact, le devis, la négociation ou la signature. Chaque affaire avance d'étape en étape.
 
@@ -68,7 +68,7 @@ Ces termes décrivent la façon de trier les contacts et de les faire mûrir.
 
 - **SQL** (Sales Qualified Lead) : un lead validé par l'équipe commerciale comme prêt à être travaillé. Le passage de MQL à SQL marque le relais entre marketing et vente.
 
-- **Lead scoring** : la pratique qui consiste à attribuer une note à chaque contact selon son profil et son comportement, pour prioriser l'effort. Le [lead scoring](https://crm-logiciel.fr/lead-scoring/) a sa méthode complète, qu'on détaille pas à pas.
+- **Lead scoring** : la pratique qui consiste à attribuer une note à chaque contact selon son profil et son comportement, pour prioriser l'effort. Le [lead scoring](/lead-scoring/) a sa méthode complète, qu'on détaille pas à pas.
 
 - **Lead nurturing** : l'art de faire mûrir un contact pas encore prêt, en lui adressant régulièrement du contenu utile jusqu'à ce qu'il le devienne.
 
@@ -82,7 +82,7 @@ Ces termes décrivent la façon de trier les contacts et de les faire mûrir.
 
 Une fois la base remplie, ces termes servent à l'exploiter.
 
-- **Segmentation client** : le découpage de votre base en groupes homogènes, par taille, secteur ou comportement. La [segmentation client](https://crm-logiciel.fr/segmentation-client/) suit une méthode précise, détaillée par ailleurs.
+- **Segmentation client** : le découpage de votre base en groupes homogènes, par taille, secteur ou comportement. La [segmentation client](/segmentation-client/) suit une méthode précise, détaillée par ailleurs.
 
 - **RFM** : une méthode de segmentation fondée sur trois critères, la Récence, la Fréquence et le Montant des achats. Très utilisée en e-commerce.
 
@@ -116,4 +116,4 @@ Le vocabulaire qui revient au moment de choisir et d'installer l'outil.
 
 - **Tag** (ou étiquette) : un mot-clé libre attaché à une fiche pour la classer et la retrouver, en complément des champs structurés.
 
-La plupart de ces termes renvoient aux [fonctionnalités d'un CRM](https://crm-logiciel.fr/fonctionnalites-crm/) que nous détaillons par ailleurs : le vocabulaire n'est que la porte d'entrée. Une fois ces mots en main, direction notre [comparatif des CRM](https://crm-logiciel.fr/meilleur-crm/) pour passer à la pratique.
+La plupart de ces termes renvoient aux [fonctionnalités d'un CRM](/fonctionnalites-crm/) que nous détaillons par ailleurs : le vocabulaire n'est que la porte d'entrée. Une fois ces mots en main, direction notre comparatif des CRM pour passer à la pratique.

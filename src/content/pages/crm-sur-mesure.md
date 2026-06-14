@@ -27,11 +27,11 @@ faq:
 
 Un CRM sur mesure est un logiciel développé spécifiquement pour votre entreprise, par une agence ou une équipe interne, dont vous possédez le code et que personne d'autre n'utilise. La promesse est réelle : un outil qui épouse vos processus au lieu de les contraindre. La question n'est donc pas de savoir si c'est mieux adapté (évidemment, oui), mais combien cette adaptation coûte vraiment, sur combien d'années, et contre quels risques.
 
-Cette page n'a rien à vous vendre, ni développement ni licence, et ce détail compte : au moment où j'écris, les dix premiers résultats sur cette requête appartiennent tous à des vendeurs de développement. Dans la grande majorité des situations, [choisir un CRM du marché](https://crm-logiciel.fr/comment-choisir-crm/) reste plus rapide et moins cher ; cette page sert à identifier honnêtement les cas restants, et à chiffrer ce qu'ils impliquent.
+Cette page n'a rien à vous vendre, ni développement ni licence, et ce détail compte : au moment où j'écris, les dix premiers résultats sur cette requête appartiennent tous à des vendeurs de développement. Dans la grande majorité des situations, [choisir un CRM du marché](/comment-choisir-crm/) reste plus rapide et moins cher ; cette page sert à identifier honnêtement les cas restants, et à chiffrer ce qu'ils impliquent.
 
 ## Votre besoin est-il vraiment unique ?
 
-C'est la première question, et elle se teste avant de rencontrer la moindre agence. Écrivez les cinq processus que vous jugez introuvables ailleurs, puis confrontez-les aux [fonctionnalités standard d'un CRM](https://crm-logiciel.fr/fonctionnalites-crm/) et aux modules de leurs marketplaces. Champs personnalisés, objets sur mesure, automatisations conditionnelles et API couvrent aujourd'hui des besoins qui exigeaient un développement complet il y a dix ans. Sur les demandes de sur-mesure que j'ai vues passer, la grande majorité décrivait en réalité un CRM standard avec deux champs renommés et une habitude d'équipe.
+C'est la première question, et elle se teste avant de rencontrer la moindre agence. Écrivez les cinq processus que vous jugez introuvables ailleurs, puis confrontez-les aux [fonctionnalités standard d'un CRM](/fonctionnalites-crm/) et aux modules de leurs marketplaces. Champs personnalisés, objets sur mesure, automatisations conditionnelles et API couvrent aujourd'hui des besoins qui exigeaient un développement complet il y a dix ans. Sur les demandes de sur-mesure que j'ai vues passer, la grande majorité décrivait en réalité un CRM standard avec deux champs renommés et une habitude d'équipe.
 
 Restent les cas légitimes, et ils existent. Trois profils s'en détachent :
 
@@ -49,7 +49,7 @@ Entre l'abonnement standard et le développement complet, deux familles d'outils
 
 Les plateformes no-code et low-code d'abord : elles assemblent un CRM à partir de briques (tables, vues, formulaires, automatisations) sans écrire de code, en quelques jours ou semaines. C'est la voie la plus rapide pour un processus inhabituel, avec des limites connues qu'il faut regarder en face. Volumes plafonnés, gestion des droits sommaire, et une dépendance à la plateforme qui ressemble fort à celle qu'on cherchait à fuir.
 
-Les [CRM open source](https://crm-logiciel.fr/crm-open-source/) ensuite, qui offrent le code modifiable sans repartir de zéro : on personnalise un socle éprouvé au lieu de tout construire. La contrepartie est technique : il faut héberger, maintenir et mettre à jour, donc disposer d'une compétence en interne ou la payer. C'est la voie médiane sérieuse pour les équipes qui ont un développeur sous la main, et un faux bon plan pour les autres.
+Les CRM open source ensuite, qui offrent le code modifiable sans repartir de zéro : on personnalise un socle éprouvé au lieu de tout construire. La contrepartie est technique : il faut héberger, maintenir et mettre à jour, donc disposer d'une compétence en interne ou la payer. C'est la voie médiane sérieuse pour les équipes qui ont un développeur sous la main, et un faux bon plan pour les autres.
 
 ## Le vrai coût d'un CRM sur mesure
 
@@ -74,7 +74,7 @@ Le tableau pose les ordres de grandeur pour une équipe de 10 utilisateurs, hors
 | Sur mesure en agence              | 25 000 à 80 000 €               | 15 à 20 % du devis, plus les évolutions | 90 000 à 250 000 €                |
 | Sur mesure assisté par IA         | 3 000 à 15 000 €                | incertain, presque toujours sous-estimé | 15 000 à 60 000 €, forte variance |
 
-La lecture honnête : face au [prix d'un CRM classique](https://crm-logiciel.fr/prix-crm/) sur la même durée, le sur-mesure d'agence coûte trois à six fois plus pour une petite équipe, et le croisement des courbes n'arrive que sur de gros effectifs aux besoins simples. C'est le calcul à poser devant chaque devis, sur cinq ans et pas sur l'année une.
+La lecture honnête : face au [prix d'un CRM classique](/prix-crm/) sur la même durée, le sur-mesure d'agence coûte trois à six fois plus pour une petite équipe, et le croisement des courbes n'arrive que sur de gros effectifs aux besoins simples. C'est le calcul à poser devant chaque devis, sur cinq ans et pas sur l'année une.
 
 ## Les deux risques absents de tous les devis
 
@@ -84,6 +84,6 @@ Le bus factor ensuite, du nom d'une question que les développeurs se posent sé
 
 ## La décision, posée froidement
 
-Avant de signer quoi que ce soit, trois vérifications dans cet ordre. Confrontez vos cinq processus « uniques » aux [meilleurs CRM](https://crm-logiciel.fr/meilleur-crm/) du moment et à leurs modules : la recherche prend deux jours et élimine la plupart des projets. Chiffrez ensuite l'écart résiduel : si le standard couvre 90 % du besoin, le sur-mesure revient à payer 90 000 € les 10 % restants, et cette phrase suffit souvent à conclure. Exigez enfin que **le coût de maintenance annuel figure noir sur blanc au devis**, avec son périmètre : la réaction de l'agence à cette demande vous renseignera plus vite que n'importe quel comparatif.
+Avant de signer quoi que ce soit, trois vérifications dans cet ordre. Confrontez vos cinq processus « uniques » aux meilleurs CRM du moment et à leurs modules : la recherche prend deux jours et élimine la plupart des projets. Chiffrez ensuite l'écart résiduel : si le standard couvre 90 % du besoin, le sur-mesure revient à payer 90 000 € les 10 % restants, et cette phrase suffit souvent à conclure. Exigez enfin que **le coût de maintenance annuel figure noir sur blanc au devis**, avec son périmètre : la réaction de l'agence à cette demande vous renseignera plus vite que n'importe quel comparatif.
 
 Et si vous cochez l'un des trois cas légitimes du début, alors faites-le proprement : code dont vous êtes propriétaire, documentation exigée au contrat, réversibilité prévue dès le départ. Le sur-mesure n'est pas une erreur en soi ; le sur-mesure par défaut d'avoir cherché, oui.

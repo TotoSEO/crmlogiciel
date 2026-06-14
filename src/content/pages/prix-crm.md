@@ -27,7 +27,7 @@ faq:
 
 À la question directe, réponse directe : un CRM coûte entre 0 et 25 € par utilisateur et par mois pour les outils d'entrée de gamme et les plans gratuits, 30 à 70 € pour les solutions qui équipent la plupart des PME, et 80 à 150 € pour les suites les plus avancées. Voilà pour l'affiche. Le vrai sujet de cette page commence après, parce qu'entre le tarif publié et ce que vous paierez réellement, il existe une série de mécanismes parfaitement légaux et remarquablement efficaces.
 
-Le prix n'est d'ailleurs qu'un des cinq critères pour [comment choisir son CRM](https://crm-logiciel.fr/comment-choisir-crm/), et rarement le premier. Mais c'est celui où l'asymétrie d'information est la plus forte entre l'éditeur et vous : cette page la réduit. Les mécanismes et les ordres de grandeur sont ici ; les tarifs frais, relevés outil par outil, vivent dans [notre baromètre des prix CRM](https://crm-logiciel.fr/barometre-prix-crm/), mis à jour à chaque vague de relevés.
+Le prix n'est d'ailleurs qu'un des cinq critères pour [comment choisir son CRM](/comment-choisir-crm/), et rarement le premier. Mais c'est celui où l'asymétrie d'information est la plus forte entre l'éditeur et vous : cette page la réduit. Les mécanismes et les ordres de grandeur sont ici ; les tarifs frais, relevés outil par outil, vivent dans notre baromètre des prix CRM, mis à jour à chaque vague de relevés.
 
 ## Les modèles tarifaires, décodés
 
@@ -35,7 +35,7 @@ Le modèle dominant facture **par utilisateur et par mois**, et il a une particu
 
 Les plateformes orientées marketing facturent autrement : **par contact stocké ou contacté**. Le compteur tourne avec votre base, ce qui rend la facture vivante : un fichier qui grossit, une campagne de plus, et le palier saute. C'est le modèle où les budgets dérapent le plus discrètement, parce que personne ne surveille un compteur.
 
-Le freemium complète le paysage, et [HubSpot](https://crm-logiciel.fr/avis-hubspot/) en reste l'exemple le plus célèbre : un plan gratuit réellement utilisable, puis des paliers payants dont la pente surprend. Le gratuit n'est pas un piège en soi, c'est une porte d'entrée dont il faut connaître l'escalier. Restent les licences perpétuelles des outils installés sur vos serveurs, devenues marginales : on paie une fois, puis la maintenance annuelle, et l'hébergement vous revient.
+Le freemium complète le paysage, et HubSpot en reste l'exemple le plus célèbre : un plan gratuit réellement utilisable, puis des paliers payants dont la pente surprend. Le gratuit n'est pas un piège en soi, c'est une porte d'entrée dont il faut connaître l'escalier. Restent les licences perpétuelles des outils installés sur vos serveurs, devenues marginales : on paie une fois, puis la maintenance annuelle, et l'hébergement vous revient.
 
 ## Les fourchettes réalistes par profil
 
@@ -49,7 +49,7 @@ Les budgets ci-dessous croisent licences, mise en route et formation, pour une p
 | PME, 20 utilisateurs                            | 30 à 70 €                               | 12 000 à 30 000 €           |
 | PME structurée, 50 utilisateurs et intégrations | 50 à 120 €                              | 50 000 à 120 000 €          |
 
-La première ligne mérite une précision : à l'échelle d'un indépendant ou d'une très petite équipe, les [meilleurs CRM gratuits](https://crm-logiciel.fr/crm-gratuit/) couvrent réellement le besoin, sans astérisque, tant que le volume et les automatisations restent modestes. Le passage au payant se déclenche par l'usage, pas par principe.
+La première ligne mérite une précision : à l'échelle d'un indépendant ou d'une très petite équipe, les meilleurs CRM gratuits couvrent réellement le besoin, sans astérisque, tant que le volume et les automatisations restent modestes. Le passage au payant se déclenche par l'usage, pas par principe.
 
 ## Les sept mécanismes qui gonflent la facture
 
@@ -67,4 +67,4 @@ Aucun de ces mécanismes n'est un scandale ; tous sont documentés dans les cond
 
 La règle de budget qui résume cette page : **la première année coûte 1,5 à 2 fois les licences seules**, et les années suivantes coûtent les licences plus la dérive des modules, si personne ne la surveille. Sur les budgets CRM que j'ai vus passer, la dérive moyenne tient moins aux éditeurs qu'à l'absence d'un propriétaire du sujet : quand personne ne relit la facture annuelle, elle grossit.
 
-Trois gestes suffisent à garder la main. Négociez à la signature ce qui ne se négocie plus après : prix bloqué sur 24 mois, conditions de sortie, coût des paliers supérieurs écrit dans le contrat. Faites le point une fois par an sur les modules réellement utilisés, la moitié des options ajoutées « pour tester » survivent à leur test. Et comparez toujours à périmètre égal : notre [comparatif des meilleurs CRM](https://crm-logiciel.fr/meilleur-crm/) chiffre chaque outil sur un profil d'usage identique, parce qu'un prix sans périmètre ne dit rien.
+Trois gestes suffisent à garder la main. Négociez à la signature ce qui ne se négocie plus après : prix bloqué sur 24 mois, conditions de sortie, coût des paliers supérieurs écrit dans le contrat. Faites le point une fois par an sur les modules réellement utilisés, la moitié des options ajoutées « pour tester » survivent à leur test. Et comparez toujours à périmètre égal : notre comparatif des meilleurs CRM chiffre chaque outil sur un profil d'usage identique, parce qu'un prix sans périmètre ne dit rien.

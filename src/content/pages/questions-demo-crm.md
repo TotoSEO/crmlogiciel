@@ -26,7 +26,7 @@ faq:
 
 Une démonstration commerciale est d'abord un exercice de vente. L'éditeur déroule un scénario rodé, sur des données parfaites, et met en avant ce que son outil fait de mieux. Votre travail consiste à sortir de ce script pour vérifier ce qui compte vraiment pour vous. Les bonnes questions, posées au bon moment, révèlent en une heure ce qu'on découvrirait sinon trois mois après la signature.
 
-Ces questions arrivent en bout de course. La [méthode pour choisir son CRM](https://crm-logiciel.fr/comment-choisir-crm/) commence bien avant la démonstration, par la définition de vos besoins. Et le meilleur outil pour cadrer l'échange reste votre [cahier des charges](https://crm-logiciel.fr/cahier-des-charges-crm/) : venez en démonstration avec lui, c'est lui qui structure la conversation et empêche l'éditeur de la mener seul.
+Ces questions arrivent en bout de course. La [méthode pour choisir son CRM](/comment-choisir-crm/) commence bien avant la démonstration, par la définition de vos besoins. Et le meilleur outil pour cadrer l'échange reste votre [cahier des charges](/cahier-des-charges-crm/) : venez en démonstration avec lui, c'est lui qui structure la conversation et empêche l'éditeur de la mener seul.
 
 ## Le fonctionnel : l'outil fait-il vraiment ce que vous faites
 
@@ -60,7 +60,7 @@ Un connecteur natif vous épargnera des années de bricolage et d'abonnements ti
 
 ## Le prix : ce que cache le tarif affiché
 
-Le tarif par utilisateur affiché sur le site n'est **presque jamais la facture finale**. Plusieurs de ces questions visent le [coût réel d'un CRM](https://crm-logiciel.fr/prix-crm/), au-delà du prix de la licence.
+Le tarif par utilisateur affiché sur le site n'est **presque jamais la facture finale**. Plusieurs de ces questions visent le [coût réel d'un CRM](/prix-crm/), au-delà du prix de la licence.
 
 - Que comprend exactement ce tarif, et qu'est-ce qui est facturé en option ?
 
@@ -144,4 +144,4 @@ La démonstration séduit, l'essai révèle. Ne signez jamais sans une période 
 
 Un projet CRM se rate plus souvent sur l'adoption que sur la technique. Une équipe qui trouve l'outil pénible ne le remplira pas, quelle que soit sa puissance.
 
-Toutes ces questions supposent une short-list déjà constituée. Pour la bâtir avant même de solliciter une démonstration, partez de [notre comparatif](https://crm-logiciel.fr/meilleur-crm/). Et si vous hésitez encore sur les outils à retenir, laissez notre configurateur déterminer [quel CRM est fait pour vous](https://crm-logiciel.fr/quel-crm/) avant de réserver le moindre créneau.
+Toutes ces questions supposent une short-list déjà constituée. Pour la bâtir avant même de solliciter une démonstration, partez de notre comparatif. Et si vous hésitez encore sur les outils à retenir, laissez notre configurateur déterminer quel CRM est fait pour vous avant de réserver le moindre créneau.

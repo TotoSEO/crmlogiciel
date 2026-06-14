@@ -6,6 +6,10 @@ excerpt: "Excel reste le premier CRM de beaucoup d'entreprises : gratuit, déjà
 cluster: comprendre
 type: satellite
 datePublished: 2026-06-14
+download:
+  label: 'Modèle de CRM sur Excel à télécharger'
+  file: 'modele-crm-excel.xlsx'
+  note: 'Fichier Excel gratuit, prêt à remplir.'
 enBref:
   - "Un tableur peut servir de CRM léger : une feuille de suivi, une feuille d'historique, quelques formules."
   - "Notre modèle gratuit est prêt à l'emploi : menus déroulants, alerte sur les relances en retard, tableau de bord automatique."
@@ -23,7 +27,7 @@ faq:
     answer: "La sécurité d'un fichier Excel est limitée : il se copie, s'envoie et se perd facilement, et il n'offre pas de gestion fine des accès. Pour des données clients sensibles, protégez au minimum le fichier par mot de passe et limitez sa diffusion. C'est aussi l'une des raisons de passer à un outil dédié à mesure que la base grandit."
 ---
 
-Avant d'investir dans un logiciel, beaucoup commencent par un tableur, et c'est un réflexe sain. Excel ou Google Sheets ne coûtent rien, tout le monde sait s'en servir, et pour une activité qui démarre, cela suffit souvent. Le tableur dépanne très bien, mais il ne remplacera jamais [un vrai CRM](https://crm-logiciel.fr/qu-est-ce-qu-un-crm/) sur la durée. Ce guide vous montre comment en tirer le meilleur, étape par étape, puis où se trouvent ses limites pour partir au bon moment.
+Avant d'investir dans un logiciel, beaucoup commencent par un tableur, et c'est un réflexe sain. Excel ou Google Sheets ne coûtent rien, tout le monde sait s'en servir, et pour une activité qui démarre, cela suffit souvent. Le tableur dépanne très bien, mais il ne remplacera jamais [un vrai CRM](/qu-est-ce-qu-un-crm/) sur la durée. Ce guide vous montre comment en tirer le meilleur, étape par étape, puis où se trouvent ses limites pour partir au bon moment.
 
 ## Pourquoi, et pour qui, utiliser Excel comme CRM
 
@@ -31,7 +35,7 @@ Un tableur fait l'affaire dans un cas précis : une petite structure, un seul ut
 
 Son attrait est évident. Il ne coûte rien, vous le maîtrisez déjà, et il se plie à votre façon de travailler sans contrainte. Vous ajoutez une colonne quand vous le voulez, vous organisez les données comme bon vous semble, et vous démarrez en cinq minutes. Pour qui veut simplement arrêter de gérer ses prospects sur un coin de carnet ou dans sa boîte mail, c'est déjà un grand pas.
 
-Le revers se paie plus tard, en temps perdu et en relances oubliées, et nous y reviendrons en détail. Quel que soit votre choix, tout part d'une base propre : prenez le temps de structurer votre [fichier client](https://crm-logiciel.fr/fichier-client/) avant de remplir la moindre ligne. Et sachez-le aussi d'emblée : un [CRM gratuit](https://crm-logiciel.fr/crm-gratuit/) ne vous coûtera pas plus cher qu'Excel, et il vous épargnera la plupart de ces limites. Si vous préférez démarrer avec l'outil que vous connaissez déjà, voici comment le faire proprement.
+Le revers se paie plus tard, en temps perdu et en relances oubliées, et nous y reviendrons en détail. Quel que soit votre choix, tout part d'une base propre : prenez le temps de structurer votre [fichier client](/fichier-client/) avant de remplir la moindre ligne. Et sachez-le aussi d'emblée : un CRM gratuit ne vous coûtera pas plus cher qu'Excel, et il vous épargnera la plupart de ces limites. Si vous préférez démarrer avec l'outil que vous connaissez déjà, voici comment le faire proprement.
 
 ## Ce qu'un CRM sur Excel doit contenir
 
@@ -41,7 +45,7 @@ Concrètement, votre feuille de suivi se construit autour de quelques familles d
 
 - L'identité du contact : nom, entreprise, email, téléphone. De quoi le reconnaître et le joindre.
 
-- Le statut : prospect, premier contact, en discussion, devis envoyé, client, perdu. C'est lui qui transforme une simple liste en [pipeline commercial](https://crm-logiciel.fr/pipeline-commercial/).
+- Le statut : prospect, premier contact, en discussion, devis envoyé, client, perdu. C'est lui qui transforme une simple liste en [pipeline commercial](/pipeline-commercial/).
 
 - Le suivi : la prochaine action à mener, sa date, et la date du dernier contact. Le cœur du système, celui qui vous évite d'oublier qui relancer.
 
@@ -113,7 +117,7 @@ Aucune de ces limites n'est rédhibitoire au début. Toutes le deviennent à mes
 
 Les signaux ne trompent pas. Vous êtes désormais plusieurs à gérer les contacts. Vous avez dépassé la centaine de contacts actifs. Des relances commencent à passer à la trappe. Vous avez besoin de consulter vos fiches depuis votre téléphone, en clientèle. Dès que l'un de ces signes apparaît, le tableur vous coûte plus de temps qu'il ne vous en fait gagner.
 
-Le passage est plus simple qu'on ne le croit. Nettoyez d'abord votre fichier en supprimant les doublons et en homogénéisant les formats, exportez-le au format CSV, puis importez-le dans le nouvel outil : presque tous proposent un assistant qui fait correspondre vos colonnes à leurs champs. Profitez-en pour ne reprendre que les contacts encore utiles. Quand Excel craque, [notre comparatif des meilleurs CRM](https://crm-logiciel.fr/meilleur-crm/) vous aide à choisir la suite. Et la bonne nouvelle, déjà dite mais qui mérite d'être répétée : ce changement ne coûte pas forcément un centime de plus.
+Le passage est plus simple qu'on ne le croit. Nettoyez d'abord votre fichier en supprimant les doublons et en homogénéisant les formats, exportez-le au format CSV, puis importez-le dans le nouvel outil : presque tous proposent un assistant qui fait correspondre vos colonnes à leurs champs. Profitez-en pour ne reprendre que les contacts encore utiles. Quand Excel craque, notre comparatif des meilleurs CRM vous aide à choisir la suite. Et la bonne nouvelle, déjà dite mais qui mérite d'être répétée : ce changement ne coûte pas forcément un centime de plus.
 
 ## Notre modèle Excel à télécharger
 

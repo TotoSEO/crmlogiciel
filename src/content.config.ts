@@ -50,6 +50,16 @@ const pages = defineCollection({
     enBref: z.array(z.string()).min(3).max(5).optional(),
     /** FAQ en accordéon (génère aussi le JSON-LD FAQPage). */
     faq: z.array(faqItem).optional(),
+    /** Ressource téléchargeable (lead magnet) liée à la page. */
+    download: z
+      .object({
+        label: z.string(),
+        /** Chemin du fichier dans /public/downloads. */
+        file: z.string(),
+        /** Précision affichée (ex. format, poids). */
+        note: z.string().optional(),
+      })
+      .optional(),
     /** Exclure de l'indexation (pages techniques / brouillons). */
     draft: z.boolean().default(false),
   }),

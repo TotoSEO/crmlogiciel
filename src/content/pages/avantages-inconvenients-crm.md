@@ -27,7 +27,7 @@ faq:
 
 Vous trouverez sans mal des pages qui alignent huit, dix ou onze avantages du CRM : elles sont écrites par les éditeurs, et elles ont raison sur le fond autant qu'elles omettent la moitié du sujet. Car chaque bénéfice d'un CRM est conditionnel : il se produit si certaines choses sont faites, et ne se produit pas sinon. Cette page présente les deux colonnes du bilan, parce que son lecteur type doit décider, ou convaincre quelqu'un qui décide, et qu'on ne convainc durablement personne avec une plaquette.
 
-Un préalable de périmètre : pour savoir ce qu'est l'outil et comment il fonctionne, [qu'est-ce qu'un CRM](https://crm-logiciel.fr/qu-est-ce-qu-un-crm/) traite la question en entier. Ici, on pèse.
+Un préalable de périmètre : pour savoir ce qu'est l'outil et comment il fonctionne, [qu'est-ce qu'un CRM](/qu-est-ce-qu-un-crm/) traite la question en entier. Ici, on pèse.
 
 ## Les avantages, avec leurs conditions de réalisation
 
@@ -47,9 +47,9 @@ Une lecture verticale de la dernière colonne révèle le motif : presque toutes
 
 ## Les inconvénients, en première classe
 
-Le coût total d'abord, parce que le tarif affiché n'en est que la première ligne : [combien coûte un CRM](https://crm-logiciel.fr/prix-crm/) réellement se calcule sur l'année complète, formation et reprise de données comprises, et la première année revient le plus souvent au double des licences. Ce n'est pas rédhibitoire ; c'est simplement le vrai chiffre à mettre dans la balance.
+Le coût total d'abord, parce que le tarif affiché n'en est que la première ligne : [combien coûte un CRM](/prix-crm/) réellement se calcule sur l'année complète, formation et reprise de données comprises, et la première année revient le plus souvent au double des licences. Ce n'est pas rédhibitoire ; c'est simplement le vrai chiffre à mettre dans la balance.
 
-La charge de saisie ensuite, le prix caché que personne n'écrit sur les plaquettes : tenir l'outil consomme quinze à trente minutes par jour et par commercial. Les intégrations en absorbent une partie, jamais la totalité, et une équipe qui n'a pas accepté ce coût-là n'obtiendra aucun des bénéfices du tableau. Vient l'adoption, qui ne se décrète pas : un projet CRM peut échouer même avec un bon outil, et les mécanismes en jeu méritent leur propre lecture, [pourquoi les projets CRM échouent](https://crm-logiciel.fr/echec-projet-crm/) les détaille un par un. Et la dépendance à l'éditeur enfin : vos données, vos processus et vos habitudes s'installent chez un tiers qui peut monter ses prix ou se faire racheter ; la parade existe (conditions de sortie négociées à l'entrée, exports testés), mais elle se prépare, elle ne s'improvise pas.
+La charge de saisie ensuite, le prix caché que personne n'écrit sur les plaquettes : tenir l'outil consomme quinze à trente minutes par jour et par commercial. Les intégrations en absorbent une partie, jamais la totalité, et une équipe qui n'a pas accepté ce coût-là n'obtiendra aucun des bénéfices du tableau. Vient l'adoption, qui ne se décrète pas : un projet CRM peut échouer même avec un bon outil, et les mécanismes en jeu méritent leur propre lecture, [pourquoi les projets CRM échouent](/echec-projet-crm/) les détaille un par un. Et la dépendance à l'éditeur enfin : vos données, vos processus et vos habitudes s'installent chez un tiers qui peut monter ses prix ou se faire racheter ; la parade existe (conditions de sortie négociées à l'entrée, exports testés), mais elle se prépare, elle ne s'improvise pas.
 
 Un cinquième inconvénient, plus subtil, guette les équipes très structurées : l'outil peut rigidifier ce qu'il formalise. Un processus médiocre gravé dans des champs obligatoires devient un processus médiocre obligatoire. Le CRM amplifie l'organisation qu'on y met, dans les deux sens.
 
@@ -65,4 +65,4 @@ Les études de retour sur investissement qui circulent ont un point commun gêna
 
 « C'est cher pour un carnet d'adresses. » Si c'était un carnet d'adresses, oui. L'argument qui porte en interne n'est pas la liste des fonctionnalités, c'est le coût de l'alternative : chiffrez devant la personne sceptique la dernière affaire perdue par oubli ou le dernier départ de commercial avec sa connaissance client. Ce chiffre-là, chacun l'a en tête sans jamais l'avoir posé.
 
-Reste à transformer la décision en choix : [meilleur CRM](https://crm-logiciel.fr/meilleur-crm/) pour comparer les outils sur des critères constants, ou [notre configurateur](https://crm-logiciel.fr/quel-crm/) pour une présélection en cinq questions à partir de votre situation.
+Reste à transformer la décision en choix : meilleur CRM pour comparer les outils sur des critères constants, ou notre configurateur pour une présélection en cinq questions à partir de votre situation.

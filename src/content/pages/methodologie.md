@@ -52,7 +52,7 @@ Cette pondération n'est pas neutre : elle traduit ce qui compte vraiment sur la
 
 Chaque critère reçoit une note sur cinq, puis la moyenne pondérée produit la note globale, sur cinq également. Nous ne cherchons pas le « meilleur CRM » dans l'absolu, qui n'existe pas, mais le meilleur outil pour un profil donné : une note excellente pour une PME peut être médiocre pour un indépendant. C'est pourquoi nos classements se déclinent par usage et par taille d'entreprise.
 
-Nous publions aussi, pour chaque outil, ses points forts et ses points faibles, parce qu'une note seule ne dit pas tout : deux CRM peuvent obtenir le même score pour des raisons opposées. Cette grille de notation alimente directement [notre classement des meilleurs CRM](https://crm-logiciel.fr/meilleur-crm/), mis à jour chaque trimestre pour suivre l'évolution des outils et des prix. Les données tarifaires, elles, proviennent de [notre baromètre des prix CRM](https://crm-logiciel.fr/barometre-prix-crm/), actualisé chaque année à partir des grilles publiques des éditeurs.
+Nous publions aussi, pour chaque outil, ses points forts et ses points faibles, parce qu'une note seule ne dit pas tout : deux CRM peuvent obtenir le même score pour des raisons opposées. Cette grille de notation alimente directement notre classement des meilleurs CRM, mis à jour chaque trimestre pour suivre l'évolution des outils et des prix. Les données tarifaires, elles, proviennent de notre baromètre des prix CRM, actualisé chaque année à partir des grilles publiques des éditeurs.
 
 ## Comment tester un CRM vous-même
 
@@ -70,7 +70,7 @@ Notre note vous oriente, mais le verdict final vous appartient. Voici comment me
 
 6.  Confrontez à vos besoins. Reprenez votre liste de besoins prioritaires et cochez ce que l'outil couvre réellement. Un test guidé par vos exigences vaut mieux qu'une impression générale.
 
-Pour voir à quoi ressemble un test complet, [notre test de HubSpot](https://crm-logiciel.fr/avis-hubspot/) suit ce protocole point par point.
+Pour voir à quoi ressemble un test complet, notre test de HubSpot suit ce protocole point par point.
 
 ## Les pièges à éviter quand on teste un CRM
 
@@ -88,4 +88,4 @@ Le dernier, c'est de négliger la sortie. On teste toujours l'entrée dans l'out
 
 Une question revient toujours : qui nous paie ? Personne. Ce site est gratuit, et aucun éditeur ne nous rémunère pour figurer dans nos classements ni pour y être mieux placé. Nous ne vendons aucune place, nous ne touchons aucune commission sur les outils que vous choisissez, et aucune marque n'a de droit de regard sur nos notes.
 
-Cette indépendance est la raison d'être du site. La conviction de départ est simple : accompagner les entreprises vers le bon CRM, gratuitement et sans contrepartie, vaut mieux qu'un avis orienté par un intérêt commercial. Nous notons sur le mérite, sans exception. S'il faut placer un outil gratuit en tête parce qu'il est le meilleur pour un profil, nous le faisons sans hésiter. C'est cette même pondération, sans pouce sur la balance, qui alimente [le configurateur](https://crm-logiciel.fr/quel-crm/) pour produire ses recommandations.
+Cette indépendance est la raison d'être du site. La conviction de départ est simple : accompagner les entreprises vers le bon CRM, gratuitement et sans contrepartie, vaut mieux qu'un avis orienté par un intérêt commercial. Nous notons sur le mérite, sans exception. S'il faut placer un outil gratuit en tête parce qu'il est le meilleur pour un profil, nous le faisons sans hésiter. C'est cette même pondération, sans pouce sur la balance, qui alimente le configurateur pour produire ses recommandations.

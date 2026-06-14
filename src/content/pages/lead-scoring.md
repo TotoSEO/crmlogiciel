@@ -31,7 +31,7 @@ Le lead scoring consiste à donner une note, en points, à chaque prospect qui e
 
 C'est un outil de tri, rien de plus. Tant que vos commerciaux traitent chaque demande dans la journée, leur jugement suffit. Le scoring devient utile quand le volume dépasse leur capacité, en général au-delà d'une cinquantaine de leads par mois. À partir de là, une grille bien réglée repère les bons dossiers plus vite qu'une lecture au cas par cas.
 
-Le paramétrage prend une demi-journée dans la plupart des CRM. Il a tout intérêt à être prévu dès le [déploiement de votre CRM](https://crm-logiciel.fr/mise-en-place-crm/), au moment où l'on décide quels champs remplir et comment les données entrent dans l'outil.
+Le paramétrage prend une demi-journée dans la plupart des CRM. Il a tout intérêt à être prévu dès le [déploiement de votre CRM](/mise-en-place-crm/), au moment où l'on décide quels champs remplir et comment les données entrent dans l'outil.
 
 ## Les deux ingrédients d'un score : le profil et le comportement
 
@@ -43,7 +43,7 @@ Le second, c'est le comportement. Il répond à une autre question : qu'a fait c
 
 Un bon score additionne les deux, parce qu'aucun ne suffit seul. Un stagiaire très actif sur votre site reste un stagiaire : il ne signera pas. Un dirigeant parfaitement dans la cible qui n'ouvre jamais un email n'est tout simplement pas pressé. C'est le croisement des deux lectures qui donne une note utile.
 
-Cette logique ressemble à celle de la [segmentation](https://crm-logiciel.fr/segmentation-client/), mais les deux ne servent pas au même moment. La segmentation range vos contacts en groupes durables. Le score, lui, juge une personne aujourd'hui, et sa note aura changé la semaine prochaine.
+Cette logique ressemble à celle de la [segmentation](/segmentation-client/), mais les deux ne servent pas au même moment. La segmentation range vos contacts en groupes durables. Le score, lui, juge une personne aujourd'hui, et sa note aura changé la semaine prochaine.
 
 ## Scoring ou grading : croiser le profil et l'engagement
 
@@ -105,7 +105,7 @@ Entre 30 et 60 points, le prospect entre dans la file normale. Les commerciaux l
 
 Au-delà de 60 points, c'est le circuit prioritaire. Une tâche d'appel est créée tout de suite, avec une échéance dans la journée, et une alerte se déclenche si elle n'est pas traitée.
 
-Ces déclenchements se branchent en quelques clics dans vos [workflows d'automatisation](https://crm-logiciel.fr/automatisation-commerciale/). Le principe est simple : le score sert de condition, le workflow exécute la conséquence. La frontière reste la même que partout ailleurs en automatisation. La machine route le dossier et alerte au bon moment, l'humain passe l'appel.
+Ces déclenchements se branchent en quelques clics dans vos [workflows d'automatisation](/automatisation-commerciale/). Le principe est simple : le score sert de condition, le workflow exécute la conséquence. La frontière reste la même que partout ailleurs en automatisation. La machine route le dossier et alerte au bon moment, l'humain passe l'appel.
 
 C'est aussi le moment de distinguer deux statuts qu'on confond souvent. Un prospect qui franchit le seuil devient un lead qualifié par le marketing, ou MQL. Il n'est pas encore qualifié par la vente. Ce statut-là, le SQL, n'arrive qu'après un premier échange qui confirme un vrai besoin, un budget plausible et un calendrier. Le scoring fabrique des MQL ; seule une conversation transforme un MQL en SQL.
 
@@ -143,9 +143,9 @@ Une fois par trimestre, regardez combien de prospects signent dans chaque tranch
 
 ## Scoring manuel ou prédictif : lequel choisir
 
-La grille décrite jusqu'ici est un scoring par règles : vous fixez les critères et les points à la main. C'est la bonne approche pour la grande majorité des PME, parce qu'elle est lisible, qu'on comprend pourquoi un prospect a tel score et qu'on la corrige facilement. Ce type de scoring est natif dans la plupart des CRM, et [HubSpot](https://crm-logiciel.fr/avis-hubspot/) l'a largement popularisé auprès des PME. Inutile d'acheter un outil dédié pour ce que votre logiciel sait déjà faire.
+La grille décrite jusqu'ici est un scoring par règles : vous fixez les critères et les points à la main. C'est la bonne approche pour la grande majorité des PME, parce qu'elle est lisible, qu'on comprend pourquoi un prospect a tel score et qu'on la corrige facilement. Ce type de scoring est natif dans la plupart des CRM, et HubSpot l'a largement popularisé auprès des PME. Inutile d'acheter un outil dédié pour ce que votre logiciel sait déjà faire.
 
-Il existe une autre voie : le [scoring prédictif par IA](https://crm-logiciel.fr/crm-ia/). Au lieu de fixer les points vous-même, l'outil analyse vos historiques et trouve seul les critères qui annoncent une signature. C'est puissant, à deux conditions. Il faut un gros volume de données, plusieurs milliers de leads et de signatures, sinon le modèle apprend sur trop peu de cas. Et il faut accepter une part d'opacité : le modèle décide sans toujours expliquer pourquoi.
+Il existe une autre voie : le scoring prédictif par IA. Au lieu de fixer les points vous-même, l'outil analyse vos historiques et trouve seul les critères qui annoncent une signature. C'est puissant, à deux conditions. Il faut un gros volume de données, plusieurs milliers de leads et de signatures, sinon le modèle apprend sur trop peu de cas. Et il faut accepter une part d'opacité : le modèle décide sans toujours expliquer pourquoi.
 
 En dessous de quelques milliers de leads par an, la grille manuelle reste plus claire et plus simple à corriger. Le prédictif prend tout son intérêt au-dessus, quand le volume rend le réglage à la main impossible.
 

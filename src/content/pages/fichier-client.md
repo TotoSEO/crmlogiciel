@@ -27,7 +27,7 @@ faq:
     answer: "Non, plus depuis l'entrée en vigueur du RGPD en 2018 : la déclaration préalable a disparu. En contrepartie, l'entreprise tient elle-même un registre de ses traitements de données, qui décrit ce qu'elle collecte, pourquoi et combien de temps elle le conserve. Ce registre se présente sur demande en cas de contrôle, et il remplace l'ancienne formalité."
 ---
 
-Un fichier client est une base de données structurée qui réunit les informations utiles sur vos clients et prospects : coordonnées, historique, statut, prochaine action. Sur le papier, rien de plus banal. Dans les faits, c'est la matière première de toute votre activité commerciale. Et sa qualité décidera de la réussite de l'[implémentation de votre CRM](https://crm-logiciel.fr/mise-en-place-crm/) bien plus que le choix de l'outil.
+Un fichier client est une base de données structurée qui réunit les informations utiles sur vos clients et prospects : coordonnées, historique, statut, prochaine action. Sur le papier, rien de plus banal. Dans les faits, c'est la matière première de toute votre activité commerciale. Et sa qualité décidera de la réussite de l'[implémentation de votre CRM](/mise-en-place-crm/) bien plus que le choix de l'outil.
 
 Cette page prend le sujet par un angle que les modèles à télécharger oublient. Un fichier client est un bien qui a une valeur, qui se constitue selon des règles précises, et qui se déprécie sans entretien. Ces trois propriétés changent la façon de le tenir.
 
@@ -55,7 +55,7 @@ Il sert enfin à prouver et à valoriser. En cas de contrôle, un fichier confor
 
 Avant de structurer un fichier, il faut le remplir, et c'est souvent là que ça part mal. Les bons contacts viennent de votre propre activité : un formulaire sur votre site, un échange commercial, un salon, une recommandation, un achat. À chaque fois, la personne sait qui vous êtes et pourquoi vous la recontacterez. C'est ce qui fait la valeur d'un contact, bien plus que le nombre.
 
-La collecte obéit au RGPD dès la première fiche. Trois points couvrent l'usage courant. D'abord, une base légale pour chaque donnée : le plus souvent le consentement, une case cochée sur un formulaire, ou l'intérêt légitime, un client existant que vous suivez. Ensuite, l'information des personnes : votre politique de confidentialité doit dire quelles données vous collectez et pourquoi. Enfin, un moyen simple pour qu'une personne accède à ses données, les corrige ou demande leur suppression. Le paramétrage concret de tout cela, côté outil, vit dans la page sur les [règles RGPD](https://crm-logiciel.fr/crm-rgpd/).
+La collecte obéit au RGPD dès la première fiche. Trois points couvrent l'usage courant. D'abord, une base légale pour chaque donnée : le plus souvent le consentement, une case cochée sur un formulaire, ou l'intérêt légitime, un client existant que vous suivez. Ensuite, l'information des personnes : votre politique de confidentialité doit dire quelles données vous collectez et pourquoi. Enfin, un moyen simple pour qu'une personne accède à ses données, les corrige ou demande leur suppression. Le paramétrage concret de tout cela, côté outil, vit dans la page sur les [règles RGPD](/crm-rgpd/).
 
 Reste la question des durées. On garde les données d'un prospect inactif environ trois ans après le dernier contact, puis on archive et on supprime. Les clients suivent d'autres délais, liés notamment aux obligations comptables. Le principe est simple : on ne conserve une donnée que tant qu'elle sert.
 
@@ -80,7 +80,7 @@ Le principe est simple : moins de champs, mieux remplis. Un champ facultatif est
 | Prochaine action | Date et texte court   | Le champ qui fait vivre le fichier                  |
 | Notes            | Texte libre           | Tout le reste va ici, daté                          |
 
-Deux précisions d'expérience. Si vous travaillez encore hors CRM, [notre modèle Excel](https://crm-logiciel.fr/crm-excel/) reprend exactement cette structure, prête à remplir, avec le suivi des affaires en plus. Et soignez les champs Statut et Source en liste fermée : ce sont eux qui permettront plus tard de [segmenter vos clients](https://crm-logiciel.fr/segmentation-client/) sans tout reprendre. Ils se décident maintenant, pas au moment d'envoyer la première campagne.
+Deux précisions d'expérience. Si vous travaillez encore hors CRM, [notre modèle Excel](/crm-excel/) reprend exactement cette structure, prête à remplir, avec le suivi des affaires en plus. Et soignez les champs Statut et Source en liste fermée : ce sont eux qui permettront plus tard de [segmenter vos clients](/segmentation-client/) sans tout reprendre. Ils se décident maintenant, pas au moment d'envoyer la première campagne.
 
 Une nuance selon votre marché. En B2B, la fiche tourne autour de l'entreprise et de l'interlocuteur : société, fonction, décideur ou non. En B2C, ces champs s'effacent au profit du comportement d'achat : fréquence, panier moyen, produits préférés, canal de contact. La logique ne change pas, seuls les champs qui comptent diffèrent. Calez votre structure sur le type de client que vous suivez vraiment.
 
@@ -106,4 +106,4 @@ Sur les bases que j'ai vues passer en audit, le premier nettoyage sérieux retir
 
 Le jour où le fichier rejoint un outil, deux précautions évitent les mauvaises surprises. D'abord, faites correspondre vos colonnes aux champs du CRM avant l'import, sur le papier, champ par champ : c'est l'étape de mapping, et les erreurs s'y repèrent mieux que dans l'outil. Ensuite, importez 50 fiches d'essai et vérifiez-les une à une avant de passer le reste. Une erreur de mapping sur 50 fiches se corrige en dix minutes ; la même sur 5 000 fiches occupe un week-end.
 
-Inutile d'attendre d'avoir un budget pour franchir le pas : [un CRM gratuit pour commencer](https://crm-logiciel.fr/crm-gratuit/) héberge très bien une base propre de quelques centaines de contacts, avec l'historique et les relances qu'un tableur ne tiendra jamais.
+Inutile d'attendre d'avoir un budget pour franchir le pas : un CRM gratuit pour commencer héberge très bien une base propre de quelques centaines de contacts, avec l'historique et les relances qu'un tableur ne tiendra jamais.

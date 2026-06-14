@@ -27,7 +27,7 @@ faq:
 
 Commençons par définir ce qu'on compte, parce que le sujet en manque cruellement : un projet CRM a échoué quand, au bout d'un an, l'outil est abandonné, contourné ou rempli pour la forme. Pas quand le logiciel plante : les échecs techniques sont devenus rarissimes. Quant aux pourcentages d'échec qui circulent de page en page, ils additionnent des études aux définitions incompatibles et aux sources introuvables : ils impressionnent en introduction de plaquette, ils n'aident personne à décider. Ce qui aide : connaître les mécanismes, repérer les signaux tôt, et savoir redresser.
 
-Cette page est le miroir de notre [méthode d'implémentation](https://crm-logiciel.fr/mise-en-place-crm/) : elle, déroule ce qu'il faut faire ; ici, l'anatomie de ce qui se passe quand on ne le fait pas. Et le motif d'ensemble mérite d'être posé d'emblée : un projet CRM ne meurt presque jamais d'un coup. Il meurt d'indifférence, par étages, et chaque étage porte un nom.
+Cette page est le miroir de notre [méthode d'implémentation](/mise-en-place-crm/) : elle, déroule ce qu'il faut faire ; ici, l'anatomie de ce qui se passe quand on ne le fait pas. Et le motif d'ensemble mérite d'être posé d'emblée : un projet CRM ne meurt presque jamais d'un coup. Il meurt d'indifférence, par étages, et chaque étage porte un nom.
 
 ## Les dix anti-patterns, classés par phase
 
@@ -35,13 +35,13 @@ Cette page est le miroir de notre [méthode d'implémentation](https://crm-logic
 
 1\. **L'objectif absent** : « il nous faut un CRM » n'est pas un objectif, c'est une dépense. Sans problème précis à résoudre (les relances qui tombent, la prévision impossible, la connaissance client dans trois têtes), impossible de paramétrer juste, de former juste, ou de savoir un jour si ça a marché.
 
-2\. **Le choix sans les utilisateurs** : un outil sélectionné en comité, découvert par le terrain au jour du lancement, démarre avec un déficit de légitimité que rien ne rattrape vraiment. La parade se joue en amont, dans [le choix du CRM](https://crm-logiciel.fr/comment-choisir-crm/) lui-même, testé par ceux qui vivront dedans.
+2\. **Le choix sans les utilisateurs** : un outil sélectionné en comité, découvert par le terrain au jour du lancement, démarre avec un déficit de légitimité que rien ne rattrape vraiment. La parade se joue en amont, dans [le choix du CRM](/comment-choisir-crm/) lui-même, testé par ceux qui vivront dedans.
 
 3\. **Le périmètre maximal dès le premier jour** : automatisations, scoring, modules métiers et IA activés ensemble, et une équipe qui devait apprendre un outil se retrouve à en apprendre six.
 
 **Au déploiement, quatre façons de saboter l'atterrissage :**
 
-4\. **La base sale importée telle quelle** : doublons, fiches mortes et formats anarchiques reproduits dans l'outil neuf. Le CRM hérite alors de la réputation du fichier, et les [données clients propres](https://crm-logiciel.fr/fichier-client/) auraient dû précéder l'import, pas le suivre.
+4\. **La base sale importée telle quelle** : doublons, fiches mortes et formats anarchiques reproduits dans l'outil neuf. Le CRM hérite alors de la réputation du fichier, et les [données clients propres](/fichier-client/) auraient dû précéder l'import, pas le suivre.
 
 5\. **Le sur-paramétrage mimétique** : reproduire dans l'outil chaque habitude existante, champs obligatoires compris, et graver ainsi l'ancien désordre dans une interface neuve.
 
@@ -69,4 +69,4 @@ Sur les projets que j'ai vus dériver, ces trois signaux étaient visibles un tr
 
 Le réflexe naturel face à un CRM moribond consiste à acheter ce qui manque : un module, une formation de plus, un consultant. Le redressement fonctionne à l'envers, et il demande quatre gestes sur un trimestre. Gelez d'abord tout ajout : aucune nouvelle fonctionnalité tant que le socle n'est pas réadopté. Rétrécissez ensuite le périmètre au minimum vital (contacts, affaires, relances), quitte à désactiver ce qui avait été déployé : un outil simple utilisé bat un outil complet déserté, et les équipes le savent mieux que personne. Réparez la donnée en troisième : une purge visible des fiches mortes et des doublons, annoncée comme telle, rend à l'outil une crédibilité que dix réunions ne rendraient pas. Et livrez enfin une victoire au terrain : une vue, une automatisation ou un raccourci qui fait gagner dix minutes par jour à ceux qui saisissent, parce que l'adoption se reconquiert par le service rendu, pas par la consigne.
 
-Reste le cas minoritaire où l'outil est réellement en cause : fonctions structurellement absentes, lenteurs invivables, éditeur aux abonnés absents. Le diagnostic honnête se fait après le redressement, pas à sa place, et s'il se confirme, le [guide de migration CRM](https://crm-logiciel.fr/migration-crm/) prend le relais, avec un avantage paradoxal : une équipe qui a vécu un échec sait exactement ce qu'elle ne veut plus. Dans tous les cas, la décision de continuer, redresser ou repartir se prend en pesant à nouveau les [avantages réels d'un CRM](https://crm-logiciel.fr/avantages-inconvenients-crm/) pour votre situation : ils n'ont pas bougé, c'est le chemin pour les atteindre qui s'était perdu.
+Reste le cas minoritaire où l'outil est réellement en cause : fonctions structurellement absentes, lenteurs invivables, éditeur aux abonnés absents. Le diagnostic honnête se fait après le redressement, pas à sa place, et s'il se confirme, le [guide de migration CRM](/migration-crm/) prend le relais, avec un avantage paradoxal : une équipe qui a vécu un échec sait exactement ce qu'elle ne veut plus. Dans tous les cas, la décision de continuer, redresser ou repartir se prend en pesant à nouveau les [avantages réels d'un CRM](/avantages-inconvenients-crm/) pour votre situation : ils n'ont pas bougé, c'est le chemin pour les atteindre qui s'était perdu.

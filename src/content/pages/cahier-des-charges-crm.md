@@ -6,6 +6,10 @@ excerpt: "Consulter des éditeurs sans cahier des charges, c'est comparer des of
 cluster: choisir
 type: satellite
 datePublished: 2026-06-14
+download:
+  label: 'Modèle de cahier des charges CRM à télécharger'
+  file: 'modele-cahier-des-charges-crm.docx'
+  note: 'Document Word gratuit, prêt à remplir.'
 enBref:
   - 'Le cahier des charges formalise votre besoin pour consulter les éditeurs sur une base comparable.'
   - 'Il devient utile dès que le projet implique plusieurs utilisateurs ou un budget à justifier.'
@@ -25,7 +29,7 @@ faq:
 
 Vous avez décidé de vous équiper, et vous vous apprêtez à contacter des éditeurs. C'est exactement le moment de poser un cahier des charges. Sans lui, chaque démonstration part dans une direction différente, les devis deviennent impossibles à comparer, et vous découvrez en cours de route des besoins que vous aviez oubliés. Avec lui, vous savez ce que vous cherchez, les éditeurs répondent à la même question, et vous gardez la main sur le projet.
 
-Un cahier des charges, ou CDC, n'est rien d'autre que la traduction écrite de vos besoins. Il découle directement de vos [critères de choix d'un CRM](https://crm-logiciel.fr/comment-choisir-crm/) : commencez par les clarifier, puis formalisez-les dans ce document. Cette page vous donne la méthode, le contenu rubrique par rubrique, et un modèle prêt à l'emploi.
+Un cahier des charges, ou CDC, n'est rien d'autre que la traduction écrite de vos besoins. Il découle directement de vos [critères de choix d'un CRM](/comment-choisir-crm/) : commencez par les clarifier, puis formalisez-les dans ce document. Cette page vous donne la méthode, le contenu rubrique par rubrique, et un modèle prêt à l'emploi.
 
 ## Pourquoi rédiger un cahier des charges CRM
 
@@ -37,7 +41,7 @@ Ensuite, il met les éditeurs sur un pied d'égalité. Tous répondent au même 
 
 Il sécurise aussi le choix en interne. Un cahier des charges écrit sert de référence partagée entre la direction, les futurs utilisateurs et, le cas échéant, le comité qui valide le budget. Tout le monde parle enfin du même projet.
 
-Enfin, il prépare la suite. Le document alimente directement vos rendez-vous : nos [questions à poser en démo](https://crm-logiciel.fr/questions-demo-crm/) feront ensuite le tri entre les candidats, sur la base de ce que vous aurez exigé.
+Enfin, il prépare la suite. Le document alimente directement vos rendez-vous : nos [questions à poser en démo](/questions-demo-crm/) feront ensuite le tri entre les candidats, sur la base de ce que vous aurez exigé.
 
 Faut-il toujours en passer par là ? Non. Pour un indépendant ou une TPE qui cherche un outil simple, à un seul utilisateur, une liste de besoins sur une page suffit. Le cahier des charges formel prend tout son sens dès que le projet implique plusieurs utilisateurs, plusieurs services, des intégrations, ou un budget qu'il faut justifier. En clair, plus le projet engage de monde et d'argent, plus le document devient indispensable.
 
@@ -65,7 +69,7 @@ Pour ne rien oublier, passez en revue les grands domaines d'un CRM : la gestion 
 
 ### Les contraintes techniques
 
-Les intégrations indispensables (messagerie, agenda, facturation, ERP, site web), l'hébergement et la localisation des données, les exigences de sécurité, l'accès mobile. L'intégration à votre messagerie et à vos outils existants est souvent décisive : un CRM qui ne communique pas avec le reste de votre système vous condamne à tout ressaisir. Anticipez dès le cahier des charges les exigences de la [mise en place du CRM](https://crm-logiciel.fr/mise-en-place-crm/) : reprise des données, formation, planning. Ce que vous oubliez ici se paiera plus tard.
+Les intégrations indispensables (messagerie, agenda, facturation, ERP, site web), l'hébergement et la localisation des données, les exigences de sécurité, l'accès mobile. L'intégration à votre messagerie et à vos outils existants est souvent décisive : un CRM qui ne communique pas avec le reste de votre système vous condamne à tout ressaisir. Anticipez dès le cahier des charges les exigences de la [mise en place du CRM](/mise-en-place-crm/) : reprise des données, formation, planning. Ce que vous oubliez ici se paiera plus tard.
 
 ### Le budget et le planning
 
@@ -123,6 +127,6 @@ Le cinquième, plus subtil : calquer sa liste sur les fonctionnalités d'un seul
 
 Pour vous éviter de partir de la page blanche, nous avons préparé un modèle prêt à remplir. Il reprend les dix rubriques décrites ici, avec pour chacune une consigne de rédaction, et un tableau de besoins fonctionnels déjà amorcé, doté d'une colonne de priorité à renseigner.
 
-Téléchargez-le, complétez chaque section, supprimez ce qui ne vous concerne pas, et vous obtenez un document prêt à envoyer. Si vous manquez de temps pour formaliser tout cela, notre [configurateur](https://crm-logiciel.fr/quel-crm/) pré-sélectionne trois candidats à consulter en moins de deux minutes.
+Téléchargez-le, complétez chaque section, supprimez ce qui ne vous concerne pas, et vous obtenez un document prêt à envoyer. Si vous manquez de temps pour formaliser tout cela, notre configurateur pré-sélectionne trois candidats à consulter en moins de deux minutes.
 
-Une fois votre cahier des charges complété, la suite est simple : envoyez-le aux éditeurs retenus parmi [les meilleurs CRM du marché](https://crm-logiciel.fr/meilleur-crm/), puis confrontez leurs réponses à vos critères. Le document a fait son travail : il a transformé une intention floue en projet cadré.
+Une fois votre cahier des charges complété, la suite est simple : envoyez-le aux éditeurs retenus parmi les meilleurs CRM du marché, puis confrontez leurs réponses à vos critères. Le document a fait son travail : il a transformé une intention floue en projet cadré.

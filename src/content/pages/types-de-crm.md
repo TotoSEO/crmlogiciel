@@ -25,7 +25,7 @@ faq:
     answer: "Par les contraintes, pas par les goûts. Le cloud s'impose par défaut, pour son démarrage immédiat, ses mises à jour continues et son accès partout. L'installation sur vos serveurs ne se justifie que pour des exigences précises de localisation des données, de régulation sectorielle ou de politique de sécurité interne. Si aucune de ces contraintes ne vous concerne, la question est déjà réglée."
 ---
 
-Ouvrez n'importe quel cours sur le [Customer Relationship Management](https://crm-logiciel.fr/qu-est-ce-qu-un-crm/) et vous tomberez sur la même classification : CRM opérationnel, CRM analytique, CRM collaboratif. Elle est exacte et utile, mais presque toujours mal présentée. On la donne comme s'il s'agissait de trois familles de produits entre lesquelles choisir, alors qu'elle décrit trois couches de fonctions qui cohabitent dans le même outil. C'est un peu comme le téléphone, l'appareil photo et le GPS de votre smartphone : trois usages distincts, un seul objet à acheter.
+Ouvrez n'importe quel cours sur le [Customer Relationship Management](/qu-est-ce-qu-un-crm/) et vous tomberez sur la même classification : CRM opérationnel, CRM analytique, CRM collaboratif. Elle est exacte et utile, mais presque toujours mal présentée. On la donne comme s'il s'agissait de trois familles de produits entre lesquelles choisir, alors qu'elle décrit trois couches de fonctions qui cohabitent dans le même outil. C'est un peu comme le téléphone, l'appareil photo et le GPS de votre smartphone : trois usages distincts, un seul objet à acheter.
 
 Cette page fait donc deux choses. Elle explique proprement la typologie, pour qui doit la comprendre ou la restituer. Puis elle la remet à sa place, pour qui doit s'équiper.
 
@@ -35,7 +35,7 @@ Le découpage a été popularisé par les cabinets d'analystes à la fin des ann
 
 ### Le CRM opérationnel : agir
 
-C'est la couche du quotidien, celle qui exécute la relation client. Elle regroupe la base de contacts, le suivi des affaires, l'automatisation des ventes et du marketing, la gestion du service après-vente. Quand un commercial relance un devis, quand une demande entrante crée un ticket, quand une campagne part vers un segment, c'est elle qui travaille. Elle correspond au cœur des [fonctionnalités](https://crm-logiciel.fr/fonctionnalites-crm/) qu'on associe spontanément au mot CRM, et c'est elle que les équipes ont sous les yeux toute la journée. Un exemple simple : un client appelle pour un litige, le conseiller ouvre sa fiche, voit la commande et le dernier échange, et traite la demande sans le faire répéter. Tout cela, c'est de l'opérationnel.
+C'est la couche du quotidien, celle qui exécute la relation client. Elle regroupe la base de contacts, le suivi des affaires, l'automatisation des ventes et du marketing, la gestion du service après-vente. Quand un commercial relance un devis, quand une demande entrante crée un ticket, quand une campagne part vers un segment, c'est elle qui travaille. Elle correspond au cœur des [fonctionnalités](/fonctionnalites-crm/) qu'on associe spontanément au mot CRM, et c'est elle que les équipes ont sous les yeux toute la journée. Un exemple simple : un client appelle pour un litige, le conseiller ouvre sa fiche, voit la commande et le dernier échange, et traite la demande sans le faire répéter. Tout cela, c'est de l'opérationnel.
 
 ### Le CRM analytique : comprendre
 
@@ -61,7 +61,7 @@ Sur le marché actuel, deux découpages structurent réellement l'offre, et ce s
 
 ### Cloud ou installé chez vous
 
-Le cloud, ou SaaS, a gagné le marché du neuf : on y accède par navigateur, l'éditeur héberge et met à jour, on démarre en quelques heures. L'installation sur vos propres serveurs, dite on-premise, subsiste pour des raisons précises : une exigence de localisation des données, un secteur régulé, une politique de sécurité interne stricte. C'est un choix de contraintes, pas de préférence. Si aucune de ces contraintes ne vous concerne, le cloud s'impose de lui-même et la question est déjà tranchée. Un axe traverse d'ailleurs ce choix, celui de l'open source : un [CRM open source](https://crm-logiciel.fr/crm-open-source/) s'héberge où l'on veut et se modifie librement, à condition d'avoir la compétence technique pour s'en occuper.
+Le cloud, ou SaaS, a gagné le marché du neuf : on y accède par navigateur, l'éditeur héberge et met à jour, on démarre en quelques heures. L'installation sur vos propres serveurs, dite on-premise, subsiste pour des raisons précises : une exigence de localisation des données, un secteur régulé, une politique de sécurité interne stricte. C'est un choix de contraintes, pas de préférence. Si aucune de ces contraintes ne vous concerne, le cloud s'impose de lui-même et la question est déjà tranchée. Un axe traverse d'ailleurs ce choix, celui de l'open source : un CRM open source s'héberge où l'on veut et se modifie librement, à condition d'avoir la compétence technique pour s'en occuper.
 
 ### Généraliste ou vertical métier
 
@@ -71,4 +71,4 @@ Reste l'orientation dominante, héritière directe de la vieille typologie. Les 
 
 ## Et donc, lequel pour vous ?
 
-Si vous révisez, retenez les trois couches, leurs verbes (agir, comprendre, circuler) et leur dépendance en chaîne, l'analytique se nourrissant de l'opérationnel. Si vous vous équipez, oubliez les types et partez du besoin : c'est exactement la démarche de [bien choisir votre CRM](https://crm-logiciel.fr/comment-choisir-crm/), qui raisonne en critères d'usage plutôt qu'en catégories. Et pour voir comment les dominantes se répartissent entre les outils du marché, [notre comparatif](https://crm-logiciel.fr/meilleur-crm/) les classe par profil d'usage, pas par type théorique. Personne n'a jamais acheté « un collaboratif ».
+Si vous révisez, retenez les trois couches, leurs verbes (agir, comprendre, circuler) et leur dépendance en chaîne, l'analytique se nourrissant de l'opérationnel. Si vous vous équipez, oubliez les types et partez du besoin : c'est exactement la démarche de [bien choisir votre CRM](/comment-choisir-crm/), qui raisonne en critères d'usage plutôt qu'en catégories. Et pour voir comment les dominantes se répartissent entre les outils du marché, notre comparatif les classe par profil d'usage, pas par type théorique. Personne n'a jamais acheté « un collaboratif ».

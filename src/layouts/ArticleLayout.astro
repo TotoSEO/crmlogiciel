@@ -19,6 +19,7 @@ import JsonLd from '../components/JsonLd.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import EnBref from '../components/blocks/EnBref.astro';
 import Faq from '../components/blocks/Faq.astro';
+import Button from '../components/blocks/Button.astro';
 import Toc from '../components/article/Toc.astro';
 import ReadingProgress from '../components/article/ReadingProgress.astro';
 import AuthorBio from '../components/article/AuthorBio.astro';
@@ -56,6 +57,8 @@ interface Props {
   featuredImageAlt?: string;
   enBref?: string[];
   faq?: FaqItem[];
+  /** Ressource téléchargeable (lead magnet). */
+  download?: { label: string; file: string; note?: string };
   /** Fil d'Ariane (helper content-map). */
   crumbs: Crumb[];
   /** Entrées du sommaire (titres H2 du corps). */
@@ -83,6 +86,7 @@ const {
   featuredImageAlt,
   enBref,
   faq,
+  download,
   crumbs,
   toc,
   readingTime,
@@ -205,6 +209,23 @@ const pageSchema = graph(...nodes);
       <div class="article-body__main">
         {enBref && enBref.length > 0 && <EnBref points={enBref} />}
 
+        {
+          download && (
+            <aside class="lead-magnet glass not-prose" style="--glass-tint: var(--teal)">
+              <span class="lead-magnet__icon" aria-hidden="true">
+                ⬇
+              </span>
+              <div class="lead-magnet__body">
+                <p class="lead-magnet__label">{download.label}</p>
+                {download.note && <p class="lead-magnet__note">{download.note}</p>}
+              </div>
+              <Button href={`/downloads/${download.file}`} variant="primary">
+                Télécharger
+              </Button>
+            </aside>
+          )
+        }
+
         <div class="prose">
           <slot />
         </div>
@@ -324,6 +345,52 @@ const pageSchema = graph(...nodes);
     min-width: 0;
     /* Conteneur de lecture élargi de 100px (demande Thomas). */
     max-width: calc(var(--measure-text) + 100px);
+  }
+
+  /* ---------- Lead magnet (ressource téléchargeable) ---------- */
+  .lead-magnet {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    margin-block: var(--space-6);
+    padding: var(--space-5) var(--space-6);
+    border-radius: var(--radius-xl);
+  }
+  .lead-magnet > * {
+    position: relative;
+    z-index: 1;
+  }
+  .lead-magnet__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-full);
+    background: var(--teal-tint);
+    color: var(--teal-ink);
+    font-size: var(--text-2xl);
+  }
+  .lead-magnet__body {
+    flex: 1;
+    min-width: 0;
+  }
+  .lead-magnet__label {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+  }
+  .lead-magnet__note {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  @media (max-width: 560px) {
+    .lead-magnet {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   /* ---------- Hub pilier : guides de l'univers ---------- */

@@ -27,11 +27,11 @@ faq:
 
 Dès qu'un CRM enregistre un nom, un email ou un historique d'échanges, il traite des données personnelles, et le Règlement général sur la protection des données s'applique. Ce n'est pas une formalité réservée aux grands groupes : une TPE avec deux cents contacts est concernée autant qu'un groupe de mille salariés.
 
-Cette page laisse de côté la théorie juridique pour aller à l'essentiel : les obligations qui touchent réellement un fichier client dans un CRM, et la façon de les traduire dans les réglages de l'outil. La conformité se joue d'ailleurs dès le [paramétrage initial de votre CRM](https://crm-logiciel.fr/mise-en-place-crm/), pas après coup. Un avertissement utile avant de commencer : ce qui suit donne des repères généraux, pas un avis juridique adapté à votre cas. Pour une situation sensible, un DPO ou un avocat spécialisé reste indispensable.
+Cette page laisse de côté la théorie juridique pour aller à l'essentiel : les obligations qui touchent réellement un fichier client dans un CRM, et la façon de les traduire dans les réglages de l'outil. La conformité se joue d'ailleurs dès le [paramétrage initial de votre CRM](/mise-en-place-crm/), pas après coup. Un avertissement utile avant de commencer : ce qui suit donne des repères généraux, pas un avis juridique adapté à votre cas. Pour une situation sensible, un DPO ou un avocat spécialisé reste indispensable.
 
 ## Tout commence par une base rangée
 
-Avant toute question de droit, une évidence : on ne protège bien que ce qui est rangé. Un CRM dont les données sont éparpillées, dupliquées et mal qualifiées est impossible à mettre en conformité, parce qu'on ne sait même pas ce qu'on détient. La première étape consiste donc à [structurer votre fichier client](https://crm-logiciel.fr/fichier-client/) proprement : un contact par fiche, des champs définis, une source connue pour chaque donnée. Tout ce qui suit suppose ce travail fait.
+Avant toute question de droit, une évidence : on ne protège bien que ce qui est rangé. Un CRM dont les données sont éparpillées, dupliquées et mal qualifiées est impossible à mettre en conformité, parce qu'on ne sait même pas ce qu'on détient. La première étape consiste donc à [structurer votre fichier client](/fichier-client/) proprement : un contact par fiche, des champs définis, une source connue pour chaque donnée. Tout ce qui suit suppose ce travail fait.
 
 ## Chaque donnée repose sur une base légale
 
@@ -91,6 +91,6 @@ Reste le scénario qu'on préfère éviter : la fuite de données. Si votre base
 
 ## Hébergement et transfert des données
 
-Reste la question du lieu où vivent vos données. Tant qu'elles sont hébergées dans l'Union européenne, elles bénéficient de la protection du RGPD sans formalité supplémentaire. Dès qu'un outil héberge ou traite les données hors UE, notamment aux États-Unis, des garanties s'imposent, comme les clauses contractuelles types ou un mécanisme d'adéquation reconnu, et la responsabilité finale vous revient. Opter pour des [CRM hébergés en France](https://crm-logiciel.fr/crm-francais/) simplifie nettement cette question des transferts, sans pour autant vous dispenser du reste.
+Reste la question du lieu où vivent vos données. Tant qu'elles sont hébergées dans l'Union européenne, elles bénéficient de la protection du RGPD sans formalité supplémentaire. Dès qu'un outil héberge ou traite les données hors UE, notamment aux États-Unis, des garanties s'imposent, comme les clauses contractuelles types ou un mécanisme d'adéquation reconnu, et la responsabilité finale vous revient. Opter pour des CRM hébergés en France simplifie nettement cette question des transferts, sans pour autant vous dispenser du reste.
 
-Quel que soit l'outil, l'éditeur est votre sous-traitant au sens du RGPD, et cette relation se contractualise. Exigez un contrat de sous-traitance, ou DPA, qui précise ce que l'éditeur fait de vos données et les garanties qu'il apporte. Ajoutez d'ailleurs la réversibilité et ce DPA à vos [questions à poser à l'éditeur](https://crm-logiciel.fr/questions-demo-crm/) avant de signer : ces points se négocient à l'entrée, jamais à la sortie.
+Quel que soit l'outil, l'éditeur est votre sous-traitant au sens du RGPD, et cette relation se contractualise. Exigez un contrat de sous-traitance, ou DPA, qui précise ce que l'éditeur fait de vos données et les garanties qu'il apporte. Ajoutez d'ailleurs la réversibilité et ce DPA à vos [questions à poser à l'éditeur](/questions-demo-crm/) avant de signer : ces points se négocient à l'entrée, jamais à la sortie.
