@@ -28,7 +28,7 @@ export const SITE = {
  * du lancement (Phase 5) pour ouvrir l'indexation d'un coup. Les pages purement
  * techniques (ex. /demo/) restent en noindex en dur, indépendamment de ce flag.
  */
-export const INDEXABLE = false;
+export const INDEXABLE = true;
 
 /**
  * Auteur éditorial par défaut (roadmap §4). Réutilisé dans le frontmatter

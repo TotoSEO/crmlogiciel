@@ -584,7 +584,7 @@ export const STEPS: Step[] = [
   {
     id: 'secteur',
     question: 'Votre secteur d’activité ?',
-    hint: 'Optionnel — affine la recommandation.',
+    hint: 'Optionnel : affine la recommandation.',
     multi: false,
     optional: true,
     options: [
