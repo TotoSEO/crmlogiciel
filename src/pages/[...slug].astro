@@ -1,0 +1,81 @@
+---
+/**
+ * Route dynamique des pages éditoriales — crm-logiciel.fr
+ *
+ * Branche la collection `pages` sur le gabarit ArticleLayout. Une seule route
+ * sert les trois types d'article ; les variations (eyebrow d'univers, hub des
+ * guides pour les piliers, fil d'Ariane) sont dérivées du frontmatter et de la
+ * carte d'architecture (content-map).
+ *
+ * - Le corps Markdown / MDX est rendu dans <slot/> → contenu dans le HTML source.
+ * - Le sommaire est construit à partir des titres H2 du contenu (render().headings).
+ * - La durée de lecture est calculée au build à partir du nombre de mots.
+ * - L'indexation suit le flag global INDEXABLE (noindex tant que non lancé) et le
+ *   drapeau `draft` de chaque page.
+ *
+ * L'accueil (slug '') a sa propre route (index.astro) et n'est pas servi ici.
+ */
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import { breadcrumb, getCluster, pagesOf, type ClusterId } from '../config/content-map';
+import { INDEXABLE, path } from '../config/site';
+import { readingTimeLabel } from '../lib/reading-time';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages', (entry) => entry.id !== '');
+  return pages.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const data = entry.data;
+const slug = entry.id;
+
+const { Content, headings } = await render(entry);
+
+// Sommaire = titres de niveau 2 du contenu (avec leurs ancres générées au build).
+const toc = headings.filter((h) => h.depth === 2).map((h) => ({ id: h.slug, text: h.text }));
+
+const readingTime = readingTimeLabel(entry.body ?? '');
+const crumbs = breadcrumb(slug);
+
+// Eyebrow d'univers (hors transverse, où il ferait doublon avec le fil d'Ariane).
+const clusterLabel =
+  data.cluster !== 'transverse' ? getCluster(data.cluster as ClusterId)?.label : undefined;
+
+// Pilier : hub des autres guides de l'univers (maillage de structure).
+const pillarGuides =
+  data.type === 'pilier'
+    ? pagesOf(data.cluster as ClusterId)
+        .filter((p) => p.slug !== slug)
+        .map((p) => ({ label: p.label, href: path(p.slug) }))
+    : undefined;
+
+const noindex = !INDEXABLE || data.draft;
+---
+
+<ArticleLayout
+  title={data.title}
+  metaDescription={data.metaDescription}
+  h1={data.h1}
+  excerpt={data.excerpt}
+  slug={slug}
+  cluster={data.cluster}
+  author={data.author}
+  datePublished={data.datePublished}
+  dateModified={data.dateModified}
+  featuredImage={data.featuredImage}
+  featuredImageAlt={data.featuredImageAlt}
+  enBref={data.enBref}
+  faq={data.faq}
+  crumbs={crumbs}
+  toc={toc}
+  readingTime={readingTime}
+  pillarGuides={pillarGuides}
+  clusterLabel={clusterLabel}
+  noindex={noindex}
+>
+  <Content />
+</ArticleLayout>

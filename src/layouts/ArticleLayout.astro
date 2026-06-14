@@ -1,0 +1,388 @@
+---
+/**
+ * ArticleLayout — gabarit unique des pages article (piliers, satellites,
+ * méthodologie). Suit EXACTEMENT la structure d'une page article de la roadmap §4 :
+ *
+ *   1. Hero deux colonnes  (gauche : fil d'Ariane · H1 · extrait · ligne méta ;
+ *                           droite : image à la une)
+ *   2. Corps               (encart « En bref » en tête, puis le contenu via <slot>,
+ *                           avec les blocs validés insérés là où le contenu les appelle)
+ *   3. Sommaire latéral    (<aside><nav> sticky, sans Hn — composant Toc)
+ *   4. Barre de progression (ReadingProgress, CSS scroll-driven, sans JS)
+ *   5. FAQ en accordéon HTML (composant Faq) puis bloc auteur (AuthorBio)
+ *
+ * Tout le contenu est rendu dans le HTML source. Le JSON-LD (Article + Person +
+ * BreadcrumbList + FAQPage) est construit ici et injecté via le slot « head ».
+ */
+import BaseLayout from './BaseLayout.astro';
+import JsonLd from '../components/JsonLd.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import EnBref from '../components/blocks/EnBref.astro';
+import Faq from '../components/blocks/Faq.astro';
+import Toc from '../components/article/Toc.astro';
+import ReadingProgress from '../components/article/ReadingProgress.astro';
+import AuthorBio from '../components/article/AuthorBio.astro';
+
+import { absoluteUrl } from '../config/site';
+import { getCluster, type ClusterId, type Crumb } from '../config/content-map';
+import { article, organization, person, breadcrumbList, faqPage, graph } from '../lib/schema';
+
+interface TocItem {
+  id: string;
+  text: string;
+}
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+interface PillarGuide {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  /** <title> SEO (utilisé tel quel, sans suffixe de marque). */
+  title: string;
+  metaDescription: string;
+  h1: string;
+  excerpt: string;
+  /** Slug sans slash (canonical auto-référent). */
+  slug: string;
+  cluster: ClusterId;
+  author: string;
+  datePublished: Date;
+  dateModified?: Date;
+  featuredImage?: string;
+  featuredImageAlt?: string;
+  enBref?: string[];
+  faq?: FaqItem[];
+  /** Fil d'Ariane (helper content-map). */
+  crumbs: Crumb[];
+  /** Entrées du sommaire (titres H2 du corps). */
+  toc: TocItem[];
+  /** Libellé durée de lecture, ex. « 6 min de lecture ». */
+  readingTime: string;
+  /** Pilier uniquement : guides satellites de l'univers (hub interne). */
+  pillarGuides?: PillarGuide[];
+  /** Libellé court de l'univers (eyebrow). */
+  clusterLabel?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  metaDescription,
+  h1,
+  excerpt,
+  slug,
+  cluster,
+  author,
+  datePublished,
+  dateModified,
+  featuredImage,
+  featuredImageAlt,
+  enBref,
+  faq,
+  crumbs,
+  toc,
+  readingTime,
+  pillarGuides,
+  clusterLabel,
+  noindex = false,
+} = Astro.props;
+
+const palette = getCluster(cluster)?.palette ?? 'blue';
+
+// --- Dates : ISO pour le JSON-LD / OpenGraph, format FR pour l'affichage ------
+const isoPublished = datePublished.toISOString();
+const isoModified = (dateModified ?? datePublished).toISOString();
+const frDate = (d: Date) =>
+  new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+const showModified = dateModified && dateModified.getTime() !== datePublished.getTime();
+
+// --- Sommaire : on ajoute les sections « hub pilier » et « FAQ » si présentes -
+const tocAll: TocItem[] = [
+  ...toc,
+  ...(pillarGuides && pillarGuides.length > 0
+    ? [{ id: 'guides-univers', text: 'Les guides de cet univers' }]
+    : []),
+  ...(faq && faq.length > 0 ? [{ id: 'faq', text: 'Questions fréquentes' }] : []),
+];
+
+// --- JSON-LD ------------------------------------------------------------------
+const currentUrl = absoluteUrl(slug);
+const nodes = [
+  article({
+    headline: h1,
+    description: metaDescription,
+    slug,
+    datePublished: isoPublished,
+    dateModified: isoModified,
+    authorName: author,
+    image: featuredImage,
+  }),
+  person(author),
+  organization(),
+  breadcrumbList(crumbs, currentUrl),
+];
+if (faq && faq.length > 0) nodes.push(faqPage(faq));
+const pageSchema = graph(...nodes);
+---
+
+<BaseLayout
+  title={title}
+  description={metaDescription}
+  canonicalSlug={slug}
+  ogType="article"
+  ogImage={featuredImage}
+  publishedTime={isoPublished}
+  modifiedTime={isoModified}
+  rawTitle
+  noindex={noindex}
+>
+  <Fragment slot="head">
+    <JsonLd schema={pageSchema} />
+  </Fragment>
+
+  <ReadingProgress />
+
+  <article
+    class="article"
+    style={`--cluster-color: var(--${palette}); --cluster-tint: var(--${palette}-tint);`}
+  >
+    {/* 1. Hero deux colonnes */}
+    <header class="article-hero">
+      <div class="container article-hero__grid">
+        <div class="article-hero__main">
+          <Breadcrumb crumbs={crumbs} compact />
+          {clusterLabel && <p class="article-hero__eyebrow">{clusterLabel}</p>}
+          <h1 class="article-hero__title">{h1}</h1>
+          <p class="article-hero__excerpt">{excerpt}</p>
+          <p class="article-hero__meta is-data">
+            <span>Par {author}</span>
+            <span aria-hidden="true">·</span>
+            <span>
+              Publié le <time datetime={isoPublished}>{frDate(datePublished)}</time>
+            </span>
+            {
+              showModified && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span>
+                    Mis à jour le <time datetime={isoModified}>{frDate(dateModified!)}</time>
+                  </span>
+                </>
+              )
+            }
+            <span aria-hidden="true">·</span>
+            <span>{readingTime}</span>
+          </p>
+        </div>
+
+        <div class="article-hero__media">
+          {
+            featuredImage ? (
+              <img
+                src={featuredImage}
+                alt={featuredImageAlt ?? ''}
+                width="1200"
+                height="900"
+                loading="eager"
+                fetchpriority="high"
+              />
+            ) : (
+              <div class="article-hero__placeholder glass" aria-hidden="true">
+                <span class="article-hero__placeholder-mark" />
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </header>
+
+    {/* 2-3. Corps + sommaire latéral */}
+    <div class="container article-body">
+      <div class="article-body__main">
+        {enBref && enBref.length > 0 && <EnBref points={enBref} />}
+
+        <div class="prose">
+          <slot />
+        </div>
+
+        {
+          pillarGuides && pillarGuides.length > 0 && (
+            <section id="guides-univers" class="cluster-guides not-prose">
+              <h2 class="cluster-guides__title">Les guides de cet univers</h2>
+              <ul class="cluster-guides__list">
+                {pillarGuides.map((g) => (
+                  <li>
+                    <a href={g.href}>
+                      <span class="cluster-guides__dot" aria-hidden="true" />
+                      {g.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          faq && faq.length > 0 && (
+            <section id="faq">
+              <Faq items={faq} />
+            </section>
+          )
+        }
+
+        <AuthorBio name={author} />
+      </div>
+
+      <Toc items={tocAll} />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  /* ---------- Hero deux colonnes ---------- */
+  .article-hero {
+    padding-block: var(--space-12) var(--space-10);
+    background: radial-gradient(
+      50% 60% at 8% 0%,
+      color-mix(in srgb, var(--cluster-color) 14%, transparent) 0%,
+      transparent 60%
+    );
+  }
+  .article-hero__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+  .article-hero__eyebrow {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--cluster-color);
+  }
+  .article-hero__title {
+    font-size: clamp(var(--text-4xl), 5vw, var(--text-6xl));
+    letter-spacing: var(--tracking-tight);
+  }
+  .article-hero__excerpt {
+    margin-top: var(--space-5);
+    max-width: var(--measure-narrow);
+    font-size: var(--text-xl);
+    color: var(--text-muted);
+  }
+  .article-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    margin-top: var(--space-6);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .article-hero__meta time {
+    color: var(--text-body);
+  }
+
+  .article-hero__media img {
+    width: 100%;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+  }
+  .article-hero__placeholder {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-xl);
+    display: grid;
+    place-items: center;
+  }
+  .article-hero__placeholder-mark {
+    width: 30%;
+    aspect-ratio: 1;
+    border-radius: var(--radius-blob);
+    background: var(--grad-brand);
+    opacity: 0.5;
+    filter: blur(2px);
+  }
+
+  /* ---------- Corps + sommaire ---------- */
+  .article-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 15rem;
+    gap: var(--space-16);
+    align-items: start;
+    padding-block: var(--space-8) var(--space-12);
+  }
+  .article-body__main {
+    min-width: 0;
+    max-width: var(--measure-text);
+  }
+
+  /* ---------- Hub pilier : guides de l'univers ---------- */
+  .cluster-guides {
+    margin-top: var(--space-16);
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+    border: var(--rule-hair) solid var(--border-default);
+    background: var(--surface-sunk);
+  }
+  .cluster-guides__title {
+    margin-bottom: var(--space-5);
+    font-size: var(--text-2xl);
+  }
+  .cluster-guides__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-6);
+  }
+  .cluster-guides__list a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-base);
+    color: var(--ink-80);
+  }
+  .cluster-guides__list a:hover {
+    color: var(--cluster-color);
+  }
+  .cluster-guides__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    flex: none;
+    border-radius: var(--radius-full);
+    background: var(--cluster-color);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1024px) {
+    .article-body {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .article-body__main {
+      max-width: var(--measure-text);
+      margin-inline: auto;
+    }
+  }
+  @media (max-width: 760px) {
+    .article-hero__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+    /* Mobile : méta/texte au-dessus, image à la une ensuite (roadmap §4.5). */
+    .article-hero__media {
+      order: 2;
+    }
+    .cluster-guides__list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

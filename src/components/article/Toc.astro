@@ -1,0 +1,140 @@
+---
+/**
+ * Toc — sommaire latéral (roadmap §4).
+ * Rendu dans un <aside><nav> : liste d'ancres vers les sections de l'article.
+ * AUCUN titre Hn dans cette zone (le libellé « Sur cette page » est un <p>) pour
+ * ne pas créer de signal de titre concurrent en SEO/GEO.
+ *
+ * - Les liens sont de simples ancres : ils fonctionnent SANS JavaScript.
+ * - La mise en évidence de la section courante (scrollspy) est une amélioration
+ *   progressive (IntersectionObserver) : si le JS ne tourne pas, le sommaire
+ *   reste pleinement utilisable.
+ * - Le <nav> est toujours présent dans le HTML source (repérable par les IA).
+ * - Sur mobile, l'aside est masqué visuellement mais conservé dans la source.
+ */
+interface TocItem {
+  id: string;
+  text: string;
+}
+interface Props {
+  items: TocItem[];
+}
+const { items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <aside class="toc not-prose" aria-label="Sommaire de l'article">
+      <div class="toc__inner">
+        <p class="toc__label">Sur cette page</p>
+        <nav>
+          <ul>
+            {items.map((it) => (
+              <li>
+                <a href={`#${it.id}`} class="toc__link" data-toc-link={it.id}>
+                  {it.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </aside>
+  )
+}
+
+<style>
+  .toc {
+    /* Sur desktop, l'aside occupe sa colonne dans la grille de l'article. */
+    font-family: var(--font-ui);
+  }
+  .toc__inner {
+    position: sticky;
+    top: var(--space-20);
+    max-height: calc(100vh - var(--space-24));
+    overflow-y: auto;
+    padding-left: var(--space-5);
+    border-left: var(--rule-hair) solid var(--border-default);
+  }
+  .toc__label {
+    margin-bottom: var(--space-4);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .toc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  .toc__link {
+    display: block;
+    padding: var(--space-2) 0 var(--space-2) var(--space-3);
+    margin-left: calc(-1 * var(--space-5) - var(--rule-hair));
+    padding-left: var(--space-5);
+    border-left: var(--rule-medium) solid transparent;
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    color: var(--text-muted);
+    transition:
+      color 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .toc__link:hover {
+    color: var(--blue);
+    text-decoration: none;
+  }
+  /* Section courante mise en évidence (scrollspy, amélioration progressive). */
+  .toc__link[aria-current='true'] {
+    color: var(--blue-ink);
+    border-left-color: var(--blue);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Mobile : pas de sommaire latéral. Masqué visuellement, conservé dans la
+     source HTML pour le GEO (sommaire cliquable repérable par les IA). */
+  @media (max-width: 1024px) {
+    .toc {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Scrollspy : met en évidence l'entrée du sommaire correspondant à la section
+  // visible. Amélioration progressive — sans ce script, les ancres restent
+  // fonctionnelles. (Le seul JS de la page article, conforme à la roadmap.)
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+
+  if (links.length > 0 && 'IntersectionObserver' in window) {
+    const linkById = new Map(links.map((l) => [l.dataset.tocLink ?? '', l]));
+    const targets = links
+      .map((l) => document.getElementById(l.dataset.tocLink ?? ''))
+      .filter((el): el is HTMLElement => el !== null);
+
+    let current = '';
+    const setActive = (id: string) => {
+      if (id === current) return;
+      current = id;
+      for (const l of links) l.removeAttribute('aria-current');
+      linkById.get(id)?.setAttribute('aria-current', 'true');
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      // Zone de déclenchement : le tiers haut de la fenêtre.
+      { rootMargin: '-15% 0px -70% 0px', threshold: 0 },
+    );
+
+    for (const t of targets) observer.observe(t);
+  }
+</script>

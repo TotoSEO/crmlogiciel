@@ -11,7 +11,13 @@ export interface Column {
   num?: boolean;
 }
 type Cell = string | { value: string; tone?: 'positive' | 'negative' | 'neutral' };
-export type Row = { _best?: boolean } & Record<string, Cell>;
+/**
+ * Ligne : une cellule par colonne (clé = `Column.key`), plus le drapeau optionnel
+ * `_best` qui surligne la ligne « meilleure ». La signature d'index inclut
+ * `boolean` pour accueillir `_best` sans conflit de types ; à la lecture, on
+ * caste vers `Cell` (les clés de colonnes ne valent jamais `_best`).
+ */
+export type Row = { _best?: boolean; [column: string]: Cell | boolean | undefined };
 
 interface Props {
   caption?: string;
@@ -44,7 +50,7 @@ const cellTone = (c: Cell) => (typeof c === 'string' ? undefined : c.tone);
         rows.map((row) => (
           <tr class={row._best ? 'is-best' : ''}>
             {columns.map((col, i) => {
-              const cell = row[col.key];
+              const cell = row[col.key] as Cell | undefined;
               const val = cell === undefined ? '' : cellValue(cell);
               const tone = cell === undefined ? undefined : cellTone(cell);
               const cls = [

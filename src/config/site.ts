@@ -23,6 +23,14 @@ export const SITE = {
 } as const;
 
 /**
+ * Interrupteur d'indexation global. Tant que le site est en phase de chauffe,
+ * toutes les pages éditoriales restent en `noindex`. Passer à `true` au moment
+ * du lancement (Phase 5) pour ouvrir l'indexation d'un coup. Les pages purement
+ * techniques (ex. /demo/) restent en noindex en dur, indépendamment de ce flag.
+ */
+export const INDEXABLE = false;
+
+/**
  * Auteur éditorial par défaut (roadmap §4). Réutilisé dans le frontmatter
  * et le JSON-LD Person/Article.
  */
@@ -31,6 +39,10 @@ export const DEFAULT_AUTHOR = {
   /** URL de la page auteur (à créer ultérieurement). */
   url: `${SITE.url}/`,
   jobTitle: 'Expert CRM et logiciels de gestion commerciale',
+  /** Initiales pour l'avatar tant qu'aucune photo n'est fournie. */
+  initials: 'JL',
+  /** Bio courte affichée dans le bloc auteur de fin d'article (EEAT). */
+  bio: "Consultant CRM depuis plus de quinze ans, Julien Lefèvre a déployé des dizaines d'outils pour des entreprises de toutes tailles. Il a relancé crm-logiciel.fr avec une idée simple : aider chacun à trouver le bon logiciel, gratuitement et sans parti pris.",
 } as const;
 
 /**

@@ -1,0 +1,65 @@
+---
+/**
+ * Breadcrumb — fil d'Ariane réutilisable (roadmap §4).
+ * Reçoit les maillons construits par content-map (helper `breadcrumb`).
+ * Tous les liens sont dans le HTML source (crawlables / GEO). Le JSON-LD
+ * BreadcrumbList correspondant est généré à part (lib/schema.ts).
+ */
+import type { Crumb } from '../config/content-map';
+
+interface Props {
+  crumbs: Crumb[];
+  /** Marge basse (espacement contextuel selon l'emplacement). */
+  compact?: boolean;
+}
+const { crumbs, compact = false } = Astro.props;
+---
+
+{
+  crumbs.length > 0 && (
+    <nav class:list={['breadcrumb', { 'breadcrumb--compact': compact }]} aria-label="Fil d'Ariane">
+      <ol>
+        {crumbs.map((c, i) => (
+          <li>
+            {c.href && i < crumbs.length - 1 ? (
+              <a href={c.href}>{c.label}</a>
+            ) : (
+              <span aria-current="page">{c.label}</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<style>
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0 0 var(--space-6);
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .breadcrumb--compact ol {
+    margin-bottom: var(--space-4);
+  }
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+  .breadcrumb a:hover {
+    color: var(--blue);
+  }
+  .breadcrumb li:not(:last-child)::after {
+    content: '›';
+    margin-left: var(--space-2);
+    color: var(--text-faint);
+  }
+  .breadcrumb [aria-current='page'] {
+    color: var(--ink-80);
+    font-weight: var(--font-weight-medium);
+  }
+</style>

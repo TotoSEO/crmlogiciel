@@ -1,0 +1,113 @@
+---
+/**
+ * AuthorBio — bloc auteur de fin d'article (roadmap §4, signal EEAT).
+ * Présentation de l'auteur (Julien Lefèvre par défaut) en verre dépoli.
+ * Avatar : initiales dans un disque dégradé tant qu'aucune photo n'est fournie.
+ */
+import { DEFAULT_AUTHOR, path } from '../../config/site';
+import { getPage } from '../../config/content-map';
+
+interface Props {
+  name?: string;
+  jobTitle?: string;
+  bio?: string;
+  initials?: string;
+}
+const {
+  name = DEFAULT_AUTHOR.name,
+  jobTitle = DEFAULT_AUTHOR.jobTitle,
+  bio = DEFAULT_AUTHOR.bio,
+  initials = DEFAULT_AUTHOR.initials,
+} = Astro.props;
+
+const methodo = getPage('methodologie');
+---
+
+<aside
+  class="author glass not-prose"
+  style="--glass-tint: var(--blue)"
+  aria-label={`À propos de ${name}`}
+>
+  <div class="author__avatar" aria-hidden="true">{initials}</div>
+  <div class="author__body">
+    <p class="author__kicker">L'auteur</p>
+    <p class="author__name">{name}</p>
+    <p class="author__role">{jobTitle}</p>
+    <p class="author__bio">{bio}</p>
+    {
+      methodo && (
+        <p class="author__link">
+          <a href={path(methodo.slug)}>Comment nous testons les CRM</a>
+        </p>
+      )
+    }
+  </div>
+</aside>
+
+<style>
+  .author {
+    display: flex;
+    gap: var(--space-6);
+    align-items: flex-start;
+    margin-top: var(--space-16);
+    padding: var(--space-6) var(--space-8);
+    border-radius: var(--radius-xl);
+  }
+  .author > * {
+    position: relative;
+    z-index: 1;
+  }
+  .author__avatar {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--radius-full);
+    background: var(--grad-brand);
+    box-shadow: var(--shadow-glow);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+    letter-spacing: 0.02em;
+  }
+  .author__kicker {
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .author__name {
+    margin-top: var(--space-1);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-2xl);
+    color: var(--ink);
+  }
+  .author__role {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--blue-ink);
+  }
+  .author__bio {
+    margin-top: var(--space-4);
+    font-size: var(--text-base);
+    color: var(--text-body);
+    line-height: var(--leading-relaxed);
+    max-width: 60ch;
+  }
+  .author__link {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  @media (max-width: 560px) {
+    .author {
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+  }
+</style>
