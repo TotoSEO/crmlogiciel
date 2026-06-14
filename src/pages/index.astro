@@ -608,6 +608,7 @@ const guides = [
   }
   .tl-item {
     position: relative;
+    z-index: 1; /* au-dessus du fil (::before/::after) pour que les pastilles ne soient pas masquées */
     width: 50%;
     box-sizing: border-box;
     padding-block: var(--space-4);

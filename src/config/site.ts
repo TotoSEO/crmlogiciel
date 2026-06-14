@@ -7,7 +7,7 @@ export const SITE = {
   /** Nom de marque (titres, JSON-LD Organization/WebSite). */
   name: 'crm-logiciel.fr',
   /** Nom long pour les contextes éditoriaux. */
-  longName: 'crm-logiciel.fr — le média de référence sur les logiciels CRM',
+  longName: 'crm-logiciel.fr, le média de référence sur les logiciels CRM',
   /** URL de production, sans slash final (l'helpers ajoute les slashs). */
   url: 'https://crm-logiciel.fr',
   /** Langue unique au lancement. */

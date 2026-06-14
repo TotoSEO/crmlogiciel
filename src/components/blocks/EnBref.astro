@@ -3,6 +3,8 @@
  * EnBref — encart « En bref » en tête d'article (roadmap §4), en verre dépoli.
  * Liste de 3 à 5 points clés, accent de marque.
  */
+import { inlineMd } from '../../lib/inline-md';
+
 interface Props {
   points: string[];
   title?: string;
@@ -16,7 +18,7 @@ const { points, title = 'En bref' } = Astro.props;
     {title}
   </p>
   <ul class="enbref__list">
-    {points.map((p) => <li>{p}</li>)}
+    {points.map((p) => <li set:html={inlineMd(p)} />)}
   </ul>
 </aside>
 

@@ -4,6 +4,8 @@
  * Chaque question est un panneau de verre dépoli. Réponses dans la source (GEO).
  * Le JSON-LD FAQPage est généré à part (lib/schema.ts) sur les mêmes données.
  */
+import { inlineMd } from '../../lib/inline-md';
+
 interface FaqItem {
   question: string;
   answer: string;
@@ -22,7 +24,7 @@ const { items, title = 'Questions fréquentes' } = Astro.props;
       items.map((item, i) => (
         <details class="faq__item glass" style="--glass-tint: var(--blue)" open={i === 0}>
           <summary class="faq__q">
-            <span class="faq__q-text">{item.question}</span>
+            <span class="faq__q-text" set:html={inlineMd(item.question)} />
             <span class="faq__chevron" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="14" height="14">
                 <path
@@ -37,7 +39,7 @@ const { items, title = 'Questions fréquentes' } = Astro.props;
             </span>
           </summary>
           <div class="faq__a">
-            <p>{item.answer}</p>
+            <p set:html={inlineMd(item.answer)} />
           </div>
         </details>
       ))
