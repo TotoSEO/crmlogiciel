@@ -25,6 +25,8 @@ faq:
     answer: "Excel suffit pour démarrer, avec peu de contacts et une seule personne aux commandes. Le CRM devient utile dès qu'il faut suivre un historique d'échanges, partager la base à plusieurs ou automatiser des relances, ce qu'un tableur fait mal ou pas du tout. Le bon moment pour basculer, c'est quand votre fichier sert à travailler à plusieurs, pas seulement à stocker des noms."
   - question: 'Faut-il déclarer son fichier client à la CNIL ?'
     answer: "Non, plus depuis l'entrée en vigueur du RGPD en 2018 : la déclaration préalable a disparu. En contrepartie, l'entreprise tient elle-même un registre de ses traitements de données, qui décrit ce qu'elle collecte, pourquoi et combien de temps elle le conserve. Ce registre se présente sur demande en cas de contrôle, et il remplace l'ancienne formalité."
+featuredImage: /images/articles/fichier-client.jpg
+featuredImageAlt: "Fichier à fiches cartonnées ouvert et rangé, métaphore du fichier client"
 ---
 
 Un fichier client est une base de données structurée qui réunit les informations utiles sur vos clients et prospects : coordonnées, historique, statut, prochaine action. Sur le papier, rien de plus banal. Dans les faits, c'est la matière première de toute votre activité commerciale. Et sa qualité décidera de la réussite de l'[implémentation de votre CRM](/mise-en-place-crm/) bien plus que le choix de l'outil.

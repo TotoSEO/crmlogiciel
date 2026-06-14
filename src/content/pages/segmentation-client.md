@@ -23,6 +23,8 @@ faq:
     answer: "Tout CRM correct sait filtrer sur des champs et créer des listes dynamiques, ce qui couvre les méthodes firmographique et comportementale simple. Le RFM automatisé est natif sur les plateformes orientées commerce et se reconstruit ailleurs avec des champs calculés. Les segmentations statistiques avancées relèvent d'outils d'analyse dédiés, rarement nécessaires avant plusieurs dizaines de milliers de clients."
   - question: 'À quelle fréquence faut-il revoir sa segmentation ?'
     answer: "Les affectations se recalculent en continu quand les règles sont automatiques ; la structure elle-même se revoit chaque trimestre, et se réforme quand l'activité change : nouvelle offre, nouveau canal, nouveau type de clientèle. Un signal fiable qu'il est temps de revoir : un segment qui concentre plus de la moitié de la base ne segmente plus rien."
+featuredImage: /images/articles/segmentation-client.jpg
+featuredImageAlt: "Billes de couleur triées en quatre groupes, métaphore de la segmentation client"
 ---
 
 Segmenter ses clients, c'est les répartir en groupes qui partagent un point commun exploitable : taille, comportement, valeur, besoin. L'objectif n'a rien d'académique : un message envoyé à tout le monde ne parle à personne, un effort commercial réparti uniformément se trompe forcément de cible. La segmentation décide qui mérite un appel, qui reçoit quel email, et qui peut attendre.

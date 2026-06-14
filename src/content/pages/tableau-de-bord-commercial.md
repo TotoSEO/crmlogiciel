@@ -23,6 +23,8 @@ faq:
     answer: "Pas avant d'avoir épuisé le reporting natif, ce qui prend plus de temps qu'on ne croit. La BI devient pertinente quand le pilotage exige de croiser le CRM avec d'autres sources : facturation, web, support. Brancher une BI sur une donnée commerciale mal tenue ne produit qu'une chose : les mêmes erreurs, avec de plus beaux graphiques."
   - question: 'Pourquoi mon tableau de bord affiche-t-il des chiffres faux ?'
     answer: "Dans l'ordre des causes constatées : des affaires mortes laissées ouvertes qui faussent le pipe, des formules jamais écrites donc calculées différemment selon les rapports, des champs de montant ou de date mal remplis, et des doublons. Le remède commence côté saisie et côté règles, jamais côté graphique : un tableau de bord est un miroir, on ne répare pas un miroir."
+featuredImage: /images/articles/tableau-de-bord-commercial.jpg
+featuredImageAlt: "Ensemble de cadrans analogiques, métaphore du tableau de bord commercial"
 ---
 
 Le tableau de bord commercial concentre un paradoxe : tout le monde en veut un, et la plupart de ceux qui existent ne servent à rien. La cause est presque toujours la même, l'accumulation : quarante graphiques, toutes les couleurs du CRM, et plus personne ne sait quelle décision regarder. Un tableau de bord n'est pas un rapport d'activité, c'est un instrument d'alerte : il doit dire en trente secondes si la machine commerciale va bien, et où intervenir si elle va mal.

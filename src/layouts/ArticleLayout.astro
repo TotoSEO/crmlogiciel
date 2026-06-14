@@ -189,8 +189,8 @@ const pageSchema = graph(...nodes);
               <img
                 src={featuredImage}
                 alt={featuredImageAlt ?? ''}
-                width="1200"
-                height="900"
+                width="1280"
+                height="731"
                 loading="eager"
                 fetchpriority="high"
               />
@@ -312,7 +312,9 @@ const pageSchema = graph(...nodes);
   }
 
   .article-hero__media img {
+    display: block;
     width: 100%;
+    height: auto;
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-soft);
   }

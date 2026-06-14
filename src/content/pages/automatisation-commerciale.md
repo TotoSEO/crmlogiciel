@@ -23,6 +23,8 @@ faq:
     answer: 'Pas au début : les CRM du marché couvrent nativement les workflows de cette page (tâches automatiques, alertes, séquences simples). Les outils spécialisés de prospection sortante se justifient quand le volume devient industriel : plusieurs centaines de contacts adressés par mois et par commercial. En dessous, ils ajoutent un abonnement et une complexité sans gain réel.'
   - question: 'Que ne faut-il jamais automatiser ?'
     answer: "Tout ce qui engage ou répare : la relance d'une grosse proposition, la réponse à une objection, le message après un incident, l'annonce d'une hausse de prix. Et tout ce qui touche un client mécontent, où l'email automatique met de l'huile sur le feu. La règle du destinataire couvre ces cas : quand le message compte, l'humain écrit."
+featuredImage: /images/articles/automatisation-commerciale.jpg
+featuredImageAlt: "Engrenages en laiton imbriqués, métaphore de l’automatisation commerciale"
 ---
 
 L'automatisation commerciale consiste à déléguer à votre outil les gestes mécaniques du cycle de vente : créer la tâche de relance à l'envoi d'un devis, accuser réception d'une demande, alerter quand un dossier s'endort, préparer les actions qui suivent une signature. Bien employée, elle ne vend rien à votre place : elle garantit que rien ne tombe entre les mailles, ce qui est déjà énorme.

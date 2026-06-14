@@ -23,6 +23,8 @@ faq:
     answer: "C'est la formalisation des cadences par type de situation : qui relance, quand, sur quel canal et avec quel contenu, du lead entrant au client en renouvellement. Une page suffit. Son intérêt est collectif : quand un commercial part en congés ou s'en va, son portefeuille reste suivi selon les mêmes règles, sans dépendre de sa mémoire."
   - question: 'Faut-il noter tous les échanges dans le CRM ?'
     answer: 'Tous les échanges qui font avancer ou bloquent une affaire, oui ; le verbatim, jamais. Trois lignes par interaction (décision, blocage, engagement) suffisent à reprendre un dossier au vol. Le test utile : un collègue qui ouvre la fiche doit comprendre la situation en trente secondes. Au-delà de ce standard, la note devient un journal intime que personne ne lira.'
+featuredImage: /images/articles/suivi-commercial.jpg
+featuredImageAlt: "Métronome en mouvement à côté d’un agenda, métaphore du suivi commercial"
 ---
 
 Le suivi commercial désigne tout ce qui se passe entre deux contacts avec un prospect ou un client : la note prise après l'appel, la relance du devis, le récapitulatif envoyé, la prochaine échéance posée. C'est la partie la moins spectaculaire du métier de vendre, et la plus déterminante : on perd rarement une affaire sur un mauvais argumentaire, on en perd constamment sur une relance partie trop tard ou jamais partie.

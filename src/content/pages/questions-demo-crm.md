@@ -22,6 +22,8 @@ faq:
     answer: "Souvent, oui, surtout sur un engagement annuel ou un nombre d'utilisateurs significatif. Les remises, les mois offerts ou la prise en charge de la formation se discutent. Le tarif affiché est un point de départ, rarement une limite intangible."
   - question: 'Qui faire participer à la démonstration ?'
     answer: "Les utilisateurs finaux, pas seulement le décideur. Ce sont eux qui repéreront les frictions du quotidien et jugeront l'ergonomie. Impliquer un commercial et, si possible, la personne qui administrera l'outil évite de découvrir les problèmes une fois le contrat signé."
+featuredImage: /images/articles/questions-demo-crm.jpg
+featuredImageAlt: "Loupe au-dessus d’un contrat et stylo, métaphore des questions avant la démo CRM"
 ---
 
 Une démonstration commerciale est d'abord un exercice de vente. L'éditeur déroule un scénario rodé, sur des données parfaites, et met en avant ce que son outil fait de mieux. Votre travail consiste à sortir de ce script pour vérifier ce qui compte vraiment pour vous. Les bonnes questions, posées au bon moment, révèlent en une heure ce qu'on découvrirait sinon trois mois après la signature.

@@ -20,6 +20,8 @@ faq:
     answer: "Quelques jours d'usage réel suffisent à se faire une idée solide, à condition de tester avec ses propres données et son scénario réel. L'essentiel n'est pas la durée, mais le réalisme : un outil effleuré pendant deux semaines en apprend moins qu'un outil vraiment utilisé pendant trois jours."
   - question: 'Faut-il tester plusieurs CRM avant de choisir ?'
     answer: 'Oui, mais pas trop : deux ou trois finalistes, sélectionnés en amont. Au-delà, la comparaison devient confuse. Mieux vaut présélectionner sérieusement, puis creuser à fond ces quelques outils.'
+featuredImage: /images/articles/methodologie.jpg
+featuredImageAlt: "Presse-papiers, chronomètre et béchers, métaphore de la méthodologie de test des CRM"
 ---
 
 La plupart des classements de CRM se ressemblent : une liste d'outils, quelques arguments repris des sites éditeurs, et des recommandations qu'on devine intéressées. On y trouve rarement la trace d'un vrai test. Nous avons fait le choix inverse : chaque outil que nous classons est utilisé, pas seulement décrit. Cette page explique comment nous procédons, pour que vous sachiez ce que vaut notre avis, puis elle vous donne la méthode pour mener votre propre évaluation. Car au bout du compte, c'est vous qui vivrez avec l'outil choisi.

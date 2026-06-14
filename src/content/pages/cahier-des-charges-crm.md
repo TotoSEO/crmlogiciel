@@ -25,6 +25,8 @@ faq:
     answer: "La personne qui pilote le projet, en associant les futurs utilisateurs. Le dirigeant ou le responsable commercial cadre les objectifs et le budget ; les équipes de terrain font remonter les besoins réels. C'est ce croisement qui produit un document juste."
   - question: 'Quelle différence entre cahier des charges et expression de besoins ?'
     answer: "L'expression de besoins est la première étape, plus libre : on liste ce qu'on veut. Le cahier des charges formalise et structure cette matière en un document complet, hiérarchisé et destiné aux éditeurs. Le second découle du premier."
+featuredImage: /images/articles/cahier-des-charges-crm.jpg
+featuredImageAlt: "Carnet ouvert avec une liste cochée et un stylo plume, image du cahier des charges CRM"
 ---
 
 Vous avez décidé de vous équiper, et vous vous apprêtez à contacter des éditeurs. C'est exactement le moment de poser un cahier des charges. Sans lui, chaque démonstration part dans une direction différente, les devis deviennent impossibles à comparer, et vous découvrez en cours de route des besoins que vous aviez oubliés. Avec lui, vous savez ce que vous cherchez, les éditeurs répondent à la même question, et vous gardez la main sur le projet.

@@ -23,6 +23,8 @@ faq:
     answer: "Par un connecteur natif quand les deux éditeurs en proposent un, par une plateforme d'intégration ou un développement sinon. Le travail réel n'est pas technique mais décisionnel : désigner l'outil maître de chaque objet partagé, définir le sens des synchronisations et les règles de doublons. Comptez quelques jours de travail bien investis, contre des années de ressaisie évitées."
   - question: 'CRM et ERP peuvent-ils être le même logiciel ?'
     answer: "Oui, c'est l'offre des suites tout-en-un, fréquentes sur le marché des TPE et PME. L'avantage est réel : une seule base, un seul abonnement, zéro synchronisation. La limite l'est aussi : chaque module y est correct sans être excellent, et les équipes au contact du client paient le plus souvent ce compromis. À réserver aux structures qui préfèrent la simplicité à la profondeur."
+featuredImage: /images/articles/crm-vs-erp.jpg
+featuredImageAlt: "Deux pièces de puzzle qui s’emboîtent, métaphore CRM contre ERP"
 ---
 
 La question revient dans toutes les PME qui se structurent, et elle est mal posée quand on l'écrit « CRM ou ERP » : les deux outils ne se remplacent pas, ils se partagent l'entreprise. Le [CRM](/qu-est-ce-qu-un-crm/) regarde vers l'extérieur : prospects, clients, affaires en cours, relation dans la durée. L'ERP, le progiciel de gestion intégré, regarde vers l'intérieur : achats, stocks, production, facturation, comptabilité, parfois la paie. L'un gère ceux qui vous paient, l'autre gère ce que ça coûte de les servir.

@@ -23,6 +23,8 @@ faq:
     answer: "Un CRM conçu pour un secteur précis (immobilier, courtage, BTP, associations), livré avec les objets, les processus et le vocabulaire du métier déjà en place : le mandat, le sinistre, l'adhérent. Il accélère le démarrage et colle aux usages du secteur, au prix d'une communauté plus restreinte et d'une dépendance plus forte à un petit éditeur."
   - question: 'CRM cloud ou on-premise : comment trancher ?'
     answer: "Par les contraintes, pas par les goûts. Le cloud s'impose par défaut, pour son démarrage immédiat, ses mises à jour continues et son accès partout. L'installation sur vos serveurs ne se justifie que pour des exigences précises de localisation des données, de régulation sectorielle ou de politique de sécurité interne. Si aucune de ces contraintes ne vous concerne, la question est déjà réglée."
+featuredImage: /images/articles/types-de-crm.jpg
+featuredImageAlt: "Cube, sphère et pyramide groupés, métaphore des différents types de CRM"
 ---
 
 Ouvrez n'importe quel cours sur le [Customer Relationship Management](/qu-est-ce-qu-un-crm/) et vous tomberez sur la même classification : CRM opérationnel, CRM analytique, CRM collaboratif. Elle est exacte et utile, mais presque toujours mal présentée. On la donne comme s'il s'agissait de trois familles de produits entre lesquelles choisir, alors qu'elle décrit trois couches de fonctions qui cohabitent dans le même outil. C'est un peu comme le téléphone, l'appareil photo et le GPS de votre smartphone : trois usages distincts, un seul objet à acheter.

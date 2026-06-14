@@ -20,6 +20,8 @@ faq:
     answer: "Non. Quelques termes suffisent au quotidien : contact, lead, pipeline, étape. Le reste s'apprend au fil de l'usage. Cette page sert surtout de référence à garder sous la main, notamment face à un commercial d'éditeur qui enchaîne les sigles."
   - question: 'Pipeline et funnel, est-ce la même chose ?'
     answer: "Pas tout à fait. Le funnel, ou entonnoir, décrit le parcours marketing d'un contact, du premier intérêt à l'achat, vu comme un volume qui se réduit à chaque étape. Le pipeline décrit le suivi commercial d'affaires identifiées, une par une, le long de vos étapes de vente. Le funnel raisonne en masse, le pipeline en affaires nommées."
+featuredImage: /images/articles/lexique-crm.jpg
+featuredImageAlt: "Dictionnaire ouvert et loupe, image illustrant le lexique du CRM"
 ---
 
 Chaque métier a son jargon, et le CRM ne fait pas exception. Dès la première démonstration, vous entendrez parler de leads, de pipeline, de scoring ou de MQL, souvent sans qu'on prenne le temps de définir ces mots. Cette page rassemble le vocabulaire courant du CRM avec des définitions courtes et lisibles, regroupées par famille. Elles s'appuient sur notre [définition complète du CRM](/qu-est-ce-qu-un-crm/), qui pose le concept en détail ; ici, on se concentre sur les mots, un par un. Inutile de tout mémoriser : gardez plutôt la page ouverte pendant vos rendez-vous avec les éditeurs.

@@ -23,6 +23,8 @@ faq:
     answer: "Sur les tarifs publics, peu : la dégressivité affichée est rare. En négociation directe, oui : à partir de 10 à 20 licences, des remises de 10 à 25 % s'obtiennent couramment, contre un engagement de durée. Au-delà de 50 licences, tout passe par un devis où le tarif public ne sert plus que de point de départ."
   - question: 'Combien coûte la formation à un CRM ?'
     answer: "Le tarif constaté du marché va de 600 à 1 200 € la journée de formation, et une équipe de dix personnes consomme généralement deux à quatre journées entre la prise en main et le perfectionnement. Les éditeurs incluent parfois un volume de formation dans les gammes supérieures : c'est un des points qui se négocient le mieux à la signature."
+featuredImage: /images/articles/prix-crm.jpg
+featuredImageAlt: "Calculatrice, pièces empilées et carnet, métaphore du prix d’un CRM"
 ---
 
 À la question directe, réponse directe : un CRM coûte entre 0 et 25 € par utilisateur et par mois pour les outils d'entrée de gamme et les plans gratuits, 30 à 70 € pour les solutions qui équipent la plupart des PME, et 80 à 150 € pour les suites les plus avancées. Voilà pour l'affiche. Le vrai sujet de cette page commence après, parce qu'entre le tarif publié et ce que vous paierez réellement, il existe une série de mécanismes parfaitement légaux et remarquablement efficaces.

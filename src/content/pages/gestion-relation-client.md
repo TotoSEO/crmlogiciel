@@ -23,6 +23,8 @@ faq:
     answer: "C'est la capacité à poursuivre la même conversation quel que soit le canal. Un client qui commence par email, relance par téléphone et termine en boutique ne devrait jamais avoir à répéter son histoire. L'omnicanal ne consiste pas à être présent partout, mais à relier ce que chaque canal sait déjà du client."
   - question: 'Quelle différence entre fidélisation et rétention ?'
     answer: "La rétention mesure un fait : le client est resté. La fidélisation désigne le travail mené pour y parvenir, et vise un attachement choisi plutôt que subi. Un client peut être retenu sans être fidèle, par engagement contractuel ou faute d'alternative. Il partira à la première occasion, et la rétention chutera d'un coup."
+featuredImage: /images/articles/gestion-relation-client.jpg
+featuredImageAlt: "Deux tasses de café face à face sur une table, métaphore de la relation client"
 ---
 
 La gestion de la relation client (GRC) désigne l'ensemble des choix et des pratiques par lesquels une entreprise organise ses interactions avec ses clients et prospects. Qui contacter, à quel moment, par quel canal, avec quel message, et comment transformer chaque échange en relation qui dure. Le sigle anglais CRM, pour Customer Relationship Management, recouvre la même notion, avec une nuance d'usage sur laquelle on revient plus bas.

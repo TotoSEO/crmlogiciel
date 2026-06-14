@@ -23,6 +23,8 @@ faq:
     answer: "Parce qu'il a souvent été déployé comme un outil de contrôle plutôt que comme un outil de travail : du reporting pour le manager, de la saisie pour le terrain. L'adhésion change quand l'outil rend service au commercial lui-même : relances présentées chaque matin, historique avant l'appel, moins de questions en réunion. C'est un choix de conception du projet, pas une fatalité."
   - question: 'À partir de quelle taille un CRM se justifie-t-il ?'
     answer: "Dès qu'il y a de la prospection ou du suivi à plusieurs, donc très tôt : un indépendant qui relance des devis en profite déjà. Le vrai seuil n'est pas un effectif mais un symptôme : le jour où une affaire se perd parce que l'information était quelque part ailleurs, l'outil est devenu moins cher que son absence."
+featuredImage: /images/articles/avantages-inconvenients-crm.jpg
+featuredImageAlt: "Balance en équilibre, métaphore des avantages et inconvénients d’un CRM"
 ---
 
 Vous trouverez sans mal des pages qui alignent huit, dix ou onze avantages du CRM : elles sont écrites par les éditeurs, et elles ont raison sur le fond autant qu'elles omettent la moitié du sujet. Car chaque bénéfice d'un CRM est conditionnel : il se produit si certaines choses sont faites, et ne se produit pas sinon. Cette page présente les deux colonnes du bilan, parce que son lecteur type doit décider, ou convaincre quelqu'un qui décide, et qu'on ne convainc durablement personne avec une plaquette.

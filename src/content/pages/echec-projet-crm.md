@@ -23,6 +23,8 @@ faq:
     answer: "Rarement, et jamais en premier réflexe : neuf échecs sur dix sont organisationnels et déménageraient avec vous. Changez d'outil quand le redressement a été tenté sérieusement et que des limites structurelles du logiciel restent prouvées : fonctions absentes, performances invivables, éditeur défaillant. L'échec doit payer au moins une chose : un cahier des charges lucide pour la suite."
   - question: "Qui est responsable de la réussite d'un projet CRM ?"
     answer: "Trois rôles, et l'absence d'un seul suffit à expliquer bien des échecs : un sponsor de direction qui arbitre et montre l'exemple, un propriétaire opérationnel qui administre l'outil et traite les irritants, et des utilisateurs associés dès le choix. Le prestataire ou l'éditeur outillent ce trio ; ils ne le remplacent jamais."
+featuredImage: /images/articles/echec-projet-crm.jpg
+featuredImageAlt: "Une main retient une tour de blocs penchée, métaphore de l’échec d’un projet CRM"
 ---
 
 Commençons par définir ce qu'on compte, parce que le sujet en manque cruellement : un projet CRM a échoué quand, au bout d'un an, l'outil est abandonné, contourné ou rempli pour la forme. Pas quand le logiciel plante : les échecs techniques sont devenus rarissimes. Quant aux pourcentages d'échec qui circulent de page en page, ils additionnent des études aux définitions incompatibles et aux sources introuvables : ils impressionnent en introduction de plaquette, ils n'aident personne à décider. Ce qui aide : connaître les mécanismes, repérer les signaux tôt, et savoir redresser.

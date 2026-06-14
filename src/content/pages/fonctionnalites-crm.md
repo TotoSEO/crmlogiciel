@@ -23,6 +23,8 @@ faq:
     answer: "Elles apportent un vrai confort sur les résumés d'appels, la préparation de rendez-vous et la rédaction, à une condition : que la donnée saisie soit riche et propre, puisque l'IA travaille sur ce que contient votre base. Sur un CRM mal rempli, elle résume le vide. Consolidez le socle d'abord, évaluez l'IA ensuite, sur vos propres données pendant l'essai."
   - question: 'Peut-on ajouter des fonctionnalités à son CRM après coup ?'
     answer: "Oui, c'est même le modèle économique du secteur : les briques s'activent par changement de plan ou ajout de modules, sans migration. Le point de vigilance est budgétaire, certaines briques exigeant un saut de palier entier. Vérifiez avant de signer où vivent les fonctionnalités dont vous aurez besoin dans un an : le prix d'entrée ne dit rien du prix de croisière."
+featuredImage: /images/articles/fonctionnalites-crm.jpg
+featuredImageAlt: "Blocs de construction modulaires assemblés, métaphore des fonctionnalités d’un CRM"
 ---
 
 Si vous évaluez [un CRM](/qu-est-ce-qu-un-crm/), vous avez déjà croisé ces pages qui alignent dix, quinze ou dix-neuf fonctionnalités « à ne pas manquer », rédigées par des éditeurs qui décrivent en réalité leur propre catalogue. Cette page prend le chemin inverse : six briques, classées en trois cercles selon leur degré de nécessité, avec pour chacune une description honnête de ce qu'elle change dans une journée de travail. C'est cette hiérarchie, bien plus que la liste, qui vous servira au moment de comparer des offres.

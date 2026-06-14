@@ -25,6 +25,8 @@ faq:
     answer: "Oui, il se télécharge librement et s'adapte à votre activité. Il vous fait gagner toute la mise en place, mais ne change rien aux limites du format : il reste un point de départ, pas une solution durable."
   - question: 'Un CRM sur Excel est-il sécurisé ?'
     answer: "La sécurité d'un fichier Excel est limitée : il se copie, s'envoie et se perd facilement, et il n'offre pas de gestion fine des accès. Pour des données clients sensibles, protégez au minimum le fichier par mot de passe et limitez sa diffusion. C'est aussi l'une des raisons de passer à un outil dédié à mesure que la base grandit."
+featuredImage: /images/articles/crm-excel.jpg
+featuredImageAlt: "Ordinateur portable, grille papier et crayon, métaphore du CRM sur Excel"
 ---
 
 Avant d'investir dans un logiciel, beaucoup commencent par un tableur, et c'est un réflexe sain. Excel ou Google Sheets ne coûtent rien, tout le monde sait s'en servir, et pour une activité qui démarre, cela suffit souvent. Le tableur dépanne très bien, mais il ne remplacera jamais [un vrai CRM](/qu-est-ce-qu-un-crm/) sur la durée. Ce guide vous montre comment en tirer le meilleur, étape par étape, puis où se trouvent ses limites pour partir au bon moment.

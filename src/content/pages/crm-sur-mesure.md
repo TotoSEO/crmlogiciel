@@ -23,6 +23,8 @@ faq:
     answer: "Celui que le contrat désigne, et c'est un point à négocier avant la signature, pas après. Exigez la cession complète des droits sur le code, l'accès au dépôt de sources et une documentation à jour. Sans ces trois éléments, vous ne possédez pas un logiciel : vous louez une dépendance à votre prestataire."
   - question: "Un CRM sur mesure est-il plus sécurisé qu'un logiciel du marché ?"
     answer: "Rarement, et c'est contre-intuitif. Un éditeur sérieux mutualise pour des milliers de clients une équipe sécurité, des audits et des correctifs continus ; votre application sur mesure n'a que ce que vous payez pour elle. Le sur-mesure réduit votre exposition aux failles massives des grands éditeurs, mais il vous transfère l'intégralité de la responsabilité, RGPD compris."
+featuredImage: /images/articles/crm-sur-mesure.jpg
+featuredImageAlt: "Mètre de couturier, ciseaux et craie sur du tissu, métaphore du CRM sur mesure"
 ---
 
 Un CRM sur mesure est un logiciel développé spécifiquement pour votre entreprise, par une agence ou une équipe interne, dont vous possédez le code et que personne d'autre n'utilise. La promesse est réelle : un outil qui épouse vos processus au lieu de les contraindre. La question n'est donc pas de savoir si c'est mieux adapté (évidemment, oui), mais combien cette adaptation coûte vraiment, sur combien d'années, et contre quels risques.

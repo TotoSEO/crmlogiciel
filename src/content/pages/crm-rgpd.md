@@ -23,6 +23,8 @@ faq:
     answer: 'Oui, à condition que les transferts de données hors Union européenne soient encadrés par des garanties reconnues. Beaucoup de grands éditeurs proposent désormais un hébergement européen pour répondre à cette exigence. Vérifiez où vos données sont stockées et traitées avant de signer, et faites-en un point explicite du contrat.'
   - question: 'Faut-il un DPO pour utiliser un CRM ?'
     answer: "Pas dans la plupart des cas. La désignation d'un délégué à la protection des données n'est obligatoire que pour certaines activités : suivi à grande échelle, données sensibles, organismes publics. Une PME qui gère un fichier commercial classique n'y est en général pas tenue, mais elle a tout intérêt à nommer une personne responsable du sujet, registre compris."
+featuredImage: /images/articles/crm-rgpd.jpg
+featuredImageAlt: "Cadenas posé sur une pile de documents, métaphore du CRM conforme au RGPD"
 ---
 
 Dès qu'un CRM enregistre un nom, un email ou un historique d'échanges, il traite des données personnelles, et le Règlement général sur la protection des données s'applique. Ce n'est pas une formalité réservée aux grands groupes : une TPE avec deux cents contacts est concernée autant qu'un groupe de mille salariés.

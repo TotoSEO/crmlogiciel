@@ -25,6 +25,8 @@ faq:
     answer: "Oui, avec son détail. Un score affiché sans explication sera contesté puis ignoré. Un score lisible, par exemple « 72 : décideur, démonstration demandée, secteur cible », devient un point de départ pour préparer l'appel. La pire configuration reste le score caché qui décide en coulisses de qui reçoit quoi : le jour où l'équipe le découvre, elle cesse de lui faire confiance."
   - question: 'Combien de critères faut-il dans une grille ?'
     answer: "Le moins possible pour que le score reste juste. Six à dix critères bien choisis suffisent dans la plupart des cas. Chaque critère ajouté doit gagner sa place en améliorant la prédiction, vérifiée sur vos ventes réelles. Au-delà, on empile des règles qui se contredisent et on perd la lisibilité qui fait tout l'intérêt d'un score."
+featuredImage: /images/articles/lead-scoring.jpg
+featuredImageAlt: "Cadran analogique pointant vers le haut, métaphore du lead scoring"
 ---
 
 Le lead scoring consiste à donner une note, en points, à chaque prospect qui entre dans votre base. Cette note répond à une question simple : quand on ne peut pas rappeler tout le monde le jour même, qui appelle-t-on en premier ? Le score classe les prospects par priorité, du plus chaud au plus froid.
