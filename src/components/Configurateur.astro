@@ -1,0 +1,625 @@
+---
+/**
+ * Configurateur CRM — module interactif (île Astro).
+ * Questionnaire en 8 étapes (une à la fois, animé), moteur de scoring côté client,
+ * écran de calcul puis recommandations. Rendu côté serveur (questions lisibles
+ * sans JS) ; l'interactivité et le scoring sont ajoutés par-dessus.
+ *
+ * Réutilisé tel quel dans la page /quel-crm/, dans C2-00 et sur la home.
+ */
+import { STEPS } from '../data/configurateur-crm';
+---
+
+<section class="configurateur not-prose" aria-label="Configurateur CRM" data-total={STEPS.length}>
+  <div class="cfg-progress" hidden>
+    <span class="cfg-progress__label is-data">Étape 1 sur {STEPS.length}</span>
+    <span class="cfg-progress__track"><span class="cfg-progress__fill"></span></span>
+  </div>
+
+  <div class="cfg-steps">
+    {
+      STEPS.map((step, i) => (
+        <div
+          class="cfg-step"
+          data-step={step.id}
+          data-multi={step.multi ? 'true' : 'false'}
+          data-optional={step.optional ? 'true' : 'false'}
+          data-index={i}
+        >
+          <p class="cfg-step__q">{step.question}</p>
+          {step.hint && <p class="cfg-step__hint">{step.hint}</p>}
+          <div class={`cfg-opts ${step.multi ? 'cfg-opts--multi' : ''}`}>
+            {step.options.map((o) => (
+              <button type="button" class="cfg-opt" data-opt={o.id}>
+                <span class="cfg-opt__icon" aria-hidden="true">
+                  {o.icon}
+                </span>
+                <span class="cfg-opt__label">{o.label}</span>
+                <span class="cfg-opt__check" aria-hidden="true" />
+              </button>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="cfg-nav" hidden>
+    <button type="button" class="cfg-prev" hidden>← Précédent</button>
+    <span class="cfg-nav__spacer"></span>
+    <button type="button" class="cfg-skip" hidden>Passer cette étape</button>
+    <button type="button" class="cfg-next" hidden disabled>Continuer →</button>
+  </div>
+
+  <div class="cfg-calc" hidden>
+    <span class="cfg-calc__spin" aria-hidden="true"></span>
+    <p>Nous analysons vos réponses…</p>
+  </div>
+
+  <div class="cfg-results" hidden aria-live="polite">
+    <p class="cfg-results__kicker is-data">Vos recommandations</p>
+    <div class="cfg-results__list"></div>
+    <div class="cfg-results__foot"></div>
+  </div>
+
+  {/* Repli sans JS : on présente l'outil comme un parcours à dérouler. */}
+  <noscript>
+    <p class="cfg-noscript">
+      Ce configurateur nécessite JavaScript pour calculer votre recommandation. Vous pouvez aussi
+      suivre notre méthode pas à pas dans le guide ci-dessus.
+    </p>
+  </noscript>
+</section>
+
+<script>
+  import { STEPS, recommend } from '../data/configurateur-crm';
+
+  const cfgRoot = document.querySelector<HTMLElement>('.configurateur');
+  if (cfgRoot) {
+    const root: HTMLElement = cfgRoot;
+    const total = STEPS.length;
+    const steps = Array.from(root.querySelectorAll<HTMLElement>('.cfg-step'));
+    const progress = root.querySelector<HTMLElement>('.cfg-progress')!;
+    const bar = root.querySelector<HTMLElement>('.cfg-progress__fill')!;
+    const label = root.querySelector<HTMLElement>('.cfg-progress__label')!;
+    const nav = root.querySelector<HTMLElement>('.cfg-nav')!;
+    const prevBtn = root.querySelector<HTMLButtonElement>('.cfg-prev')!;
+    const nextBtn = root.querySelector<HTMLButtonElement>('.cfg-next')!;
+    const skipBtn = root.querySelector<HTMLButtonElement>('.cfg-skip')!;
+    const calc = root.querySelector<HTMLElement>('.cfg-calc')!;
+    const results = root.querySelector<HTMLElement>('.cfg-results')!;
+
+    const answers: Record<string, string | string[]> = {};
+    let cur = 0;
+
+    root.classList.add('cfg--js');
+    progress.hidden = false;
+    nav.hidden = false;
+
+    const esc = (s: string) => {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    };
+
+    function syncSelection(i: number) {
+      const step = STEPS[i];
+      const sel = answers[step.id];
+      const set = new Set(Array.isArray(sel) ? sel : sel ? [sel] : []);
+      steps[i].querySelectorAll<HTMLButtonElement>('.cfg-opt').forEach((b) => {
+        b.classList.toggle('is-selected', set.has(b.dataset.opt || ''));
+      });
+    }
+
+    function showStep(i: number, dir: number) {
+      calc.hidden = true;
+      results.hidden = true;
+      progress.hidden = false;
+      nav.hidden = false;
+      steps.forEach((s, idx) => (s.hidden = idx !== i));
+      const el = steps[i];
+      el.classList.remove('cfg-anim-l', 'cfg-anim-r');
+      void el.offsetWidth; // relance l'animation
+      el.classList.add(dir < 0 ? 'cfg-anim-l' : 'cfg-anim-r');
+      cur = i;
+
+      label.textContent = `Étape ${i + 1} sur ${total}`;
+      bar.style.transform = `scaleX(${i / total})`;
+      syncSelection(i);
+
+      const step = STEPS[i];
+      prevBtn.hidden = i === 0;
+      skipBtn.hidden = !step.optional;
+      nextBtn.hidden = !step.multi;
+      if (step.multi) {
+        const sel = answers[step.id];
+        nextBtn.disabled = !(Array.isArray(sel) && sel.length > 0);
+      }
+      root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function advance() {
+      if (cur < total - 1) showStep(cur + 1, 1);
+      else runCalc();
+    }
+
+    function runCalc() {
+      steps.forEach((s) => (s.hidden = true));
+      progress.hidden = false;
+      bar.style.transform = 'scaleX(1)';
+      label.textContent = `Étape ${total} sur ${total}`;
+      nav.hidden = true;
+      results.hidden = true;
+      calc.hidden = false;
+      root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.setTimeout(showResults, 1500);
+    }
+
+    function card(r: ReturnType<typeof recommend>['results'][number], rank: number) {
+      const reasons = r.reasons.map((x) => `<li>${esc(x)}</li>`).join('');
+      return `<article class="cfg-card" style="--cfg-c:${esc(r.color)};--cfg-delay:${rank * 160}ms">
+        <div class="cfg-card__head">
+          <span class="cfg-card__mono" aria-hidden="true">${esc(r.monogram)}</span>
+          <div>
+            ${rank === 0 ? '<span class="cfg-card__badge">Recommandé</span>' : ''}
+            <p class="cfg-card__name">${esc(r.name)}</p>
+          </div>
+          <span class="cfg-card__pct is-data">${r.pct}%<small>d’adéquation</small></span>
+        </div>
+        <ul class="cfg-card__reasons">${reasons}</ul>
+        <p class="cfg-card__soon">Fiche détaillée et avis complet bientôt disponibles.</p>
+      </article>`;
+    }
+
+    function showResults() {
+      const reco = recommend(answers);
+      calc.hidden = true;
+      const list = results.querySelector<HTMLElement>('.cfg-results__list')!;
+      const foot = results.querySelector<HTMLElement>('.cfg-results__foot')!;
+
+      if (reco.status === 'none') {
+        list.innerHTML = `<div class="cfg-none">
+          <p class="cfg-none__title">Votre besoin est très spécifique.</p>
+          <p>Aucun outil ne se détache nettement sur vos critères. Un accompagnement sur mesure est sans doute plus adapté.</p>
+          <p><a class="cfg-link" href="/crm-sur-mesure/">Voir : développer un CRM sur mesure</a></p>
+        </div>`;
+        foot.innerHTML = `<button type="button" class="cfg-restart">↻ Refaire le test</button>`;
+      } else {
+        list.innerHTML = reco.results.map((r, i) => card(r, i)).join('');
+        foot.innerHTML = `<button type="button" class="cfg-restart">↻ Refaire le test</button>
+          <span class="cfg-foot__note">Le comparatif complet des CRM arrive bientôt.</span>`;
+      }
+      results.hidden = false;
+      root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function restart() {
+      for (const k of Object.keys(answers)) delete answers[k];
+      results.hidden = true;
+      showStep(0, -1);
+    }
+
+    root.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const opt = target.closest<HTMLButtonElement>('.cfg-opt');
+      if (opt) {
+        const step = STEPS[cur];
+        const id = opt.dataset.opt || '';
+        if (step.multi) {
+          const sel = new Set(
+            Array.isArray(answers[step.id]) ? (answers[step.id] as string[]) : [],
+          );
+          if (sel.has(id)) sel.delete(id);
+          else sel.add(id);
+          answers[step.id] = [...sel];
+          syncSelection(cur);
+          nextBtn.disabled = sel.size === 0;
+        } else {
+          answers[step.id] = id;
+          syncSelection(cur);
+          window.setTimeout(advance, 220);
+        }
+        return;
+      }
+      if (target.closest('.cfg-next')) advance();
+      else if (target.closest('.cfg-prev')) showStep(Math.max(0, cur - 1), -1);
+      else if (target.closest('.cfg-skip')) {
+        answers[STEPS[cur].id] = [];
+        advance();
+      } else if (target.closest('.cfg-restart')) restart();
+    });
+
+    showStep(0, 1);
+  }
+</script>
+
+<style>
+  .configurateur {
+    --cfg-radius: var(--radius-xl);
+    position: relative;
+    scroll-margin-top: 5rem;
+    padding: clamp(var(--space-5), 4vw, var(--space-10));
+    border-radius: var(--radius-2xl);
+    border: var(--rule-hair) solid var(--border-default);
+    background:
+      radial-gradient(80% 60% at 50% 0%, var(--blue-tint), transparent 70%), var(--surface-card);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+  }
+
+  /* Progression */
+  .cfg-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+  .cfg-progress__label {
+    flex: none;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--blue-ink);
+  }
+  .cfg-progress__track {
+    flex: 1;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--surface-sunk);
+    overflow: hidden;
+  }
+  .cfg-progress__fill {
+    display: block;
+    height: 100%;
+    transform-origin: left center;
+    transform: scaleX(0);
+    background: var(--grad-brand);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Étapes : sans JS, tout s'affiche ; avec JS, une à la fois. */
+  .cfg--js .cfg-step[hidden] {
+    display: none;
+  }
+  .cfg-step {
+    margin-bottom: var(--space-6);
+  }
+  .cfg--js .cfg-step {
+    margin-bottom: 0;
+  }
+  .cfg-step__q {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: clamp(var(--text-xl), 3vw, var(--text-3xl));
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .cfg-step__hint {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .cfg-opts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+  .cfg-opt {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-align: left;
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-lg);
+    border: var(--rule-medium) solid var(--border-default);
+    background: var(--surface-card);
+    font-family: var(--font-ui);
+    font-size: var(--text-base);
+    color: var(--ink-80);
+    cursor: pointer;
+    transition:
+      border-color 0.18s ease,
+      background 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .cfg-opt:hover {
+    border-color: var(--blue);
+    background: var(--blue-tint);
+    transform: translateY(-2px);
+  }
+  .cfg-opt__icon {
+    flex: none;
+    font-size: var(--text-2xl);
+    line-height: 1;
+  }
+  .cfg-opt__label {
+    flex: 1;
+  }
+  .cfg-opt__check {
+    flex: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: var(--radius-full);
+    border: var(--rule-medium) solid var(--border-strong);
+    transition: all 0.18s ease;
+  }
+  .cfg-opt.is-selected {
+    border-color: var(--blue);
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+    font-weight: var(--font-weight-semibold);
+    box-shadow: var(--shadow-glow);
+  }
+  .cfg-opt.is-selected .cfg-opt__check {
+    border-color: var(--blue);
+    background: var(--blue);
+    box-shadow: inset 0 0 0 3px #fff;
+  }
+
+  /* Animations d'entrée d'étape */
+  .cfg-anim-r {
+    animation: cfg-in-r 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .cfg-anim-l {
+    animation: cfg-in-l 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes cfg-in-r {
+    from {
+      opacity: 0;
+      transform: translateX(28px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes cfg-in-l {
+    from {
+      opacity: 0;
+      transform: translateX(-28px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Navigation */
+  .cfg-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+  .cfg-nav__spacer {
+    flex: 1;
+  }
+  .cfg-prev,
+  .cfg-skip {
+    background: none;
+    border: none;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: var(--space-2);
+  }
+  .cfg-prev:hover,
+  .cfg-skip:hover {
+    color: var(--blue-ink);
+  }
+  .cfg-next {
+    min-height: var(--tap-min);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-full);
+    border: none;
+    background: var(--blue);
+    color: #fff;
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    box-shadow: var(--shadow-glow);
+    transition:
+      transform 0.18s ease,
+      background 0.18s ease;
+  }
+  .cfg-next:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: var(--blue-ink);
+  }
+  .cfg-next:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  /* Écran de calcul */
+  .cfg-calc {
+    display: grid;
+    place-items: center;
+    gap: var(--space-5);
+    padding: var(--space-16) var(--space-6);
+    text-align: center;
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+  }
+  .cfg-calc__spin {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-full);
+    border: 4px solid var(--blue-tint);
+    border-top-color: var(--blue);
+    animation: cfg-spin 0.8s linear infinite;
+  }
+  @keyframes cfg-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Résultats */
+  .cfg-results__kicker {
+    margin-bottom: var(--space-5);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--blue);
+    text-align: center;
+  }
+  .cfg-results__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .cfg-results :global(.cfg-card) {
+    padding: var(--space-5) var(--space-6);
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    border-left: 4px solid var(--cfg-c, var(--blue));
+    background: var(--surface-card);
+    box-shadow: var(--shadow-raise);
+    opacity: 0;
+    animation: cfg-card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--cfg-delay, 0ms);
+  }
+  @keyframes cfg-card-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .cfg-results :global(.cfg-card__head) {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  .cfg-results :global(.cfg-card__mono) {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-md);
+    background: var(--cfg-c, var(--blue));
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+  }
+  .cfg-results :global(.cfg-card__badge) {
+    display: inline-block;
+    margin-bottom: 2px;
+    padding: 0.1em 0.6em;
+    border-radius: var(--radius-full);
+    background: var(--green-tint);
+    color: var(--green-ink);
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+  .cfg-results :global(.cfg-card__name) {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+    color: var(--ink);
+  }
+  .cfg-results :global(.cfg-card__pct) {
+    margin-left: auto;
+    text-align: right;
+    font-family: var(--font-data);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-2xl);
+    color: var(--blue-ink);
+    line-height: 1;
+  }
+  .cfg-results :global(.cfg-card__pct small) {
+    display: block;
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--text-2xs);
+    color: var(--text-muted);
+  }
+  .cfg-results :global(.cfg-card__reasons) {
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .cfg-results :global(.cfg-card__reasons li) {
+    position: relative;
+    padding-left: var(--space-6);
+    font-size: var(--text-sm);
+    color: var(--text-body);
+  }
+  .cfg-results :global(.cfg-card__reasons li::before) {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--cfg-c, var(--green-ink));
+    font-weight: var(--font-weight-bold);
+  }
+  .cfg-results :global(.cfg-card__soon) {
+    margin-top: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+  }
+  .cfg-results :global(.cfg-none) {
+    text-align: center;
+    padding: var(--space-6);
+  }
+  .cfg-results :global(.cfg-none__title) {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+    color: var(--ink);
+    margin-bottom: var(--space-3);
+  }
+  .cfg-results :global(.cfg-link) {
+    color: var(--blue-ink);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: underline;
+  }
+  .cfg-results__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3) var(--space-5);
+    margin-top: var(--space-8);
+  }
+  .cfg-results :global(.cfg-restart) {
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-full);
+    border: var(--rule-hair) solid var(--border-strong);
+    background: var(--surface-card);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-sm);
+    color: var(--ink-80);
+    cursor: pointer;
+  }
+  .cfg-results :global(.cfg-restart:hover) {
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+  }
+  .cfg-results :global(.cfg-foot__note) {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .cfg-noscript {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+</style>

@@ -21,6 +21,7 @@ import Button from '../components/blocks/Button.astro';
 import Badge from '../components/blocks/Badge.astro';
 import FeatureGrid from '../components/blocks/FeatureGrid.astro';
 import FeatureCard from '../components/blocks/FeatureCard.astro';
+import Configurateur from '../components/Configurateur.astro';
 import { SITE, INDEXABLE, path, DEFAULT_AUTHOR } from '../config/site';
 import { organization, website, graph } from '../lib/schema';
 
@@ -55,8 +56,9 @@ const guides = [
   {
     n: 5,
     title: 'Quel CRM est fait pour vous ?',
-    text: 'Pas le temps de tout lire ? Notre configurateur répondra à quelques questions pour vous recommander les outils les plus adaptés à votre profil.',
-    soon: true,
+    text: 'Pas le temps de tout lire ? Notre configurateur vous pose quelques questions et vous recommande aussitôt les outils les plus adaptés à votre profil.',
+    href: '#configurateur',
+    cta: 'Lancer le configurateur',
   },
 ];
 ---
@@ -167,7 +169,7 @@ const guides = [
                 <p class="tl-card__text">{g.text}</p>
                 {g.href ? (
                   <a class="tl-card__link" href={g.href}>
-                    Lire le guide <span aria-hidden="true">→</span>
+                    {g.cta ?? 'Lire le guide'} <span aria-hidden="true">→</span>
                   </a>
                 ) : (
                   <Badge tone="accent">Prochainement</Badge>
@@ -190,6 +192,21 @@ const guides = [
           </div>
         </li>
       </ol>
+    </div>
+  </section>
+
+  {/* ======================== CONFIGURATEUR (repris) ======================== */}
+  <section id="configurateur" class="home-cfg">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <p class="section-kicker is-data">Le raccourci</p>
+        <h2>Trouvez votre CRM en 2 minutes</h2>
+        <p class="section-sub">
+          Pas le temps de tout lire ? Répondez à quelques questions : le configurateur applique la
+          grille de choix pour vous et recommande les outils les plus adaptés à votre profil.
+        </p>
+      </header>
+      <Configurateur />
     </div>
   </section>
 
@@ -293,8 +310,8 @@ const guides = [
       <span class="finalcta__sheen" aria-hidden="true"></span>
       <h2>Prêt à trouver votre CRM ?</h2>
       <p>
-        Commencez par le guide qui colle à votre situation. Le configurateur, lui, fera bientôt le
-        tri pour vous.
+        Commencez par le guide qui colle à votre situation, ou laissez le configurateur faire le tri
+        pour vous en deux minutes.
       </p>
       <Button href={path('comment-choisir-crm')} variant="primary">Découvrir comment choisir</Button
       >
@@ -709,6 +726,12 @@ const guides = [
   .tl-card--final .tl-card__title {
     font-size: var(--text-2xl);
     margin-top: var(--space-3);
+  }
+
+  /* ===================== CONFIGURATEUR (home) ===================== */
+  .home-cfg {
+    scroll-margin-top: 5rem;
+    padding-block: var(--space-12) var(--space-20);
   }
 
   /* ===================== EXPLORER PAR BESOIN ===================== */
