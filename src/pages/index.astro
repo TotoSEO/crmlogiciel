@@ -824,18 +824,20 @@ const guides = [
     margin-top: var(--space-4);
   }
 
-  /* Étape finale : carte alignée à GAUCHE comme les cartes impaires (pas de
-     pleine largeur centrée, qui chevauchait le fil central de la timeline).
-     Garde son traitement distinct : bordure accent + pastille étoile. */
+  /* Étape finale : carte alignée à DROITE comme les cartes paires (poursuit le
+     zigzag : l'étape 5 est à gauche, la finale à droite ; pas de pleine largeur
+     centrée qui chevauchait le fil central). Garde son traitement distinct :
+     bordure accent + pastille étoile. En mobile, repasse pleine largeur à droite
+     du rail comme toutes les cartes (voir media query plus bas). */
   .tl-item--final {
     width: 50%;
-    left: 0;
-    padding: var(--space-8) var(--space-12) 0 0;
+    left: 50%;
+    padding: var(--space-8) 0 0 var(--space-12);
   }
   .tl-pastille--final {
     top: var(--space-6);
-    left: auto;
-    right: calc(-1.2rem);
+    left: calc(-1.2rem);
+    right: auto;
     transform: none;
     background: var(--grad-sunset);
   }
