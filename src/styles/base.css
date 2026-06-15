@@ -16,6 +16,10 @@ html {
 
 body {
   margin: 0;
+  /* Empêche les déroulants du menu (position:absolute, masqués) de créer un
+     défilement horizontal parasite sur petits écrans desktop. `clip` ne crée pas
+     de conteneur de défilement : l'en-tête sticky continue de fonctionner. */
+  overflow-x: clip;
   background-color: transparent;
   color: var(--text-body);
   font-family: var(--font-body);
