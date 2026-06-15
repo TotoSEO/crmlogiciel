@@ -22,5 +22,14 @@
 /llms.txt
   Content-Type: text/plain; charset=utf-8
 
+# Forcer le bon type MIME du sitemap. Le site est 100 % statique : le
+# Content-Type defini dans src/pages/sitemap.xml.ts est perdu au build (Astro
+# prerend un simple fichier dist/sitemap.xml) et Cloudflare Static Assets ne le
+# sert PAS en application/xml par defaut. Avec X-Content-Type-Options: nosniff
+# (applique a /*), le navigateur ne corrige pas : le sitemap s'affiche en texte
+# brut et la Search Console renvoie « impossible de lire le sitemap ».
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+
 # Le HTML reste en revalidation immediate (must-revalidate) pour que toute mise a
 # jour de contenu soit prise en compte aussitot.
