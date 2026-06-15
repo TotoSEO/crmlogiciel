@@ -369,6 +369,18 @@ const clusterVars = (palette: string): string =>
     transform: scale(1.3);
   }
 
+  /* Bande desktop étroite (entre le menu mobile à 860px et l'espace confortable) :
+     le déroulant de la dernière rubrique déborderait à droite de l'écran. On le
+     rétrécit et on l'empile sur une colonne pour qu'il tienne sans troncature. */
+  @media (min-width: 861px) and (max-width: 1060px) {
+    .submenu {
+      max-width: 24rem;
+    }
+    .submenu__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   /* ---- Bascule mobile (cachée en desktop) ---- */
   .nav-toggle,
   .nav-burger {

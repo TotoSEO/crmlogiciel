@@ -824,28 +824,25 @@ const guides = [
     margin-top: var(--space-4);
   }
 
-  /* Étape finale : pleine largeur, centrée, accent. */
+  /* Étape finale : carte alignée à GAUCHE comme les cartes impaires (pas de
+     pleine largeur centrée, qui chevauchait le fil central de la timeline).
+     Garde son traitement distinct : bordure accent + pastille étoile. */
   .tl-item--final {
-    width: 100%;
+    width: 50%;
     left: 0;
-    padding: var(--space-10) 0 0;
-    display: flex;
-    justify-content: center;
+    padding: var(--space-8) var(--space-12) 0 0;
   }
   .tl-pastille--final {
-    left: 50%;
-    transform: translateX(-50%);
-    top: 0;
+    top: var(--space-6);
+    left: auto;
+    right: calc(-1.2rem);
+    transform: none;
     background: var(--grad-sunset);
   }
   .tl-card--final {
-    max-width: 36rem;
-    text-align: center;
-    padding: var(--space-8);
     border: var(--rule-medium) solid color-mix(in srgb, var(--orange) 30%, transparent);
   }
   .tl-card--final .tl-card__title {
-    font-size: var(--text-2xl);
     margin-top: var(--space-3);
   }
 
@@ -1069,12 +1066,15 @@ const guides = [
       left: 0;
       right: auto;
     }
+    /* Mobile : l'étape finale repasse pleine largeur, alignée au fil de gauche
+       (comme toutes les cartes), pastille étoile sur le rail. */
     .tl-item--final {
-      justify-content: flex-start;
-      padding-left: var(--space-12);
+      width: 100%;
+      padding-right: 0;
     }
     .tl-pastille--final {
       left: 0;
+      right: auto;
       transform: none;
     }
   }
