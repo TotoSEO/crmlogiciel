@@ -445,6 +445,10 @@ const pageSchema = graph(...nodes);
       gap: 0;
     }
     .article-body__main {
+      /* width:100% : la colonne suit la largeur de la piste de grille au lieu de
+         s'étirer au contenu (sinon un tableau large fait gonfler la colonne et
+         déborder la page au lieu de scroller dans .table-scroll). */
+      width: 100%;
       max-width: var(--measure-text);
       margin-inline: auto;
     }

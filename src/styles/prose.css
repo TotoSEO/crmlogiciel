@@ -156,14 +156,25 @@
 }
 
 /* ---- Tableaux Markdown (comparatifs, grilles) ---- */
-.prose :where(table):not(:where(.not-prose, .not-prose *)) {
-  width: 100%;
+/* Conteneur défilable : sur mobile, les tableaux larges scrollent à l'intérieur
+   de leur cadre au lieu de déborder/être rognés. La chrome visuelle (coins
+   arrondis, ombre) est portée par le conteneur, qui clippe le tableau. */
+.prose :where(.table-scroll):not(:where(.not-prose, .not-prose *)) {
   margin-block: var(--space-6);
-  border-collapse: collapse;
-  font-size: var(--text-base);
-  overflow: hidden;
+  overflow-x: auto;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.prose :where(table):not(:where(.not-prose, .not-prose *)) {
+  width: 100%;
+  /* Largeur plancher lisible : en dessous, le tableau scrolle au lieu d'écraser
+     les colonnes. */
+  min-width: 30rem;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: var(--text-base);
 }
 .prose :where(thead th):not(:where(.not-prose, .not-prose *)) {
   padding: var(--space-3) var(--space-4);
