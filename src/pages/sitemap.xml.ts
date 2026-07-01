@@ -34,6 +34,12 @@ export const GET: APIRoute = async () => {
       changefreq: 'monthly',
       priority: '0.9',
     },
+    {
+      loc: absoluteUrl('comparatif-crm'),
+      lastmod: iso(latest),
+      changefreq: 'monthly',
+      priority: '0.9',
+    },
     { loc: absoluteUrl('a-propos'), lastmod: iso(latest), changefreq: 'yearly', priority: '0.5' },
   ];
 

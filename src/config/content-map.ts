@@ -298,6 +298,13 @@ export function navTree(): NavItem[] {
       .map((p) => ({ label: p.label, href: path(p.slug) })),
   }));
 
+  // Lien direct vers le comparateur interactif (page phare « choisir »).
+  items.push({
+    label: 'Comparer les CRM',
+    href: path('comparatif-crm'),
+    palette: 'teal',
+  });
+
   // Lien direct, mis en avant : les CRM gratuits (page phare).
   const gratuit = getPage('crm-gratuit');
   if (gratuit) {

@@ -13,7 +13,7 @@ function rehypeWrapTables() {
   /** @param {any} node */
   const walk = (node) => {
     if (!node.children) return;
-    node.children = node.children.map((child) => {
+    node.children = node.children.map((/** @type {any} */ child) => {
       walk(child);
       if (child.type === 'element' && child.tagName === 'table') {
         return {

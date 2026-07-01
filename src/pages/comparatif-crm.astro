@@ -1,0 +1,652 @@
+---
+/**
+ * /comparatif-crm/ — Comparateur de CRM interactif + contenu SEO.
+ *
+ * Structure : hero → paragraphe → outil (île Comparateur, gauche/droite) →
+ * contenu éditorial qui répond à l'intention « comparatif CRM » (méthode de
+ * notation, comparaisons populaires, fiches des 14 CRM, comment comparer, FAQ).
+ *
+ * Neutralité : l'outil COMPARE, il ne dit pas « prenez celui-là ». Le choix
+ * personnalisé est renvoyé vers le configurateur de /comment-choisir-crm/.
+ *
+ * Les données des 14 CRM (notes, prix, forces/limites) sont rendues DANS LA
+ * SOURCE (fiches ci-dessous) : crawlables par Google et les moteurs de réponse
+ * IA, même sans exécuter le JavaScript de l'outil.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLd from '../components/JsonLd.astro';
+import Comparateur from '../components/Comparateur.astro';
+import Button from '../components/blocks/Button.astro';
+import { INDEXABLE, absoluteUrl, path } from '../config/site';
+import { organization, website, breadcrumbList, faqPage, graph } from '../lib/schema';
+import { CRMS, CRITERES, globalScore, SIZE_LABELS, LAST_VERIFIED } from '../data/comparateur-crm';
+
+const slug = 'comparatif-crm';
+
+const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'Comparatif CRM' }];
+
+// FAQ : source unique pour l'affichage ET le JSON-LD (FAQPage).
+const faqItems = [
+  {
+    question: 'Comment fonctionne ce comparateur de CRM ?',
+    answer:
+      'Choisissez un CRM à gauche et un autre à droite : l’outil affiche leur note globale, six critères notés sur 10 (simplicité, rapport qualité-prix, richesse fonctionnelle, automatisation & IA, reporting, support & intégrations), puis une fiche factuelle (prix, offre gratuite, hébergement, support français) et leurs points forts et limites. Il sert à comparer objectivement, pas à désigner un gagnant.',
+  },
+  {
+    question: 'Quel est le meilleur CRM ?',
+    answer:
+      'Il n’existe pas de meilleur CRM dans l’absolu : le bon dépend de votre taille, de votre budget et de vos priorités. Salesforce et Microsoft Dynamics 365 dominent sur la puissance et la personnalisation ; HubSpot excelle en marketing + vente ; Pipedrive et noCRM sur la simplicité commerciale ; Sellsy, Axonaut et Brevo côté outils français ; Zoho et Odoo sur le rapport qualité-prix. Pour savoir lequel vous convient, utilisez notre configurateur.',
+  },
+  {
+    question: 'HubSpot ou Salesforce : lequel choisir ?',
+    answer:
+      'HubSpot est plus simple à prendre en main, propose un CRM gratuit et brille quand marketing et vente doivent avancer ensemble. Salesforce est plus puissant et quasi infiniment personnalisable, mais plus complexe et coûteux : il vise les structures qui ont des processus de vente élaborés. Comparez-les côte à côte dans l’outil ci-dessus.',
+  },
+  {
+    question: 'Vaut-il mieux un CRM français ou américain ?',
+    answer:
+      'Les CRM français (Sellsy, Axonaut, noCRM, Brevo) rassurent sur l’hébergement des données en France ou dans l’UE, le support en français et la facturation conforme. Les CRM américains (HubSpot, Salesforce, Pipedrive) offrent souvent plus de profondeur fonctionnelle et un écosystème d’intégrations plus large — et beaucoup proposent désormais un hébergement dans l’UE. Le comparateur affiche l’hébergement UE et le support français pour chaque outil.',
+  },
+  {
+    question: 'Comment sont calculées les notes ?',
+    answer: `Chaque CRM est noté sur 10 selon six critères, d’après une synthèse éditoriale calibrée sur le consensus du marché et nos recherches. La note globale est la moyenne de ces six critères. Les tarifs et informations ont été relevés en ${LAST_VERIFIED} ; ils sont indicatifs, hors taxes et hors promotions, et à vérifier sur le site de chaque éditeur.`,
+  },
+  {
+    question: 'Existe-t-il des CRM gratuits ?',
+    answer:
+      'Oui. HubSpot, Zoho, Brevo, Freshsales et Odoo proposent une offre gratuite (avec des limites d’utilisateurs ou de fonctions). Pour un panorama détaillé des plans gratuits, consultez notre dossier sur les meilleurs CRM gratuits.',
+  },
+];
+
+const pageSchema = graph(
+  {
+    '@type': 'CollectionPage',
+    name: 'Comparatif CRM',
+    description:
+      'Comparateur interactif de 14 logiciels CRM : note globale, prix, fonctionnalités, automatisation, support et hébergement, côte à côte.',
+    url: absoluteUrl(slug),
+    inLanguage: 'fr',
+    isPartOf: { '@id': `${absoluteUrl('')}#website` },
+    about: { '@type': 'Thing', name: 'Logiciels CRM' },
+  },
+  faqPage(faqItems),
+  organization(),
+  website(),
+  breadcrumbList(crumbs, absoluteUrl(slug)),
+);
+
+// Comparaisons populaires (contenu long-tail « X vs Y »).
+const duels = [
+  {
+    a: 'HubSpot',
+    b: 'Salesforce',
+    txt: 'Le duel des poids lourds : la simplicité et le plan gratuit de HubSpot face à la puissance et la personnalisation de Salesforce.',
+  },
+  {
+    a: 'HubSpot',
+    b: 'Pipedrive',
+    txt: 'Suite marketing + vente contre CRM de vente épuré : deux philosophies pour équiper une équipe commerciale.',
+  },
+  {
+    a: 'Pipedrive',
+    b: 'monday CRM',
+    txt: 'Pipeline commercial pur contre CRM visuel et flexible connecté à la gestion de projet.',
+  },
+  {
+    a: 'Salesforce',
+    b: 'Dynamics 365',
+    txt: 'Les deux références de l’entreprise : écosystème AppExchange contre intégration native Microsoft 365.',
+  },
+  {
+    a: 'Sellsy',
+    b: 'Axonaut',
+    txt: 'Le match français du tout-en-un : CRM + facturation, hébergement en France et support hexagonal des deux côtés.',
+  },
+  {
+    a: 'Zoho / Bigin',
+    b: 'HubSpot',
+    txt: 'Rapport qualité-prix imbattable contre écosystème et expérience utilisateur haut de gamme.',
+  },
+];
+
+// Fiches : ordre du catalogue (neutre, pas un classement).
+const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
+---
+
+<BaseLayout
+  title="Comparatif CRM 2026 : comparez les meilleurs logiciels CRM"
+  description="Comparez 14 logiciels CRM côte à côte : note globale, prix, fonctionnalités, automatisation, IA, support et hébergement. Outil interactif et neutre, mis à jour en 2026."
+  canonicalSlug={slug}
+  ogType="website"
+  rawTitle
+  noindex={!INDEXABLE}
+>
+  <Fragment slot="head">
+    <JsonLd schema={pageSchema} />
+  </Fragment>
+
+  <div class="container cmp-top">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <ol>
+        <li><a href="/">Accueil</a></li>
+        <li><span aria-current="page">Comparatif CRM</span></li>
+      </ol>
+    </nav>
+  </div>
+
+  {/* ---------- Hero ---------- */}
+  <section class="chero">
+    <div class="chero__decor" aria-hidden="true">
+      <span class="chero__blob chero__blob--1"></span>
+      <span class="chero__blob chero__blob--2"></span>
+    </div>
+    <div class="container chero__inner">
+      <p class="chero__kicker is-data">Comparateur · {CRMS.length} CRM</p>
+      <h1 class="chero__title">Comparatif CRM : comparez les logiciels côte à côte</h1>
+      <p class="chero__lead">
+        Choisissez deux CRM et confrontez-les d’un coup d’œil : note globale, prix, fonctionnalités,
+        automatisation, IA, reporting, support et hébergement. Un outil <strong>neutre</strong> — il
+        vous aide à comparer, pas à vous vendre un outil plutôt qu’un autre.
+      </p>
+    </div>
+  </section>
+
+  {/* ---------- Outil interactif ---------- */}
+  <section class="container cmp-tool">
+    <Comparateur />
+  </section>
+
+  {/* ---------- Contenu SEO ---------- */}
+  <div class="container cmp-content">
+    <div class="prose">
+      <h2>Que compare-t-on, et comment lire les notes ?</h2>
+      <p>
+        Un bon comparatif de CRM ne se résume pas à un prix. Pour choisir un logiciel de gestion de
+        la relation client, il faut peser plusieurs dimensions : à quelle vitesse votre équipe sera
+        opérationnelle, ce que vous obtenez réellement pour le prix, la profondeur des
+        fonctionnalités, la capacité à automatiser, la finesse du reporting, et la qualité du support
+        et des intégrations. Notre comparateur note chaque CRM sur ces <strong
+          >six critères, de 0 à 10</strong
+        >, puis en tire une note globale.
+      </p>
+      <ul>
+        {
+          CRITERES.map((cr) => (
+            <li>
+              <strong>{cr.label}</strong> — {cr.hint}.
+            </li>
+          ))
+        }
+      </ul>
+      <p>
+        Ces notes sont une <strong>synthèse éditoriale</strong> calibrée sur le consensus du marché
+        et nos recherches ; elles situent chaque outil, elles ne remplacent pas un essai. Les tarifs
+        ont été relevés en {LAST_VERIFIED} : indicatifs, hors taxes, à confirmer chez l’éditeur.
+        Découvrez notre <a href={path('methodologie')}>méthodologie de test</a> pour en savoir plus.
+      </p>
+
+      <h2>Comparaisons de CRM populaires</h2>
+      <p>
+        Certaines confrontations reviennent souvent. Sélectionnez les deux outils dans le comparateur
+        ci-dessus pour les mettre face à face en détail.
+      </p>
+    </div>
+
+    <ul class="duels" role="list">
+      {
+        duels.map((d) => (
+          <li class="duel">
+            <span class="duel__pair">
+              {d.a} <span class="duel__vs" aria-hidden="true">vs</span> {d.b}
+            </span>
+            <span class="duel__txt">{d.txt}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="prose">
+      <h2>Les {CRMS.length} CRM comparés en un coup d’œil</h2>
+      <p>
+        Voici les logiciels couverts par le comparateur, avec leur note globale, leur positionnement
+        et leur tarif d’entrée. Ils vont des plateformes d’entreprise aux outils français tout-en-un,
+        en passant par les CRM de vente épurés.
+      </p>
+    </div>
+
+    <ul class="fiches" role="list">
+      {
+        fiches.map(({ c, note }) => (
+          <li class="fiche" style={`--c:${c.color}`}>
+            <div class="fiche__head">
+              <span class="fiche__mono" aria-hidden="true">
+                <img
+                  src={`/images/crm/${c.id}.png`}
+                  alt=""
+                  width="40"
+                  height="40"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <div class="fiche__id">
+                <p class="fiche__name">{c.name}</p>
+                <p class="fiche__cat">{c.categorie}</p>
+              </div>
+              <span class="fiche__note is-data">
+                {note.toLocaleString('fr-FR')}
+                <small>/10</small>
+              </span>
+            </div>
+            <dl class="fiche__facts">
+              <div>
+                <dt>Idéal pour</dt>
+                <dd>{c.ideal_pour}</dd>
+              </div>
+              <div>
+                <dt>Tailles</dt>
+                <dd>{c.tailles.map((s) => SIZE_LABELS[s]).join(', ')}</dd>
+              </div>
+              <div>
+                <dt>Prix d’entrée</dt>
+                <dd>{c.prix_entree_eur != null ? `dès ${c.prix_entree_eur} €/util./mois` : 'CRM gratuit'}</dd>
+              </div>
+              <div>
+                <dt>Offre gratuite</dt>
+                <dd>{c.gratuit.dispo ? 'Oui' : 'Non'}</dd>
+              </div>
+              <div>
+                <dt>Hébergement UE</dt>
+                <dd>{c.hebergement_ue.dispo ? 'Oui' : 'Non'}</dd>
+              </div>
+              <div>
+                <dt>Support FR</dt>
+                <dd>{c.support_fr ? 'Oui' : 'Non'}</dd>
+              </div>
+            </dl>
+            <p class="fiche__forts">
+              <strong>Points forts :</strong> {c.points_forts.join(' · ')}.
+            </p>
+            <p class="fiche__limites">
+              <strong>À noter :</strong> {c.limites.join(' · ')}.
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="prose">
+      <h2>Comment bien comparer deux CRM ?</h2>
+      <p>
+        Un comparateur donne une vue d’ensemble, mais la bonne décision se prend sur <em>votre</em>
+        contexte. Quelques réflexes pour comparer utilement :
+      </p>
+      <ul>
+        <li>
+          <strong>Partez de vos besoins, pas des fonctionnalités.</strong> Listez ce que vous devez
+          vraiment faire (suivre un pipeline, envoyer des campagnes, facturer…) avant de regarder qui
+          coche le plus de cases. Notre <a href={path('cahier-des-charges-crm')}>cahier des charges</a
+          > aide à les formaliser.
+        </li>
+        <li>
+          <strong>Regardez le coût réel, pas le prix d’appel.</strong> Add-ons, paliers, minimum de
+          sièges, frais d’onboarding : le tarif affiché est rarement le tarif final. Voir notre guide
+          sur le <a href={path('prix-crm')}>prix d’un CRM</a>.
+        </li>
+        <li>
+          <strong>Comptez la prise en main.</strong> Un outil puissant mais mal adopté ne sert à
+          rien. La simplicité et la qualité du support pèsent autant que la liste de fonctions.
+        </li>
+        <li>
+          <strong>Vérifiez l’hébergement et la conformité</strong> si les données clients sont
+          sensibles (hébergement UE, RGPD, support en français).
+        </li>
+      </ul>
+      <p>
+        Ce comparateur vous aide à trancher entre deux outils. Si vous ne savez pas encore lesquels
+        présélectionner, laissez le configurateur le faire pour vous à partir de votre profil.
+      </p>
+    </div>
+
+    {/* CTA vers le configurateur (le « quel CRM pour moi ») */}
+    <aside class="cmp-cta">
+      <div class="cmp-cta__body">
+        <p class="cmp-cta__kicker is-data">Pas sûr des deux à comparer ?</p>
+        <p class="cmp-cta__title">Trouvez les CRM faits pour vous en 2 minutes</p>
+        <p class="cmp-cta__txt">
+          Répondez à quelques questions : le configurateur présélectionne les outils les plus adaptés
+          à votre taille, votre budget et vos besoins. À vous de les comparer ensuite ici.
+        </p>
+      </div>
+      <Button href={path('comment-choisir-crm')} variant="primary">Lancer le configurateur</Button>
+    </aside>
+
+    {/* ---------- FAQ ---------- */}
+    <div class="prose">
+      <h2>Questions fréquentes sur la comparaison des CRM</h2>
+    </div>
+    <div class="faq">
+      {
+        faqItems.map((f) => (
+          <details class="faq__item">
+            <summary class="faq__q">{f.question}</summary>
+            <div class="faq__a">
+              <p>{f.answer}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .cmp-top {
+    padding-top: var(--space-6);
+  }
+
+  /* ---------- Hero ---------- */
+  .chero {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-12) var(--space-10);
+  }
+  .chero__decor {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .chero__blob {
+    position: absolute;
+    border-radius: var(--radius-full);
+    filter: blur(60px);
+    opacity: 0.5;
+  }
+  .chero__blob--1 {
+    top: -6rem;
+    left: -4rem;
+    width: 22rem;
+    height: 22rem;
+    background: var(--blue-tint);
+  }
+  .chero__blob--2 {
+    top: -3rem;
+    right: -5rem;
+    width: 20rem;
+    height: 20rem;
+    background: var(--teal-tint, var(--blue-tint));
+  }
+  .chero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 48rem;
+  }
+  .chero__kicker {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+  .chero__title {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    line-height: 1.05;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .chero__lead {
+    margin-top: var(--space-5);
+    font-size: var(--text-lg);
+    color: var(--text-body);
+    line-height: var(--leading-relaxed);
+    max-width: 42rem;
+  }
+
+  .cmp-tool {
+    scroll-margin-top: 5rem;
+  }
+  .cmp-content {
+    padding-block: var(--space-12) var(--space-20);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .cmp-content .prose {
+    max-width: var(--measure-text);
+  }
+
+  /* ---------- Comparaisons populaires ---------- */
+  .duels {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: var(--space-4);
+  }
+  .duel {
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    background: var(--surface-card);
+    box-shadow: var(--shadow-soft);
+  }
+  .duel__pair {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+  }
+  .duel__vs {
+    color: var(--blue);
+    font-style: italic;
+  }
+  .duel__txt {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ---------- Fiches CRM ---------- */
+  .fiches {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+    gap: var(--space-5);
+  }
+  .fiche {
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    border-top: 3px solid var(--c);
+    background: var(--surface-card);
+    box-shadow: var(--shadow-soft);
+  }
+  .fiche__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .fiche__mono {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    padding: 5px;
+    border-radius: var(--radius-md);
+    background: #fff;
+    border: var(--rule-hair) solid var(--border-default);
+    box-shadow: var(--shadow-soft);
+  }
+  .fiche__mono img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .fiche__id {
+    flex: 1;
+    min-width: 0;
+  }
+  .fiche__name {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+  }
+  .fiche__cat {
+    font-size: var(--text-2xs);
+    color: var(--text-muted);
+  }
+  .fiche__note {
+    flex: none;
+    font-family: var(--font-data);
+    font-feature-settings: var(--num-tabular);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-2xl);
+    line-height: 1;
+    color: var(--c);
+  }
+  .fiche__note small {
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-regular);
+    color: var(--text-faint);
+  }
+  .fiche__facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2) var(--space-4);
+    margin: var(--space-4) 0;
+    padding: var(--space-4) 0;
+    border-block: var(--rule-hair) solid var(--border-default);
+  }
+  .fiche__facts dt {
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .fiche__facts dd {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text-body);
+    line-height: 1.3;
+  }
+  .fiche__forts,
+  .fiche__limites {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .fiche__forts strong,
+  .fiche__limites strong {
+    color: var(--ink-80);
+  }
+
+  /* ---------- CTA configurateur ---------- */
+  .cmp-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding: clamp(var(--space-5), 4vw, var(--space-8));
+    border-radius: var(--radius-2xl);
+    border: var(--rule-hair) solid var(--border-default);
+    background:
+      radial-gradient(90% 120% at 100% 0%, var(--teal-tint, var(--blue-tint)), transparent 60%),
+      var(--surface-card);
+    box-shadow: var(--shadow-soft);
+  }
+  .cmp-cta__body {
+    flex: 1;
+    min-width: 16rem;
+  }
+  .cmp-cta__kicker {
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--teal, var(--blue));
+  }
+  .cmp-cta__title {
+    margin-top: var(--space-2);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-2xl);
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .cmp-cta__txt {
+    margin-top: var(--space-2);
+    font-size: var(--text-base);
+    color: var(--text-muted);
+    max-width: 38rem;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: var(--measure-text);
+  }
+  .faq__item {
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    background: var(--surface-card);
+    overflow: hidden;
+  }
+  .faq__q {
+    padding: var(--space-4) var(--space-5);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+  .faq__q::-webkit-details-marker {
+    display: none;
+  }
+  .faq__q::after {
+    content: '+';
+    flex: none;
+    font-family: var(--font-data);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-regular);
+    color: var(--blue);
+    transition: transform 0.2s ease;
+  }
+  .faq__item[open] .faq__q::after {
+    transform: rotate(45deg);
+  }
+  .faq__a {
+    padding: 0 var(--space-5) var(--space-5);
+    font-size: var(--text-base);
+    color: var(--text-body);
+    line-height: var(--leading-relaxed);
+  }
+  .faq__a p {
+    margin: 0;
+  }
+</style>
