@@ -1,0 +1,543 @@
+---
+/**
+ * Comparateur CRM — module interactif (île Astro).
+ *
+ * À gauche on choisit un CRM, à droite un autre : le panneau central affiche la
+ * comparaison (note globale, 6 critères en « faders », fiche factuelle, forces/
+ * limites). Neutre par principe : il COMPARE, il ne recommande pas (le choix
+ * personnalisé, c'est le configurateur de /comment-choisir-crm/).
+ *
+ * Rendu côté serveur : la paire par défaut est déjà dans la source (lisible sans
+ * JS, sans saut de mise en page). Le <script> ne fait que reconstruire le panneau
+ * au changement de sélection, via le MÊME panelHTML() que le serveur.
+ */
+import { CRMS, panelHTML, LAST_VERIFIED } from '../data/comparateur-crm';
+
+const DEFAULT_A = 'hubspot';
+const DEFAULT_B = 'salesforce';
+---
+
+<section class="cmp not-prose" aria-label="Comparateur de CRM" data-default-a={DEFAULT_A} data-default-b={DEFAULT_B}>
+  <div class="cmp-pickers">
+    <div class="cmp-pick cmp-pick--a">
+      <label class="cmp-pick__label" for="cmp-a">Premier CRM</label>
+      <div class="cmp-select-wrap">
+        <select id="cmp-a" class="cmp-select" data-side="a">
+          {CRMS.map((c) => <option value={c.id} selected={c.id === DEFAULT_A}>{c.name}</option>)}
+        </select>
+      </div>
+    </div>
+
+    <span class="cmp-pickers__vs" aria-hidden="true">VS</span>
+
+    <div class="cmp-pick cmp-pick--b">
+      <label class="cmp-pick__label" for="cmp-b">Second CRM</label>
+      <div class="cmp-select-wrap">
+        <select id="cmp-b" class="cmp-select" data-side="b">
+          {CRMS.map((c) => <option value={c.id} selected={c.id === DEFAULT_B}>{c.name}</option>)}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="cmp-panel" set:html={panelHTML(DEFAULT_A, DEFAULT_B)}></div>
+
+  <p class="cmp-legend">
+    Notes sur 10 : synthèse éditoriale calibrée au marché (elles situent, elles ne tranchent pas).
+    Tarifs indicatifs, HT, hors promotions — <strong>relevés en {LAST_VERIFIED}</strong>, à vérifier
+    sur le site de l'éditeur. Ce comparateur aide à <em>comparer</em> : pour savoir lequel est fait
+    pour vous, passez par le <a href="/comment-choisir-crm/">configurateur</a>.
+  </p>
+</section>
+
+<script>
+  import { panelHTML } from '../data/comparateur-crm';
+
+  const root = document.querySelector<HTMLElement>('.cmp');
+  if (root) {
+    const selA = root.querySelector<HTMLSelectElement>('#cmp-a')!;
+    const selB = root.querySelector<HTMLSelectElement>('#cmp-b')!;
+    const panel = root.querySelector<HTMLElement>('.cmp-panel')!;
+
+    // Empêche de choisir deux fois le même CRM : on désactive, dans chaque menu,
+    // l'option déjà retenue dans l'autre.
+    function syncDisabled() {
+      for (const o of Array.from(selB.options)) o.disabled = o.value === selA.value;
+      for (const o of Array.from(selA.options)) o.disabled = o.value === selB.value;
+    }
+
+    function render() {
+      panel.innerHTML = panelHTML(selA.value, selB.value);
+    }
+
+    selA.addEventListener('change', () => {
+      syncDisabled();
+      render();
+    });
+    selB.addEventListener('change', () => {
+      syncDisabled();
+      render();
+    });
+
+    syncDisabled();
+    root.classList.add('cmp--js');
+  }
+</script>
+
+<style>
+  .cmp {
+    --cmp-track: 0.62rem;
+    position: relative;
+    padding: clamp(var(--space-4), 3.5vw, var(--space-8));
+    border-radius: var(--radius-2xl);
+    border: var(--rule-hair) solid var(--border-default);
+    background:
+      radial-gradient(90% 55% at 50% 0%, var(--blue-tint), transparent 65%), var(--surface-card);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* ---------- Sélecteurs (gauche / VS / droite) ---------- */
+  .cmp-pickers {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: end;
+    gap: var(--space-3) var(--space-5);
+    margin-bottom: var(--space-8);
+  }
+  .cmp-pick__label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .cmp-pick--a .cmp-pick__label {
+    color: var(--blue-ink);
+  }
+  .cmp-pick--b .cmp-pick__label {
+    color: var(--blue-ink);
+    text-align: right;
+  }
+  .cmp-select-wrap {
+    position: relative;
+  }
+  .cmp-select-wrap::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: var(--space-4);
+    width: 0.55rem;
+    height: 0.55rem;
+    border-right: 2px solid var(--ink-60);
+    border-bottom: 2px solid var(--ink-60);
+    transform: translateY(-65%) rotate(45deg);
+    pointer-events: none;
+  }
+  .cmp-select {
+    width: 100%;
+    min-height: var(--tap-min);
+    padding: var(--space-3) var(--space-9) var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    border: var(--rule-medium) solid var(--border-strong);
+    background: var(--surface-card);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition:
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .cmp-select:hover {
+    border-color: var(--blue);
+  }
+  .cmp-select:focus-visible {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: var(--shadow-glow);
+  }
+  .cmp-pickers__vs {
+    align-self: center;
+    margin-bottom: var(--space-1);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+    color: var(--text-faint);
+    letter-spacing: var(--tracking-wide);
+  }
+
+  /* ---------- Têtes de comparaison ---------- */
+  .cmp-panel :global(.cmp-heads) {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: stretch;
+    gap: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+  .cmp-panel :global(.cmp-head) {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-3) var(--space-5);
+    text-align: center;
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    border-top: 3px solid var(--c);
+    background: color-mix(in srgb, var(--c) 6%, var(--surface-card));
+  }
+  .cmp-panel :global(.cmp-head__mono) {
+    display: grid;
+    place-items: center;
+    width: 2.8rem;
+    height: 2.8rem;
+    padding: 5px;
+    border-radius: var(--radius-md);
+    background: #fff;
+    border: var(--rule-hair) solid var(--border-default);
+    box-shadow: var(--shadow-soft);
+  }
+  .cmp-panel :global(.cmp-logo) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .cmp-panel :global(.cmp-head__name) {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+    color: var(--ink);
+    line-height: 1.15;
+  }
+  .cmp-panel :global(.cmp-head__cat) {
+    font-size: var(--text-2xs);
+    color: var(--text-muted);
+    text-wrap: balance;
+  }
+  .cmp-panel :global(.cmp-head__global) {
+    margin-top: var(--space-2);
+    font-family: var(--font-data);
+    font-feature-settings: var(--num-tabular);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-4xl);
+    line-height: 1;
+    color: var(--c);
+  }
+  .cmp-panel :global(.cmp-head__global small) {
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-regular);
+    color: var(--text-faint);
+  }
+  .cmp-panel :global(.cmp-vs) {
+    display: grid;
+    place-items: center;
+    align-self: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: var(--radius-full);
+    background: var(--surface-sunk);
+    border: var(--rule-hair) solid var(--border-default);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  /* ---------- Critères notés (faders) ---------- */
+  .cmp-panel :global(.cmp-criteria) {
+    list-style: none;
+    margin: 0 0 var(--space-8);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .cmp-panel :global(.cmp-crit) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(8rem, auto) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .cmp-panel :global(.cmp-crit__label) {
+    text-align: center;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--ink-80);
+    text-wrap: balance;
+  }
+  .cmp-panel :global(.cmp-fader) {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .cmp-panel :global(.cmp-fader__who) {
+    display: none; /* visible en mobile uniquement */
+    flex: none;
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 2px;
+    place-items: center;
+    border-radius: var(--radius-sm);
+    background: #fff;
+    border: var(--rule-hair) solid var(--border-default);
+  }
+  .cmp-panel :global(.cmp-fader__track) {
+    position: relative;
+    flex: 1;
+    height: var(--cmp-track);
+    border-radius: var(--radius-full);
+    background: var(--surface-sunk);
+    overflow: hidden;
+  }
+  .cmp-panel :global(.cmp-fader__fill) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--v);
+    border-radius: var(--radius-full);
+    background: var(--c);
+  }
+  .cmp-panel :global(.cmp-fader__val) {
+    flex: none;
+    min-width: 1.6rem;
+    font-family: var(--font-data);
+    font-feature-settings: var(--num-tabular);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-base);
+    color: var(--c);
+  }
+  /* A = à gauche, remplissage vers le centre (droite de sa cellule) */
+  .cmp-panel :global(.cmp-fader--a) {
+    flex-direction: row-reverse;
+  }
+  .cmp-panel :global(.cmp-fader--a .cmp-fader__fill) {
+    right: 0;
+  }
+  .cmp-panel :global(.cmp-fader--a .cmp-fader__val) {
+    text-align: left;
+  }
+  /* B = à droite, remplissage vers le centre (gauche de sa cellule) */
+  .cmp-panel :global(.cmp-fader--b .cmp-fader__fill) {
+    left: 0;
+  }
+  .cmp-panel :global(.cmp-fader--b .cmp-fader__val) {
+    text-align: right;
+  }
+
+  /* ---------- Fiche factuelle ---------- */
+  .cmp-panel :global(.cmp-facts) {
+    margin-bottom: var(--space-8);
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    overflow: hidden;
+  }
+  .cmp-panel :global(.cmp-fact) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(8rem, auto) minmax(0, 1fr);
+    align-items: start;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+  }
+  .cmp-panel :global(.cmp-fact:nth-child(even)) {
+    background: color-mix(in srgb, var(--surface-sunk) 45%, transparent);
+  }
+  .cmp-panel :global(.cmp-fact__label) {
+    text-align: center;
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-faint);
+    align-self: center;
+  }
+  .cmp-panel :global(.cmp-fact__a),
+  .cmp-panel :global(.cmp-fact__b) {
+    font-size: var(--text-sm);
+    color: var(--text-body);
+    line-height: 1.35;
+  }
+  .cmp-panel :global(.cmp-fact__a) {
+    text-align: right;
+  }
+  .cmp-panel :global(.cmp-fact__sub) {
+    display: block;
+    margin-top: 2px;
+    font-size: var(--text-2xs);
+    color: var(--text-faint);
+    line-height: 1.3;
+  }
+  .cmp-panel :global(.cmp-yes) {
+    font-weight: var(--font-weight-bold);
+    color: var(--green-ink);
+  }
+  .cmp-panel :global(.cmp-no) {
+    font-weight: var(--font-weight-bold);
+    color: var(--text-muted);
+  }
+
+  /* ---------- Forces / limites ---------- */
+  .cmp-panel :global(.cmp-proscons) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+  .cmp-panel :global(.cmp-pc) {
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    border-top: 3px solid var(--c);
+    background: var(--surface-card);
+  }
+  .cmp-panel :global(.cmp-pc__name) {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-base);
+    color: var(--ink);
+  }
+  .cmp-panel :global(.cmp-pc__mono) {
+    display: grid;
+    place-items: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 2px;
+    border-radius: var(--radius-sm);
+    background: #fff;
+    border: var(--rule-hair) solid var(--border-default);
+  }
+  .cmp-panel :global(.cmp-pc__list) {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .cmp-panel :global(.cmp-pc__list li) {
+    position: relative;
+    padding-left: var(--space-6);
+    font-size: var(--text-sm);
+    color: var(--text-body);
+    line-height: 1.35;
+  }
+  .cmp-panel :global(.cmp-pc__plus::before) {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--green-ink);
+    font-weight: var(--font-weight-bold);
+  }
+  .cmp-panel :global(.cmp-pc__minus::before) {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--minium-ink, var(--text-muted));
+    font-weight: var(--font-weight-bold);
+  }
+
+  /* ---------- Légende ---------- */
+  .cmp-legend {
+    margin: var(--space-8) 0 0;
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .cmp-legend a {
+    color: var(--blue-ink);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* ---------- Animation de remplissage (amélioration progressive) ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .cmp-panel :global(.cmp-fader__fill) {
+      animation: cmp-grow 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes cmp-grow {
+      from {
+        width: 0;
+      }
+      to {
+        width: var(--v);
+      }
+    }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 680px) {
+    .cmp-pickers {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+    .cmp-pickers__vs {
+      justify-self: center;
+      margin: var(--space-1) 0;
+    }
+    .cmp-pick--b .cmp-pick__label {
+      text-align: left;
+    }
+
+    /* Faders : empilés, pleine largeur, remplissage classique (gauche→droite). */
+    .cmp-panel :global(.cmp-crit) {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+      padding: var(--space-3) 0;
+      border-top: var(--rule-hair) solid var(--border-default);
+    }
+    .cmp-panel :global(.cmp-crit:first-child) {
+      border-top: none;
+    }
+    .cmp-panel :global(.cmp-crit__label) {
+      text-align: left;
+      margin-bottom: var(--space-1);
+    }
+    .cmp-panel :global(.cmp-fader--a) {
+      flex-direction: row;
+    }
+    .cmp-panel :global(.cmp-fader--a .cmp-fader__fill),
+    .cmp-panel :global(.cmp-fader--b .cmp-fader__fill) {
+      left: 0;
+      right: auto;
+    }
+    .cmp-panel :global(.cmp-fader--a .cmp-fader__val),
+    .cmp-panel :global(.cmp-fader--b .cmp-fader__val) {
+      text-align: right;
+    }
+    .cmp-panel :global(.cmp-fader__who) {
+      display: grid;
+    }
+
+    /* Fiche factuelle : label au-dessus, deux valeurs côte à côte. */
+    .cmp-panel :global(.cmp-fact) {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-1) var(--space-4);
+    }
+    .cmp-panel :global(.cmp-fact__label) {
+      grid-column: 1 / -1;
+      text-align: left;
+    }
+    .cmp-panel :global(.cmp-fact__a) {
+      text-align: left;
+    }
+
+    .cmp-panel :global(.cmp-proscons) {
+      grid-template-columns: 1fr;
+    }
+    .cmp-panel :global(.cmp-head__name) {
+      font-size: var(--text-lg);
+    }
+    .cmp-panel :global(.cmp-head__global) {
+      font-size: var(--text-3xl);
+    }
+  }
+</style>
