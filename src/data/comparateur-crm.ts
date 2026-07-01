@@ -439,7 +439,7 @@ function facts(a: CrmEntry, b: CrmEntry): { label: string; a: string; b: string 
   const yesno = (ok: boolean, note = '') =>
     `<span class="${ok ? 'cmp-yes' : 'cmp-no'}">${ok ? 'Oui' : 'Non'}</span>` +
     (note ? `<small class="cmp-fact__sub">${note}</small>` : '');
-  const trial = (c: CrmEntry) => (c.essai_jours ? `${c.essai_jours} jours` : '—');
+  const trial = (c: CrmEntry) => (c.essai_jours ? `${c.essai_jours} jours` : 'Aucun');
   const sizes = (c: CrmEntry) => c.tailles.map((s) => SIZE_LABELS[s]).join(', ');
   return [
     { label: 'Catégorie', a: a.categorie, b: b.categorie },

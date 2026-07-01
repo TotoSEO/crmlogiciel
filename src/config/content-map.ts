@@ -40,6 +40,8 @@ export interface Cluster {
   label: string;
   /** Slug du pilier (cible du libellé de tête + niveau de fil d'Ariane). */
   pillarSlug: string;
+  /** Libellé du lien « pilier » en tête du déroulant (question concrète). */
+  pillarLabel: string;
   /** Apparaît dans le menu principal au lancement ? */
   inNav: boolean;
   /** Couleur de la charte propre au cluster (segmentation visuelle du menu). */
@@ -55,6 +57,7 @@ export const CLUSTERS: Cluster[] = [
     id: 'comprendre',
     label: 'Comprendre',
     pillarSlug: 'qu-est-ce-qu-un-crm',
+    pillarLabel: "Qu'est-ce qu'un CRM ?",
     inNav: true,
     palette: 'blue',
   },
@@ -62,6 +65,7 @@ export const CLUSTERS: Cluster[] = [
     id: 'choisir',
     label: 'Choisir',
     pillarSlug: 'comment-choisir-crm',
+    pillarLabel: 'Quel CRM choisir ?',
     inNav: true,
     palette: 'teal',
   },
@@ -69,14 +73,16 @@ export const CLUSTERS: Cluster[] = [
     id: 'utiliser',
     label: 'Utiliser',
     pillarSlug: 'mise-en-place-crm',
+    pillarLabel: 'Comment mettre en place un CRM ?',
     inNav: true,
     palette: 'orange',
   },
-  // Transverse : pas un cluster de menu déroulant (lien direct « Méthodologie »).
+  // Transverse : pas un cluster de menu déroulant.
   {
     id: 'transverse',
     label: 'Transverse',
     pillarSlug: 'methodologie',
+    pillarLabel: 'Notre méthodologie de test',
     inNav: false,
     palette: 'green',
   },
@@ -278,6 +284,8 @@ export interface NavItem {
   label: string;
   href: string;
   palette: Palette;
+  /** Libellé du lien pilier en tête du déroulant (clusters uniquement). */
+  pillarLabel?: string;
   children?: { label: string; href: string }[];
   /** Lien mis en avant (page phare hors cluster). */
   featured?: boolean;
@@ -291,6 +299,7 @@ export function navTree(): NavItem[] {
     label: c.label,
     href: path(c.pillarSlug),
     palette: c.palette,
+    pillarLabel: c.pillarLabel,
     // Le déroulant liste les satellites uniquement (hors pilier et hors pages
     // déjà mises en avant directement dans la nav).
     children: pagesOf(c.id)
@@ -315,10 +324,6 @@ export function navTree(): NavItem[] {
       featured: true,
     });
   }
-
-  // Lien direct vers la méthodologie (transverse, sans déroulant).
-  const methodo = getPage('methodologie');
-  if (methodo) items.push({ label: 'Méthodologie', href: path(methodo.slug), palette: 'green' });
 
   return items;
 }

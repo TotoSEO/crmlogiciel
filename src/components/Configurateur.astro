@@ -168,7 +168,7 @@ import { STEPS } from '../data/configurateur-crm';
           <span class="cfg-card__pct is-data">${r.pct}%<small>d’adéquation</small></span>
         </div>
         <ul class="cfg-card__reasons">${reasons}</ul>
-        <p class="cfg-card__soon">Fiche détaillée et avis complet bientôt disponibles.</p>
+        <p class="cfg-card__soon"><a class="cfg-link" href="/comparatif-crm/">Comparer ${esc(r.name)} en détail →</a></p>
       </article>`;
     }
 
@@ -188,7 +188,7 @@ import { STEPS } from '../data/configurateur-crm';
       } else {
         list.innerHTML = reco.results.map((r, i) => card(r, i)).join('');
         foot.innerHTML = `<button type="button" class="cfg-restart">↻ Refaire le test</button>
-          <span class="cfg-foot__note">Le comparatif complet des CRM arrive bientôt.</span>`;
+          <a class="cfg-link" href="/comparatif-crm/">Comparer les CRM en détail →</a>`;
       }
       results.hidden = false;
       root.scrollIntoView({ behavior: 'smooth', block: 'start' });
