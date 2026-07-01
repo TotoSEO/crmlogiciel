@@ -15,6 +15,7 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JsonLd from '../components/JsonLd.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 import Comparateur from '../components/Comparateur.astro';
 import Button from '../components/blocks/Button.astro';
 import { INDEXABLE, absoluteUrl, path } from '../config/site';
@@ -35,7 +36,7 @@ const faqItems = [
   {
     question: 'Quel est le meilleur CRM ?',
     answer:
-      'Il n’existe pas de meilleur CRM dans l’absolu : le bon dépend de votre taille, de votre budget et de vos priorités. Salesforce et Microsoft Dynamics 365 dominent sur la puissance et la personnalisation ; HubSpot excelle en marketing + vente ; Pipedrive et noCRM sur la simplicité commerciale ; Sellsy, Axonaut et Brevo côté outils français ; Zoho et Odoo sur le rapport qualité-prix. Pour savoir lequel vous convient, utilisez notre configurateur.',
+      'Il n’existe pas de meilleur CRM dans l’absolu : le bon dépend de votre taille, de votre budget et de vos priorités. Salesforce et Microsoft Dynamics 365 dominent sur la puissance et la personnalisation ; HubSpot excelle en marketing + vente ; Pipedrive et noCRM sur la simplicité commerciale ; Sellsy, Axonaut et Brevo côté outils français ; Zoho et Odoo sur le rapport qualité-prix. Pour savoir lequel vous convient, utilisez notre formulaire.',
   },
   {
     question: 'HubSpot ou Salesforce : lequel choisir ?',
@@ -45,7 +46,7 @@ const faqItems = [
   {
     question: 'Vaut-il mieux un CRM français ou américain ?',
     answer:
-      'Les CRM français (Sellsy, Axonaut, noCRM, Brevo) rassurent sur l’hébergement des données en France ou dans l’UE, le support en français et la facturation conforme. Les CRM américains (HubSpot, Salesforce, Pipedrive) offrent souvent plus de profondeur fonctionnelle et un écosystème d’intégrations plus large — et beaucoup proposent désormais un hébergement dans l’UE. Le comparateur affiche l’hébergement UE et le support français pour chaque outil.',
+      'Les CRM français (Sellsy, Axonaut, noCRM, Brevo) rassurent sur l’hébergement des données en France ou dans l’UE, le support en français et la facturation conforme. Les CRM américains (HubSpot, Salesforce, Pipedrive) offrent souvent plus de profondeur fonctionnelle et un écosystème d’intégrations plus large, et beaucoup proposent désormais un hébergement dans l’UE. Le comparateur affiche l’hébergement UE et le support français pour chaque outil.',
   },
   {
     question: 'Comment sont calculées les notes ?',
@@ -126,12 +127,7 @@ const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
   </Fragment>
 
   <div class="container cmp-top">
-    <nav class="breadcrumb" aria-label="Fil d'Ariane">
-      <ol>
-        <li><a href="/">Accueil</a></li>
-        <li><span aria-current="page">Comparatif CRM</span></li>
-      </ol>
-    </nav>
+    <Breadcrumb crumbs={crumbs} />
   </div>
 
   {/* ---------- Hero ---------- */}
@@ -145,7 +141,7 @@ const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
       <h1 class="chero__title">Comparatif CRM : comparez les logiciels côte à côte</h1>
       <p class="chero__lead">
         Choisissez deux CRM et confrontez-les d’un coup d’œil : note globale, prix, fonctionnalités,
-        automatisation, IA, reporting, support et hébergement. Un outil <strong>neutre</strong> — il
+        automatisation, IA, reporting, support et hébergement. Un outil <strong>neutre</strong> : il
         vous aide à comparer, pas à vous vendre un outil plutôt qu’un autre.
       </p>
     </div>
@@ -173,7 +169,7 @@ const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
         {
           CRITERES.map((cr) => (
             <li>
-              <strong>{cr.label}</strong> — {cr.hint}.
+              <strong>{cr.label}</strong> : {cr.hint}.
             </li>
           ))
         }
@@ -304,21 +300,21 @@ const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
       </ul>
       <p>
         Ce comparateur vous aide à trancher entre deux outils. Si vous ne savez pas encore lesquels
-        présélectionner, laissez le configurateur le faire pour vous à partir de votre profil.
+        présélectionner, laissez le formulaire le faire pour vous à partir de votre profil.
       </p>
     </div>
 
-    {/* CTA vers le configurateur (le « quel CRM pour moi ») */}
+    {/* CTA vers le formulaire « quel CRM pour moi » */}
     <aside class="cmp-cta">
       <div class="cmp-cta__body">
         <p class="cmp-cta__kicker is-data">Pas sûr des deux à comparer ?</p>
         <p class="cmp-cta__title">Trouvez les CRM faits pour vous en 2 minutes</p>
         <p class="cmp-cta__txt">
-          Répondez à quelques questions : le configurateur présélectionne les outils les plus adaptés
-          à votre taille, votre budget et vos besoins. À vous de les comparer ensuite ici.
+          Répondez à quelques questions : le formulaire présélectionne les outils les plus adaptés à
+          votre taille, votre budget et vos besoins. À vous de les comparer ensuite ici.
         </p>
       </div>
-      <Button href={path('comment-choisir-crm')} variant="primary">Lancer le configurateur</Button>
+      <Button href={path('comment-choisir-crm')} variant="primary">Ouvrir le formulaire</Button>
     </aside>
 
     {/* ---------- FAQ ---------- */}
@@ -537,7 +533,7 @@ const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
     font-weight: var(--font-weight-bold);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: var(--text-faint);
+    color: var(--ink-55);
   }
   .fiche__facts dd {
     margin: 0;

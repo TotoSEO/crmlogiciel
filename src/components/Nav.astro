@@ -56,7 +56,7 @@ const clusterVars = (palette: string): string =>
                     href={item.href}
                     aria-current={isCurrent(item.href) ? 'page' : undefined}
                   >
-                    <span>{item.label} : le guide complet</span>
+                    <span>{item.pillarLabel ?? `${item.label} : le guide complet`}</span>
                     <span class="submenu__pillar-arrow" aria-hidden="true">→</span>
                   </a>
                   <ul class="submenu__grid">

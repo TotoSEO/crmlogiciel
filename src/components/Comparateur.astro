@@ -20,9 +20,9 @@ const DEFAULT_B = 'salesforce';
 <section class="cmp not-prose" aria-label="Comparateur de CRM" data-default-a={DEFAULT_A} data-default-b={DEFAULT_B}>
   <div class="cmp-pickers">
     <div class="cmp-pick cmp-pick--a">
-      <label class="cmp-pick__label" for="cmp-a">Premier CRM</label>
+      <label class="cmp-pick__label" id="cmp-a-label" for="cmp-a">Premier CRM</label>
       <div class="cmp-select-wrap">
-        <select id="cmp-a" class="cmp-select" data-side="a">
+        <select id="cmp-a" class="cmp-select" data-side="a" aria-labelledby="cmp-a-label">
           {CRMS.map((c) => <option value={c.id} selected={c.id === DEFAULT_A}>{c.name}</option>)}
         </select>
       </div>
@@ -31,9 +31,9 @@ const DEFAULT_B = 'salesforce';
     <span class="cmp-pickers__vs" aria-hidden="true">VS</span>
 
     <div class="cmp-pick cmp-pick--b">
-      <label class="cmp-pick__label" for="cmp-b">Second CRM</label>
+      <label class="cmp-pick__label" id="cmp-b-label" for="cmp-b">Second CRM</label>
       <div class="cmp-select-wrap">
-        <select id="cmp-b" class="cmp-select" data-side="b">
+        <select id="cmp-b" class="cmp-select" data-side="b" aria-labelledby="cmp-b-label">
           {CRMS.map((c) => <option value={c.id} selected={c.id === DEFAULT_B}>{c.name}</option>)}
         </select>
       </div>
@@ -44,39 +44,164 @@ const DEFAULT_B = 'salesforce';
 
   <p class="cmp-legend">
     Notes sur 10 : synthèse éditoriale calibrée au marché (elles situent, elles ne tranchent pas).
-    Tarifs indicatifs, HT, hors promotions — <strong>relevés en {LAST_VERIFIED}</strong>, à vérifier
+    Tarifs indicatifs, HT, hors promotions, <strong>relevés en {LAST_VERIFIED}</strong>, à vérifier
     sur le site de l'éditeur. Ce comparateur aide à <em>comparer</em> : pour savoir lequel est fait
-    pour vous, passez par le <a href="/comment-choisir-crm/">configurateur</a>.
+    pour vous, passez par le <a href="/comment-choisir-crm/">formulaire</a>.
   </p>
 </section>
 
 <script>
-  import { panelHTML } from '../data/comparateur-crm';
+  import { panelHTML, CRMS } from '../data/comparateur-crm';
 
   const root = document.querySelector<HTMLElement>('.cmp');
   if (root) {
     const selA = root.querySelector<HTMLSelectElement>('#cmp-a')!;
     const selB = root.querySelector<HTMLSelectElement>('#cmp-b')!;
     const panel = root.querySelector<HTMLElement>('.cmp-panel')!;
+    const sel = (side: 'a' | 'b') => (side === 'a' ? selA : selB);
+    const other = (side: 'a' | 'b') => (side === 'a' ? selB : selA);
 
-    // Empêche de choisir deux fois le même CRM : on désactive, dans chaque menu,
-    // l'option déjà retenue dans l'autre.
+    const nameById = (id: string) => CRMS.find((c) => c.id === id)?.name ?? id;
+    const logoHTML = (id: string) =>
+      `<img class="cmp-combo__logo" src="/images/crm/${id}.png" alt="" width="26" height="26" loading="lazy" decoding="async">`;
+
+    const combos: Record<'a' | 'b', HTMLElement> = {} as any;
+
+    function buildCombo(side: 'a' | 'b'): HTMLElement {
+      const s = sel(side);
+      const labelId = `cmp-${side}-label`;
+      const btnId = `cmp-${side}-btn`;
+      const combo = document.createElement('div');
+      combo.className = 'cmp-combo';
+      combo.dataset.side = side;
+      combo.innerHTML =
+        `<button type="button" id="${btnId}" class="cmp-combo__btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="${labelId} ${btnId}">` +
+        `<span class="cmp-combo__cur"></span><span class="cmp-combo__chev" aria-hidden="true"></span></button>` +
+        `<ul class="cmp-combo__panel" role="listbox" aria-labelledby="${labelId}" hidden>` +
+        CRMS.map(
+          (c) =>
+            `<li role="option" tabindex="-1" class="cmp-combo__opt" data-id="${c.id}" aria-selected="false">` +
+            `${logoHTML(c.id)}<span class="cmp-combo__name">${c.name}</span><span class="cmp-combo__tick" aria-hidden="true">✓</span></li>`,
+        ).join('') +
+        `</ul>`;
+      s.after(combo);
+      return combo;
+    }
+
+    const btnOf = (side: 'a' | 'b') =>
+      combos[side].querySelector<HTMLButtonElement>('.cmp-combo__btn')!;
+    const listOf = (side: 'a' | 'b') => combos[side].querySelector<HTMLElement>('.cmp-combo__panel')!;
+    const optsOf = (side: 'a' | 'b') =>
+      Array.from(combos[side].querySelectorAll<HTMLElement>('.cmp-combo__opt'));
+
+    function refreshCombo(side: 'a' | 'b') {
+      const id = sel(side).value;
+      const cur = combos[side].querySelector<HTMLElement>('.cmp-combo__cur')!;
+      cur.innerHTML = `${logoHTML(id)}<span class="cmp-combo__name">${nameById(id)}</span>`;
+      for (const opt of optsOf(side)) {
+        const oid = opt.dataset.id!;
+        const selected = oid === id;
+        const disabled = oid === other(side).value;
+        opt.setAttribute('aria-selected', selected ? 'true' : 'false');
+        opt.classList.toggle('is-selected', selected);
+        opt.classList.toggle('is-disabled', disabled);
+        if (disabled) opt.setAttribute('aria-disabled', 'true');
+        else opt.removeAttribute('aria-disabled');
+      }
+    }
+
+    function closeCombo(side: 'a' | 'b') {
+      listOf(side).hidden = true;
+      btnOf(side).setAttribute('aria-expanded', 'false');
+      combos[side].classList.remove('is-open');
+    }
+    const closeAll = () => {
+      closeCombo('a');
+      closeCombo('b');
+    };
+    function openCombo(side: 'a' | 'b') {
+      closeAll();
+      listOf(side).hidden = false;
+      btnOf(side).setAttribute('aria-expanded', 'true');
+      combos[side].classList.add('is-open');
+      const target =
+        combos[side].querySelector<HTMLElement>('.cmp-combo__opt.is-selected') || optsOf(side)[0];
+      target?.focus();
+    }
+
+    function choose(side: 'a' | 'b', id: string) {
+      if (id === other(side).value) return; // jamais deux fois le même CRM
+      sel(side).value = id;
+      sel(side).dispatchEvent(new Event('change', { bubbles: true }));
+      closeCombo(side);
+      btnOf(side).focus();
+    }
+
+    function keyNav(e: KeyboardEvent, side: 'a' | 'b') {
+      const list = optsOf(side);
+      const cur = (e.target as HTMLElement).closest<HTMLElement>('.cmp-combo__opt');
+      let i = cur ? list.indexOf(cur) : 0;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        list[Math.min(list.length - 1, i + 1)].focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        list[Math.max(0, i - 1)].focus();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        list[0].focus();
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        list[list.length - 1].focus();
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (cur && !cur.classList.contains('is-disabled')) choose(side, cur.dataset.id!);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        closeCombo(side);
+        btnOf(side).focus();
+      }
+    }
+
     function syncDisabled() {
       for (const o of Array.from(selB.options)) o.disabled = o.value === selA.value;
       for (const o of Array.from(selA.options)) o.disabled = o.value === selB.value;
     }
-
     function render() {
       panel.innerHTML = panelHTML(selA.value, selB.value);
     }
+    function onChange() {
+      syncDisabled();
+      render();
+      refreshCombo('a');
+      refreshCombo('b');
+    }
+    selA.addEventListener('change', onChange);
+    selB.addEventListener('change', onChange);
 
-    selA.addEventListener('change', () => {
-      syncDisabled();
-      render();
-    });
-    selB.addEventListener('change', () => {
-      syncDisabled();
-      render();
+    for (const side of ['a', 'b'] as const) {
+      combos[side] = buildCombo(side);
+      const btn = btnOf(side);
+      const list = listOf(side);
+      btn.addEventListener('click', () =>
+        combos[side].classList.contains('is-open') ? closeCombo(side) : openCombo(side),
+      );
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openCombo(side);
+        }
+      });
+      list.addEventListener('click', (e) => {
+        const opt = (e.target as HTMLElement).closest<HTMLElement>('.cmp-combo__opt');
+        if (opt && !opt.classList.contains('is-disabled')) choose(side, opt.dataset.id!);
+      });
+      list.addEventListener('keydown', (e) => keyNav(e, side));
+      refreshCombo(side);
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!(e.target as HTMLElement).closest('.cmp-combo')) closeAll();
     });
 
     syncDisabled();
@@ -170,6 +295,14 @@ const DEFAULT_B = 'salesforce';
     font-size: var(--text-sm);
     color: var(--text-faint);
     letter-spacing: var(--tracking-wide);
+  }
+
+  /* Sélecteur : le <select> natif (repli sans JS) est masqué dès que l'île JS
+     construit le combo personnalisé. Le combo est stylé dans le bloc
+     <style is:global> plus bas : ses éléments sont créés en JavaScript et ne
+     portent donc pas l'attribut de portée (scope) d'Astro. */
+  .cmp--js .cmp-select {
+    display: none;
   }
 
   /* ---------- Têtes de comparaison ---------- */
@@ -355,7 +488,7 @@ const DEFAULT_B = 'salesforce';
     font-weight: var(--font-weight-bold);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: var(--text-faint);
+    color: var(--ink-80);
     align-self: center;
   }
   .cmp-panel :global(.cmp-fact__a),
@@ -371,7 +504,7 @@ const DEFAULT_B = 'salesforce';
     display: block;
     margin-top: 2px;
     font-size: var(--text-2xs);
-    color: var(--text-faint);
+    color: var(--text-muted);
     line-height: 1.3;
   }
   .cmp-panel :global(.cmp-yes) {
@@ -538,6 +671,165 @@ const DEFAULT_B = 'salesforce';
     }
     .cmp-panel :global(.cmp-head__global) {
       font-size: var(--text-3xl);
+    }
+  }
+</style>
+
+<style is:global>
+  /* Sélecteur personnalisé (combo) : construit en JS → stylé globalement, mais
+     borné à .cmp pour ne pas fuiter dans le reste du site. */
+  .cmp .cmp-combo {
+    position: relative;
+  }
+  .cmp .cmp-combo__btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--tap-min);
+    padding: var(--space-2);
+    border-radius: var(--radius-lg);
+    border: var(--rule-medium) solid var(--border-strong);
+    background: var(--surface-card);
+    color: var(--ink);
+    cursor: pointer;
+    transition:
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .cmp .cmp-combo__btn:hover {
+    border-color: var(--blue);
+  }
+  .cmp .cmp-combo__btn:focus-visible,
+  .cmp .cmp-combo.is-open .cmp-combo__btn {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: var(--shadow-glow);
+  }
+  .cmp .cmp-combo__cur {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex: 1;
+    min-width: 0;
+  }
+  .cmp .cmp-combo__logo {
+    flex: none;
+    width: 1.9rem;
+    height: 1.9rem;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    background: #fff;
+    border: var(--rule-hair) solid var(--border-default);
+    padding: 2px;
+  }
+  .cmp .cmp-combo__name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+  }
+  .cmp .cmp-combo__chev {
+    flex: none;
+    width: 0.55rem;
+    height: 0.55rem;
+    margin-right: var(--space-2);
+    border-right: 2px solid var(--ink-55);
+    border-bottom: 2px solid var(--ink-55);
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+  .cmp .cmp-combo.is-open .cmp-combo__chev {
+    transform: translateY(1px) rotate(-135deg);
+  }
+  .cmp .cmp-combo__panel {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 30;
+    margin: 0;
+    padding: var(--space-2);
+    list-style: none;
+    max-height: 20rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--surface-card);
+    border: var(--rule-hair) solid var(--border-default);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-raise);
+    animation: cmp-combo-in 0.16s ease both;
+  }
+  @keyframes cmp-combo-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .cmp .cmp-combo__opt {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-family: var(--font-ui);
+    font-size: var(--text-base);
+    color: var(--ink-80);
+  }
+  .cmp .cmp-combo__opt .cmp-combo__logo {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  .cmp .cmp-combo__opt .cmp-combo__name {
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-base);
+    color: inherit;
+  }
+  .cmp .cmp-combo__opt:hover,
+  .cmp .cmp-combo__opt:focus-visible {
+    outline: none;
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+  }
+  .cmp .cmp-combo__opt.is-selected {
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+  }
+  .cmp .cmp-combo__opt.is-selected .cmp-combo__name {
+    font-weight: var(--font-weight-semibold);
+  }
+  .cmp .cmp-combo__tick {
+    margin-left: auto;
+    color: var(--blue);
+    font-weight: var(--font-weight-bold);
+    opacity: 0;
+  }
+  .cmp .cmp-combo__opt.is-selected .cmp-combo__tick {
+    opacity: 1;
+  }
+  .cmp .cmp-combo__opt.is-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .cmp .cmp-combo__opt.is-disabled:hover {
+    background: transparent;
+    color: var(--ink-80);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cmp .cmp-combo__panel {
+      animation: none;
     }
   }
 </style>
