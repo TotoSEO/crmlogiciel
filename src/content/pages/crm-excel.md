@@ -119,7 +119,7 @@ Aucune de ces limites n'est rédhibitoire au début. Toutes le deviennent à mes
 
 Les signaux ne trompent pas. Vous êtes désormais plusieurs à gérer les contacts. Vous avez dépassé la centaine de contacts actifs. Des relances commencent à passer à la trappe. Vous avez besoin de consulter vos fiches depuis votre téléphone, en clientèle. Dès que l'un de ces signes apparaît, le tableur vous coûte plus de temps qu'il ne vous en fait gagner.
 
-Le passage est plus simple qu'on ne le croit. Nettoyez d'abord votre fichier en supprimant les doublons et en homogénéisant les formats, exportez-le au format CSV, puis importez-le dans le nouvel outil : presque tous proposent un assistant qui fait correspondre vos colonnes à leurs champs. Profitez-en pour ne reprendre que les contacts encore utiles. Quand Excel craque, notre comparatif des meilleurs CRM vous aide à choisir la suite. Et la bonne nouvelle, déjà dite mais qui mérite d'être répétée : ce changement ne coûte pas forcément un centime de plus.
+Le passage est plus simple qu'on ne le croit. Nettoyez d'abord votre fichier en supprimant les doublons et en homogénéisant les formats, exportez-le au format CSV, puis importez-le dans le nouvel outil : presque tous proposent un assistant qui fait correspondre vos colonnes à leurs champs. Profitez-en pour ne reprendre que les contacts encore utiles. Quand Excel craque, notre comparatif des meilleurs CRM vous aide à choisir la suite. Au moment d'importer vos données, [une checklist de migration](/checklist-migration-crm/) sécurise le passage. Et la bonne nouvelle, déjà dite mais qui mérite d'être répétée : ce changement ne coûte pas forcément un centime de plus.
 
 ## Notre modèle Excel à télécharger
 

@@ -110,6 +110,18 @@ export const PAGES: PageNode[] = [
     breadcrumbLabel: "Script d'appel",
     cluster: 'transverse',
   },
+  {
+    slug: 'grille-qualification-bant',
+    label: 'Grille de qualification BANT',
+    breadcrumbLabel: 'Qualification BANT',
+    cluster: 'transverse',
+  },
+  {
+    slug: 'checklist-migration-crm',
+    label: 'Checklist de migration CRM',
+    breadcrumbLabel: 'Checklist migration',
+    cluster: 'transverse',
+  },
 
   // Comprendre (8)
   {
@@ -385,6 +397,18 @@ export const TOOLS: Tool[] = [
     label: "Script d'appel de prospection",
     icon: '📞',
     desc: 'Trame d’appel prête à copier',
+  },
+  {
+    slug: 'grille-qualification-bant',
+    label: 'Grille de qualification BANT',
+    icon: '🔎',
+    desc: 'Notez vos leads sur 12 en direct',
+  },
+  {
+    slug: 'checklist-migration-crm',
+    label: 'Checklist de migration CRM',
+    icon: '✅',
+    desc: 'Cochez chaque étape, sans rien oublier',
   },
 ];
 

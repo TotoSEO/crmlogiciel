@@ -1,0 +1,382 @@
+---
+/**
+ * ChecklistMigration — checklist cochable pour piloter une migration de CRM.
+ * Six phases, barre de progression sticky, état conservé en localStorage (rien
+ * n'est envoyé au serveur). Ligne entière cliquable (≥ 44px), case réelle et
+ * étiquetée. Boutons Réinitialiser (avec confirmation) et Imprimer.
+ *
+ * Rendu serveur : liste lisible et imprimable sans JS (les cases restent
+ * cochables nativement, sans persistance). Le JS ajoute la sauvegarde, la barre
+ * de progression et le message de fin.
+ */
+import { PHASES, TOTAL_ITEMS } from '../data/checklist-migration';
+---
+
+<section class="ckl not-prose" aria-label="Checklist de migration CRM">
+  <div class="ck-bar" role="status" aria-live="polite">
+    <div class="ck-bar__top">
+      <span class="ck-bar__label">Votre progression</span>
+      <span class="ck-bar__count"><b class="is-data" id="ck-done">0</b> / {TOTAL_ITEMS} cochés</span>
+    </div>
+    <div class="ck-bar__track"><span class="ck-bar__fill" id="ck-fill"></span></div>
+  </div>
+
+  <p class="ck-done-msg" id="ck-done-msg" hidden>
+    <span aria-hidden="true">✅</span> Tout est prêt, vous pouvez basculer sereinement.
+  </p>
+
+  <div class="ck-phases">
+    {
+      PHASES.map((p, pi) => (
+        <section class="ck-phase" data-phase={p.id}>
+          <header class="ck-phase__head">
+            <span class="ck-phase__n is-data" aria-hidden="true">
+              {pi + 1}
+            </span>
+            <h3 class="ck-phase__title">{p.title}</h3>
+            <span class="ck-phase__count is-data" data-phase-count={p.id}>
+              0/{p.items.length}
+            </span>
+          </header>
+          <ul class="ck-list">
+            {p.items.map((it) => (
+              <li>
+                <label class="ck-item">
+                  <input type="checkbox" class="ck-box" data-id={it.id} />
+                  <span class="ck-check" aria-hidden="true" />
+                  <span class="ck-label">{it.label}</span>
+                </label>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+
+  <div class="ck-foot">
+    <div class="ck-actions">
+      <button type="button" class="ck-reset">↻ Réinitialiser</button>
+      <button type="button" class="ck-print">🖨 Imprimer</button>
+    </div>
+    <p class="ck-note">
+      Vos coches restent dans votre navigateur, rien n'est envoyé. Vous pouvez fermer la page et
+      reprendre là où vous vous étiez arrêté.
+    </p>
+  </div>
+</section>
+
+<script>
+  import { TOTAL_ITEMS, STORAGE_KEY } from '../data/checklist-migration';
+
+  const rootEl = document.querySelector<HTMLElement>('.ckl');
+  if (rootEl) {
+    const root: HTMLElement = rootEl;
+    const boxes = [...root.querySelectorAll<HTMLInputElement>('.ck-box')];
+
+    function load(): Set<string> {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return new Set<string>(raw ? JSON.parse(raw) : []);
+      } catch {
+        return new Set();
+      }
+    }
+    function save() {
+      try {
+        const ids = boxes.filter((b) => b.checked).map((b) => b.dataset.id!);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+      } catch {
+        /* stockage indisponible : l'outil marche, sans persistance */
+      }
+    }
+
+    function update() {
+      const done = boxes.filter((b) => b.checked).length;
+      root.querySelector<HTMLElement>('#ck-done')!.textContent = String(done);
+      const pct = TOTAL_ITEMS ? Math.round((done / TOTAL_ITEMS) * 100) : 0;
+      root.querySelector<HTMLElement>('#ck-fill')!.style.width = pct + '%';
+      root.querySelector<HTMLElement>('.ck-bar')!.classList.toggle('is-complete', done === TOTAL_ITEMS);
+      root.querySelector<HTMLElement>('#ck-done-msg')!.hidden = done !== TOTAL_ITEMS;
+
+      root.querySelectorAll<HTMLElement>('.ck-phase').forEach((ph) => {
+        const b = [...ph.querySelectorAll<HTMLInputElement>('.ck-box')];
+        const c = b.filter((x) => x.checked).length;
+        const badge = ph.querySelector<HTMLElement>('[data-phase-count]')!;
+        badge.textContent = `${c}/${b.length}`;
+        badge.classList.toggle('is-full', c === b.length && b.length > 0);
+      });
+    }
+
+    // Restauration.
+    const saved = load();
+    boxes.forEach((b) => {
+      if (saved.has(b.dataset.id!)) b.checked = true;
+    });
+    update();
+
+    root.addEventListener('change', (e) => {
+      if ((e.target as HTMLElement).classList.contains('ck-box')) {
+        save();
+        update();
+      }
+    });
+    root.querySelector('.ck-reset')?.addEventListener('click', () => {
+      if (!boxes.some((b) => b.checked) || confirm('Décocher tous les éléments de la checklist ?')) {
+        boxes.forEach((b) => (b.checked = false));
+        save();
+        update();
+        root.querySelector('.ck-bar')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+    root.querySelector('.ck-print')?.addEventListener('click', () => window.print());
+
+    root.classList.add('ckl--js');
+  }
+</script>
+
+<style>
+  .ckl {
+    margin-block: var(--space-6);
+  }
+
+  /* ---- Barre de progression (sticky) ---- */
+  .ck-bar {
+    position: sticky;
+    top: 4.5rem;
+    z-index: 20;
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    box-shadow: var(--shadow-soft);
+  }
+  .ck-bar__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+  .ck-bar__label {
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .ck-bar__count {
+    font-family: var(--font-data);
+    font-size: var(--text-sm);
+    color: var(--ink-80);
+  }
+  .ck-bar__count b {
+    color: var(--ink);
+  }
+  .ck-bar__track {
+    height: 0.55rem;
+    border-radius: var(--radius-full);
+    background: var(--surface-sunk);
+    overflow: hidden;
+  }
+  .ck-bar__fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    border-radius: var(--radius-full);
+    background: var(--grad-aqua);
+    transition: width 0.3s ease;
+  }
+  .ck-bar.is-complete .ck-bar__fill {
+    background: var(--green);
+  }
+
+  .ck-done-msg {
+    margin-top: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--green-tint);
+    color: var(--green-ink);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-sm);
+  }
+
+  /* ---- Phases ---- */
+  .ck-phases {
+    margin-top: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  .ck-phase {
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    background: var(--surface-card);
+    overflow: hidden;
+  }
+  .ck-phase__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-5);
+    background: color-mix(in srgb, var(--surface-sunk) 55%, transparent);
+    border-bottom: var(--rule-hair) solid var(--border-default);
+  }
+  .ck-phase__n {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: var(--radius-full);
+    background: var(--grad-aqua);
+    color: #fff;
+    font-family: var(--font-data);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+  }
+  .ck-phase__title {
+    flex: 1;
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-base);
+    color: var(--ink);
+  }
+  .ck-phase__count {
+    flex: none;
+    font-family: var(--font-data);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-muted);
+  }
+  .ck-phase__count.is-full {
+    color: var(--green-ink);
+  }
+  .ck-list {
+    margin: 0;
+    padding: var(--space-2);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /* ---- Item cochable : ligne entière cliquable ---- */
+  .ck-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: var(--tap-min);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background 0.14s ease;
+  }
+  .ck-item:hover {
+    background: var(--surface-sunk);
+  }
+  /* Case réelle, masquée visuellement mais accessible. */
+  .ck-box {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ck-check {
+    flex: none;
+    position: relative;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: var(--radius-sm);
+    border: var(--rule-medium) solid var(--border-strong);
+    background: var(--surface-card);
+    transition:
+      background 0.16s ease,
+      border-color 0.16s ease;
+  }
+  .ck-check::after {
+    content: '';
+    position: absolute;
+    left: 0.42rem;
+    top: 0.2rem;
+    width: 0.32rem;
+    height: 0.62rem;
+    border: solid #fff;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ck-box:checked ~ .ck-check {
+    background: var(--teal);
+    border-color: var(--teal);
+  }
+  .ck-box:checked ~ .ck-check::after {
+    transform: rotate(45deg) scale(1);
+  }
+  .ck-box:focus-visible ~ .ck-check {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+  }
+  .ck-label {
+    font-size: var(--text-base);
+    line-height: 1.35;
+    color: var(--text-body);
+  }
+  .ck-box:checked ~ .ck-label {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--border-strong);
+  }
+
+  /* ---- Pied : actions ---- */
+  .ck-foot {
+    margin-top: var(--space-5);
+  }
+  .ck-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .ck-reset,
+  .ck-print {
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-full);
+    border: var(--rule-hair) solid var(--border-strong);
+    background: var(--surface-card);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-sm);
+    color: var(--ink-80);
+    cursor: pointer;
+  }
+  .ck-reset:hover,
+  .ck-print:hover {
+    background: var(--surface-sunk);
+  }
+  .ck-note {
+    margin-top: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  /* Sans JS, la barre de progression reste à zéro : on n'affiche pas d'actions
+     qui ne feraient rien. Elles réapparaissent dès que le JS est actif. */
+  .ckl:not(.ckl--js) .ck-actions {
+    display: none;
+  }
+
+  @media print {
+    .ck-bar,
+    .ck-actions,
+    .ck-note {
+      display: none;
+    }
+    .ck-phase {
+      break-inside: avoid;
+    }
+  }
+</style>

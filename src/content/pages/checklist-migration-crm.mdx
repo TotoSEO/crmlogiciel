@@ -1,0 +1,56 @@
+---
+title: "Checklist de migration CRM : ne rien oublier en changeant d'outil"
+metaDescription: "La checklist complète pour migrer de CRM sans perdre de données : préparation, nettoyage, mapping, tests, bascule. Cochez chaque étape et suivez votre progression."
+h1: 'La checklist pour réussir sa migration de CRM'
+excerpt: "Une migration rate rarement sur une grosse erreur, presque toujours sur un petit oubli. Cochez chaque étape, de la préparation à la bascule, et suivez votre progression."
+cluster: transverse
+type: satellite
+datePublished: 2026-07-07
+featuredImage: /images/articles/checklist-migration-crm.jpg
+featuredImageAlt: "Une planchette en bois tenant une fiche de checklist où plusieurs cases sont cochées, à côté d'un crayon, illustration d'une migration de CRM méthodique"
+enBref:
+  - 'Une migration rate presque toujours sur un oubli, pas sur une grosse erreur.'
+  - 'Cette checklist couvre les six phases, de la préparation à la bascule.'
+  - 'Nettoyez avant de migrer : importer un fichier sale reproduit le désordre dans le nouvel outil.'
+  - "Ne migrez que le vivant : c'est l'occasion de laisser derrière vous les contacts morts."
+  - 'Cochez au fur et à mesure : votre progression est sauvegardée pour reprendre plus tard.'
+faq:
+  - question: "Comment migrer d'un CRM à un autre sans perdre de données ?"
+    answer: "En sauvegardant l'ancien système, en nettoyant les données avant l'import, puis en testant l'import sur un échantillon avant de basculer le volume complet. La checklist vous guide à chaque étape."
+  - question: 'Combien de temps prend une migration de CRM ?'
+    answer: "De quelques jours pour une petite base propre à plusieurs semaines pour un gros volume ou des données en désordre. Le nettoyage préalable est ce qui pèse le plus sur le calendrier."
+  - question: 'Faut-il tout migrer vers le nouveau CRM ?'
+    answer: "Non. Une migration est l'occasion de ne reprendre que les contacts et les affaires encore vivants. Migrer les données mortes ne fait qu'alourdir et salir le nouvel outil."
+  - question: "Quand arrêter l'ancien CRM ?"
+    answer: "Pas tout de suite. Gardez-le accessible en lecture pendant une période de double roulement, le temps de vérifier que rien ne manque et que l'équipe a pris ses marques."
+---
+
+import ChecklistMigration from '../../components/ChecklistMigration.astro';
+
+Changer de CRM effraie surtout pour deux raisons : perdre des données en route, et perdre l'équipe qui devra tout réapprendre. Les deux s'évitent avec de la méthode, et surtout en ne sautant aucune étape. Une migration ne rate presque jamais sur une grosse erreur, mais sur un petit oubli : un export incomplet, un champ non mappé, une sauvegarde négligée. La checklist ci-dessous liste tout ce qu'il faut cocher, phase par phase, et garde la trace de votre avancement.
+
+<ChecklistMigration />
+
+## Les six phases d'une migration
+
+- **Préparation et cadrage** : objectif, périmètre, responsable, date, et surtout une sauvegarde complète de l'ancien système.
+- **Nettoyage des données** : doublons, formats, champs vides, en ne gardant que les contacts encore utiles.
+- **Choix et paramétrage** : recréer les étapes de vente, les champs et les droits dans le nouvel outil.
+- **Mapping et import** : faire correspondre chaque colonne, puis tester l'import sur un échantillon avant le gros volume.
+- **Tests et vérification** : contrôler les données importées, rejouer les scénarios clés, former l'équipe.
+- **Bascule et suivi** : basculer, garder l'ancien outil en secours un temps, puis vérifier l'adoption.
+
+Pour la méthode détaillée derrière chaque phase, suivez [notre guide de migration](/migration-crm/).
+
+## Les oublis qui coûtent cher
+
+- **Ne pas sauvegarder l'ancien système** avant de commencer.
+- **Importer sans nettoyer**, et donc recopier le désordre dans le nouvel outil.
+- **Tout migrer**, y compris les contacts morts et les données obsolètes.
+- **Sauter l'import test** sur un échantillon avant le grand saut.
+- **Négliger la formation**, et voir l'équipe déserter le nouvel outil.
+- **Couper l'ancien CRM trop tôt**, sans période de double roulement.
+
+## Avant de migrer : cadrer et préparer
+
+Une migration réussie commence en amont. Si vous n'avez pas encore formalisé vos besoins, un [cahier des charges](/cahier-des-charges-crm/) évite de reproduire les défauts de l'ancien outil, et la bascule s'inscrit dans un projet plus large de [mise en place](/mise-en-place-crm/).
