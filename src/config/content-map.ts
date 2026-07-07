@@ -137,6 +137,12 @@ export const PAGES: PageNode[] = [
     label: "Ai-je besoin d'un CRM ?",
     cluster: 'comprendre',
   },
+  {
+    slug: 'notion-ou-crm',
+    label: 'CRM ou Notion / Airtable ?',
+    breadcrumbLabel: 'CRM ou Notion',
+    cluster: 'comprendre',
+  },
   { slug: 'lexique-crm', label: 'Lexique du CRM', cluster: 'comprendre' },
 
   // Choisir (6)
@@ -150,6 +156,12 @@ export const PAGES: PageNode[] = [
     slug: 'prix-crm',
     label: 'Prix d’un CRM : combien ça coûte vraiment',
     breadcrumbLabel: "Prix d'un CRM",
+    cluster: 'choisir',
+  },
+  {
+    slug: 'crm-rentable',
+    label: 'Un CRM est-il rentable ?',
+    breadcrumbLabel: 'Rentabilité d’un CRM',
     cluster: 'choisir',
   },
   {
