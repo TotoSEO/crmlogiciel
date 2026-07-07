@@ -1,15 +1,18 @@
 ---
 /**
- * CalculateurRoi — estime le ROI d'un CRM à partir des chiffres du visiteur.
+ * CalculateurRoi — met en balance ce qu'un CRM vous fait GAGNER (ventes
+ * récupérées, meilleure conversion, temps gagné) et ce qu'il vous COÛTE
+ * (abonnement + temps passé à l'alimenter + mise en place). Résultat clé :
+ * le gain NET annuel et le délai d'amortissement.
+ *
  * Deux modes (simple / avancé), calcul en TEMPS RÉEL, saisie à gauche et
  * résultats à droite (empilés en mobile, avec un rappel du résultat clé qui
- * suit le défilement). Aucune collecte de donnée, aucun mur.
- *
- * Rendu côté serveur : les champs (préremplis) et un exemple de résultat sont
- * dans la source. Sans JS, les champs et la méthode restent lisibles ; le calcul
- * interactif nécessite JavaScript (note affichée).
+ * suit le défilement). Base de facturation au choix (par utilisateur ou
+ * forfait). En mode avancé, les champs peuvent rester vides (comptés à 0).
+ * Aucune collecte de donnée, aucun mur.
  */
-import { SIMPLE, ADVANCED, compute, defaults, fmtEur, fmtRoi, fmtDelai } from '../data/calculateur-roi';
+import { SIMPLE, ADVANCED, BILLING_OPTIONS, compute, defaults, fmtEur, fmtRoi, fmtDelai } from '../data/calculateur-roi';
+import type { Field } from '../data/calculateur-roi';
 
 const d = compute('simple', defaults(SIMPLE));
 const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
@@ -28,59 +31,76 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
   <div class="roi-grid">
     {/* ------- Saisie ------- */}
     <div class="roi-form">
-      <div class="roi-fields" data-mode="simple">
-        {
-          SIMPLE.map((f) => (
-            <label class="roi-field">
-              <span class="roi-field__label">{f.label}</span>
-              <span class="roi-field__wrap" data-suffix={suffix[f.unit]}>
-                <input
-                  class="roi-input"
-                  id={`roi-simple-${f.key}`}
-                  data-key={f.key}
-                  data-def={f.def}
-                  type="number"
-                  value={f.def}
-                  min={f.min}
-                  step={f.step}
-                  inputmode="decimal"
-                />
-              </span>
-              {f.hint && <span class="roi-field__hint">{f.hint}</span>}
-            </label>
-          ))
-        }
-      </div>
+      {
+        (['simple', 'avance'] as const).map((m) => (
+          <div class="roi-fields" data-mode={m} hidden={m !== 'simple'}>
+            {(m === 'simple' ? SIMPLE : ADVANCED).map((f: Field) => (
+              <div class="roi-field">
+                <div class="roi-field__head">
+                  <label class="roi-field__label" for={`roi-${m}-${f.key}`}>
+                    {f.label}
+                  </label>
+                  {f.optional && <span class="roi-field__opt">facultatif</span>}
+                  {f.help && (
+                    <span class="roi-help" tabindex="0" role="note" aria-label={`Aide : ${f.help}`}>
+                      ?<span class="roi-tip" role="tooltip">{f.help}</span>
+                    </span>
+                  )}
+                </div>
 
-      <div class="roi-fields" data-mode="avance" hidden>
-        {
-          ADVANCED.map((f) => (
-            <label class="roi-field">
-              <span class="roi-field__label">{f.label}</span>
-              <span class="roi-field__wrap" data-suffix={suffix[f.unit]}>
-                <input
-                  class="roi-input"
-                  id={`roi-avance-${f.key}`}
-                  data-key={f.key}
-                  data-def={f.def}
-                  type="number"
-                  value={f.def}
-                  min={f.min}
-                  step={f.step}
-                  inputmode="decimal"
-                />
-              </span>
-              {f.hint && <span class="roi-field__hint">{f.hint}</span>}
-            </label>
-          ))
-        }
-      </div>
+                {f.key === 'budget' ? (
+                  <div class="roi-field__wrap roi-field__wrap--budget">
+                    <span class="roi-money" data-suffix="€">
+                      <input
+                        class="roi-input"
+                        id={`roi-${m}-${f.key}`}
+                        data-key={f.key}
+                        data-def={f.def}
+                        type="number"
+                        value={f.def}
+                        min={f.min}
+                        step={f.step}
+                        inputmode="decimal"
+                      />
+                    </span>
+                    <select class="roi-billing" id={`roi-${m}-billing`} aria-label="Base de facturation du CRM">
+                      {BILLING_OPTIONS.map((o) => (
+                        <option value={o.value} selected={o.value === 'user-month'}>
+                          {o.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ) : (
+                  <span class="roi-field__wrap" data-suffix={suffix[f.unit]}>
+                    <input
+                      class="roi-input"
+                      id={`roi-${m}-${f.key}`}
+                      data-key={f.key}
+                      data-def={f.def}
+                      type="number"
+                      value={f.def}
+                      placeholder={f.optional ? String(f.def) : undefined}
+                      min={f.min}
+                      step={f.step}
+                      inputmode="decimal"
+                    />
+                  </span>
+                )}
+
+                {f.hint && <span class="roi-field__hint">{f.hint}</span>}
+              </div>
+            ))}
+          </div>
+        ))
+      }
 
       <div class="roi-form__foot">
         <button type="button" class="roi-reset">↻ Réinitialiser</button>
         <p class="roi-note">
-          Hypothèses prudentes et modifiables. Aucune donnée n'est collectée. Résultat = estimation,
-          pas une garantie. <br />ROI = chiffre d'affaires additionnel ÷ coût annuel du CRM.
+          Hypothèses prudentes et modifiables. En mode avancé, un champ laissé vide compte pour
+          zéro. Aucune donnée n'est collectée, le résultat est une estimation.
+          <br />Gain net = valeur créée − coût total (abonnement + temps + mise en place).
         </p>
       </div>
     </div>
@@ -89,47 +109,43 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
     <div class="roi-out">
       <p class="roi-out__kicker is-data">Votre estimation</p>
       <div class="roi-hero">
-        <p class="roi-hero__val is-data" id="roi-ca">{fmtEur(d.ca)}</p>
-        <p class="roi-hero__label">de chiffre d'affaires additionnel estimé par an</p>
+        <p class="roi-hero__val is-data" id="roi-net">{fmtEur(d.net)}</p>
+        <p class="roi-hero__label">
+          de gain net estimé la première année
+          <span class="roi-hero__sub">valeur créée par le CRM, une fois son coût déduit</span>
+        </p>
       </div>
 
-      <div class="roi-levers" hidden>
-        <p class="roi-levers__title">Détail par levier</p>
-        <ul class="roi-levers__list">
-          <li>
-            Ventes récupérées <span class="is-data" id="roi-recuperees">—</span>
-          </li>
-          <li>
-            Meilleure conversion <span class="is-data" id="roi-conversion">—</span>
-          </li>
-          <li>
-            Temps gagné <span class="is-data" id="roi-temps">—</span>
-          </li>
-        </ul>
+      <p class="roi-payback" id="roi-payback">
+        <span class="roi-payback__icon" aria-hidden="true">⏱</span>
+        <span>CRM amorti en <b class="is-data" id="roi-delai">{fmtDelai(d.delai)}</b></span>
+      </p>
+
+      <div class="roi-break">
+        <div class="roi-break__col roi-break__col--gain">
+          <p class="roi-break__title">Ce que le CRM vous fait gagner</p>
+          <ul class="roi-break__list">
+            <li class="roi-adv-only"><span>Ventes récupérées</span><span class="is-data" id="roi-recuperees">—</span></li>
+            <li class="roi-adv-only"><span>Meilleure conversion</span><span class="is-data" id="roi-conversion">—</span></li>
+            <li class="roi-adv-only"><span>Temps gagné</span><span class="is-data" id="roi-temps">—</span></li>
+            <li class="roi-break__total"><span>Valeur créée / an</span><span class="is-data" id="roi-valeur">{fmtEur(d.valeur)}</span></li>
+          </ul>
+        </div>
+        <div class="roi-break__col roi-break__col--cost">
+          <p class="roi-break__title">Ce que le CRM vous coûte</p>
+          <ul class="roi-break__list">
+            <li class="roi-adv-only"><span>Abonnement</span><span class="is-data" id="roi-cout-abo">{fmtEur(d.coutAbo)}</span></li>
+            <li class="roi-adv-only"><span>Temps passé à l'alimenter</span><span class="is-data" id="roi-cout-temps">—</span></li>
+            <li class="roi-adv-only"><span>Mise en place</span><span class="is-data" id="roi-cout-setup">—</span></li>
+            <li class="roi-break__total"><span>Coût total / an</span><span class="is-data" id="roi-cout">{fmtEur(d.cout)}</span></li>
+          </ul>
+        </div>
       </div>
 
-      <dl class="roi-metrics">
-        <div class="roi-metric">
-          <dt>Coût annuel du CRM</dt>
-          <dd class="is-data" id="roi-cout">{fmtEur(d.cout)}</dd>
-        </div>
-        <div class="roi-metric">
-          <dt>Gain net annuel</dt>
-          <dd class="is-data" id="roi-net">{fmtEur(d.net)}</dd>
-        </div>
-        <div class="roi-metric">
-          <dt>Retour sur investissement</dt>
-          <dd class="is-data" id="roi-roi">{fmtRoi(d.roi)}</dd>
-        </div>
-        <div class="roi-metric">
-          <dt>Délai de rentabilité</dt>
-          <dd class="is-data" id="roi-delai">{fmtDelai(d.delai)}</dd>
-        </div>
-      </dl>
-
-      <p class="roi-table">
-        Ce que vous laissez sur la table chaque année :
-        <b class="is-data" id="roi-table">{fmtEur(d.ca)}</b>
+      <p class="roi-ratio">
+        Retour sur investissement estimé :
+        <b class="is-data" id="roi-roi">{fmtRoi(d.roi)}</b>
+        <span class="roi-ratio__hint" id="roi-roi-hint">chaque euro investi en rapporte {d.roi ? fmtRoi(d.roi) : '—'}</span>
       </p>
 
       <div class="roi-out__cta">
@@ -140,20 +156,22 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
   </div>
 
   <div class="roi-recall" aria-hidden="true">
-    <span class="roi-recall__label">CA additionnel / an</span>
-    <span class="roi-recall__val is-data" id="roi-recall">{fmtEur(d.ca)}</span>
+    <span class="roi-recall__label">Gain net / an</span>
+    <span class="roi-recall__val is-data" id="roi-recall">{fmtEur(d.net)}</span>
   </div>
 
   <noscript>
     <p class="roi-noscript">
       Le calcul en temps réel nécessite JavaScript. Les champs ci-dessus et la méthode plus bas
-      restent consultables. Formule : <em>ROI = chiffre d'affaires additionnel ÷ coût annuel du CRM</em>.
+      restent consultables. Principe : <em>gain net = valeur créée par le CRM − son coût total
+      (abonnement, temps passé à l'alimenter, mise en place)</em>.
     </p>
   </noscript>
 </section>
 
 <script>
   import { compute, fmtEur, fmtRoi, fmtDelai } from '../data/calculateur-roi';
+  import type { Billing } from '../data/calculateur-roi';
 
   const rootEl = document.querySelector<HTMLElement>('.roi');
   if (rootEl) {
@@ -170,34 +188,57 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
       panel(mode)
         .querySelectorAll<HTMLInputElement>('.roi-input')
         .forEach((inp) => {
-          out[inp.dataset.key!] = parseFloat(inp.value);
+          out[inp.dataset.key!] = inp.value === '' ? NaN : parseFloat(inp.value);
         });
       return out;
     }
 
+    function readBilling(): Billing {
+      const sel = panel(mode).querySelector<HTMLSelectElement>('.roi-billing');
+      return (sel?.value as Billing) ?? 'user-month';
+    }
+
     function render() {
-      const r = compute(mode, readValues());
-      set('roi-ca', fmtEur(r.ca));
-      set('roi-recall', fmtEur(r.ca));
-      set('roi-table', fmtEur(r.ca));
-      set('roi-cout', fmtEur(r.cout));
+      const r = compute(mode, readValues(), readBilling());
+
+      // Résultat clé + rappel mobile.
       set('roi-net', fmtEur(r.net));
-      set('roi-roi', fmtRoi(r.roi));
-      set('roi-delai', fmtDelai(r.delai));
-      const levers = root.querySelector<HTMLElement>('.roi-levers')!;
-      levers.hidden = mode !== 'avance';
+      set('roi-recall', fmtEur(r.net));
+      root.querySelector<HTMLElement>('#roi-net')?.classList.toggle('is-neg', r.net < 0);
+
+      // Amortissement / avertissement selon la rentabilité.
+      const payback = root.querySelector<HTMLElement>('#roi-payback');
+      if (payback) {
+        payback.classList.toggle('is-neg', r.net < 0);
+        if (r.net >= 0 && r.delai != null) {
+          payback.innerHTML = `<span class="roi-payback__icon" aria-hidden="true">⏱</span><span>CRM amorti en <b class="is-data">${fmtDelai(r.delai)}</b></span>`;
+        } else {
+          payback.innerHTML = `<span class="roi-payback__icon" aria-hidden="true">⚠️</span><span>Pas rentable avec ces hypothèses — ajustez les chiffres</span>`;
+        }
+      }
+
+      // Détail gains / coûts.
+      set('roi-valeur', fmtEur(r.valeur));
+      set('roi-cout', fmtEur(r.cout));
+      set('roi-cout-abo', fmtEur(r.coutAbo));
       if (mode === 'avance') {
         set('roi-recuperees', fmtEur(r.recuperees ?? 0));
         set('roi-conversion', fmtEur(r.conversion ?? 0));
         set('roi-temps', fmtEur(r.temps ?? 0));
+        set('roi-cout-temps', fmtEur(r.coutTemps ?? 0));
+        set('roi-cout-setup', fmtEur(r.coutSetup ?? 0));
       }
-      root.querySelector<HTMLElement>('#roi-net')?.classList.toggle('is-neg', r.net < 0);
+
+      // Ratio ROI.
+      set('roi-roi', fmtRoi(r.roi));
+      set('roi-roi-hint', r.roi ? `chaque euro investi en rapporte ${fmtRoi(r.roi)}` : 'renseignez un coût');
     }
 
     function setMode(m: 'simple' | 'avance') {
       mode = m;
       panel('simple').hidden = m !== 'simple';
       panel('avance').hidden = m !== 'avance';
+      root.classList.toggle('roi--advanced', m === 'avance');
       root.querySelectorAll<HTMLButtonElement>('.roi-switch__btn').forEach((b) => {
         const on = b.dataset.modeBtn === m;
         b.classList.toggle('is-active', on);
@@ -207,16 +248,20 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
     }
 
     function reset() {
-      panel(mode)
-        .querySelectorAll<HTMLInputElement>('.roi-input')
-        .forEach((inp) => {
-          inp.value = inp.dataset.def ?? '';
-        });
+      const p = panel(mode);
+      p.querySelectorAll<HTMLInputElement>('.roi-input').forEach((inp) => {
+        inp.value = inp.dataset.def ?? '';
+      });
+      const sel = p.querySelector<HTMLSelectElement>('.roi-billing');
+      if (sel) sel.value = 'user-month';
       render();
     }
 
     root.addEventListener('input', (e) => {
       if ((e.target as HTMLElement).closest('.roi-input')) render();
+    });
+    root.addEventListener('change', (e) => {
+      if ((e.target as HTMLElement).closest('.roi-billing')) render();
     });
     root.addEventListener('click', (e) => {
       const t = e.target as HTMLElement;
@@ -288,16 +333,81 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
     display: grid;
     gap: var(--space-2);
   }
+  .roi-field__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
   .roi-field__label {
     font-family: var(--font-ui);
     font-size: var(--text-sm);
     font-weight: var(--font-weight-semibold);
     color: var(--ink-80);
   }
+  .roi-field__opt {
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-full);
+    background: var(--surface-sunk);
+  }
+  /* ---- Bulle d'aide « ? » ---- */
+  .roi-help {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 1.15rem;
+    height: 1.15rem;
+    flex: none;
+    border-radius: var(--radius-full);
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    cursor: help;
+  }
+  .roi-tip {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 5;
+    width: max-content;
+    max-width: min(240px, 72vw);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-regular);
+    line-height: 1.45;
+    letter-spacing: 0;
+    text-transform: none;
+    box-shadow: var(--shadow-raise);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition:
+      opacity 0.16s ease,
+      transform 0.16s ease,
+      visibility 0.16s;
+  }
+  .roi-help:hover .roi-tip,
+  .roi-help:focus .roi-tip,
+  .roi-help:focus-visible .roi-tip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
   .roi-field__wrap {
     position: relative;
   }
-  .roi-field__wrap[data-suffix]:not([data-suffix=''])::after {
+  .roi-field__wrap[data-suffix]:not([data-suffix=''])::after,
+  .roi-money[data-suffix]:not([data-suffix=''])::after {
     content: attr(data-suffix);
     position: absolute;
     top: 50%;
@@ -307,6 +417,16 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
     font-size: var(--text-sm);
     color: var(--text-muted);
     pointer-events: none;
+  }
+  /* Champ budget : montant + base de facturation côte à côte */
+  .roi-field__wrap--budget {
+    display: flex;
+    gap: var(--space-2);
+    align-items: stretch;
+  }
+  .roi-money {
+    position: relative;
+    flex: 0 0 8.5rem;
   }
   .roi-input {
     width: 100%;
@@ -321,10 +441,25 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
     font-weight: var(--font-weight-semibold);
     color: var(--ink);
   }
-  .roi-input:focus-visible {
+  .roi-input:focus-visible,
+  .roi-billing:focus-visible {
     outline: none;
     border-color: var(--blue);
     box-shadow: var(--shadow-glow);
+  }
+  .roi-billing {
+    flex: 1;
+    min-width: 0;
+    min-height: var(--tap-min);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    border: var(--rule-medium) solid var(--border-strong);
+    background: var(--surface-card);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--ink-80);
+    cursor: pointer;
   }
   .roi-field__hint {
     font-size: var(--text-xs);
@@ -373,8 +508,6 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
   }
   .roi-hero {
     margin-top: var(--space-2);
-    padding-bottom: var(--space-5);
-    border-bottom: var(--rule-hair) solid var(--border-default);
   }
   .roi-hero__val {
     font-family: var(--font-data);
@@ -384,15 +517,66 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
     line-height: 1;
     color: var(--blue-ink);
   }
+  .roi-hero__val.is-neg {
+    color: var(--minium, #c0362c);
+  }
   .roi-hero__label {
     margin-top: var(--space-2);
     font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--ink-80);
+  }
+  .roi-hero__sub {
+    display: block;
+    margin-top: 2px;
+    font-weight: var(--font-weight-regular);
     color: var(--text-muted);
   }
-  .roi-levers {
+  /* ---- Amortissement ---- */
+  .roi-payback {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
     margin-top: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--green-tint);
+    color: var(--green-ink);
+    font-size: var(--text-sm);
+    line-height: 1.3;
   }
-  .roi-levers__title {
+  .roi-payback b {
+    font-family: var(--font-data);
+    font-weight: var(--font-weight-bold);
+  }
+  .roi-payback.is-neg {
+    background: var(--orange-tint);
+    color: var(--orange-ink);
+  }
+  .roi-payback__icon {
+    font-size: var(--text-base);
+  }
+
+  /* ---- Détail gains / coûts ---- */
+  .roi-break {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+  .roi-break__col {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--surface-card);
+    border: var(--rule-hair) solid var(--border-default);
+  }
+  .roi-break__col--gain {
+    border-top: var(--rule-strong) solid var(--green);
+  }
+  .roi-break__col--cost {
+    border-top: var(--rule-strong) solid var(--orange);
+  }
+  .roi-break__title {
     font-family: var(--font-ui);
     font-size: var(--text-2xs);
     font-weight: var(--font-weight-bold);
@@ -400,8 +584,9 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
     text-transform: uppercase;
     color: var(--text-muted);
     margin-bottom: var(--space-2);
+    line-height: 1.3;
   }
-  .roi-levers__list {
+  .roi-break__list {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -409,58 +594,54 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
     flex-direction: column;
     gap: var(--space-1);
   }
-  .roi-levers__list li {
+  .roi-break__list li {
     display: flex;
     justify-content: space-between;
-    gap: var(--space-4);
+    gap: var(--space-3);
     font-size: var(--text-sm);
     color: var(--text-body);
   }
-  .roi-levers__list .is-data {
+  .roi-break__list .is-data {
     font-family: var(--font-data);
     font-weight: var(--font-weight-semibold);
     color: var(--ink);
+    white-space: nowrap;
   }
-  .roi-metrics {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-3);
-    margin: var(--space-5) 0 0;
+  .roi-break__total {
+    margin-top: var(--space-2);
+    padding-top: var(--space-2);
+    border-top: var(--rule-hair) solid var(--border-default);
+    font-weight: var(--font-weight-semibold);
   }
-  .roi-metric {
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-md);
-    background: var(--surface-card);
-    border: var(--rule-hair) solid var(--border-default);
+  .roi-break__total .is-data {
+    font-weight: var(--font-weight-bold);
   }
-  .roi-metric dt {
-    font-size: var(--text-2xs);
+  /* Les lignes de détail par levier n'apparaissent qu'en mode avancé. */
+  .roi-adv-only {
+    display: none;
+  }
+  .roi--advanced .roi-adv-only {
+    display: flex;
+  }
+
+  /* ---- Ratio ROI ---- */
+  .roi-ratio {
+    margin-top: var(--space-5);
+    font-size: var(--text-sm);
+    color: var(--text-body);
+  }
+  .roi-ratio b {
+    font-family: var(--font-data);
+    font-weight: var(--font-weight-bold);
+    color: var(--blue-ink);
+  }
+  .roi-ratio__hint {
+    display: block;
+    margin-top: 2px;
+    font-size: var(--text-xs);
     color: var(--text-muted);
   }
-  .roi-metric dd {
-    margin: 2px 0 0;
-    font-family: var(--font-data);
-    font-feature-settings: var(--num-tabular);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--text-xl);
-    color: var(--ink);
-  }
-  .roi-metric dd.is-neg {
-    color: var(--minium-ink, var(--text-muted));
-  }
-  .roi-table {
-    margin-top: var(--space-5);
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-md);
-    background: var(--orange-tint);
-    color: var(--orange-ink);
-    font-size: var(--text-sm);
-    line-height: 1.4;
-  }
-  .roi-table b {
-    font-family: var(--font-data);
-    font-weight: var(--font-weight-bold);
-  }
+
   .roi-out__cta {
     display: flex;
     flex-wrap: wrap;
@@ -536,6 +717,18 @@ const suffix = { eur: '€', pct: '%', h: 'h', num: '' } as const;
       font-family: var(--font-data);
       font-weight: var(--font-weight-bold);
       font-size: var(--text-lg);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .roi-break {
+      grid-template-columns: 1fr;
+    }
+    .roi-field__wrap--budget {
+      flex-direction: column;
+    }
+    .roi-money {
+      flex: none;
     }
   }
 </style>

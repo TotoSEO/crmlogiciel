@@ -32,7 +32,17 @@ const faqItems = [
   {
     question: 'Sur quoi reposent les estimations ?',
     answer:
-      'Sur des leviers concrets : ventes récupérées par un meilleur suivi, gain de conversion et temps économisé. Les valeurs par défaut sont volontairement conservatrices et modifiables.',
+      'On met en balance des leviers concrets — ventes récupérées par un meilleur suivi, gain de conversion, temps économisé — et les coûts réels, dont le temps passé à alimenter le CRM et la mise en place. Les valeurs par défaut sont volontairement conservatrices et modifiables.',
+  },
+  {
+    question: 'Tous les CRM sont-ils facturés par utilisateur ?',
+    answer:
+      'Non. Beaucoup facturent par utilisateur et par mois, mais d’autres proposent un forfait unique, au mois ou à l’année, quel que soit le nombre d’utilisateurs. Le calculateur vous laisse choisir la base de facturation pour coller à votre offre.',
+  },
+  {
+    question: 'Que faire si je ne connais pas tous les chiffres ?',
+    answer:
+      'En mode avancé, laissez vides les champs que vous ignorez : ils comptent pour zéro et le levier correspondant n’est simplement pas pris en compte. Le résultat reste cohérent avec ce que vous savez.',
   },
   {
     question: 'Dois-je donner mon email pour voir le résultat ?',
@@ -44,7 +54,7 @@ const pageSchema = graph(
   article({
     headline: 'Calculer le ROI de mon CRM en ligne',
     description:
-      'Calculez gratuitement le ROI de votre CRM en 2 minutes : chiffre d’affaires additionnel, gain net, retour sur investissement et délai de rentabilité, sans inscription.',
+      'Calculez gratuitement le ROI de votre CRM en 2 minutes : gain net, délai d’amortissement et retour sur investissement, gains face aux coûts (dont le temps), sans inscription.',
     slug,
     datePublished: '2026-07-01',
     dateModified: '2026-07-01',
@@ -58,7 +68,7 @@ const pageSchema = graph(
 
 <BaseLayout
   title="Calculateur ROI CRM : Résultats gratuits en 2 minutes"
-  description="Calculez gratuitement le ROI de votre CRM en 2 minutes : chiffre d'affaires additionnel, gain net, retour sur investissement et délai de rentabilité, sans inscription."
+  description="Calculez gratuitement le ROI de votre CRM en 2 minutes : gain net, délai d'amortissement et retour sur investissement, gains face aux coûts (dont le temps), sans inscription."
   canonicalSlug={slug}
   ogType="website"
   rawTitle
@@ -77,10 +87,12 @@ const pageSchema = graph(
       <p class="rhero__kicker is-data">Boîte à outils · Gratuit</p>
       <h1 class="rhero__title">Calculer le ROI de mon CRM en ligne</h1>
       <p class="rhero__lead">
-        Combien un CRM peut-il vous rapporter, concrètement ? Cet outil estime votre retour sur
-        investissement à partir de vos propres chiffres, en temps réel, gratuitement et sans
-        inscription. Choisissez le mode <strong>simple</strong> pour un ordre de grandeur en deux
-        minutes, ou le mode <strong>avancé</strong> pour affiner avec votre tunnel de vente.
+        Combien un CRM peut-il vous rapporter, une fois son coût déduit ? Cet outil met en balance
+        ce qu'un CRM vous fait <strong>gagner</strong> (ventes récupérées, meilleure conversion,
+        temps gagné) et ce qu'il vous <strong>coûte</strong> (abonnement, temps passé à l'alimenter,
+        mise en place), à partir de vos propres chiffres et en temps réel. Mode <strong>simple</strong>
+        pour un ordre de grandeur en deux minutes, mode <strong>avancé</strong> pour affiner avec
+        votre tunnel de vente. Gratuit, sans inscription.
       </p>
     </div>
   </section>
@@ -92,23 +104,28 @@ const pageSchema = graph(
   <div class="container roi-content">
     <div class="prose">
       <h2>Comment lire votre résultat</h2>
-      <p>Le calculateur affiche plusieurs chiffres :</p>
+      <p>Le calculateur met en avant deux chiffres clés, puis leur détail :</p>
       <ul>
         <li>
-          <strong>Le chiffre d'affaires additionnel estimé</strong> : ce qu'un CRM bien utilisé peut
-          vous faire gagner en un an.
+          <strong>Le gain net annuel</strong> : votre bénéfice réel, c'est-à-dire la valeur que le
+          CRM vous fait gagner une fois son coût total déduit. C'est le résultat qui compte.
         </li>
         <li>
-          <strong>Le coût annuel de l'outil</strong> : l'abonnement rapporté au nombre
-          d'utilisateurs, dont <a href={path('prix-crm')}>le prix varie selon les fonctions</a>.
-        </li>
-        <li><strong>Le gain net</strong> : la différence entre les deux, votre bénéfice réel.</li>
-        <li>
-          <strong>Le ROI</strong> : combien chaque euro investi vous rapporte, exprimé en multiple.
+          <strong>Le délai d'amortissement</strong> : au bout de combien de mois le CRM est
+          remboursé. S'il n'est pas rentable avec vos hypothèses, l'outil vous le dit franchement.
         </li>
         <li>
-          <strong>Le délai de rentabilité</strong> : le nombre de mois au bout duquel l'outil est
-          remboursé.
+          <strong>La valeur créée</strong> : ce que le CRM vous fait gagner, ventilé en mode avancé
+          entre ventes récupérées, meilleure conversion et temps gagné.
+        </li>
+        <li>
+          <strong>Le coût total</strong> : l'abonnement, dont
+          <a href={path('prix-crm')}>le prix varie selon les fonctions</a>, mais aussi le temps
+          passé à alimenter l'outil et les frais de mise en place.
+        </li>
+        <li>
+          <strong>Le retour sur investissement</strong> : combien chaque euro investi vous rapporte,
+          exprimé en multiple.
         </li>
       </ul>
 
@@ -118,7 +135,9 @@ const pageSchema = graph(
         les ventes récupérées grâce à
         <a href={path('automatisation-commerciale')}>des relances qui ne s'oublient plus</a>,
         l'amélioration du taux de conversion grâce à un suivi rigoureux, et le temps gagné sur la
-        recherche d'informations. Pour comprendre en détail pourquoi et comment
+        recherche d'informations. Mais un CRM a aussi un coût que beaucoup oublient : le
+        <strong>temps</strong> qu'il faut pour le remplir et le tenir à jour. L'outil le déduit des
+        gains, pour une estimation honnête. Pour comprendre en détail pourquoi et comment
         <a href={path('crm-rentable')}> un CRM devient rentable</a>, nous y consacrons un guide
         complet.
       </p>
@@ -126,8 +145,11 @@ const pageSchema = graph(
       <h2>Comment le calcul est fait</h2>
       <p>
         Les valeurs par défaut sont des hypothèses prudentes, inspirées du bon sens commercial, et
-        toutes modifiables : le résultat n'a de valeur qu'avec vos propres chiffres. Aucune donnée
-        n'est collectée, aucun email demandé. Ce calcul reste une estimation et ne garantit pas un
+        toutes modifiables : le résultat n'a de valeur qu'avec vos propres chiffres. En mode avancé,
+        un champ que vous ne connaissez pas peut rester vide, il compte alors pour zéro. Le budget
+        s'ajuste à la façon dont votre CRM est facturé — par utilisateur ou en forfait, au mois ou à
+        l'année — car tous les éditeurs ne facturent pas de la même manière. Aucune donnée n'est
+        collectée, aucun email demandé. Ce calcul reste une estimation et ne garantit pas un
         résultat financier réel.
       </p>
 

@@ -1,20 +1,20 @@
 ---
 /**
- * Navigation principale — crm-logiciel.fr (deux étages)
+ * Navigation — crm-logiciel.fr (deux étages)
  *
- * 1. Sur-menu (.topbar) : barre supérieure NON sticky, alignée à droite, qui
- *    porte les trois entrées transverses — Boîte à outils, CRM gratuits et le
- *    Test de connaissances. Elle défile avec la page (disparaît au scroll).
- * 2. Menu principal (.site-header) : barre STICKY avec la marque et les clusters
- *    Comprendre / Choisir / Utiliser + Comparer les CRM.
+ * 1. Sur-menu (.topbar) : barre utilitaire slim, NON sticky, alignée à droite,
+ *    au design distinct du menu principal (petit texte, icônes). Elle porte les
+ *    entrées transverses : Boîte à outils, CRM gratuits, Test de connaissances.
+ * 2. Menu principal (.site-header) : barre STICKY, marque + clusters Comprendre /
+ *    Choisir / Utiliser, alignés À GAUCHE après la marque.
  *
- * En mobile (≤ 860px), tout bascule dans le menu hamburger : les clusters puis,
- * sous un séparateur, les entrées du sur-menu. Menu mobile sans JavaScript (hack
- * de la case à cocher) ; déroulants desktop en CSS (hover + focus-within).
- * Chaque élément de nav est rendu par le composant autonome <NavItemLi>.
+ * En mobile (≤ 860px) tout se replie dans le hamburger : les clusters puis, sous
+ * un séparateur, les entrées du sur-menu. Menu mobile sans JavaScript (case à
+ * cocher) ; déroulants desktop en CSS (hover + focus-within).
  */
 import { navTree, topbarNav } from '../config/content-map';
 import NavItemLi from './NavItemLi.astro';
+import TopbarItem from './TopbarItem.astro';
 import { path, SITE } from '../config/site';
 
 const mainItems = navTree();
@@ -28,7 +28,7 @@ const currentPath = path(Astro.url.pathname.replace(/^\/+|\/+$/g, ''));
   <div class="topbar__inner container">
     <nav class="topbar__nav" aria-label="Outils et raccourcis">
       <ul class="topbar__list">
-        {topItems.map((item) => <NavItemLi item={item} currentPath={currentPath} />)}
+        {topItems.map((item) => <TopbarItem item={item} currentPath={currentPath} />)}
       </ul>
     </nav>
   </div>
@@ -55,7 +55,7 @@ const currentPath = path(Astro.url.pathname.replace(/^\/+|\/+$/g, ''));
         <li class="nav-list__top">
           <span class="nav-list__sep" aria-hidden="true"></span>
           <ul class="nav-list__top-list">
-            {topItems.map((item) => <NavItemLi item={item} currentPath={currentPath} />)}
+            {topItems.map((item) => <TopbarItem item={item} currentPath={currentPath} />)}
           </ul>
         </li>
       </ul>
@@ -64,7 +64,7 @@ const currentPath = path(Astro.url.pathname.replace(/^\/+|\/+$/g, ''));
 </header>
 
 <style>
-  /* ---- Sur-menu (barre supérieure, non sticky) ---- */
+  /* ---- Sur-menu (barre utilitaire, non sticky) ---- */
   .topbar {
     position: relative;
     background: var(--surface-sunk);
@@ -77,7 +77,7 @@ const currentPath = path(Astro.url.pathname.replace(/^\/+|\/+$/g, ''));
   .topbar__list {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: var(--space-4);
     margin: 0;
     padding: var(--space-2) 0;
     list-style: none;
@@ -96,8 +96,7 @@ const currentPath = path(Astro.url.pathname.replace(/^\/+|\/+$/g, ''));
   .site-header__inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-6);
+    gap: var(--space-8);
     min-height: 4rem;
   }
 
@@ -125,7 +124,7 @@ const currentPath = path(Astro.url.pathname.replace(/^\/+|\/+$/g, ''));
     }
   }
 
-  /* ---- Liste de navigation principale (desktop) ---- */
+  /* ---- Menu principal (desktop) : aligné à gauche, après la marque ---- */
   .nav-list {
     display: flex;
     align-items: center;
@@ -145,10 +144,7 @@ const currentPath = path(Astro.url.pathname.replace(/^\/+|\/+$/g, ''));
     display: none;
   }
 
-  /* ---- Responsive : menu hamburger sans JS (≤ 860px) ----
-     Deux barres + le sur-menu ne tiennent pas côte à côte sous ~860px : on
-     replie tout dans le hamburger et on masque la barre supérieure (ses entrées
-     réapparaissent en bas du menu déroulant, sous un séparateur). */
+  /* ---- Responsive : menu hamburger sans JS (≤ 860px) ---- */
   @media (max-width: 860px) {
     .topbar {
       display: none;
@@ -161,6 +157,7 @@ const currentPath = path(Astro.url.pathname.replace(/^\/+|\/+$/g, ''));
       gap: 5px;
       width: var(--tap-min);
       height: var(--tap-min);
+      margin-left: auto;
       padding: 0 10px;
       cursor: pointer;
       border-radius: var(--radius-sm);
@@ -205,7 +202,6 @@ const currentPath = path(Astro.url.pathname.replace(/^\/+|\/+$/g, ''));
       gap: 0;
       padding: var(--space-3) var(--space-5) var(--space-6);
     }
-    /* Groupe « sur-menu » en bas du menu mobile */
     .nav-list__top {
       display: block;
     }
