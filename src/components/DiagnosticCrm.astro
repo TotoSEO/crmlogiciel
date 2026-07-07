@@ -1,0 +1,417 @@
+---
+/**
+ * Diagnostic « Ai-je besoin d'un CRM ? » — module interactif (île Astro).
+ *
+ * 8 questions Oui/Non, une à la fois (animées), barre de progression, puis un
+ * résultat selon le score (0-2, 3-5, 6-8) avec des boutons d'action. Ce n'est
+ * pas un quiz de connaissances : pas de bonne réponse, aucun schéma Quiz.
+ *
+ * Rendu côté serveur : les 8 questions et la phrase-repère « Plus vous cumulez
+ * de oui… » sont dans la source (SEO / IA / sans JS). Le JS ajoute l'interactivité
+ * et le score par-dessus ; sans lui, la liste et la phrase suffisent à se situer.
+ */
+import { QUESTIONS } from '../data/diagnostic-crm';
+---
+
+<section class="diag not-prose" aria-label="Test : ai-je besoin d'un CRM ?" data-total={QUESTIONS.length}>
+  <div class="diag-progress" hidden>
+    <span class="diag-progress__label is-data">Question 1 sur {QUESTIONS.length}</span>
+    <span class="diag-progress__track"><span class="diag-progress__fill"></span></span>
+  </div>
+
+  <ol class="diag-steps">
+    {
+      QUESTIONS.map((q, i) => (
+        <li class="diag-step" data-index={i}>
+          <p class="diag-step__q">
+            <span class="diag-step__n is-data" aria-hidden="true">
+              {i + 1}
+            </span>
+            {q}
+          </p>
+          <div class="diag-opts">
+            <button type="button" class="diag-opt diag-opt--yes" data-val="1">
+              Oui
+            </button>
+            <button type="button" class="diag-opt diag-opt--no" data-val="0">
+              Non
+            </button>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+
+  <p class="diag-repli">
+    Plus vous cumulez de « oui », plus un CRM se justifie : à partir de trois, vous laissez
+    probablement déjà filer des opportunités faute d'organisation ; à six et au-delà, l'outil
+    devient un vrai levier de temps et de chiffre.
+  </p>
+
+  <div class="diag-result" hidden aria-live="polite"></div>
+
+  <noscript>
+    <p class="diag-noscript">
+      Comptez vos « oui » : 0 à 2, un CRM n'est pas nécessaire aujourd'hui ; 3 à 5, il commence à se
+      justifier ; 6 à 8, il vous ferait clairement gagner du temps et du chiffre.
+    </p>
+  </noscript>
+</section>
+
+<script>
+  import { QUESTIONS, tierFor } from '../data/diagnostic-crm';
+
+  const diagRoot = document.querySelector<HTMLElement>('.diag');
+  if (diagRoot) {
+    const root: HTMLElement = diagRoot;
+    const total = QUESTIONS.length;
+    const steps = Array.from(root.querySelectorAll<HTMLElement>('.diag-step'));
+    const progress = root.querySelector<HTMLElement>('.diag-progress')!;
+    const bar = root.querySelector<HTMLElement>('.diag-progress__fill')!;
+    const label = root.querySelector<HTMLElement>('.diag-progress__label')!;
+    const repli = root.querySelector<HTMLElement>('.diag-repli')!;
+    const result = root.querySelector<HTMLElement>('.diag-result')!;
+
+    const answers: (number | null)[] = new Array(total).fill(null);
+    let cur = 0;
+
+    root.classList.add('diag--js');
+    progress.hidden = false;
+    repli.hidden = true;
+
+    function showStep(i: number, dir = 1, scroll = false) {
+      cur = i;
+      result.hidden = true;
+      progress.hidden = false;
+      steps.forEach((s, idx) => (s.hidden = idx !== i));
+      const el = steps[i];
+      el.classList.remove('diag-anim-l', 'diag-anim-r');
+      void el.offsetWidth;
+      el.classList.add(dir < 0 ? 'diag-anim-l' : 'diag-anim-r');
+      label.textContent = `Question ${i + 1} sur ${total}`;
+      bar.style.transform = `scaleX(${i / total})`;
+      // reflète une réponse déjà donnée (navigation arrière)
+      el.querySelectorAll<HTMLButtonElement>('.diag-opt').forEach((b) => {
+        b.classList.toggle('is-selected', answers[i] === Number(b.dataset.val));
+      });
+      if (scroll) root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showResult() {
+      const score = answers.reduce<number>((a, b) => a + (b ?? 0), 0);
+      const t = tierFor(score);
+      steps.forEach((s) => (s.hidden = true));
+      progress.hidden = true;
+      label.textContent = `Question ${total} sur ${total}`;
+      bar.style.transform = 'scaleX(1)';
+      const ctas = t.ctas
+        .map((c) => `<a class="diag-cta diag-cta--${c.variant}" href="${c.href}">${c.label}</a>`)
+        .join('');
+      result.innerHTML = `<div class="diag-res diag-res--${t.tone}">
+        <p class="diag-res__badge is-data">Votre score : ${score} / ${total}</p>
+        <p class="diag-res__title">${t.title}</p>
+        <p class="diag-res__text">${t.text}</p>
+        <div class="diag-res__ctas">${ctas}</div>
+        <button type="button" class="diag-restart">↻ Refaire le test</button>
+      </div>`;
+      result.hidden = false;
+      root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function restart() {
+      answers.fill(null);
+      result.hidden = true;
+      showStep(0, -1);
+    }
+
+    root.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const opt = target.closest<HTMLButtonElement>('.diag-opt');
+      if (opt) {
+        answers[cur] = Number(opt.dataset.val);
+        opt.parentElement
+          ?.querySelectorAll<HTMLButtonElement>('.diag-opt')
+          .forEach((b) => b.classList.toggle('is-selected', b === opt));
+        const next = cur + 1;
+        window.setTimeout(() => (next < total ? showStep(next, 1) : showResult()), 220);
+        return;
+      }
+      if (target.closest('.diag-restart')) restart();
+    });
+
+    showStep(0, 1, false);
+  }
+</script>
+
+<style>
+  .diag {
+    position: relative;
+    scroll-margin-top: 5rem;
+    padding: clamp(var(--space-5), 4vw, var(--space-8));
+    border-radius: var(--radius-2xl);
+    border: var(--rule-hair) solid var(--border-default);
+    background:
+      radial-gradient(80% 60% at 50% 0%, var(--blue-tint), transparent 70%), var(--surface-card);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Progression */
+  .diag-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+  .diag-progress__label {
+    flex: none;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--blue-ink);
+  }
+  .diag-progress__track {
+    flex: 1;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--surface-sunk);
+    overflow: hidden;
+  }
+  .diag-progress__fill {
+    display: block;
+    height: 100%;
+    transform-origin: left center;
+    transform: scaleX(0);
+    background: var(--grad-brand);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Étapes : sans JS, toutes visibles (liste numérotée) ; avec JS, une à la fois. */
+  .diag-steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+  .diag--js .diag-steps {
+    gap: 0;
+  }
+  .diag--js .diag-step[hidden] {
+    display: none;
+  }
+  .diag-step__q {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: clamp(var(--text-lg), 2.5vw, var(--text-2xl));
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .diag-step__n {
+    flex: none;
+    font-family: var(--font-data);
+    font-size: var(--text-base);
+    color: var(--blue);
+  }
+  .diag-opts {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+  .diag--js .diag-opts {
+    margin-top: var(--space-6);
+  }
+  .diag-opt {
+    min-width: 7rem;
+    min-height: var(--tap-min);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-full);
+    border: var(--rule-medium) solid var(--border-strong);
+    background: var(--surface-card);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-base);
+    color: var(--ink-80);
+    cursor: pointer;
+    transition:
+      border-color 0.18s ease,
+      background 0.18s ease,
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .diag-opt:hover {
+    transform: translateY(-2px);
+  }
+  .diag-opt--yes:hover,
+  .diag-opt--yes.is-selected {
+    border-color: var(--blue);
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+    box-shadow: var(--shadow-glow);
+  }
+  .diag-opt--no:hover,
+  .diag-opt--no.is-selected {
+    border-color: var(--border-strong);
+    background: var(--surface-sunk);
+    color: var(--ink);
+  }
+
+  /* Animations d'entrée d'étape */
+  .diag-anim-r {
+    animation: diag-in-r 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .diag-anim-l {
+    animation: diag-in-l 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes diag-in-r {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes diag-in-l {
+    from {
+      opacity: 0;
+      transform: translateX(-24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Phrase-repère (repli sans JS) */
+  .diag-repli {
+    margin: var(--space-6) 0 0;
+    font-size: var(--text-base);
+    color: var(--text-muted);
+    line-height: var(--leading-relaxed);
+  }
+  .diag-noscript {
+    margin: var(--space-4) 0 0;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  /* Résultat */
+  .diag-result :global(.diag-res) {
+    --tone: var(--blue);
+    --tone-tint: var(--blue-tint);
+    --tone-ink: var(--blue-ink);
+    text-align: center;
+    padding: var(--space-2) var(--space-2) 0;
+    animation: diag-res-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .diag-result :global(.diag-res--teal) {
+    --tone: var(--teal, var(--blue));
+    --tone-tint: var(--teal-tint, var(--blue-tint));
+    --tone-ink: var(--teal-ink, var(--blue-ink));
+  }
+  .diag-result :global(.diag-res--orange) {
+    --tone: var(--orange);
+    --tone-tint: var(--orange-tint);
+    --tone-ink: var(--orange-ink);
+  }
+  @keyframes diag-res-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .diag-result :global(.diag-res__badge) {
+    display: inline-block;
+    padding: 0.3em 1em;
+    border-radius: var(--radius-full);
+    background: var(--tone-tint);
+    color: var(--tone-ink);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-bold);
+  }
+  .diag-result :global(.diag-res__title) {
+    margin-top: var(--space-4);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: clamp(var(--text-xl), 3vw, var(--text-3xl));
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .diag-result :global(.diag-res__text) {
+    margin: var(--space-3) auto 0;
+    max-width: 40rem;
+    font-size: var(--text-lg);
+    color: var(--text-body);
+    line-height: var(--leading-relaxed);
+  }
+  .diag-result :global(.diag-res__ctas) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+  .diag-result :global(.diag-cta) {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-min);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-full);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-base);
+  }
+  .diag-result :global(.diag-cta--primary) {
+    background: var(--tone);
+    color: #fff;
+    box-shadow: var(--shadow-glow);
+  }
+  .diag-result :global(.diag-cta--primary:hover) {
+    filter: brightness(0.95);
+    text-decoration: none;
+  }
+  .diag-result :global(.diag-cta--ghost) {
+    border: var(--rule-medium) solid var(--tone);
+    color: var(--tone-ink);
+  }
+  .diag-result :global(.diag-cta--ghost:hover) {
+    background: var(--tone-tint);
+    text-decoration: none;
+  }
+  .diag-result :global(.diag-restart) {
+    display: inline-block;
+    margin-top: var(--space-6);
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-full);
+    border: var(--rule-hair) solid var(--border-strong);
+    background: var(--surface-card);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-sm);
+    color: var(--ink-80);
+    cursor: pointer;
+  }
+  .diag-result :global(.diag-restart:hover) {
+    background: var(--surface-sunk);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .diag-anim-l,
+    .diag-anim-r,
+    .diag-result :global(.diag-res) {
+      animation: none;
+    }
+    .diag-progress__fill {
+      transition: none;
+    }
+  }
+</style>

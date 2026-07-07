@@ -132,6 +132,11 @@ export const PAGES: PageNode[] = [
     breadcrumbLabel: 'Avantages et inconvénients',
     cluster: 'comprendre',
   },
+  {
+    slug: 'ai-je-besoin-d-un-crm',
+    label: "Ai-je besoin d'un CRM ?",
+    cluster: 'comprendre',
+  },
   { slug: 'lexique-crm', label: 'Lexique du CRM', cluster: 'comprendre' },
 
   // Choisir (6)
