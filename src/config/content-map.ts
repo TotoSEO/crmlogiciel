@@ -149,6 +149,18 @@ export const PAGES: PageNode[] = [
     breadcrumbLabel: 'CRM ou Notion',
     cluster: 'comprendre',
   },
+  {
+    slug: 'crm-ou-logiciel-de-facturation',
+    label: 'CRM ou logiciel de facturation ?',
+    breadcrumbLabel: 'CRM ou facturation',
+    cluster: 'comprendre',
+  },
+  {
+    slug: 'ou-sont-stockees-donnees-crm',
+    label: 'Où sont stockées les données ?',
+    breadcrumbLabel: 'Stockage des données',
+    cluster: 'comprendre',
+  },
   { slug: 'lexique-crm', label: 'Lexique du CRM', cluster: 'comprendre' },
 
   // Choisir (6)
@@ -240,6 +252,12 @@ export const PAGES: PageNode[] = [
     slug: 'echec-projet-crm',
     label: 'Pourquoi les projets CRM échouent',
     breadcrumbLabel: 'Échecs de projet CRM',
+    cluster: 'utiliser',
+  },
+  {
+    slug: 'adoption-crm-commerciaux',
+    label: 'Faire adopter le CRM',
+    breadcrumbLabel: 'Adoption du CRM',
     cluster: 'utiliser',
   },
 ];
