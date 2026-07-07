@@ -1,0 +1,340 @@
+---
+/**
+ * ScriptAppel — le script d'appel présenté comme un déroulé de conversation :
+ * chaque étape (numérotée) porte les phrases exactes à dire dans des « bulles »
+ * copiables en un clic. Un bloc à part traite les objections (ce qu'on vous dit /
+ * ce que vous répondez). Les mentions [entre crochets] sont surlignées ; le texte
+ * copié les conserve pour personnalisation.
+ *
+ * Rendu côté serveur (script lisible sans JS, pour le SEO/IA) ; le JS ajoute
+ * seulement la copie en un clic (via l'attribut data-copy).
+ */
+import { STEPS, OBJECTIONS, highlight } from '../data/script-appel';
+---
+
+<div class="scriptx not-prose">
+  <ol class="sx-flow">
+    {
+      STEPS.map((step, i) => (
+        <li class="sx-step">
+          <div class="sx-step__head">
+            <span class="sx-step__n is-data" aria-hidden="true">
+              {i + 1}
+            </span>
+            <div class="sx-step__id">
+              <h3 class="sx-step__title">{step.title}</h3>
+              {step.context && <p class="sx-step__ctx">{step.context}</p>}
+            </div>
+          </div>
+          <div class="sx-step__lines">
+            {step.lines.map((line) => (
+              <div class="sx-say">
+                {line.hint && <p class="sx-say__hint">{line.hint}</p>}
+                <div class="sx-bubble">
+                  <p class="sx-bubble__txt" set:html={highlight(line.text)} />
+                  <button
+                    type="button"
+                    class="sx-copy"
+                    data-copy={line.text}
+                    aria-label="Copier cette phrase"
+                  >
+                    <svg class="sx-copy__ico" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 9h9v11H9zM6 15H4V4h9v2"
+                      />
+                    </svg>
+                    <span class="sx-copy__txt">Copier</span>
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+
+  <section class="sx-obj" aria-label="Réponses aux objections">
+    <h3 class="sx-obj__title">Répondre aux objections les plus fréquentes</h3>
+    <p class="sx-obj__lead">
+      Le principe est toujours le même : ne jamais forcer, toujours renvoyer une question qui
+      relance l'échange.
+    </p>
+    <div class="sx-obj__grid">
+      {
+        OBJECTIONS.map((o) => (
+          <div class="sx-obj__card">
+            <p class="sx-obj__says">
+              <span class="sx-obj__tag">Il vous dit</span>« {o.says} »
+            </p>
+            <div class="sx-bubble sx-bubble--reply">
+              <p class="sx-bubble__txt" set:html={highlight(o.reply)} />
+              <button
+                type="button"
+                class="sx-copy"
+                data-copy={o.reply}
+                aria-label={`Copier la réponse à : ${o.says}`}
+              >
+                <svg class="sx-copy__ico" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 9h9v11H9zM6 15H4V4h9v2"
+                  />
+                </svg>
+                <span class="sx-copy__txt">Copier</span>
+              </button>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</div>
+
+<script>
+  const root = document.querySelector('.scriptx');
+  if (root && navigator.clipboard) {
+    root.addEventListener('click', async (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.sx-copy');
+      if (!btn) return;
+      const text = btn.dataset.copy;
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        const label = btn.querySelector<HTMLElement>('.sx-copy__txt')!;
+        const prev = label.textContent;
+        btn.classList.add('is-done');
+        label.textContent = 'Copié !';
+        window.setTimeout(() => {
+          btn.classList.remove('is-done');
+          label.textContent = prev;
+        }, 1600);
+      } catch {
+        /* presse-papiers indisponible : le texte reste lisible, rien de cassé */
+      }
+    });
+  }
+</script>
+
+<style>
+  .scriptx {
+    margin-block: var(--space-6);
+  }
+
+  /* ---- Déroulé de l'appel : étapes numérotées reliées ---- */
+  .sx-flow {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+  .sx-step {
+    position: relative;
+    padding-left: calc(2rem + var(--space-4));
+  }
+  /* Fil vertical reliant les pastilles d'étapes. */
+  .sx-step::before {
+    content: '';
+    position: absolute;
+    left: calc(1rem - 1px);
+    top: 2.4rem;
+    bottom: calc(-1 * var(--space-5));
+    width: 2px;
+    background: var(--border-default);
+  }
+  .sx-step:last-child::before {
+    display: none;
+  }
+  .sx-step__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+  .sx-step__n {
+    position: absolute;
+    left: 0;
+    top: 0;
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-full);
+    background: var(--grad-brand);
+    color: #fff;
+    font-family: var(--font-data);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-base);
+    box-shadow: var(--shadow-soft);
+  }
+  .sx-step__title {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .sx-step__ctx {
+    margin-top: 2px;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .sx-step__lines {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .sx-say__hint {
+    margin-bottom: var(--space-1);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-muted);
+  }
+
+  /* ---- Bulle « ce que vous dites » ---- */
+  .sx-bubble {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    border-left: var(--rule-strong) solid var(--blue);
+    background: color-mix(in srgb, var(--blue-tint) 45%, var(--surface-card));
+  }
+  .sx-bubble__txt {
+    margin: 0;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--ink);
+  }
+  .sx-copy {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-full);
+    border: var(--rule-medium) solid var(--border-strong);
+    background: var(--surface-card);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-xs);
+    color: var(--ink-80);
+    cursor: pointer;
+    transition:
+      border-color 0.18s ease,
+      background 0.18s ease,
+      color 0.18s ease;
+  }
+  .sx-copy:hover {
+    border-color: var(--blue);
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+  }
+  .sx-copy.is-done {
+    border-color: var(--green-ink, var(--blue));
+    background: var(--green-tint);
+    color: var(--green-ink);
+  }
+  .sx-copy__ico {
+    flex: none;
+  }
+  .scriptx :global(.sx-ph) {
+    padding: 0.05em 0.35em;
+    border-radius: var(--radius-sm);
+    background: var(--orange-tint);
+    color: var(--orange-ink);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+  }
+
+  /* ---- Bloc objections ---- */
+  .sx-obj {
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: var(--rule-hair) solid var(--border-default);
+    background: var(--surface-sunk);
+  }
+  .sx-obj__title {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+    color: var(--ink);
+  }
+  .sx-obj__lead {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .sx-obj__grid {
+    margin-top: var(--space-5);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+  .sx-obj__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .sx-obj__says {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--ink-80);
+    line-height: 1.35;
+  }
+  .sx-obj__tag {
+    display: inline-block;
+    margin-right: var(--space-2);
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-full);
+    background: var(--surface-card);
+    border: var(--rule-hair) solid var(--border-default);
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .sx-bubble--reply {
+    height: 100%;
+    background: var(--surface-card);
+    border-left-color: var(--green);
+  }
+
+  @media (max-width: 720px) {
+    .sx-obj__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .sx-bubble {
+      flex-direction: column;
+    }
+    .sx-copy {
+      align-self: flex-end;
+    }
+    .sx-obj {
+      padding: var(--space-4);
+    }
+  }
+</style>
