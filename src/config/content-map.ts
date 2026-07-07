@@ -104,6 +104,12 @@ export const PAGES: PageNode[] = [
     breadcrumbLabel: 'Modèles de relance',
     cluster: 'transverse',
   },
+  {
+    slug: 'script-appel-prospection',
+    label: "Script d'appel de prospection",
+    breadcrumbLabel: "Script d'appel",
+    cluster: 'transverse',
+  },
 
   // Comprendre (8)
   {
@@ -373,6 +379,12 @@ export const TOOLS: Tool[] = [
     label: "Modèles d'email de relance",
     icon: '✉️',
     desc: '6 modèles prêts à copier',
+  },
+  {
+    slug: 'script-appel-prospection',
+    label: "Script d'appel de prospection",
+    icon: '📞',
+    desc: 'Trame d’appel prête à copier',
   },
 ];
 
