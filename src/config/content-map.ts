@@ -325,6 +325,8 @@ export interface NavItem {
   cta?: boolean;
   /** Variante d'affichage du déroulant (« tools » = cartes icône + description). */
   variant?: 'tools';
+  /** Emoji d'icône (sur-menu). */
+  icon?: string;
 }
 
 /** Outils interactifs regroupés dans la « Boîte à outils » du menu. */
@@ -360,7 +362,9 @@ export const TOOLS: Tool[] = [
 const NAV_FEATURED = ['crm-gratuit'];
 
 export function navTree(): NavItem[] {
-  const items: NavItem[] = CLUSTERS.filter((c) => c.inNav).map((c) => ({
+  // Menu principal = les trois clusters, alignés à gauche après la marque.
+  // Le comparateur n'y figure plus : il vit dans la « Boîte à outils » du sur-menu.
+  return CLUSTERS.filter((c) => c.inNav).map((c) => ({
     label: c.label,
     href: path(c.pillarSlug),
     palette: c.palette,
@@ -371,15 +375,6 @@ export function navTree(): NavItem[] {
       .filter((p) => p.slug !== c.pillarSlug && !NAV_FEATURED.includes(p.slug))
       .map((p) => ({ label: p.label, href: path(p.slug) })),
   }));
-
-  // Lien direct vers le comparateur interactif (page phare « choisir »).
-  items.push({
-    label: 'Comparer les CRM',
-    href: path('comparatif-crm'),
-    palette: 'teal',
-  });
-
-  return items;
 }
 
 /**
@@ -392,8 +387,9 @@ export function topbarNav(): NavItem[] {
     {
       label: 'Boîte à outils',
       href: path(TOOLS[0].slug),
-      palette: 'green',
+      palette: 'blue',
       variant: 'tools',
+      icon: '🧰',
       children: TOOLS.map((t) => ({
         label: t.label,
         href: path(t.slug),
@@ -401,12 +397,13 @@ export function topbarNav(): NavItem[] {
         desc: t.desc,
       })),
     },
-    { label: 'CRM gratuits', href: path('crm-gratuit'), palette: 'green', featured: true },
+    { label: 'CRM gratuits', href: path('crm-gratuit'), palette: 'green', featured: true, icon: '🎁' },
     {
       label: 'Test connaissances CRM',
       href: path('test-connaissance-crm'),
       palette: 'orange',
       cta: true,
+      icon: '🎯',
     },
   ];
 }

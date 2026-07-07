@@ -1,0 +1,295 @@
+---
+/**
+ * TopbarItem — entrée du SUR-MENU (barre utilitaire slim, distincte du menu
+ * principal). Trois formes : déroulant « Boîte à outils » (cartes), lien mis en
+ * avant (CRM gratuits) et puce d'action (Test connaissances CRM). Style volontai-
+ * rement différent des pastilles du menu principal : petit texte, icône en tête,
+ * traitement discret. Composant autonome (styles inclus), utilisé dans le sur-menu
+ * et, en mobile, replié dans le menu hamburger.
+ */
+import type { NavItem } from '../config/content-map';
+
+interface Props {
+  item: NavItem;
+  currentPath: string;
+}
+const { item, currentPath } = Astro.props;
+const isCurrent = (href: string): boolean => href === currentPath;
+---
+
+{
+  item.variant === 'tools' && item.children ? (
+    <li class="tb-item tb-item--menu">
+      <span class="tb-link tb-trigger" role="button" aria-haspopup="true" tabindex="0">
+        <span class="tb-ico" aria-hidden="true">
+          {item.icon}
+        </span>
+        {item.label}
+        <span class="tb-caret" aria-hidden="true" />
+      </span>
+      <div class="tb-menu">
+        <ul class="tb-tools">
+          {item.children.map((child) => (
+            <li>
+              <a
+                href={child.href}
+                class="tool-card"
+                aria-current={isCurrent(child.href) ? 'page' : undefined}
+              >
+                <span class="tool-card__icon" aria-hidden="true">
+                  {child.icon}
+                </span>
+                <span class="tool-card__body">
+                  <span class="tool-card__name">{child.label}</span>
+                  <span class="tool-card__desc">{child.desc}</span>
+                </span>
+                <span class="tool-card__arrow" aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </li>
+  ) : item.cta ? (
+    <li class="tb-item">
+      <a href={item.href} class="tb-cta" aria-current={isCurrent(item.href) ? 'page' : undefined}>
+        <span class="tb-ico" aria-hidden="true">
+          {item.icon}
+        </span>
+        {item.label}
+      </a>
+    </li>
+  ) : (
+    <li class="tb-item">
+      <a
+        href={item.href}
+        class="tb-link tb-link--featured"
+        aria-current={isCurrent(item.href) ? 'page' : undefined}
+      >
+        <span class="tb-ico" aria-hidden="true">
+          {item.icon}
+        </span>
+        {item.label}
+      </a>
+    </li>
+  )
+}
+
+<style>
+  .tb-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Lien utilitaire : petit, discret, icône en tête (≠ pastilles du menu). */
+  .tb-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+    transition:
+      color 0.16s ease,
+      background 0.16s ease;
+  }
+  .tb-link:hover,
+  .tb-item--menu:hover .tb-link,
+  .tb-item--menu:focus-within .tb-link {
+    color: var(--ink);
+    background: var(--surface-card);
+    text-decoration: none;
+  }
+  .tb-link[aria-current='page'] {
+    color: var(--ink);
+  }
+  .tb-trigger {
+    cursor: default;
+  }
+  .tb-ico {
+    font-size: 0.95em;
+    line-height: 1;
+  }
+  .tb-caret {
+    width: 0.36rem;
+    height: 0.36rem;
+    margin-left: 0.05rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-1px);
+    transition: transform 0.16s ease;
+    opacity: 0.6;
+  }
+  .tb-item--menu:hover .tb-caret,
+  .tb-item--menu:focus-within .tb-caret {
+    transform: rotate(-135deg);
+  }
+
+  /* CRM gratuits : accent vert discret. */
+  .tb-link--featured {
+    color: var(--green-ink);
+    font-weight: var(--font-weight-semibold);
+  }
+  .tb-link--featured:hover {
+    color: var(--green-ink);
+    background: var(--green-tint);
+  }
+
+  /* Test connaissances CRM : puce d'action compacte (carré, radius 8). */
+  .tb-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    border-radius: 8px;
+    background: var(--grad-sunset);
+    color: #fff;
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+    box-shadow: var(--shadow-soft);
+    transition:
+      transform 0.16s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.16s ease;
+  }
+  .tb-cta:hover {
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-raise);
+    text-decoration: none;
+  }
+
+  /* ---- Déroulant « Boîte à outils » (cartes) — ancré à droite ---- */
+  .tb-menu {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    z-index: 60;
+    width: 24rem;
+    max-width: 24rem;
+    padding: var(--space-2);
+    background: var(--surface-card);
+    border: var(--rule-hair) solid var(--border-default);
+    border-top: var(--rule-strong) solid var(--blue);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-raise);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s ease,
+      visibility 0.18s;
+  }
+  .tb-item--menu:hover .tb-menu,
+  .tb-item--menu:focus-within .tb-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .tb-tools {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .tool-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    color: var(--ink-80);
+  }
+  .tool-card__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+    background: var(--blue-tint);
+    font-size: var(--text-lg);
+  }
+  .tool-card__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .tool-card__name {
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+    color: var(--ink);
+  }
+  .tool-card__desc {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+  .tool-card__arrow {
+    flex: none;
+    color: var(--text-faint);
+    transition: transform 0.18s ease;
+  }
+  .tool-card:hover,
+  .tool-card[aria-current='page'] {
+    background: var(--blue-tint);
+    text-decoration: none;
+  }
+  .tool-card:hover .tool-card__arrow {
+    transform: translateX(3px);
+    color: var(--blue);
+  }
+
+  /* ---- Mobile : replié dans le menu hamburger ---- */
+  @media (max-width: 860px) {
+    .tb-item {
+      display: block;
+    }
+    .tb-link {
+      width: 100%;
+      padding: var(--space-3);
+      font-size: var(--text-base);
+      color: var(--ink-80);
+      border-radius: var(--radius-md);
+    }
+    .tb-caret {
+      display: none;
+    }
+    .tb-cta {
+      width: 100%;
+      justify-content: center;
+      padding: var(--space-3);
+      margin-top: var(--space-2);
+      font-size: var(--text-base);
+    }
+    .tb-menu {
+      position: static;
+      z-index: auto;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      width: auto;
+      max-width: none;
+      padding: 0 0 var(--space-2) var(--space-3);
+      margin-left: var(--space-4);
+      border: none;
+      border-left: var(--rule-medium) solid var(--blue);
+      border-radius: 0;
+      box-shadow: none;
+      transition: none;
+    }
+    .tool-card {
+      padding: var(--space-2) var(--space-2);
+    }
+  }
+</style>

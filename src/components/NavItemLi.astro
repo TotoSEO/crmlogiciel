@@ -1,8 +1,9 @@
 ---
 /**
- * NavItemLi — un élément de navigation (lien, déroulant cluster, déroulant
- * « boîte à outils », lien mis en avant ou bouton CTA). Composant autonome
- * (styles inclus) réutilisé dans le sur-menu, le menu principal et le menu mobile.
+ * NavItemLi — un cluster du menu principal : libellé de tête (déclencheur) +
+ * déroulant en grille (carte « pilier » + satellites). Composant autonome
+ * (styles inclus), utilisé dans le menu principal et le menu mobile.
+ * Les entrées transverses (outils, CRM gratuits, test) vivent dans TopbarItem.
  */
 import type { NavItem } from '../config/content-map';
 
@@ -16,97 +17,44 @@ const clusterVars = (palette: string): string =>
   `--cluster-color: var(--${palette}); --cluster-tint: var(--${palette}-tint);`;
 ---
 
-{
-  item.children && item.children.length > 0 ? (
-    <li class="nav-item nav-item--has-children" style={clusterVars(item.palette)}>
-      <span
-        class:list={['nav-link', 'nav-link--trigger', { 'is-active': isCurrent(item.href) }]}
-        role="button"
-        aria-haspopup="true"
-        tabindex="0"
-      >
-        <span class="nav-dot" aria-hidden="true" />
-        {item.label}
-        <span class="nav-caret" aria-hidden="true" />
-      </span>
-      <div class:list={['submenu', { 'submenu--tools': item.variant === 'tools' }]}>
-        {item.variant === 'tools' ? (
-          <ul class="submenu__tools">
-            {item.children.map((child) => (
-              <li>
-                <a
-                  href={child.href}
-                  class="tool-card"
-                  aria-current={isCurrent(child.href) ? 'page' : undefined}
-                >
-                  <span class="tool-card__icon" aria-hidden="true">
-                    {child.icon}
-                  </span>
-                  <span class="tool-card__body">
-                    <span class="tool-card__name">{child.label}</span>
-                    <span class="tool-card__desc">{child.desc}</span>
-                  </span>
-                  <span class="tool-card__arrow" aria-hidden="true">
-                    →
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <Fragment>
+<li class="nav-item nav-item--has-children" style={clusterVars(item.palette)}>
+  <span
+    class:list={['nav-link', 'nav-link--trigger', { 'is-active': isCurrent(item.href) }]}
+    role="button"
+    aria-haspopup="true"
+    tabindex="0"
+  >
+    <span class="nav-dot" aria-hidden="true"></span>
+    {item.label}
+    <span class="nav-caret" aria-hidden="true"></span>
+  </span>
+  <div class="submenu">
+    <a
+      class="submenu__pillar"
+      href={item.href}
+      aria-current={isCurrent(item.href) ? 'page' : undefined}
+    >
+      <span>{item.pillarLabel ?? `${item.label} : le guide complet`}</span>
+      <span class="submenu__pillar-arrow" aria-hidden="true">→</span>
+    </a>
+    <ul class="submenu__grid">
+      {
+        (item.children ?? []).map((child) => (
+          <li>
             <a
-              class="submenu__pillar"
-              href={item.href}
-              aria-current={isCurrent(item.href) ? 'page' : undefined}
+              href={child.href}
+              class="submenu__card"
+              aria-current={isCurrent(child.href) ? 'page' : undefined}
             >
-              <span>{item.pillarLabel ?? `${item.label} : le guide complet`}</span>
-              <span class="submenu__pillar-arrow" aria-hidden="true">→</span>
+              <span class="submenu__card-dot" aria-hidden="true" />
+              <span class="submenu__card-label">{child.label}</span>
             </a>
-            <ul class="submenu__grid">
-              {item.children.map((child) => (
-                <li>
-                  <a
-                    href={child.href}
-                    class="submenu__card"
-                    aria-current={isCurrent(child.href) ? 'page' : undefined}
-                  >
-                    <span class="submenu__card-dot" aria-hidden="true" />
-                    <span class="submenu__card-label">{child.label}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </Fragment>
-        )}
-      </div>
-    </li>
-  ) : item.cta ? (
-    <li class="nav-item nav-item--cta">
-      <a
-        href={item.href}
-        class="nav-cta"
-        aria-current={isCurrent(item.href) ? 'page' : undefined}
-      >
-        <span class="nav-cta__icon" aria-hidden="true">
-          🎯
-        </span>
-        {item.label}
-      </a>
-    </li>
-  ) : (
-    <li class="nav-item" style={clusterVars(item.palette)}>
-      <a
-        href={item.href}
-        class:list={['nav-link', { 'nav-link--featured': item.featured }]}
-        aria-current={isCurrent(item.href) ? 'page' : undefined}
-      >
-        <span class="nav-dot" aria-hidden="true" />
-        {item.label}
-      </a>
-    </li>
-  )
-}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</li>
 
 <style>
   .nav-item {
@@ -153,48 +101,6 @@ const clusterVars = (palette: string): string =>
   .nav-link--trigger.is-active {
     color: var(--cluster-color, var(--blue));
   }
-
-  /* Lien mis en avant (CRM gratuits) */
-  .nav-link--featured {
-    background: var(--green-tint);
-    color: var(--green-ink);
-    font-weight: var(--font-weight-semibold);
-  }
-  .nav-link--featured .nav-dot {
-    background: var(--green);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 20%, transparent);
-  }
-  .nav-link--featured:hover {
-    background: color-mix(in srgb, var(--green) 20%, transparent);
-    color: var(--green-ink);
-  }
-
-  /* CTA « Test connaissances CRM » : bouton carré (radius 8) */
-  .nav-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    border-radius: 8px;
-    background: var(--grad-sunset);
-    color: #fff;
-    font-family: var(--font-ui);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--text-sm);
-    box-shadow: var(--shadow-raise);
-    transition:
-      transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.18s ease;
-  }
-  .nav-cta:hover {
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
-    text-decoration: none;
-  }
-  .nav-cta__icon {
-    font-size: var(--text-base);
-  }
   .nav-caret {
     width: 0.42rem;
     height: 0.42rem;
@@ -211,14 +117,12 @@ const clusterVars = (palette: string): string =>
   }
 
   /* ---- Déroulant (desktop) ----
-     Le menu (barre principale et sur-menu) est aligné à droite : les déroulants
-     s'ouvrent donc vers la GAUCHE (ancrés au bord droit du déclencheur) pour ne
-     jamais déborder à droite de l'écran. */
+     Menu principal aligné à gauche : le déroulant s'ouvre vers la DROITE
+     (ancré au bord gauche du déclencheur). */
   .submenu {
     position: absolute;
     top: calc(100% + var(--space-2));
-    left: auto;
-    right: 0;
+    left: 0;
     z-index: 60;
     width: max-content;
     max-width: 36rem;
@@ -310,73 +214,9 @@ const clusterVars = (palette: string): string =>
     transform: scale(1.3);
   }
 
-  /* ---- Déroulant « Boîte à outils » : cartes icône + description ---- */
-  .submenu--tools {
-    width: 24rem;
-    max-width: 24rem;
-    padding: var(--space-2);
-  }
-  .submenu__tools {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .tool-card {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-3);
-    border-radius: var(--radius-md);
-    color: var(--ink-80);
-  }
-  .tool-card__icon {
-    flex: none;
-    display: grid;
-    place-items: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: var(--radius-md);
-    background: var(--cluster-tint, var(--blue-tint));
-    font-size: var(--text-lg);
-  }
-  .tool-card__body {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .tool-card__name {
-    font-family: var(--font-ui);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--text-sm);
-    color: var(--ink);
-  }
-  .tool-card__desc {
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-  }
-  .tool-card__arrow {
-    flex: none;
-    color: var(--text-faint);
-    transition: transform 0.18s ease;
-  }
-  .tool-card:hover,
-  .tool-card[aria-current='page'] {
-    background: var(--cluster-tint, var(--blue-tint));
-    text-decoration: none;
-  }
-  .tool-card:hover .tool-card__arrow {
-    transform: translateX(3px);
-    color: var(--cluster-color, var(--blue));
-  }
-
   /* ---- Bande desktop étroite (861–1100px) ----
-     Un déroulant 2 colonnes (36rem) déborderait du bord gauche à ces largeurs.
-     On l'empile sur une seule colonne, plus étroite, tout en gardant l'ancrage
-     à droite : il tient alors des deux côtés. */
+     Un déroulant 2 colonnes (36rem) déborderait à droite pour le dernier cluster.
+     On l'empile sur une seule colonne, plus étroite, pour qu'il tienne. */
   @media (min-width: 861px) and (max-width: 1100px) {
     .submenu {
       width: 19rem;
@@ -385,23 +225,12 @@ const clusterVars = (palette: string): string =>
     .submenu__grid {
       grid-template-columns: 1fr;
     }
-    .submenu--tools {
-      width: 19rem;
-      max-width: 19rem;
-    }
   }
 
-  /* ---- Mobile : éléments dépliés dans le menu hamburger ---- */
+  /* ---- Mobile : déroulant déplié dans le menu hamburger ---- */
   @media (max-width: 860px) {
     .nav-link {
       border-radius: var(--radius-md);
-    }
-    .nav-item--cta {
-      margin-top: var(--space-2);
-    }
-    .nav-cta {
-      width: 100%;
-      justify-content: center;
     }
     .nav-caret {
       display: none;
@@ -421,12 +250,6 @@ const clusterVars = (palette: string): string =>
       margin-left: var(--space-4);
       padding: var(--space-1) 0 var(--space-3) var(--space-3);
       transition: none;
-    }
-    .submenu--tools {
-      left: auto;
-      right: auto;
-      width: auto;
-      max-width: none;
     }
     .submenu__grid {
       grid-template-columns: 1fr;
