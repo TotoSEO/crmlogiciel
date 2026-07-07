@@ -67,6 +67,8 @@ Croiser les deux donne une lecture bien plus claire qu'un chiffre seul. Quatre c
 
 Un score global mélange ces cas et masque l'essentiel. Un prospect qui cumule 60 points parce qu'il ouvre tous vos emails ne vaut rien s'il est hors cible. La double lecture évite ce piège.
 
+Cette lecture se mène automatiquement, dans le CRM, sur un grand volume. Pour qualifier un lead en direct pendant un échange, appuyez-vous plutôt sur notre [grille de qualification BANT](/grille-qualification-bant/), qui juge un prospect critère par critère.
+
 ## La grille de points, critère par critère
 
 Voici une grille de départ pour une activité B2B. Les valeurs sont indicatives : la méthode pour les ajuster à vos données vient plus loin.

@@ -1,0 +1,529 @@
+---
+/**
+ * GrilleBant — qualifie un prospect selon BANT (Budget, Autorité, Besoin,
+ * Timing). Quatre critères notés de 0 à 3 via des cartes cliquables ; score /12
+ * et verdict (chaud / tiède / froid) mis à jour en temps réel, avec le critère
+ * faible à creuser. Saisie à gauche, résultat à droite (empilés en mobile, avec
+ * un rappel du verdict qui suit le défilement). Aucune donnée collectée.
+ *
+ * Rendu serveur : critères, options et barème lisibles sans JS. Le JS ajoute la
+ * sélection, le score et le verdict en direct.
+ */
+import { CRITERIA, MAX_SCORE } from '../data/bant';
+---
+
+<section class="bant not-prose" aria-label="Grille de qualification BANT">
+  <div class="bant-grid">
+    {/* ------- Critères ------- */}
+    <div class="bant-crits">
+      {
+        CRITERIA.map((c) => (
+          <fieldset class="bant-crit" data-crit={c.key}>
+            <legend class="bant-crit__head">
+              <span class="bant-crit__letter is-data" aria-hidden="true">
+                {c.letter}
+              </span>
+              <span class="bant-crit__id">
+                <span class="bant-crit__title">{c.title}</span>
+                <span class="bant-crit__q">{c.question}</span>
+              </span>
+            </legend>
+            <div class="bant-opts">
+              {c.options.map((o) => (
+                <button
+                  type="button"
+                  class="bant-opt"
+                  data-crit={c.key}
+                  data-points={o.points}
+                  aria-pressed="false"
+                >
+                  <span class="bant-opt__pts" aria-hidden="true">
+                    {o.points}
+                  </span>
+                  <span class="bant-opt__label">{o.label}</span>
+                </button>
+              ))}
+            </div>
+          </fieldset>
+        ))
+      }
+    </div>
+
+    {/* ------- Résultat ------- */}
+    <div class="bant-out">
+      <p class="bant-out__kicker is-data">Votre verdict</p>
+
+      {/* État vide (par défaut) */}
+      <div class="bant-empty">
+        <p class="bant-empty__msg">
+          Renseignez les quatre critères pour obtenir le score et le verdict.
+        </p>
+        <p class="bant-empty__count"><span id="bant-count">0</span> / 4 critères renseignés</p>
+        <ul class="bant-scale">
+          <li><span class="bant-scale__dot" data-v="chaud" /> 9 à 12 · lead chaud</li>
+          <li><span class="bant-scale__dot" data-v="tiede" /> 5 à 8 · lead tiède</li>
+          <li><span class="bant-scale__dot" data-v="froid" /> 0 à 4 · lead froid</li>
+        </ul>
+      </div>
+
+      {/* État complet */}
+      <div class="bant-result" hidden>
+        <div class="bant-score">
+          <span class="bant-score__val is-data"><span id="bant-score">0</span> / {MAX_SCORE}</span>
+          <div class="bant-gauge" aria-hidden="true"><span class="bant-gauge__fill" id="bant-gauge"></span></div>
+        </div>
+        <p class="bant-verdict" id="bant-verdict"><span class="bant-verdict__badge">—</span></p>
+        <p class="bant-action" id="bant-action"></p>
+        <div class="bant-weak" id="bant-weak">
+          <p class="bant-weak__label">Point faible à creuser</p>
+          <p class="bant-weak__txt" id="bant-weak-txt"></p>
+        </div>
+        <button type="button" class="bant-reset">↻ Évaluer un autre lead</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bant-recall" aria-hidden="true" hidden>
+    <span class="bant-recall__badge" id="bant-recall-badge">—</span>
+    <span class="bant-recall__score is-data"><span id="bant-recall-score">0</span> / {MAX_SCORE}</span>
+  </div>
+
+  <noscript>
+    <p class="bant-noscript">
+      Le score automatique nécessite JavaScript. Barème : chaque critère vaut de 0 à 3 points.
+      Additionnez-les sur 12 — 9 à 12 : lead chaud (à traiter) ; 5 à 8 : lead tiède (à nourrir) ;
+      0 à 4 : lead froid (à écarter pour l’instant).
+    </p>
+  </noscript>
+</section>
+
+<script>
+  import { CRITERIA, verdictFor } from '../data/bant';
+
+  const rootEl = document.querySelector<HTMLElement>('.bant');
+  if (rootEl) {
+    const root: HTMLElement = rootEl;
+    const picks = new Map<string, number>();
+    const $ = (id: string) => root.querySelector<HTMLElement>('#' + id);
+
+    function render() {
+      const complete = picks.size === CRITERIA.length;
+      const score = [...picks.values()].reduce((a, b) => a + b, 0);
+
+      root.querySelector<HTMLElement>('.bant-empty')!.hidden = complete;
+      root.querySelector<HTMLElement>('.bant-result')!.hidden = !complete;
+      const recall = root.querySelector<HTMLElement>('.bant-recall')!;
+      recall.hidden = !complete;
+
+      const countEl = $('bant-count');
+      if (countEl) countEl.textContent = String(picks.size);
+
+      if (!complete) return;
+
+      const v = verdictFor(score);
+      $('bant-score')!.textContent = String(score);
+      $('bant-recall-score')!.textContent = String(score);
+      const gauge = $('bant-gauge');
+      if (gauge) gauge.style.width = Math.round((score / (CRITERIA.length * 3)) * 100) + '%';
+
+      const badge = root.querySelector<HTMLElement>('.bant-verdict__badge')!;
+      badge.textContent = v.label;
+      root.querySelector<HTMLElement>('.bant-verdict')!.dataset.v = v.id;
+      recall.dataset.v = v.id;
+      $('bant-recall-badge')!.textContent = v.label;
+      $('bant-action')!.textContent = v.action;
+      root.querySelector<HTMLElement>('.bant-gauge')!.dataset.v = v.id;
+
+      // Critère le plus faible (premier en cas d'égalité).
+      let weakKey = '';
+      let min = 99;
+      for (const c of CRITERIA) {
+        const p = picks.get(c.key)!;
+        if (p < min) {
+          min = p;
+          weakKey = c.key;
+        }
+      }
+      const weak = CRITERIA.find((c) => c.key === weakKey)!;
+      const weakBox = $('bant-weak')!;
+      // On ne montre le conseil que s'il reste une vraie marge (< 3).
+      if (min < 3) {
+        weakBox.hidden = false;
+        $('bant-weak-txt')!.textContent = weak.weakAdvice;
+      } else {
+        weakBox.hidden = true;
+      }
+    }
+
+    root.addEventListener('click', (e) => {
+      const t = e.target as HTMLElement;
+      const opt = t.closest<HTMLElement>('.bant-opt');
+      if (opt) {
+        const crit = opt.dataset.crit!;
+        const pts = Number(opt.dataset.points);
+        picks.set(crit, pts);
+        root
+          .querySelectorAll<HTMLElement>(`.bant-opt[data-crit="${crit}"]`)
+          .forEach((b) => {
+            const on = b === opt;
+            b.classList.toggle('is-picked', on);
+            b.setAttribute('aria-pressed', on ? 'true' : 'false');
+          });
+        render();
+        return;
+      }
+      if (t.closest('.bant-reset')) {
+        picks.clear();
+        root.querySelectorAll<HTMLElement>('.bant-opt.is-picked').forEach((b) => {
+          b.classList.remove('is-picked');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        render();
+        root.querySelector('.bant-crits')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    root.classList.add('bant--js');
+    render();
+  }
+</script>
+
+<style>
+  .bant {
+    position: relative;
+    padding: clamp(var(--space-4), 3.5vw, var(--space-8));
+    border-radius: var(--radius-2xl);
+    border: var(--rule-hair) solid var(--border-default);
+    background:
+      radial-gradient(90% 55% at 50% 0%, var(--teal-tint), transparent 65%), var(--surface-card);
+    box-shadow: var(--shadow-soft);
+  }
+  .bant-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+  .bant-crits {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  /* ---- Carte critère ---- */
+  .bant-crit {
+    margin: 0;
+    padding: var(--space-4) var(--space-5) var(--space-5);
+    border: var(--rule-hair) solid var(--border-default);
+    border-radius: var(--radius-lg);
+    background: var(--surface-card);
+  }
+  .bant-crit__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0;
+    margin-bottom: var(--space-4);
+  }
+  .bant-crit__letter {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: var(--radius-md);
+    background: var(--grad-aqua);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+  }
+  .bant-crit__id {
+    display: flex;
+    flex-direction: column;
+  }
+  .bant-crit__title {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+    line-height: 1.15;
+  }
+  .bant-crit__q {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .bant-opts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+  .bant-opt {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap-min);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    border: var(--rule-medium) solid var(--border-default);
+    background: var(--surface-card);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--ink-80);
+    text-align: left;
+    cursor: pointer;
+    transition:
+      border-color 0.16s ease,
+      background 0.16s ease,
+      color 0.16s ease;
+  }
+  .bant-opt__pts {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: var(--radius-full);
+    background: var(--surface-sunk);
+    font-family: var(--font-data);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-muted);
+  }
+  .bant-opt__label {
+    line-height: 1.2;
+  }
+  .bant-opt:hover {
+    border-color: var(--teal);
+    background: var(--teal-tint);
+  }
+  .bant-opt.is-picked {
+    border-color: var(--teal);
+    background: var(--teal-tint);
+    color: var(--teal-ink);
+  }
+  .bant-opt.is-picked .bant-opt__pts {
+    background: var(--teal);
+    color: #fff;
+  }
+
+  /* ---- Panneau résultat ---- */
+  .bant-out {
+    position: sticky;
+    top: 5rem;
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: var(--rule-hair) solid var(--border-default);
+    background: color-mix(in srgb, var(--teal-tint) 40%, var(--surface-card));
+  }
+  .bant-out__kicker {
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--teal-ink, var(--teal));
+    margin-bottom: var(--space-3);
+  }
+  .bant-empty__msg {
+    font-size: var(--text-base);
+    color: var(--text-body);
+  }
+  .bant-empty__count {
+    margin-top: var(--space-3);
+    font-family: var(--font-data);
+    font-weight: var(--font-weight-semibold);
+    color: var(--ink);
+  }
+  .bant-scale {
+    margin: var(--space-4) 0 0;
+    padding: var(--space-4) 0 0;
+    border-top: var(--rule-hair) solid var(--border-default);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .bant-scale li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .bant-scale__dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: var(--radius-full);
+  }
+  .bant-scale__dot[data-v='chaud'] {
+    background: var(--green);
+  }
+  .bant-scale__dot[data-v='tiede'] {
+    background: var(--orange);
+  }
+  .bant-scale__dot[data-v='froid'] {
+    background: var(--ink-35);
+  }
+
+  /* Résultat complet */
+  .bant-score__val {
+    font-family: var(--font-data);
+    font-feature-settings: var(--num-tabular);
+    font-weight: var(--font-weight-bold);
+    font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+    line-height: 1;
+    color: var(--ink);
+  }
+  .bant-gauge {
+    margin-top: var(--space-3);
+    height: 0.6rem;
+    border-radius: var(--radius-full);
+    background: var(--surface-sunk);
+    overflow: hidden;
+  }
+  .bant-gauge__fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    border-radius: var(--radius-full);
+    background: var(--ink-35);
+    transition: width 0.28s ease;
+  }
+  .bant-gauge[data-v='chaud'] .bant-gauge__fill {
+    background: var(--green);
+  }
+  .bant-gauge[data-v='tiede'] .bant-gauge__fill {
+    background: var(--orange);
+  }
+  .bant-gauge[data-v='froid'] .bant-gauge__fill {
+    background: var(--ink-35);
+  }
+  .bant-verdict {
+    margin-top: var(--space-4);
+  }
+  .bant-verdict__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-base);
+  }
+  .bant-verdict[data-v='chaud'] .bant-verdict__badge {
+    background: var(--green-tint);
+    color: var(--green-ink);
+  }
+  .bant-verdict[data-v='tiede'] .bant-verdict__badge {
+    background: var(--orange-tint);
+    color: var(--orange-ink);
+  }
+  .bant-verdict[data-v='froid'] .bant-verdict__badge {
+    background: var(--surface-sunk);
+    color: var(--text-muted);
+  }
+  .bant-action {
+    margin-top: var(--space-3);
+    font-size: var(--text-base);
+    color: var(--text-body);
+    line-height: var(--leading-relaxed);
+  }
+  .bant-weak {
+    margin-top: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--surface-card);
+    border: var(--rule-hair) solid var(--border-default);
+    border-left: var(--rule-strong) solid var(--orange);
+  }
+  .bant-weak__label {
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--orange-ink);
+  }
+  .bant-weak__txt {
+    margin-top: 2px;
+    font-size: var(--text-sm);
+    color: var(--text-body);
+    line-height: 1.45;
+  }
+  .bant-reset {
+    margin-top: var(--space-5);
+    padding: var(--space-2) var(--space-5);
+    border-radius: var(--radius-full);
+    border: var(--rule-hair) solid var(--border-strong);
+    background: var(--surface-card);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-sm);
+    color: var(--ink-80);
+    cursor: pointer;
+  }
+  .bant-reset:hover {
+    background: var(--surface-sunk);
+  }
+
+  .bant-recall {
+    display: none;
+  }
+  .bant-noscript {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 860px) {
+    .bant-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+    .bant-out {
+      position: static;
+    }
+    .bant--js .bant-recall:not([hidden]) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      position: sticky;
+      bottom: var(--space-3);
+      margin-top: var(--space-4);
+      padding: var(--space-3) var(--space-5);
+      border-radius: var(--radius-full);
+      background: var(--ink);
+      color: #fff;
+      box-shadow: var(--shadow-raise);
+    }
+    .bant-recall__badge {
+      font-family: var(--font-ui);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--text-sm);
+      padding: 2px var(--space-3);
+      border-radius: var(--radius-full);
+    }
+    .bant-recall[data-v='chaud'] .bant-recall__badge {
+      background: var(--green);
+    }
+    .bant-recall[data-v='tiede'] .bant-recall__badge {
+      background: var(--orange);
+    }
+    .bant-recall[data-v='froid'] .bant-recall__badge {
+      background: var(--ink-55);
+    }
+    .bant-recall__score {
+      font-family: var(--font-data);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--text-lg);
+    }
+  }
+  @media (max-width: 520px) {
+    .bant-opts {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
