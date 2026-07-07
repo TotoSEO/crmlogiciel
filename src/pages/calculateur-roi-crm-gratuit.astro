@@ -1,0 +1,289 @@
+---
+/**
+ * /calculateur-roi-crm-gratuit/ — Calculateur de ROI d'un CRM (outil interactif)
+ * + contenu explicatif. Hub Boîte à outils.
+ *
+ * Structure : hero (H1 + intro courte) → calculateur tout de suite (contenu
+ * principal, au-dessus de la ligne de flottaison) → contenu explicatif → FAQ.
+ * JSON-LD : Article + FAQPage (pas de schéma trompeur sur l'outil).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLd from '../components/JsonLd.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CalculateurRoi from '../components/CalculateurRoi.astro';
+import Button from '../components/blocks/Button.astro';
+import { INDEXABLE, absoluteUrl, path } from '../config/site';
+import { article, organization, website, faqPage, breadcrumbList, graph } from '../lib/schema';
+
+const slug = 'calculateur-roi-crm-gratuit';
+const crumbs = [{ label: 'Accueil', href: '/' }, { label: 'Calculateur ROI CRM' }];
+
+const faqItems = [
+  {
+    question: 'Le calculateur de ROI est-il gratuit ?',
+    answer:
+      'Oui, entièrement gratuit et sans inscription. Vous saisissez vos chiffres, le résultat s’affiche en temps réel, rien n’est enregistré.',
+  },
+  {
+    question: 'Ce ROI est-il garanti ?',
+    answer:
+      'Non. C’est une estimation fondée sur vos données et des hypothèses prudentes que vous pouvez ajuster. Le retour réel dépend de votre usage de l’outil.',
+  },
+  {
+    question: 'Sur quoi reposent les estimations ?',
+    answer:
+      'Sur des leviers concrets : ventes récupérées par un meilleur suivi, gain de conversion et temps économisé. Les valeurs par défaut sont volontairement conservatrices et modifiables.',
+  },
+  {
+    question: 'Dois-je donner mon email pour voir le résultat ?',
+    answer: 'Non. Le résultat s’affiche directement, sans mur ni formulaire.',
+  },
+];
+
+const pageSchema = graph(
+  article({
+    headline: 'Calculer le ROI de mon CRM en ligne',
+    description:
+      'Calculez gratuitement le ROI de votre CRM en 2 minutes : chiffre d’affaires additionnel, gain net, retour sur investissement et délai de rentabilité, sans inscription.',
+    slug,
+    datePublished: '2026-07-01',
+    dateModified: '2026-07-01',
+  }),
+  faqPage(faqItems),
+  organization(),
+  website(),
+  breadcrumbList(crumbs, absoluteUrl(slug)),
+);
+---
+
+<BaseLayout
+  title="Calculateur ROI CRM : Résultats gratuits en 2 minutes"
+  description="Calculez gratuitement le ROI de votre CRM en 2 minutes : chiffre d'affaires additionnel, gain net, retour sur investissement et délai de rentabilité, sans inscription."
+  canonicalSlug={slug}
+  ogType="website"
+  rawTitle
+  noindex={!INDEXABLE}
+>
+  <Fragment slot="head">
+    <JsonLd schema={pageSchema} />
+  </Fragment>
+
+  <div class="container roi-top">
+    <Breadcrumb crumbs={crumbs} />
+  </div>
+
+  <section class="rhero">
+    <div class="container rhero__inner">
+      <p class="rhero__kicker is-data">Boîte à outils · Gratuit</p>
+      <h1 class="rhero__title">Calculer le ROI de mon CRM en ligne</h1>
+      <p class="rhero__lead">
+        Combien un CRM peut-il vous rapporter, concrètement ? Cet outil estime votre retour sur
+        investissement à partir de vos propres chiffres, en temps réel, gratuitement et sans
+        inscription. Choisissez le mode <strong>simple</strong> pour un ordre de grandeur en deux
+        minutes, ou le mode <strong>avancé</strong> pour affiner avec votre tunnel de vente.
+      </p>
+    </div>
+  </section>
+
+  <section class="container roi-tool">
+    <CalculateurRoi />
+  </section>
+
+  <div class="container roi-content">
+    <div class="prose">
+      <h2>Comment lire votre résultat</h2>
+      <p>Le calculateur affiche plusieurs chiffres :</p>
+      <ul>
+        <li>
+          <strong>Le chiffre d'affaires additionnel estimé</strong> : ce qu'un CRM bien utilisé peut
+          vous faire gagner en un an.
+        </li>
+        <li>
+          <strong>Le coût annuel de l'outil</strong> : l'abonnement rapporté au nombre
+          d'utilisateurs, dont <a href={path('prix-crm')}>le prix varie selon les fonctions</a>.
+        </li>
+        <li><strong>Le gain net</strong> : la différence entre les deux, votre bénéfice réel.</li>
+        <li>
+          <strong>Le ROI</strong> : combien chaque euro investi vous rapporte, exprimé en multiple.
+        </li>
+        <li>
+          <strong>Le délai de rentabilité</strong> : le nombre de mois au bout duquel l'outil est
+          remboursé.
+        </li>
+      </ul>
+
+      <h2>Ce que le calculateur prend en compte</h2>
+      <p>
+        Un CRM crée de la valeur sur trois leviers, que l'outil chiffre séparément en mode avancé :
+        les ventes récupérées grâce à
+        <a href={path('automatisation-commerciale')}>des relances qui ne s'oublient plus</a>,
+        l'amélioration du taux de conversion grâce à un suivi rigoureux, et le temps gagné sur la
+        recherche d'informations. Pour comprendre en détail pourquoi et comment
+        <a href={path('crm-rentable')}> un CRM devient rentable</a>, nous y consacrons un guide
+        complet.
+      </p>
+
+      <h2>Comment le calcul est fait</h2>
+      <p>
+        Les valeurs par défaut sont des hypothèses prudentes, inspirées du bon sens commercial, et
+        toutes modifiables : le résultat n'a de valeur qu'avec vos propres chiffres. Aucune donnée
+        n'est collectée, aucun email demandé. Ce calcul reste une estimation et ne garantit pas un
+        résultat financier réel.
+      </p>
+
+      <h2>Et maintenant ?</h2>
+      <p>
+        Un ROI qui penche du bon côté ne coûte rien à vérifier : vous pouvez
+        <a href={path('crm-gratuit')}> tester un CRM gratuit</a> sans rien débourser, puis
+        <a href={path('comment-choisir-crm')}> choisir un outil adapté à votre taille</a> une fois
+        la valeur confirmée. Et si vous devez encore convaincre votre direction, le chiffre obtenu
+        ici est votre meilleur argument.
+      </p>
+    </div>
+
+    <aside class="roi-cta-band">
+      <div>
+        <p class="roi-cta-band__title">Le ROI penche du bon côté ?</p>
+        <p class="roi-cta-band__txt">Vérifiez-le sans rien dépenser avec une offre gratuite.</p>
+      </div>
+      <Button href={path('crm-gratuit')} variant="primary">Tester un CRM gratuit</Button>
+    </aside>
+
+    <div class="prose">
+      <h2>Questions fréquentes</h2>
+    </div>
+    <div class="faq">
+      {
+        faqItems.map((f) => (
+          <details class="faq__item">
+            <summary class="faq__q">{f.question}</summary>
+            <div class="faq__a">
+              <p>{f.answer}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .roi-top {
+    padding-top: var(--space-6);
+  }
+  .rhero {
+    padding-block: var(--space-10) var(--space-6);
+  }
+  .rhero__inner {
+    max-width: 48rem;
+  }
+  .rhero__kicker {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-kicker);
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+  .rhero__title {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    line-height: 1.05;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .rhero__lead {
+    margin-top: var(--space-5);
+    font-size: var(--text-lg);
+    color: var(--text-body);
+    line-height: var(--leading-relaxed);
+  }
+  .roi-tool {
+    scroll-margin-top: 5rem;
+  }
+  .roi-content {
+    padding-block: var(--space-12) var(--space-20);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .roi-content .prose {
+    max-width: var(--measure-text);
+  }
+
+  .roi-cta-band {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding: clamp(var(--space-5), 4vw, var(--space-8));
+    border-radius: var(--radius-2xl);
+    border: var(--rule-hair) solid var(--border-default);
+    background:
+      radial-gradient(90% 120% at 100% 0%, var(--blue-tint), transparent 60%), var(--surface-card);
+    box-shadow: var(--shadow-soft);
+  }
+  .roi-cta-band__title {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-xl);
+    color: var(--ink);
+  }
+  .roi-cta-band__txt {
+    margin-top: var(--space-1);
+    font-size: var(--text-base);
+    color: var(--text-muted);
+  }
+
+  .faq {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: var(--measure-text);
+  }
+  .faq__item {
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    background: var(--surface-card);
+    overflow: hidden;
+  }
+  .faq__q {
+    padding: var(--space-4) var(--space-5);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+  .faq__q::-webkit-details-marker {
+    display: none;
+  }
+  .faq__q::after {
+    content: '+';
+    flex: none;
+    font-family: var(--font-data);
+    font-size: var(--text-2xl);
+    color: var(--blue);
+    transition: transform 0.2s ease;
+  }
+  .faq__item[open] .faq__q::after {
+    transform: rotate(45deg);
+  }
+  .faq__a {
+    padding: 0 var(--space-5) var(--space-5);
+    font-size: var(--text-base);
+    color: var(--text-body);
+    line-height: var(--leading-relaxed);
+  }
+  .faq__a p {
+    margin: 0;
+  }
+</style>

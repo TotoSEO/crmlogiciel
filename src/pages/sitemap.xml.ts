@@ -40,6 +40,12 @@ export const GET: APIRoute = async () => {
       changefreq: 'monthly',
       priority: '0.9',
     },
+    {
+      loc: absoluteUrl('calculateur-roi-crm-gratuit'),
+      lastmod: iso(latest),
+      changefreq: 'monthly',
+      priority: '0.9',
+    },
     { loc: absoluteUrl('a-propos'), lastmod: iso(latest), changefreq: 'yearly', priority: '0.5' },
   ];
 

@@ -1,0 +1,211 @@
+---
+/**
+ * RelanceModeles — les 6 modèles d'email de relance, chacun dans une fiche avec
+ * un bouton « Copier » (presse-papiers). Les mentions [entre crochets] sont
+ * surlignées ; le texte copié les conserve pour que l'utilisateur les remplace.
+ *
+ * Rendu côté serveur (modèles lisibles sans JS, pour le SEO/IA) ; le JS ajoute
+ * seulement la copie en un clic.
+ */
+import { MODELES, highlight } from '../data/relance-modeles';
+---
+
+<div class="relance not-prose">
+  {
+    MODELES.map((m, i) => (
+      <article class="tpl" data-i={i}>
+        <header class="tpl__head">
+          <span class="tpl__n is-data" aria-hidden="true">
+            {i + 1}
+          </span>
+          <div class="tpl__id">
+            <h3 class="tpl__title">{m.title}</h3>
+            <p class="tpl__when">{m.when}</p>
+          </div>
+          <button type="button" class="tpl__copy" data-i={i} aria-label={`Copier le modèle : ${m.title}`}>
+            <svg class="tpl__copy-ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 9h9v11H9zM6 15H4V4h9v2"
+              />
+            </svg>
+            <span class="tpl__copy-txt">Copier</span>
+          </button>
+        </header>
+        <div class="tpl__mail">
+          <p class="tpl__field">
+            <span class="tpl__flabel">Objet</span>
+            <span class="tpl__fvalue" set:html={highlight(m.subject)} />
+          </p>
+          <div class="tpl__body" set:html={highlight(m.body).replace(/\n/g, '<br>')} />
+        </div>
+      </article>
+    ))
+  }
+</div>
+
+<script>
+  import { MODELES, copyText } from '../data/relance-modeles';
+
+  const root = document.querySelector('.relance');
+  if (root && navigator.clipboard) {
+    root.addEventListener('click', async (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.tpl__copy');
+      if (!btn) return;
+      const i = Number(btn.dataset.i);
+      const m = MODELES[i];
+      if (!m) return;
+      try {
+        await navigator.clipboard.writeText(copyText(m));
+        const txt = btn.querySelector<HTMLElement>('.tpl__copy-txt')!;
+        const prev = txt.textContent;
+        btn.classList.add('is-done');
+        txt.textContent = 'Copié !';
+        window.setTimeout(() => {
+          btn.classList.remove('is-done');
+          txt.textContent = prev;
+        }, 1800);
+      } catch {
+        /* presse-papiers indisponible : on ne casse rien, le texte reste lisible */
+      }
+    });
+  }
+</script>
+
+<style>
+  .relance {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    margin-block: var(--space-6);
+  }
+  .tpl {
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    background: var(--surface-card);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+  }
+  .tpl__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background: color-mix(in srgb, var(--surface-sunk) 55%, transparent);
+    border-bottom: var(--rule-hair) solid var(--border-default);
+  }
+  .tpl__n {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-sm);
+    background: var(--grad-brand);
+    color: #fff;
+    font-family: var(--font-data);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-base);
+  }
+  .tpl__id {
+    flex: 1;
+    min-width: 0;
+  }
+  .tpl__title {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .tpl__when {
+    margin-top: 2px;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .tpl__copy {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap-min);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    border: var(--rule-medium) solid var(--border-strong);
+    background: var(--surface-card);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-sm);
+    color: var(--ink-80);
+    cursor: pointer;
+    transition:
+      border-color 0.18s ease,
+      background 0.18s ease,
+      color 0.18s ease;
+  }
+  .tpl__copy:hover {
+    border-color: var(--blue);
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+  }
+  .tpl__copy.is-done {
+    border-color: var(--green-ink, var(--blue));
+    background: var(--green-tint);
+    color: var(--green-ink);
+  }
+  .tpl__mail {
+    padding: var(--space-5);
+  }
+  .tpl__field {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--surface-sunk);
+    border: var(--rule-hair) solid var(--border-default);
+  }
+  .tpl__flabel {
+    flex: none;
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .tpl__fvalue {
+    font-weight: var(--font-weight-semibold);
+    color: var(--ink);
+  }
+  .tpl__body {
+    margin-top: var(--space-4);
+    padding: 0 var(--space-1);
+    font-size: var(--text-base);
+    color: var(--text-body);
+    line-height: var(--leading-relaxed);
+  }
+  .tpl :global(.tpl-ph) {
+    padding: 0.05em 0.35em;
+    border-radius: var(--radius-sm);
+    background: var(--orange-tint);
+    color: var(--orange-ink);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 560px) {
+    .tpl__head {
+      flex-wrap: wrap;
+    }
+    .tpl__copy {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

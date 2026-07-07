@@ -1,24 +1,38 @@
 ---
 /**
- * Navigation principale — crm-logiciel.fr
- * Clusters Comprendre / Choisir / Utiliser (libellé de tête → pilier ; déroulant
- * = satellites uniquement, sans répéter le pilier) + lien direct Méthodologie.
- * Chaque section porte sa couleur de charte (segmentation visuelle).
- * Tous les liens sont dans le HTML source (crawlables / GEO). Déroulants desktop
- * en CSS (hover + focus-within) ; menu mobile via case à cocher (sans JavaScript).
+ * Navigation principale — crm-logiciel.fr (deux étages)
+ *
+ * 1. Sur-menu (.topbar) : barre supérieure NON sticky, alignée à droite, qui
+ *    porte les trois entrées transverses — Boîte à outils, CRM gratuits et le
+ *    Test de connaissances. Elle défile avec la page (disparaît au scroll).
+ * 2. Menu principal (.site-header) : barre STICKY avec la marque et les clusters
+ *    Comprendre / Choisir / Utiliser + Comparer les CRM.
+ *
+ * En mobile (≤ 860px), tout bascule dans le menu hamburger : les clusters puis,
+ * sous un séparateur, les entrées du sur-menu. Menu mobile sans JavaScript (hack
+ * de la case à cocher) ; déroulants desktop en CSS (hover + focus-within).
+ * Chaque élément de nav est rendu par le composant autonome <NavItemLi>.
  */
-import { navTree } from '../config/content-map';
+import { navTree, topbarNav } from '../config/content-map';
+import NavItemLi from './NavItemLi.astro';
 import { path, SITE } from '../config/site';
 
-const items = navTree();
+const mainItems = navTree();
+const topItems = topbarNav();
 const home = path('');
 const currentPath = path(Astro.url.pathname.replace(/^\/+|\/+$/g, ''));
-
-const isCurrent = (href: string): boolean => href === currentPath;
-// Variables de couleur propres au cluster, injectées par élément.
-const clusterVars = (palette: string): string =>
-  `--cluster-color: var(--${palette}); --cluster-tint: var(--${palette}-tint);`;
 ---
+
+{/* Sur-menu (non sticky) — masqué en mobile, où il bascule dans le hamburger */}
+<div class="topbar">
+  <div class="topbar__inner container">
+    <nav class="topbar__nav" aria-label="Outils et raccourcis">
+      <ul class="topbar__list">
+        {topItems.map((item) => <NavItemLi item={item} currentPath={currentPath} />)}
+      </ul>
+    </nav>
+  </div>
+</div>
 
 <header class="site-header">
   <div class="site-header__inner container">
@@ -36,68 +50,13 @@ const clusterVars = (palette: string): string =>
 
     <nav class="primary-nav" aria-label="Navigation principale">
       <ul class="nav-list">
-        {
-          items.map((item) =>
-            item.children && item.children.length > 0 ? (
-              <li class="nav-item nav-item--has-children" style={clusterVars(item.palette)}>
-                <span
-                  class:list={['nav-link', 'nav-link--trigger', { 'is-active': isCurrent(item.href) }]}
-                  role="button"
-                  aria-haspopup="true"
-                  tabindex="0"
-                >
-                  <span class="nav-dot" aria-hidden="true" />
-                  {item.label}
-                  <span class="nav-caret" aria-hidden="true" />
-                </span>
-                <div class="submenu">
-                  <a
-                    class="submenu__pillar"
-                    href={item.href}
-                    aria-current={isCurrent(item.href) ? 'page' : undefined}
-                  >
-                    <span>{item.pillarLabel ?? `${item.label} : le guide complet`}</span>
-                    <span class="submenu__pillar-arrow" aria-hidden="true">→</span>
-                  </a>
-                  <ul class="submenu__grid">
-                    {item.children.map((child) => (
-                      <li>
-                        <a
-                          href={child.href}
-                          class="submenu__card"
-                          aria-current={isCurrent(child.href) ? 'page' : undefined}
-                        >
-                          <span class="submenu__card-dot" aria-hidden="true" />
-                          <span class="submenu__card-label">{child.label}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </li>
-            ) : (
-              <li class="nav-item" style={clusterVars(item.palette)}>
-                <a
-                  href={item.href}
-                  class:list={['nav-link', { 'nav-link--featured': item.featured }]}
-                  aria-current={isCurrent(item.href) ? 'page' : undefined}
-                >
-                  <span class="nav-dot" aria-hidden="true" />
-                  {item.label}
-                </a>
-              </li>
-            ),
-          )
-        }
-        <li class="nav-item nav-item--cta">
-          <a
-            href={path('test-connaissance-crm')}
-            class="nav-cta"
-            aria-current={isCurrent(path('test-connaissance-crm')) ? 'page' : undefined}
-          >
-            <span class="nav-cta__icon" aria-hidden="true">🎯</span>
-            Test CRM
-          </a>
+        {mainItems.map((item) => <NavItemLi item={item} currentPath={currentPath} />)}
+        {/* Mobile uniquement : les entrées du sur-menu rejoignent le hamburger */}
+        <li class="nav-list__top">
+          <span class="nav-list__sep" aria-hidden="true"></span>
+          <ul class="nav-list__top-list">
+            {topItems.map((item) => <NavItemLi item={item} currentPath={currentPath} />)}
+          </ul>
         </li>
       </ul>
     </nav>
@@ -105,6 +64,26 @@ const clusterVars = (palette: string): string =>
 </header>
 
 <style>
+  /* ---- Sur-menu (barre supérieure, non sticky) ---- */
+  .topbar {
+    position: relative;
+    background: var(--surface-sunk);
+    border-bottom: var(--rule-hair) solid var(--border-default);
+  }
+  .topbar__inner {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .topbar__list {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin: 0;
+    padding: var(--space-2) 0;
+    list-style: none;
+  }
+
+  /* ---- Barre principale (sticky) ---- */
   .site-header {
     position: sticky;
     top: 0;
@@ -145,18 +124,8 @@ const clusterVars = (palette: string): string =>
       height: 1.7rem;
     }
   }
-  .brand__mark {
-    width: 1.4rem;
-    height: 1.4rem;
-    border-radius: var(--radius-sm);
-    background: var(--grad-brand);
-    box-shadow: var(--shadow-glow);
-  }
-  .brand__tld {
-    color: var(--blue);
-  }
 
-  /* ---- Liste de navigation (desktop) ---- */
+  /* ---- Liste de navigation principale (desktop) ---- */
   .nav-list {
     display: flex;
     align-items: center;
@@ -165,222 +134,9 @@ const clusterVars = (palette: string): string =>
     padding: 0;
     list-style: none;
   }
-  .nav-item {
-    position: relative;
-  }
-  .nav-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    /* Padding resserré : la nav porte plusieurs rubriques + le comparateur ;
-       elle tient ainsi sur une ligne dès ~1140px (laptops), sans déborder. */
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-full);
-    font-family: var(--font-ui);
-    font-weight: var(--font-weight-medium);
-    font-size: var(--text-base);
-    color: var(--ink-80);
-    transition:
-      color 0.18s ease,
-      background 0.18s ease;
-  }
-  /* Pastille de couleur propre au cluster (identité au repos). */
-  .nav-dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: var(--radius-full);
-    background: var(--cluster-color, var(--ink-35));
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--cluster-color, var(--ink-35)) 18%, transparent);
-    transition: transform 0.18s ease;
-  }
-  .nav-link:hover,
-  .nav-item--has-children:hover .nav-link,
-  .nav-item--has-children:focus-within .nav-link {
-    color: var(--cluster-color, var(--blue));
-    background: var(--cluster-tint, var(--blue-tint));
-    text-decoration: none;
-  }
-  .nav-link:hover .nav-dot {
-    transform: scale(1.25);
-  }
-  .nav-link[aria-current='page'] {
-    color: var(--cluster-color, var(--blue));
-  }
-  /* Libellé de tête de cluster : déclencheur du déroulant, pas un lien (le pilier
-     n'est lié qu'une fois, via la carte « guide complet » du sous-menu). */
-  .nav-link--trigger {
-    cursor: default;
-  }
-  .nav-link--trigger.is-active {
-    color: var(--cluster-color, var(--blue));
-  }
-
-  /* ---- Lien mis en avant (CRM gratuits) ---- */
-  .nav-link--featured {
-    background: var(--green-tint);
-    color: var(--green-ink);
-    font-weight: var(--font-weight-semibold);
-  }
-  .nav-link--featured .nav-dot {
-    background: var(--green);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 20%, transparent);
-  }
-  .nav-link--featured:hover {
-    background: color-mix(in srgb, var(--green) 20%, transparent);
-    color: var(--green-ink);
-  }
-
-  /* ---- CTA « Test CRM » (mis en avant) ---- */
-  .nav-item--cta {
-    margin-left: var(--space-2);
-  }
-  .nav-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-5);
-    border-radius: var(--radius-full);
-    background: var(--grad-sunset);
-    color: #fff;
-    font-family: var(--font-ui);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--text-sm);
-    box-shadow: var(--shadow-raise);
-    transition:
-      transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.18s ease;
-  }
-  .nav-cta:hover {
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
-    text-decoration: none;
-  }
-  .nav-cta__icon {
-    font-size: var(--text-base);
-  }
-  .nav-caret {
-    width: 0.42rem;
-    height: 0.42rem;
-    margin-left: 0.1rem;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(45deg) translateY(-1px);
-    transition: transform 0.18s ease;
-    opacity: 0.7;
-  }
-  .nav-item--has-children:hover .nav-caret,
-  .nav-item--has-children:focus-within .nav-caret {
-    transform: rotate(-135deg);
-  }
-
-  /* ---- Déroulant (desktop) : mini méga-menu en grille ---- */
-  .submenu {
-    position: absolute;
-    top: calc(100% + var(--space-2));
-    left: 0;
-    width: max-content;
-    max-width: 36rem;
-    margin: 0;
-    padding: var(--space-3);
-    background: var(--surface-card);
-    border: var(--rule-hair) solid var(--border-default);
-    border-top: var(--rule-strong) solid var(--cluster-color, var(--blue));
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-raise);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(6px);
-    transition:
-      opacity 0.18s ease,
-      transform 0.18s ease,
-      visibility 0.18s;
-  }
-  .nav-item--has-children:hover .submenu,
-  .nav-item--has-children:focus-within .submenu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  /* Carte « pilier » en tête du déroulant (vers le guide complet) */
-  .submenu__pillar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-    padding: var(--space-3) var(--space-4);
-    margin-bottom: var(--space-2);
-    border-radius: var(--radius-md);
-    background: var(--cluster-tint, var(--blue-tint));
-    color: var(--cluster-color, var(--blue));
-    font-family: var(--font-ui);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--text-sm);
-  }
-  .submenu__pillar:hover {
-    background: color-mix(in srgb, var(--cluster-color, var(--blue)) 18%, transparent);
-    color: var(--cluster-color, var(--blue));
-    text-decoration: none;
-  }
-  .submenu__pillar-arrow {
-    transition: transform 0.18s ease;
-  }
-  .submenu__pillar:hover .submenu__pillar-arrow {
-    transform: translateX(3px);
-  }
-  /* Grille de liens (2 colonnes) */
-  .submenu__grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .submenu__card {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    height: 100%;
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-sm);
-    line-height: 1.25;
-    color: var(--ink-80);
-  }
-  .submenu__card-dot {
-    flex: none;
-    width: 0.4rem;
-    height: 0.4rem;
-    border-radius: var(--radius-full);
-    background: var(--cluster-color, var(--ink-35));
-    opacity: 0.5;
-    transition:
-      transform 0.18s ease,
-      opacity 0.18s ease;
-  }
-  .submenu__card:hover,
-  .submenu__card[aria-current='page'] {
-    background: var(--cluster-tint, var(--blue-tint));
-    color: var(--cluster-color, var(--blue));
-    text-decoration: none;
-  }
-  .submenu__card:hover .submenu__card-dot,
-  .submenu__card[aria-current='page'] .submenu__card-dot {
-    opacity: 1;
-    transform: scale(1.3);
-  }
-
-  /* Bande desktop étroite (entre le menu mobile à 860px et l'espace confortable) :
-     le déroulant de la dernière rubrique déborderait à droite de l'écran. On le
-     rétrécit et on l'empile sur une colonne pour qu'il tienne sans troncature. */
-  @media (min-width: 861px) and (max-width: 1060px) {
-    .submenu {
-      max-width: 24rem;
-    }
-    .submenu__grid {
-      grid-template-columns: 1fr;
-    }
+  /* Le groupe « sur-menu replié » n'existe qu'en mobile. */
+  .nav-list__top {
+    display: none;
   }
 
   /* ---- Bascule mobile (cachée en desktop) ---- */
@@ -389,8 +145,15 @@ const clusterVars = (palette: string): string =>
     display: none;
   }
 
-  /* ---- Responsive : menu mobile sans JS ---- */
+  /* ---- Responsive : menu hamburger sans JS (≤ 860px) ----
+     Deux barres + le sur-menu ne tiennent pas côte à côte sous ~860px : on
+     replie tout dans le hamburger et on masque la barre supérieure (ses entrées
+     réapparaissent en bas du menu déroulant, sous un séparateur). */
   @media (max-width: 860px) {
+    .topbar {
+      display: none;
+    }
+
     .nav-burger {
       display: inline-flex;
       flex-direction: column;
@@ -442,34 +205,24 @@ const clusterVars = (palette: string): string =>
       gap: 0;
       padding: var(--space-3) var(--space-5) var(--space-6);
     }
-    .nav-link {
-      border-radius: var(--radius-md);
+    /* Groupe « sur-menu » en bas du menu mobile */
+    .nav-list__top {
+      display: block;
     }
-    /* Déroulants dépliés en mobile : 1 colonne, accent couleur à gauche */
-    .submenu {
-      position: static;
-      opacity: 1;
-      visibility: visible;
-      transform: none;
-      width: auto;
-      max-width: none;
-      box-shadow: none;
-      border: none;
-      border-left: var(--rule-medium) solid var(--cluster-color, var(--blue));
-      border-radius: 0;
-      margin-left: var(--space-4);
-      padding: var(--space-1) 0 var(--space-3) var(--space-3);
-      transition: none;
+    .nav-list__sep {
+      display: block;
+      height: var(--rule-hair);
+      margin: var(--space-3) 0;
+      background: var(--border-default);
     }
-    .submenu__grid {
-      grid-template-columns: 1fr;
+    .nav-list__top-list {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
       gap: 0;
-    }
-    .submenu__pillar {
-      margin-bottom: var(--space-1);
-    }
-    .nav-caret {
-      display: none;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
   }
 </style>

@@ -98,6 +98,12 @@ export const PAGES: PageNode[] = [
 
   // Transverse
   { slug: 'methodologie', label: 'Notre méthodologie de test', cluster: 'transverse' },
+  {
+    slug: 'modele-email-relance',
+    label: "Modèles d'email de relance",
+    breadcrumbLabel: 'Modèles de relance',
+    cluster: 'transverse',
+  },
 
   // Comprendre (8)
   {
@@ -297,16 +303,58 @@ export function breadcrumb(slug: string): Crumb[] {
 }
 
 /** Arbre de navigation principal : clusters de menu + leurs pages. */
+export interface NavChild {
+  label: string;
+  href: string;
+  /** Emoji d'icône (variante « boîte à outils »). */
+  icon?: string;
+  /** Description courte (variante « boîte à outils »). */
+  desc?: string;
+}
+
 export interface NavItem {
   label: string;
   href: string;
   palette: Palette;
   /** Libellé du lien pilier en tête du déroulant (clusters uniquement). */
   pillarLabel?: string;
-  children?: { label: string; href: string }[];
+  children?: NavChild[];
   /** Lien mis en avant (page phare hors cluster). */
   featured?: boolean;
+  /** Bouton d'appel à l'action (carré, mis en avant). */
+  cta?: boolean;
+  /** Variante d'affichage du déroulant (« tools » = cartes icône + description). */
+  variant?: 'tools';
 }
+
+/** Outils interactifs regroupés dans la « Boîte à outils » du menu. */
+export interface Tool {
+  slug: string;
+  label: string;
+  icon: string;
+  desc: string;
+}
+
+export const TOOLS: Tool[] = [
+  {
+    slug: 'comparatif-crm',
+    label: 'Comparateur de CRM',
+    icon: '⚖️',
+    desc: 'Comparez 14 CRM côte à côte',
+  },
+  {
+    slug: 'calculateur-roi-crm-gratuit',
+    label: 'Calculateur de ROI',
+    icon: '📈',
+    desc: 'Estimez votre retour en 2 minutes',
+  },
+  {
+    slug: 'modele-email-relance',
+    label: "Modèles d'email de relance",
+    icon: '✉️',
+    desc: '6 modèles prêts à copier',
+  },
+];
 
 /** Pages mises en avant directement dans la nav (exclues des déroulants). */
 const NAV_FEATURED = ['crm-gratuit'];
@@ -331,18 +379,36 @@ export function navTree(): NavItem[] {
     palette: 'teal',
   });
 
-  // Lien direct, mis en avant : les CRM gratuits (page phare).
-  const gratuit = getPage('crm-gratuit');
-  if (gratuit) {
-    items.push({
-      label: 'CRM gratuits',
-      href: path('crm-gratuit'),
-      palette: 'green',
-      featured: true,
-    });
-  }
-
   return items;
+}
+
+/**
+ * Sur-menu (barre supérieure NON sticky, au-dessus du menu principal) :
+ * la boîte à outils, les CRM gratuits et le test de connaissances. En mobile,
+ * ces entrées basculent dans le menu hamburger avec le reste.
+ */
+export function topbarNav(): NavItem[] {
+  return [
+    {
+      label: 'Boîte à outils',
+      href: path(TOOLS[0].slug),
+      palette: 'green',
+      variant: 'tools',
+      children: TOOLS.map((t) => ({
+        label: t.label,
+        href: path(t.slug),
+        icon: t.icon,
+        desc: t.desc,
+      })),
+    },
+    { label: 'CRM gratuits', href: path('crm-gratuit'), palette: 'green', featured: true },
+    {
+      label: 'Test connaissances CRM',
+      href: path('test-connaissance-crm'),
+      palette: 'orange',
+      cta: true,
+    },
+  ];
 }
 
 /** Les piliers de cluster (pages d'entrée), pour le footer et les hubs. */
