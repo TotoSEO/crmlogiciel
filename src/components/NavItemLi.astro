@@ -1,0 +1,439 @@
+---
+/**
+ * NavItemLi — un élément de navigation (lien, déroulant cluster, déroulant
+ * « boîte à outils », lien mis en avant ou bouton CTA). Composant autonome
+ * (styles inclus) réutilisé dans le sur-menu, le menu principal et le menu mobile.
+ */
+import type { NavItem } from '../config/content-map';
+
+interface Props {
+  item: NavItem;
+  currentPath: string;
+}
+const { item, currentPath } = Astro.props;
+const isCurrent = (href: string): boolean => href === currentPath;
+const clusterVars = (palette: string): string =>
+  `--cluster-color: var(--${palette}); --cluster-tint: var(--${palette}-tint);`;
+---
+
+{
+  item.children && item.children.length > 0 ? (
+    <li class="nav-item nav-item--has-children" style={clusterVars(item.palette)}>
+      <span
+        class:list={['nav-link', 'nav-link--trigger', { 'is-active': isCurrent(item.href) }]}
+        role="button"
+        aria-haspopup="true"
+        tabindex="0"
+      >
+        <span class="nav-dot" aria-hidden="true" />
+        {item.label}
+        <span class="nav-caret" aria-hidden="true" />
+      </span>
+      <div class:list={['submenu', { 'submenu--tools': item.variant === 'tools' }]}>
+        {item.variant === 'tools' ? (
+          <ul class="submenu__tools">
+            {item.children.map((child) => (
+              <li>
+                <a
+                  href={child.href}
+                  class="tool-card"
+                  aria-current={isCurrent(child.href) ? 'page' : undefined}
+                >
+                  <span class="tool-card__icon" aria-hidden="true">
+                    {child.icon}
+                  </span>
+                  <span class="tool-card__body">
+                    <span class="tool-card__name">{child.label}</span>
+                    <span class="tool-card__desc">{child.desc}</span>
+                  </span>
+                  <span class="tool-card__arrow" aria-hidden="true">
+                    →
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <Fragment>
+            <a
+              class="submenu__pillar"
+              href={item.href}
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+            >
+              <span>{item.pillarLabel ?? `${item.label} : le guide complet`}</span>
+              <span class="submenu__pillar-arrow" aria-hidden="true">→</span>
+            </a>
+            <ul class="submenu__grid">
+              {item.children.map((child) => (
+                <li>
+                  <a
+                    href={child.href}
+                    class="submenu__card"
+                    aria-current={isCurrent(child.href) ? 'page' : undefined}
+                  >
+                    <span class="submenu__card-dot" aria-hidden="true" />
+                    <span class="submenu__card-label">{child.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Fragment>
+        )}
+      </div>
+    </li>
+  ) : item.cta ? (
+    <li class="nav-item nav-item--cta">
+      <a
+        href={item.href}
+        class="nav-cta"
+        aria-current={isCurrent(item.href) ? 'page' : undefined}
+      >
+        <span class="nav-cta__icon" aria-hidden="true">
+          🎯
+        </span>
+        {item.label}
+      </a>
+    </li>
+  ) : (
+    <li class="nav-item" style={clusterVars(item.palette)}>
+      <a
+        href={item.href}
+        class:list={['nav-link', { 'nav-link--featured': item.featured }]}
+        aria-current={isCurrent(item.href) ? 'page' : undefined}
+      >
+        <span class="nav-dot" aria-hidden="true" />
+        {item.label}
+      </a>
+    </li>
+  )
+}
+
+<style>
+  .nav-item {
+    position: relative;
+  }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-full);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--text-base);
+    color: var(--ink-80);
+    transition:
+      color 0.18s ease,
+      background 0.18s ease;
+  }
+  .nav-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-full);
+    background: var(--cluster-color, var(--ink-35));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--cluster-color, var(--ink-35)) 18%, transparent);
+    transition: transform 0.18s ease;
+  }
+  .nav-link:hover,
+  .nav-item--has-children:hover .nav-link,
+  .nav-item--has-children:focus-within .nav-link {
+    color: var(--cluster-color, var(--blue));
+    background: var(--cluster-tint, var(--blue-tint));
+    text-decoration: none;
+  }
+  .nav-link:hover .nav-dot {
+    transform: scale(1.25);
+  }
+  .nav-link[aria-current='page'] {
+    color: var(--cluster-color, var(--blue));
+  }
+  .nav-link--trigger {
+    cursor: default;
+  }
+  .nav-link--trigger.is-active {
+    color: var(--cluster-color, var(--blue));
+  }
+
+  /* Lien mis en avant (CRM gratuits) */
+  .nav-link--featured {
+    background: var(--green-tint);
+    color: var(--green-ink);
+    font-weight: var(--font-weight-semibold);
+  }
+  .nav-link--featured .nav-dot {
+    background: var(--green);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 20%, transparent);
+  }
+  .nav-link--featured:hover {
+    background: color-mix(in srgb, var(--green) 20%, transparent);
+    color: var(--green-ink);
+  }
+
+  /* CTA « Test connaissances CRM » : bouton carré (radius 8) */
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-radius: 8px;
+    background: var(--grad-sunset);
+    color: #fff;
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+    box-shadow: var(--shadow-raise);
+    transition:
+      transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.18s ease;
+  }
+  .nav-cta:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+    text-decoration: none;
+  }
+  .nav-cta__icon {
+    font-size: var(--text-base);
+  }
+  .nav-caret {
+    width: 0.42rem;
+    height: 0.42rem;
+    margin-left: 0.1rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-1px);
+    transition: transform 0.18s ease;
+    opacity: 0.7;
+  }
+  .nav-item--has-children:hover .nav-caret,
+  .nav-item--has-children:focus-within .nav-caret {
+    transform: rotate(-135deg);
+  }
+
+  /* ---- Déroulant (desktop) ----
+     Le menu (barre principale et sur-menu) est aligné à droite : les déroulants
+     s'ouvrent donc vers la GAUCHE (ancrés au bord droit du déclencheur) pour ne
+     jamais déborder à droite de l'écran. */
+  .submenu {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    left: auto;
+    right: 0;
+    z-index: 60;
+    width: max-content;
+    max-width: 36rem;
+    margin: 0;
+    padding: var(--space-3);
+    background: var(--surface-card);
+    border: var(--rule-hair) solid var(--border-default);
+    border-top: var(--rule-strong) solid var(--cluster-color, var(--blue));
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-raise);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s ease,
+      visibility 0.18s;
+  }
+  .nav-item--has-children:hover .submenu,
+  .nav-item--has-children:focus-within .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .submenu__pillar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-2);
+    border-radius: var(--radius-md);
+    background: var(--cluster-tint, var(--blue-tint));
+    color: var(--cluster-color, var(--blue));
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+  }
+  .submenu__pillar:hover {
+    background: color-mix(in srgb, var(--cluster-color, var(--blue)) 18%, transparent);
+    color: var(--cluster-color, var(--blue));
+    text-decoration: none;
+  }
+  .submenu__pillar-arrow {
+    transition: transform 0.18s ease;
+  }
+  .submenu__pillar:hover .submenu__pillar-arrow {
+    transform: translateX(3px);
+  }
+  .submenu__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .submenu__card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    height: 100%;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    line-height: 1.25;
+    color: var(--ink-80);
+  }
+  .submenu__card-dot {
+    flex: none;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: var(--radius-full);
+    background: var(--cluster-color, var(--ink-35));
+    opacity: 0.5;
+    transition:
+      transform 0.18s ease,
+      opacity 0.18s ease;
+  }
+  .submenu__card:hover,
+  .submenu__card[aria-current='page'] {
+    background: var(--cluster-tint, var(--blue-tint));
+    color: var(--cluster-color, var(--blue));
+    text-decoration: none;
+  }
+  .submenu__card:hover .submenu__card-dot,
+  .submenu__card[aria-current='page'] .submenu__card-dot {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+
+  /* ---- Déroulant « Boîte à outils » : cartes icône + description ---- */
+  .submenu--tools {
+    width: 24rem;
+    max-width: 24rem;
+    padding: var(--space-2);
+  }
+  .submenu__tools {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .tool-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    color: var(--ink-80);
+  }
+  .tool-card__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+    background: var(--cluster-tint, var(--blue-tint));
+    font-size: var(--text-lg);
+  }
+  .tool-card__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .tool-card__name {
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+    color: var(--ink);
+  }
+  .tool-card__desc {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+  .tool-card__arrow {
+    flex: none;
+    color: var(--text-faint);
+    transition: transform 0.18s ease;
+  }
+  .tool-card:hover,
+  .tool-card[aria-current='page'] {
+    background: var(--cluster-tint, var(--blue-tint));
+    text-decoration: none;
+  }
+  .tool-card:hover .tool-card__arrow {
+    transform: translateX(3px);
+    color: var(--cluster-color, var(--blue));
+  }
+
+  /* ---- Bande desktop étroite (861–1100px) ----
+     Un déroulant 2 colonnes (36rem) déborderait du bord gauche à ces largeurs.
+     On l'empile sur une seule colonne, plus étroite, tout en gardant l'ancrage
+     à droite : il tient alors des deux côtés. */
+  @media (min-width: 861px) and (max-width: 1100px) {
+    .submenu {
+      width: 19rem;
+      max-width: 19rem;
+    }
+    .submenu__grid {
+      grid-template-columns: 1fr;
+    }
+    .submenu--tools {
+      width: 19rem;
+      max-width: 19rem;
+    }
+  }
+
+  /* ---- Mobile : éléments dépliés dans le menu hamburger ---- */
+  @media (max-width: 860px) {
+    .nav-link {
+      border-radius: var(--radius-md);
+    }
+    .nav-item--cta {
+      margin-top: var(--space-2);
+    }
+    .nav-cta {
+      width: 100%;
+      justify-content: center;
+    }
+    .nav-caret {
+      display: none;
+    }
+    .submenu {
+      position: static;
+      z-index: auto;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      width: auto;
+      max-width: none;
+      box-shadow: none;
+      border: none;
+      border-left: var(--rule-medium) solid var(--cluster-color, var(--blue));
+      border-radius: 0;
+      margin-left: var(--space-4);
+      padding: var(--space-1) 0 var(--space-3) var(--space-3);
+      transition: none;
+    }
+    .submenu--tools {
+      left: auto;
+      right: auto;
+      width: auto;
+      max-width: none;
+    }
+    .submenu__grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .submenu__pillar {
+      margin-bottom: var(--space-1);
+    }
+  }
+</style>
