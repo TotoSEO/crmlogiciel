@@ -86,9 +86,13 @@ const robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-vide
 <meta name="twitter:image:alt" content={ogImageAlt} />
 {SITE.twitter && <meta name="twitter:site" content={SITE.twitter} />}
 
-{/* Favicon */}
+{/* Favicon — Google recommande une icône carrée > 48px : on déclare d'abord un
+   PNG 96px (taille couramment récupérée par Google), puis le 256px, et l'.ico
+   pour les navigateurs anciens. */}
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192" />
+<link rel="icon" type="image/png" href="/favicon.png" sizes="256x256" />
 <link rel="icon" href="/favicon.ico" sizes="32x32" />
-<link rel="icon" type="image/png" href="/favicon.png" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
 {/* Préchargement des polices critiques (corps + titre du hero) */}
