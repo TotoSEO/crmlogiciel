@@ -1,20 +1,21 @@
 /**
- * Comparateur CRM — données + rendu partagé (spécification dédiée).
+ * Comparateur CRM : données + rendu partagé.
  *
- * But de l'outil : COMPARER deux CRM côte à côte (jamais recommander « le bon »
- * — ça, c'est le rôle du configurateur de /comment-choisir-crm/). On expose,
- * pour chaque CRM, une note globale /10, six critères notés (barres « faders »),
- * une fiche factuelle (prix, gratuit, hébergement…) et des points forts/limites.
+ * But de l'outil : COMPARER deux CRM côte à côte sur des faits (jamais
+ * recommander « le bon » : c'est le rôle du configurateur de
+ * /comment-choisir-crm/). Pour chaque CRM : une fiche factuelle (catégorie,
+ * profil, tailles, prix, offre gratuite, essai, hébergement, support) et des
+ * points forts et points d'attention formulés de façon factuelle.
+ * Aucune note chiffrée : pas de score, pas de classement.
  *
  * `panelHTML()` produit le panneau de comparaison sous forme de CHAÎNE HTML,
- * utilisée à l'IDENTIQUE côté serveur (rendu initial, sans JS) et côté client
- * (île interactive qui reconstruit le panneau au changement de sélection) — une
- * seule source de vérité, aucune duplication de gabarit. Les données proviennent
- * de notre propre module (aucune saisie utilisateur) : pas d'échappement requis.
+ * utilisée à l'identique côté serveur (rendu initial, sans JS) et côté client
+ * (île interactive qui reconstruit le panneau au changement de sélection). Les
+ * données proviennent de notre propre module (aucune saisie utilisateur) : pas
+ * d'échappement requis.
  *
- * Tarifs et notes : voir LAST_VERIFIED. Notes = synthèse éditoriale calibrée au
- * marché (0-10), pas une science exacte : elles situent, elles ne tranchent pas.
- * Tarifs indicatifs, HT, hors promotions — à vérifier sur le site de l'éditeur.
+ * Tarifs : voir LAST_VERIFIED. Indicatifs, HT, hors promotions, à vérifier sur
+ * le site de l'éditeur.
  */
 
 /** Mois/année de dernière vérification des tarifs et des données. */
@@ -29,44 +30,6 @@ export const SIZE_LABELS: Record<SizeId, string> = {
   eti: 'ETI',
   'grand-compte': 'Grand compte',
 };
-
-/** Les six axes notés (les « faders »). L'ordre fait foi dans l'affichage. */
-export type ScoreKey =
-  | 'simplicite'
-  | 'prix'
-  | 'fonctionnalites'
-  | 'automatisation_ia'
-  | 'reporting'
-  | 'support_ecosysteme';
-
-export interface Critere {
-  key: ScoreKey;
-  label: string;
-  hint: string;
-}
-
-export const CRITERES: Critere[] = [
-  { key: 'simplicite', label: 'Simplicité', hint: 'Prise en main et courbe d’apprentissage' },
-  { key: 'prix', label: 'Rapport qualité-prix', hint: 'Ce que vous obtenez pour le prix payé' },
-  {
-    key: 'fonctionnalites',
-    label: 'Richesse fonctionnelle',
-    hint: 'Profondeur et couverture des besoins',
-  },
-  {
-    key: 'automatisation_ia',
-    label: 'Automatisation & IA',
-    hint: 'Workflows, séquences, assistants intelligents',
-  },
-  { key: 'reporting', label: 'Reporting & analyse', hint: 'Tableaux de bord et pilotage' },
-  {
-    key: 'support_ecosysteme',
-    label: 'Support & intégrations',
-    hint: 'Accompagnement, appli mobile, marketplace',
-  },
-];
-
-export type Scores = Record<ScoreKey, number>;
 
 export interface CrmEntry {
   id: string;
@@ -86,13 +49,12 @@ export interface CrmEntry {
   hebergement_ue: { dispo: boolean; note: string };
   support_fr: boolean;
   points_forts: string[];
+  /** Points d'attention, formulés de façon factuelle (aucun jugement dépréciatif). */
   limites: string[];
-  scores: Scores;
 }
 
 /* -------------------------------------------------------------------------- */
-/* Données CRM — 14 outils. Tarifs et notes vérifiés (voir LAST_VERIFIED).     */
-/* Notes /10 : synthèse éditoriale calibrée au consensus marché.               */
+/* Données CRM : 14 outils. Tarifs et faits relevés en LAST_VERIFIED.          */
 /* -------------------------------------------------------------------------- */
 
 export const CRMS: CrmEntry[] = [
@@ -115,11 +77,7 @@ export const CRMS: CrmEntry[] = [
       'Marketing, vente et service unifiés',
       'Écosystème et marketplace immenses',
     ],
-    limites: [
-      'Fonctions avancées réservées aux paliers Pro/Enterprise coûteux',
-      'Facturation par siège + frais d’onboarding',
-    ],
-    scores: { simplicite: 9, prix: 6, fonctionnalites: 9, automatisation_ia: 8, reporting: 8, support_ecosysteme: 9 },
+    limites: ['Fonctions avancées réservées aux paliers Pro et Entreprise', 'Facturation par siège et frais d’onboarding sur certains paliers'],
   },
   {
     id: 'salesforce',
@@ -140,8 +98,7 @@ export const CRMS: CrmEntry[] = [
       'Écosystème AppExchange géant',
       'IA Einstein et reporting de référence',
     ],
-    limites: ['Complexe : déploiement souvent via intégrateur', 'Coût total élevé (add-ons, paliers hauts)'],
-    scores: { simplicite: 5, prix: 4, fonctionnalites: 10, automatisation_ia: 9, reporting: 10, support_ecosysteme: 10 },
+    limites: ['Déploiement souvent confié à un intégrateur', 'Add-ons et éditions supérieures facturés en sus'],
   },
   {
     id: 'pipedrive',
@@ -162,8 +119,7 @@ export const CRMS: CrmEntry[] = [
       'Prise en main rapide',
       'Bon rapport qualité-prix + 500+ intégrations',
     ],
-    limites: ['Reporting et IA en retrait sur l’entrée de gamme', 'Add-ons payants qui alourdissent la facture'],
-    scores: { simplicite: 9, prix: 8, fonctionnalites: 7, automatisation_ia: 6, reporting: 7, support_ecosysteme: 8 },
+    limites: ['Reporting avancé et IA réservés aux formules supérieures', 'Certaines extensions (add-ons) facturées en sus'],
   },
   {
     id: 'close',
@@ -185,7 +141,6 @@ export const CRMS: CrmEntry[] = [
       'Agent IA commercial inclus',
     ],
     limites: ['Interface et support uniquement en anglais', 'Coûts d’appels/SMS à l’usage'],
-    scores: { simplicite: 7, prix: 6, fonctionnalites: 7, automatisation_ia: 8, reporting: 7, support_ecosysteme: 6 },
   },
   {
     id: 'monday',
@@ -206,8 +161,7 @@ export const CRMS: CrmEntry[] = [
       'Automatisations no-code et tableaux de bord flexibles',
       'Relié à l’écosystème monday (projets)',
     ],
-    limites: ['Minimum 3 sièges qui gonfle le coût', 'Prévisions et IA réservées aux forfaits hauts'],
-    scores: { simplicite: 9, prix: 6, fonctionnalites: 7, automatisation_ia: 7, reporting: 7, support_ecosysteme: 8 },
+    limites: ['Minimum de 3 sièges', 'Prévisions et IA réservées aux forfaits supérieurs'],
   },
   {
     id: 'zoho',
@@ -228,8 +182,7 @@ export const CRMS: CrmEntry[] = [
       'Écosystème Zoho très complet',
       'IA Zia et automatisations avancées',
     ],
-    limites: ['Interface dense, prise en main plus raide', 'Fonctions cloisonnées entre Bigin et éditions hautes'],
-    scores: { simplicite: 6, prix: 9, fonctionnalites: 9, automatisation_ia: 8, reporting: 8, support_ecosysteme: 9 },
+    limites: ['Nombreuses éditions et options à paramétrer', 'Bigin et Zoho CRM sont deux produits distincts'],
   },
   {
     id: 'sellsy',
@@ -250,8 +203,7 @@ export const CRMS: CrmEntry[] = [
       'Suite CRM + facturation + trésorerie',
       'Support français et intégrations riches',
     ],
-    limites: ['Prix/utilisateur élevé au-delà de 2-3 personnes', 'Compta simplifiée (export vers Sage/Pennylane)'],
-    scores: { simplicite: 7, prix: 6, fonctionnalites: 8, automatisation_ia: 6, reporting: 7, support_ecosysteme: 8 },
+    limites: ['Minimum 2 utilisateurs et engagement de 12 mois', 'Comptabilité via export vers un logiciel comptable (Sage, Pennylane)'],
   },
   {
     id: 'axonaut',
@@ -272,8 +224,7 @@ export const CRMS: CrmEntry[] = [
       'Facturation électronique 2026 (PDP) incluse',
       'Compte pro (IBAN FR) intégré et support FR',
     ],
-    limites: ['Interface moins moderne que les SaaS récents', 'IA quasi absente, intégrations tierces limitées'],
-    scores: { simplicite: 7, prix: 8, fonctionnalites: 8, automatisation_ia: 4, reporting: 6, support_ecosysteme: 6 },
+    limites: ['Tarif sans engagement plus élevé qu’avec un engagement de 1 à 3 ans', 'Positionné sur les TPE et petites PME'],
   },
   {
     id: 'nocrm',
@@ -294,8 +245,7 @@ export const CRMS: CrmEntry[] = [
       'Éditeur et support français',
       'Relances, devis/factures et 3000+ intégrations (Expert)',
     ],
-    limites: ['Reporting et analytics basiques', 'Automatisations avancées réservées au palier haut'],
-    scores: { simplicite: 9, prix: 8, fonctionnalites: 6, automatisation_ia: 4, reporting: 5, support_ecosysteme: 7 },
+    limites: ['Centré sur le suivi des leads plutôt que sur la gestion de comptes', 'Automatisations avancées réservées aux formules supérieures'],
   },
   {
     id: 'brevo',
@@ -316,8 +266,7 @@ export const CRMS: CrmEntry[] = [
       'Contacts illimités, facturation au volume',
       'Éditeur français, RGPD natif, CRM gratuit inclus',
     ],
-    limites: ['CRM/ventes moins profond que les spécialistes', 'Support téléphonique réservé aux plans hauts'],
-    scores: { simplicite: 8, prix: 8, fonctionnalites: 6, automatisation_ia: 7, reporting: 6, support_ecosysteme: 7 },
+    limites: ['Fonctions de vente avancées dans un module payant', 'Support téléphonique réservé aux plans supérieurs'],
   },
   {
     id: 'folk',
@@ -338,8 +287,7 @@ export const CRMS: CrmEntry[] = [
       'Extension folkX pour capturer LinkedIn/web',
       'Synchro Gmail/Workspace, enrichissement et IA',
     ],
-    limites: ['Pas de vraie automatisation ni d’app mobile native', 'Reporting limité, en anglais, hébergement US'],
-    scores: { simplicite: 9, prix: 6, fonctionnalites: 6, automatisation_ia: 5, reporting: 4, support_ecosysteme: 6 },
+    limites: ['Hébergement aux États-Unis (RGPD via Data Privacy Framework)', 'Interface et support en anglais'],
   },
   {
     id: 'freshsales',
@@ -360,8 +308,7 @@ export const CRMS: CrmEntry[] = [
       'IA Freddy : scoring, insights, rédaction d’e-mails',
       'Bon rapport qualité-prix à l’entrée',
     ],
-    limites: ['Meilleures fonctions IA réservées aux plans Pro/Enterprise', 'Localisation FR moins native qu’un éditeur français'],
-    scores: { simplicite: 7, prix: 7, fonctionnalites: 8, automatisation_ia: 8, reporting: 7, support_ecosysteme: 7 },
+    limites: ['Fonctions d’IA avancées réservées aux plans Pro et Enterprise'],
   },
   {
     id: 'dynamics',
@@ -382,8 +329,7 @@ export const CRMS: CrmEntry[] = [
       'Copilot IA et prévisions avancées',
       'Personnalisation via la Power Platform',
     ],
-    limites: ['Coût élevé et licences complexes', 'Mise en œuvre lourde (souvent un intégrateur)'],
-    scores: { simplicite: 5, prix: 4, fonctionnalites: 10, automatisation_ia: 9, reporting: 9, support_ecosysteme: 10 },
+    limites: ['Licences et modules facturés séparément', 'Mise en œuvre généralement confiée à un partenaire Microsoft'],
   },
   {
     id: 'odoo',
@@ -404,8 +350,7 @@ export const CRMS: CrmEntry[] = [
       'Open source et modulaire, très personnalisable',
       'Offre gratuite 1 app + écosystème d’intégrateurs',
     ],
-    limites: ['Prise en main technique (souvent via intégrateur)', 'Coûts qui grimpent avec les apps et le custom'],
-    scores: { simplicite: 6, prix: 9, fonctionnalites: 8, automatisation_ia: 6, reporting: 7, support_ecosysteme: 7 },
+    limites: ['Projet souvent mené avec un intégrateur', 'Abonnement par utilisateur dès la deuxième application'],
   },
 ];
 
@@ -417,18 +362,6 @@ const BY_ID = new Map(CRMS.map((c) => [c.id, c]));
 
 export function getCrm(id: string): CrmEntry | undefined {
   return BY_ID.get(id);
-}
-
-/** Note globale /10 = moyenne des six critères, arrondie au dixième. */
-export function globalScore(c: CrmEntry): number {
-  const vals = CRITERES.map((cr) => c.scores[cr.key]);
-  const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
-  return Math.round(mean * 10) / 10;
-}
-
-/** Formate un nombre /10 en français (virgule, un décimal si utile). */
-function fmt(n: number): string {
-  return n.toLocaleString('fr-FR', { minimumFractionDigits: 0, maximumFractionDigits: 1 });
 }
 
 function facts(a: CrmEntry, b: CrmEntry): { label: string; a: string; b: string }[] {
@@ -463,26 +396,7 @@ function headCard(c: CrmEntry, side: 'a' | 'b'): string {
     <span class="cmp-head__mono" aria-hidden="true">${logo(c)}</span>
     <span class="cmp-head__name">${c.name}</span>
     <span class="cmp-head__cat">${c.categorie}</span>
-    <span class="cmp-head__global is-data">${fmt(globalScore(c))}<small>/10</small></span>
   </article>`;
-}
-
-function faderRow(a: CrmEntry, b: CrmEntry, cr: Critere): string {
-  const va = a.scores[cr.key];
-  const vb = b.scores[cr.key];
-  return `<li class="cmp-crit">
-    <div class="cmp-fader cmp-fader--a" style="--c:${a.color};--v:${va * 10}%">
-      <span class="cmp-fader__who" aria-hidden="true">${logo(a)}</span>
-      <span class="cmp-fader__track"><span class="cmp-fader__fill"></span></span>
-      <b class="cmp-fader__val is-data">${fmt(va)}</b>
-    </div>
-    <span class="cmp-crit__label">${cr.label}</span>
-    <div class="cmp-fader cmp-fader--b" style="--c:${b.color};--v:${vb * 10}%">
-      <span class="cmp-fader__who" aria-hidden="true">${logo(b)}</span>
-      <span class="cmp-fader__track"><span class="cmp-fader__fill"></span></span>
-      <b class="cmp-fader__val is-data">${fmt(vb)}</b>
-    </div>
-  </li>`;
 }
 
 function prosCons(c: CrmEntry, side: 'a' | 'b'): string {
@@ -503,7 +417,6 @@ export function panelHTML(aId: string, bId: string): string {
   const b = getCrm(bId) ?? CRMS[1];
   const heads =
     headCard(a, 'a') + `<span class="cmp-vs" aria-hidden="true">VS</span>` + headCard(b, 'b');
-  const criteria = CRITERES.map((cr) => faderRow(a, b, cr)).join('');
   const factRows = facts(a, b)
     .map(
       (f) =>
@@ -511,7 +424,6 @@ export function panelHTML(aId: string, bId: string): string {
     )
     .join('');
   return `<div class="cmp-heads">${heads}</div>
-    <ul class="cmp-criteria">${criteria}</ul>
     <div class="cmp-facts">${factRows}</div>
     <div class="cmp-proscons">${prosCons(a, 'a')}${prosCons(b, 'b')}</div>`;
 }

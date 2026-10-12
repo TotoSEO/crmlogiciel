@@ -55,7 +55,7 @@ Le persona regroupe par profil de décision : motivations, freins, circuit de va
 
 ## La mise en œuvre dans le CRM, concrètement
 
-Le paramétrage se joue en trois temps. Choisissez d'abord une méthode, une seule, et trois à cinq segments : la sur-segmentation est l'erreur la plus fréquente du sujet, et **trois segments tenus battent douze segments théoriques**. Sur les plans de segmentation que j'ai vus naître en atelier, ceux qui dépassaient six segments étaient abandonnés dans le trimestre ; ceux qui tenaient en une main vivaient encore un an plus tard.
+Le paramétrage se joue en trois temps. Choisissez d'abord une méthode, une seule, et trois à cinq segments : la sur-segmentation est l'erreur la plus fréquente du sujet, et **trois segments tenus battent douze segments théoriques**. Un plan de segmentation trop découpé a peu de chances de survivre au quotidien ; un plan qui tient en une main a beaucoup plus de chances de durer.
 
 Matérialisez ensuite chaque segment dans l'outil : un champ dédié ou des listes dynamiques qui se recalculent seules dès que les critères sont objectifs (montant, date, secteur). Évitez l'affectation manuelle partout où une règle peut décider : un segment qui dépend de la bonne volonté de saisie se vide en quelques semaines.
 

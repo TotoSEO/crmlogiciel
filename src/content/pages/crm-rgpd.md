@@ -59,7 +59,7 @@ Le bon réflexe est de fixer ces durées par écrit, finalité par finalité, pu
 
 ## Le registre des traitements
 
-C'est l'obligation la plus oubliée des PME, et l'une des plus simples. Le registre des traitements recense, pour chaque usage de données personnelles, ce que vous faites et pourquoi. Il est obligatoire dès que le traitement n'est pas occasionnel, ce qui est exactement le cas d'un CRM utilisé au quotidien. C'est d'ailleurs l'oubli le plus fréquent que je rencontre : un outil rempli tous les jours, et pas l'ombre d'un registre.
+C'est l'obligation la plus oubliée des PME, et l'une des plus simples. Le registre des traitements recense, pour chaque usage de données personnelles, ce que vous faites et pourquoi. Il est obligatoire dès que le traitement n'est pas occasionnel, ce qui est exactement le cas d'un CRM utilisé au quotidien. C'est d'ailleurs un oubli fréquent : un outil rempli tous les jours, et pas l'ombre d'un registre.
 
 Concrètement, c'est un tableau. Pour chaque traitement, par exemple la prospection, la gestion des clients ou le service après-vente, vous notez la finalité, les catégories de données, les personnes concernées, les destinataires, la durée de conservation et les mesures de sécurité. La [CNIL met à disposition un modèle gratuit](https://www.cnil.fr/fr/RGPD-le-registre-des-activites-de-traitement) qui couvre largement le besoin d'une PME. Tenir ce registre à jour prend une heure par an, et il change tout le jour d'un contrôle : il prouve que vous savez ce que vous détenez.
 

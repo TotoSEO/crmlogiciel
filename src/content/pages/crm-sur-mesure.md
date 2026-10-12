@@ -33,7 +33,7 @@ Cette page n'a rien à vous vendre, ni développement ni licence, et ce détail 
 
 ## Votre besoin est-il vraiment unique ?
 
-C'est la première question, et elle se teste avant de rencontrer la moindre agence. Écrivez les cinq processus que vous jugez introuvables ailleurs, puis confrontez-les aux [fonctionnalités standard d'un CRM](/fonctionnalites-crm/) et aux modules de leurs marketplaces. Champs personnalisés, objets sur mesure, automatisations conditionnelles et API couvrent aujourd'hui des besoins qui exigeaient un développement complet il y a dix ans. Sur les demandes de sur-mesure que j'ai vues passer, la grande majorité décrivait en réalité un CRM standard avec deux champs renommés et une habitude d'équipe.
+C'est la première question, et elle se teste avant de rencontrer la moindre agence. Écrivez les cinq processus que vous jugez introuvables ailleurs, puis confrontez-les aux [fonctionnalités standard d'un CRM](/fonctionnalites-crm/) et aux modules de leurs marketplaces. Champs personnalisés, objets sur mesure, automatisations conditionnelles et API couvrent aujourd'hui des besoins qui exigeaient un développement complet il y a dix ans. Bien souvent, une demande de sur-mesure décrit en réalité un CRM standard avec deux champs renommés et une habitude d'équipe.
 
 Restent les cas légitimes, et ils existent. Trois profils s'en détachent :
 
@@ -61,7 +61,7 @@ Les devis d'agence pour un CRM complet s'étagent en gros de 25 000 à 80 000 �
 
 La recherche en génie logiciel est constante sur ce point depuis des décennies : **la maintenance représente 40 à 80 % du coût total d'un logiciel** sur sa durée de vie (Robert Glass, Facts and Fallacies of Software Engineering, 2002). En pratique, la règle d'usage du métier situe la maintenance corrective autour de 15 à 20 % du coût de développement, chaque année. Un CRM développé à 40 000 € vous coûtera donc 6 000 à 8 000 € par an, juste pour continuer de fonctionner, avant la moindre nouveauté. Ajoutez l'hébergement, les sauvegardes et la sécurité, qui vous incombe désormais entièrement : veille, correctifs, gestion des accès. Les référentiels de l'[ANSSI](https://cyber.gouv.fr) donnent la mesure de ce que « maintenir une application web exposée » veut dire, et ce n'est pas une demi-journée par trimestre.
 
-Quant à l'IA, qui a réellement fait chuter les prix d'entrée : elle a fait baisser **le coût d'écriture du code, pas le coût de possession**. Un logiciel généré en deux semaines reste un logiciel à héberger, sécuriser, corriger et faire évoluer pendant des années, souvent avec davantage de code que nécessaire. Je vois passer des CRM générés en quelques jours depuis un an ; je ne sais pas encore lesquels seront maintenus dans trois ans, et personne ne le sait, l'offre est trop jeune.
+Quant à l'IA, qui a réellement fait chuter les prix d'entrée : elle a fait baisser **le coût d'écriture du code, pas le coût de possession**. Un logiciel généré en deux semaines reste un logiciel à héberger, sécuriser, corriger et faire évoluer pendant des années, souvent avec davantage de code que nécessaire. Des CRM générés en quelques jours apparaissent depuis un an ; personne ne sait encore lesquels seront maintenus dans trois ans, l'offre est trop jeune.
 
 ### La comparaison sur cinq ans
 
@@ -82,7 +82,7 @@ La lecture honnête : face au [prix d'un CRM classique](/prix-crm/) sur la même
 
 La dette technique d'abord. Un logiciel sur mesure vieillit comme une maison dont vous êtes l'unique propriétaire : chaque modification se paie un peu plus cher que la précédente. Les fondations datent, les technologies bougent, et les raccourcis pris au début finissent par se rappeler à vous. Les éditeurs du marché absorbent ce vieillissement pour des milliers de clients à la fois ; vous l'absorberez seul.
 
-Le bus factor ensuite, du nom d'une question que les développeurs se posent sérieusement : **combien de personnes doivent passer sous un bus** pour que plus personne ne sache maintenir votre outil ? Pour un CRM développé par une petite agence ou un freelance, la réponse est presque toujours : une. Le développeur change de vie, l'agence ferme ou monte ses tarifs, et vous voilà avec un logiciel critique que personne ne sait ouvrir. Le seul CRM sur mesure que j'aie vu vieillir sereinement avait son développeur salarié à plein temps, et c'était assumé dans le budget.
+Le bus factor ensuite, du nom d'une question que les développeurs se posent sérieusement : **combien de personnes doivent passer sous un bus** pour que plus personne ne sache maintenir votre outil ? Pour un CRM développé par une petite agence ou un freelance, la réponse est presque toujours : une. Le développeur change de vie, l'agence ferme ou monte ses tarifs, et vous voilà avec un logiciel critique que personne ne sait ouvrir. Un CRM sur mesure vieillit sereinement quand son développeur est salarié à plein temps, et que c'est assumé dans le budget.
 
 ## La décision, posée froidement
 

@@ -1,9 +1,11 @@
 ---
 /**
- * Accueil — crm-logiciel.fr (Phase 2b, version enrichie).
- * Construit d'après la proposition de home N1-01 : hero « héritage 2007 / de
- * retour », bandeau de transition, timeline de guides (le cœur), grille « par
- * besoin », section de confiance EEAT, bandeau CTA final.
+ * Accueil : crm-logiciel.fr (Phase 2b, version enrichie).
+ * Hero, bandeau d'historique (factuel : un autre site a existé sur ce nom de
+ * domaine dès 2007, l'édition actuelle date de 2026), timeline de guides (le
+ * cœur), grille « par besoin », section « comment nous travaillons » avec le
+ * lien d'intérêt de l'éditeur, bandeau CTA final. Aucune affirmation
+ * invérifiable (n°1, référence, tests, indépendance).
  *
  * Réconciliation avec l'arborescence de lancement (27 URLs) : le configurateur
  * (/quel-crm/), le comparatif, les pages CRM gratuit et CRM par secteur sont
@@ -22,7 +24,7 @@ import Badge from '../components/blocks/Badge.astro';
 import FeatureGrid from '../components/blocks/FeatureGrid.astro';
 import FeatureCard from '../components/blocks/FeatureCard.astro';
 import Configurateur from '../components/Configurateur.astro';
-import { SITE, INDEXABLE, path, DEFAULT_AUTHOR } from '../config/site';
+import { SITE, INDEXABLE, path } from '../config/site';
 import { organization, website, graph } from '../lib/schema';
 
 const homeSchema = graph(organization(), website());
@@ -83,22 +85,21 @@ const guides = [
     <div class="container hero__grid">
       <div class="hero__main">
         <h1 class="hero__title anim-fade-up anim-delay-1">
-          Bienvenue sur le blog français
-          <span class="degrade gradient-animated">N°1 du CRM</span>
+          Le blog pour bien choisir
+          <span class="degrade gradient-animated">son CRM</span>
         </h1>
         <p class="hero__lead anim-fade-up anim-delay-2">
-          Après des années de silence, la référence française du CRM est de retour. La mission n'a
-          pas changé : vous aider à trouver le logiciel qu'il vous faut, gratuitement et sans parti
-          pris.
+          Des guides concrets pour comprendre le CRM, une méthode pour le choisir et des classements
+          par profil d'entreprise, avec des sources citées et des tarifs datés.
         </p>
         <div class="hero__cta anim-fade-up anim-delay-3">
           <Button href="#guides" variant="primary">Trouver mon CRM</Button>
           <Button href={path('qu-est-ce-qu-un-crm')} variant="ghost">Comprendre le CRM</Button>
         </div>
         <ul class="hero__trust anim-fade-up anim-delay-4">
-          <li>Tests indépendants</li>
-          <li>Sans publicité déguisée</li>
-          <li>Mis à jour en continu</li>
+          <li>Sources citées</li>
+          <li>Tarifs datés</li>
+          <li>Accès libre</li>
         </ul>
       </div>
 
@@ -140,8 +141,9 @@ const guides = [
     <span class="comeback__sheen" aria-hidden="true"></span>
     <div class="container">
       <p>
-        Pionnier du CRM en ligne depuis 2007, <strong>crm-logiciel.fr</strong> revient avec une ambition
-        intacte : redevenir le guide de référence pour choisir son outil.
+        Un site consacré au CRM existe sous ce nom de domaine depuis 2007. L'édition actuelle de
+        <strong>crm-logiciel.fr</strong>, lancée en 2026 par un nouvel éditeur, a une ambition simple :
+        vous aider à choisir votre CRM sur des bases vérifiables.
       </p>
     </div>
   </section>
@@ -271,60 +273,59 @@ const guides = [
     </div>
   </section>
 
-  {/* ======================== 5. CONFIANCE (EEAT) ======================== */}
+  {/* ======================== 5. COMMENT NOUS TRAVAILLONS ======================== */}
   <section class="trust">
     <span class="trust__blob" aria-hidden="true"></span>
     <div class="container trust__grid">
-      <div class="trust__aside" data-reveal>
-        <div class="trust__avatar-wrap">
-          <span class="trust__ring" aria-hidden="true"></span>
-          <div class="trust__avatar">
-            <img
-              src={DEFAULT_AUTHOR.photo}
-              alt={`Photo de ${DEFAULT_AUTHOR.name}`}
-              width="128"
-              height="128"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <p class="trust__name">{DEFAULT_AUTHOR.name}</p>
-        <p class="trust__role">{DEFAULT_AUTHOR.jobTitle}</p>
-      </div>
       <div class="trust__body" data-reveal>
-        <p class="section-kicker is-data">Notre promesse</p>
-        <h2>Pourquoi faire confiance à nos guides ?</h2>
+        <p class="section-kicker is-data">Comment nous travaillons</p>
+        <h2>Ce que vous pouvez attendre de nos guides</h2>
         <p class="trust__story">
-          Derrière crm-logiciel.fr, il y a {DEFAULT_AUTHOR.name}, consultant qui a passé des années
-          à déployer des CRM pour des entreprises de toutes tailles. Il a relancé ce blog avec une
-          idée simple : accompagner gratuitement les entreprises vers le bon outil, sans
-          contrepartie, parce que trop d'entre elles se trompent encore faute d'un conseil honnête.
+          Nos guides et nos classements s'appuient sur la documentation officielle des éditeurs,
+          leurs grilles tarifaires publiques et des sources publiques comme l'INSEE, Eurostat ou la
+          CNIL. Nous citons nos sources, nous datons nos prix, et nous déclarons nos liens
+          d'intérêts.
         </p>
         <ul class="pillars">
           <li>
             <span class="pillars__dot" style="--c: var(--blue)" aria-hidden="true"></span>
             <div>
-              <p class="pillars__title">Indépendants</p>
+              <p class="pillars__title">Des sources citées</p>
               <p class="pillars__text">
-                Aucun éditeur ne peut acheter sa place dans nos classements.
+                Les faits sur les logiciels viennent de la documentation de leurs éditeurs ou de
+                sources publiques.
               </p>
             </div>
           </li>
           <li>
             <span class="pillars__dot" style="--c: var(--teal)" aria-hidden="true"></span>
             <div>
-              <p class="pillars__title">Testés pour de vrai</p>
+              <p class="pillars__title">Des tarifs datés</p>
               <p class="pillars__text">
-                Chaque outil est utilisé, pas seulement décrit.
-                <a href={path('methodologie')}>Notre méthodologie</a>.
+                Chaque prix indique la date de son relevé : vérifiez-le chez l'éditeur avant de
+                signer.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="pillars__dot" style="--c: var(--minium)" aria-hidden="true"></span>
+            <div>
+              <p class="pillars__title">Des liens d'intérêts déclarés</p>
+              <p class="pillars__text">
+                L'éditeur du site entretient des liens professionnels avec l'un des éditeurs
+                présentés. Chaque classement le signale. <a href="/a-propos/#transparence"
+                  >Notre méthode</a
+                >.
               </p>
             </div>
           </li>
           <li>
             <span class="pillars__dot" style="--c: var(--green)" aria-hidden="true"></span>
             <div>
-              <p class="pillars__title">Gratuit, sans contrepartie</p>
-              <p class="pillars__text">Nos guides sont en accès libre, et le resteront.</p>
+              <p class="pillars__title">Aucune publicité</p>
+              <p class="pillars__text">
+                Ni publicité ni lien affilié : nos guides sont gratuits et sans inscription.
+              </p>
             </div>
           </li>
         </ul>
@@ -862,7 +863,7 @@ const guides = [
     padding-block: var(--space-12) var(--space-20);
   }
 
-  /* ===================== CONFIANCE (EEAT) ===================== */
+  /* ===================== COMMENT NOUS TRAVAILLONS ===================== */
   .trust {
     position: relative;
     overflow: hidden;
@@ -888,58 +889,8 @@ const guides = [
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 16rem 1fr;
-    gap: var(--space-12);
-    align-items: start;
-  }
-  .trust__aside {
-    text-align: center;
-  }
-  .trust__avatar-wrap {
-    position: relative;
-    width: 8rem;
-    height: 8rem;
-    margin: 0 auto var(--space-4);
-  }
-  .trust__ring {
-    position: absolute;
-    inset: -6px;
-    border-radius: var(--radius-full);
-    background: var(--grad-iris);
-    opacity: 0.45;
-    filter: blur(6px);
-    animation: pulse-soft 4s ease-in-out infinite;
-  }
-  .trust__avatar {
-    position: relative;
-    display: grid;
-    place-items: center;
-    width: 8rem;
-    height: 8rem;
-    border-radius: var(--radius-full);
-    background: var(--grad-brand);
-    color: #fff;
-    font-family: var(--font-display);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--text-4xl);
-    box-shadow: var(--shadow-glow);
-    overflow: hidden;
-  }
-  .trust__avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .trust__name {
-    font-family: var(--font-display);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--text-xl);
-    color: var(--ink);
-  }
-  .trust__role {
-    margin-top: var(--space-1);
-    font-size: var(--text-sm);
-    color: var(--text-muted);
+    grid-template-columns: minmax(0, 52rem);
+    justify-content: center;
   }
   .trust__story {
     margin-top: var(--space-5);
@@ -952,7 +903,8 @@ const guides = [
     padding: 0;
     list-style: none;
     display: grid;
-    gap: var(--space-5);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-8);
   }
   .pillars li {
     display: flex;
@@ -1035,17 +987,11 @@ const guides = [
       max-width: 26rem;
     }
     .trust__grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-      text-align: center;
-    }
-    .trust__story {
-      margin-inline: auto;
+      grid-template-columns: minmax(0, 1fr);
     }
     .pillars {
-      text-align: left;
-      max-width: 32rem;
-      margin-inline: auto;
+      grid-template-columns: 1fr;
+      max-width: 34rem;
     }
   }
 

@@ -143,7 +143,7 @@ Une grille de scoring n'est jamais juste du premier coup. Elle se vérifie sur u
 
 Une fois par trimestre, regardez combien de prospects signent dans chaque tranche. Ce taux doit augmenter avec le score. Les prospects à 70 points doivent signer plus souvent que ceux à 45. Sinon, la grille raconte une histoire fausse, et un critère doit sauter, en général celui qu'on avait ajouté parce qu'il semblait logique.
 
-**Sur le terrain.** Le défaut que je vois le plus souvent en audit, c'est une grille remplie de critères qu'on n'a jamais vérifiés. Dix critères positifs, aucun négatif, aucune baisse dans le temps, et un score qui grimpe pour tout le monde. Le jour où on le croise avec les ventes réelles, on découvre qu'il ne prédit rien. Trois critères vérifiés valent mieux que douze critères supposés.
+**Sur le terrain.** Un défaut fréquent, c'est une grille remplie de critères qu'on n'a jamais vérifiés. Dix critères positifs, aucun négatif, aucune baisse dans le temps, et un score qui grimpe pour tout le monde. Le jour où on le croise avec les ventes réelles, on découvre qu'il ne prédit rien. Trois critères vérifiés valent mieux que douze critères supposés.
 
 ## Scoring manuel ou prédictif : lequel choisir
 

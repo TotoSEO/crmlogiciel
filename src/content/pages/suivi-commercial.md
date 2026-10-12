@@ -39,7 +39,7 @@ Cette discipline a une exception de calendrier : le lead entrant, qui ne se note
 
 ## Les deux rituels qui portent tout le reste
 
-Le matin, vingt minutes avant le premier appel : les tâches du jour, en commençant par celles d'hier qui ont glissé. Pas de tri créatif, pas de lecture du pipe entier : on exécute la liste que l'outil présente, et les meilleures journées commerciales commencent par dix relances expédiées avant dix heures. Sur les commerciaux que je vois performer dans la durée, ce rituel d'ouverture est le seul point réellement commun : des styles opposés, des secteurs sans rapport, et la même demi-heure non négociable.
+Le matin, vingt minutes avant le premier appel : les tâches du jour, en commençant par celles d'hier qui ont glissé. Pas de tri créatif, pas de lecture du pipe entier : on exécute la liste que l'outil présente, et les meilleures journées commerciales commencent par dix relances expédiées avant dix heures. Chez des commerciaux aux styles opposés, ce rituel d'ouverture revient souvent : la même demi-heure non négociable.
 
 Le vendredi, trente minutes seul avec son portefeuille : on remonte les [étapes de votre pipeline](/pipeline-commercial/) de la plus avancée à la plus jeune, et pour chaque affaire ouverte, une question unique : a-t-elle une prochaine action datée qui tient encore la route ? Celles qui n'en ont plus en reçoivent une, ou sortent. Ce rituel personnel n'est pas la revue d'équipe : c'est l'entretien du jardin avant que le manager ne le visite, et il prend trente minutes précisément parce qu'il a lieu toutes les semaines.
 

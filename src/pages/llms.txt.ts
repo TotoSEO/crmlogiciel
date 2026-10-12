@@ -6,7 +6,7 @@
  */
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { SITE, absoluteUrl } from '../config/site';
+import { SITE, absoluteUrl, DISCLOSURE_SITE } from '../config/site';
 import { pagesOf, type ClusterId } from '../config/content-map';
 
 const SECTION_TITLE: Record<ClusterId, string> = {
@@ -23,7 +23,7 @@ export const GET: APIRoute = async () => {
   const pages = await getCollection('pages');
   const bySlug = new Map(pages.map((p) => [p.id, p]));
 
-  let out = `# ${SITE.name}\n\n> ${SITE.description}\n`;
+  let out = `# ${SITE.name}\n\n> ${SITE.description}\n\n${DISCLOSURE_SITE} Critères des classements, liens d'intérêts et corrections : ${absoluteUrl('a-propos')}\n`;
 
   for (const cid of ORDER) {
     const lines: string[] = [];
@@ -35,6 +35,9 @@ export const GET: APIRoute = async () => {
       );
     }
     if (cid === 'transverse') {
+      lines.push(
+        `- [À propos de crm-logiciel.fr](${absoluteUrl('a-propos')}): Qui publie le site, comment les contenus et les classements sont établis, liens d'intérêts déclarés et demandes de correction.`,
+      );
       lines.push(
         `- [Test de connaissances CRM](${absoluteUrl('test-connaissance-crm')}): Quiz gratuit de 42 questions pour évaluer son niveau en CRM, avec un score détaillé par thème.`,
       );

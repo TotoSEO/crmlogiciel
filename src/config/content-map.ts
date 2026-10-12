@@ -91,7 +91,7 @@ export const CLUSTERS: Cluster[] = [
     id: 'transverse',
     label: 'Transverse',
     pillarSlug: 'methodologie',
-    pillarLabel: 'Notre méthodologie de test',
+    pillarLabel: 'Notre méthodologie',
     inNav: false,
     palette: 'green',
   },
@@ -128,7 +128,7 @@ export const PAGES: PageNode[] = [
   { slug: 'meilleurs-crm-sav', label: 'CRM pour le SAV', cluster: 'meilleurs' },
 
   // Transverse
-  { slug: 'methodologie', label: 'Notre méthodologie de test', cluster: 'transverse' },
+  { slug: 'methodologie', label: 'Notre méthodologie', cluster: 'transverse' },
   {
     slug: 'modele-email-relance',
     label: "Modèles d'email de relance",
@@ -469,6 +469,7 @@ export function navTree(): NavItem[] {
  */
 export function topbarNav(): NavItem[] {
   return [
+    { label: 'À propos', href: path('a-propos'), palette: 'blue', icon: 'ℹ️' },
     {
       label: 'Boîte à outils',
       href: path(TOOLS[0].slug),
@@ -503,8 +504,7 @@ export function pillars(): { label: string; href: string; palette: Palette }[] {
 
 /**
  * Liens utilitaires (footer). `href` final (chemin /slug/ ou mailto).
- * Contact = lien e-mail direct (pas de page dédiée). « À propos » sera ajouté
- * quand son contenu sera fourni.
+ * Contact = lien e-mail direct (pas de page dédiée).
  */
 export const UTILITY_LINKS: { label: string; href: string }[] = [
   { label: 'À propos', href: path('a-propos') },

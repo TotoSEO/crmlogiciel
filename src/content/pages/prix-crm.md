@@ -67,6 +67,6 @@ Aucun de ces mécanismes n'est un scandale ; tous sont documentés dans les cond
 
 ## Le coût total, et comment le tenir
 
-La règle de budget qui résume cette page : **la première année coûte 1,5 à 2 fois les licences seules**, et les années suivantes coûtent les licences plus la dérive des modules, si personne ne la surveille. Sur les budgets CRM que j'ai vus passer, la dérive moyenne tient moins aux éditeurs qu'à l'absence d'un propriétaire du sujet : quand personne ne relit la facture annuelle, elle grossit.
+La règle de budget qui résume cette page : **la première année coûte 1,5 à 2 fois les licences seules**, et les années suivantes coûtent les licences plus la dérive des modules, si personne ne la surveille. Cette dérive tient souvent moins aux éditeurs qu'à l'absence d'un propriétaire du sujet : quand personne ne relit la facture annuelle, elle grossit.
 
 Trois gestes suffisent à garder la main. Négociez à la signature ce qui ne se négocie plus après : prix bloqué sur 24 mois, conditions de sortie, coût des paliers supérieurs écrit dans le contrat. Faites le point une fois par an sur les modules réellement utilisés, la moitié des options ajoutées « pour tester » survivent à leur test. Et comparez toujours à périmètre égal : notre comparatif des meilleurs CRM chiffre chaque outil sur un profil d'usage identique, parce qu'un prix sans périmètre ne dit rien.

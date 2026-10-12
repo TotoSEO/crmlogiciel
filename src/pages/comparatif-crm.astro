@@ -3,15 +3,16 @@
  * /comparatif-crm/ — Comparateur de CRM interactif + contenu SEO.
  *
  * Structure : hero → paragraphe → outil (île Comparateur, gauche/droite) →
- * contenu éditorial qui répond à l'intention « comparatif CRM » (méthode de
- * notation, comparaisons populaires, fiches des 14 CRM, comment comparer, FAQ).
+ * contenu éditorial qui répond à l'intention « comparatif CRM » (ce que l'on
+ * compare, comparaisons populaires, fiches des 14 CRM, comment comparer, FAQ).
  *
- * Neutralité : l'outil COMPARE, il ne dit pas « prenez celui-là ». Le choix
- * personnalisé est renvoyé vers le configurateur de /comment-choisir-crm/.
+ * L'outil COMPARE des faits, il ne dit pas « prenez celui-là » et n'attribue
+ * aucune note. Le choix personnalisé est renvoyé vers le configurateur de
+ * /comment-choisir-crm/.
  *
- * Les données des 14 CRM (notes, prix, forces/limites) sont rendues DANS LA
- * SOURCE (fiches ci-dessous) : crawlables par Google et les moteurs de réponse
- * IA, même sans exécuter le JavaScript de l'outil.
+ * Les données des 14 CRM (prix, faits, points forts et points d'attention) sont
+ * rendues DANS LA SOURCE (fiches ci-dessous) : crawlables par Google et les
+ * moteurs de réponse IA, même sans exécuter le JavaScript de l'outil.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import JsonLd from '../components/JsonLd.astro';
@@ -20,7 +21,7 @@ import Comparateur from '../components/Comparateur.astro';
 import Button from '../components/blocks/Button.astro';
 import { INDEXABLE, absoluteUrl, path } from '../config/site';
 import { organization, website, breadcrumbList, faqPage, graph } from '../lib/schema';
-import { CRMS, CRITERES, globalScore, SIZE_LABELS, LAST_VERIFIED } from '../data/comparateur-crm';
+import { CRMS, SIZE_LABELS, LAST_VERIFIED } from '../data/comparateur-crm';
 
 const slug = 'comparatif-crm';
 
@@ -31,7 +32,7 @@ const faqItems = [
   {
     question: 'Comment fonctionne ce comparateur de CRM ?',
     answer:
-      'Choisissez un CRM à gauche et un autre à droite : l’outil affiche leur note globale, six critères notés sur 10 (simplicité, rapport qualité-prix, richesse fonctionnelle, automatisation & IA, reporting, support & intégrations), puis une fiche factuelle (prix, offre gratuite, hébergement, support français) et leurs points forts et limites. Il sert à comparer objectivement, pas à désigner un gagnant.',
+      'Choisissez un CRM à gauche et un autre à droite : l’outil affiche leur fiche factuelle (catégorie, profil visé, tailles d’entreprise, prix d’entrée, offre gratuite, essai, hébergement dans l’UE, support en français), puis leurs points forts et leurs points d’attention. Il sert à comparer des faits, pas à désigner un gagnant : il n’attribue aucune note.',
   },
   {
     question: 'Quel est le meilleur CRM ?',
@@ -49,8 +50,8 @@ const faqItems = [
       'Les CRM français (Sellsy, Axonaut, noCRM, Brevo) rassurent sur l’hébergement des données en France ou dans l’UE, le support en français et la facturation conforme. Les CRM américains (HubSpot, Salesforce, Pipedrive) offrent souvent plus de profondeur fonctionnelle et un écosystème d’intégrations plus large, et beaucoup proposent désormais un hébergement dans l’UE. Le comparateur affiche l’hébergement UE et le support français pour chaque outil.',
   },
   {
-    question: 'Comment sont calculées les notes ?',
-    answer: `Chaque CRM est noté sur 10 selon six critères, d’après une synthèse éditoriale calibrée sur le consensus du marché et nos recherches. La note globale est la moyenne de ces six critères. Les tarifs et informations ont été relevés en ${LAST_VERIFIED} ; ils sont indicatifs, hors taxes et hors promotions, et à vérifier sur le site de chaque éditeur.`,
+    question: 'D’où viennent les informations du comparateur ?',
+    answer: `Des pages officielles des éditeurs (tarifs, documentation), relevées en ${LAST_VERIFIED}. Les tarifs sont indicatifs, hors taxes et hors promotions, et à vérifier sur le site de chaque éditeur. Le comparateur n’attribue pas de note : il met des faits côte à côte.`,
   },
   {
     question: 'Existe-t-il des CRM gratuits ?',
@@ -64,7 +65,7 @@ const pageSchema = graph(
     '@type': 'CollectionPage',
     name: 'Comparatif CRM',
     description:
-      'Comparateur interactif de 14 logiciels CRM : note globale, prix, fonctionnalités, automatisation, support et hébergement, côte à côte.',
+      'Comparateur interactif de 14 logiciels CRM : prix d’entrée, offre gratuite, essai, hébergement, support, points forts et points d’attention, côte à côte.',
     url: absoluteUrl(slug),
     inLanguage: 'fr',
     isPartOf: { '@id': `${absoluteUrl('')}#website` },
@@ -110,13 +111,13 @@ const duels = [
   },
 ];
 
-// Fiches : ordre du catalogue (neutre, pas un classement).
-const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
+// Fiches : ordre du catalogue (pas un classement).
+const fiches = CRMS.map((c) => ({ c }));
 ---
 
 <BaseLayout
   title="Comparatif CRM 2026 : comparez les meilleurs logiciels CRM"
-  description="Comparez 14 logiciels CRM côte à côte : note globale, prix, fonctionnalités, automatisation, IA, support et hébergement. Outil interactif et neutre, mis à jour en 2026."
+  description="Comparez 14 logiciels CRM côte à côte : prix d'entrée, offre gratuite, essai, hébergement, support, points forts et points d'attention. Données relevées chez les éditeurs."
   canonicalSlug={slug}
   ogType="website"
   rawTitle
@@ -140,9 +141,9 @@ const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
       <p class="chero__kicker is-data">Comparateur · {CRMS.length} CRM</p>
       <h1 class="chero__title">Comparatif CRM : comparez les logiciels côte à côte</h1>
       <p class="chero__lead">
-        Choisissez deux CRM et confrontez-les d’un coup d’œil : note globale, prix, fonctionnalités,
-        automatisation, IA, reporting, support et hébergement. Un outil <strong>neutre</strong> : il
-        vous aide à comparer, pas à vous vendre un outil plutôt qu’un autre.
+        Choisissez deux CRM et confrontez-les d’un coup d’œil : profil visé, prix d’entrée, offre
+        gratuite, essai, hébergement, support, points forts et points d’attention. L’outil met des
+        faits côte à côte ; il n’attribue aucune note.
       </p>
     </div>
   </section>
@@ -155,30 +156,23 @@ const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
   {/* ---------- Contenu SEO ---------- */}
   <div class="container cmp-content">
     <div class="prose">
-      <h2>Que compare-t-on, et comment lire les notes ?</h2>
+      <h2>Que compare-t-on ?</h2>
       <p>
-        Un bon comparatif de CRM ne se résume pas à un prix. Pour choisir un logiciel de gestion de
-        la relation client, il faut peser plusieurs dimensions : à quelle vitesse votre équipe sera
-        opérationnelle, ce que vous obtenez réellement pour le prix, la profondeur des
-        fonctionnalités, la capacité à automatiser, la finesse du reporting, et la qualité du support
-        et des intégrations. Notre comparateur note chaque CRM sur ces <strong
-          >six critères, de 0 à 10</strong
-        >, puis en tire une note globale.
+        Un bon comparatif de CRM ne se résume pas à un prix. Pour chaque logiciel, le comparateur
+        met côte à côte des informations vérifiables :
       </p>
       <ul>
-        {
-          CRITERES.map((cr) => (
-            <li>
-              <strong>{cr.label}</strong> : {cr.hint}.
-            </li>
-          ))
-        }
+        <li><strong>Le positionnement</strong> : catégorie d’outil, profil visé, tailles d’entreprise.</li>
+        <li><strong>Le prix</strong> : tarif d’entrée, offre gratuite éventuelle, durée d’essai.</li>
+        <li><strong>Les données</strong> : hébergement dans l’Union européenne ou non.</li>
+        <li><strong>L’accompagnement</strong> : support en français ou non.</li>
+        <li><strong>Les points forts et les points d’attention</strong>, formulés à partir de la documentation des éditeurs.</li>
       </ul>
       <p>
-        Ces notes sont une <strong>synthèse éditoriale</strong> calibrée sur le consensus du marché
-        et nos recherches ; elles situent chaque outil, elles ne remplacent pas un essai. Les tarifs
-        ont été relevés en {LAST_VERIFIED} : indicatifs, hors taxes, à confirmer chez l’éditeur.
-        Découvrez notre <a href={path('methodologie')}>méthodologie de test</a> pour en savoir plus.
+        Le comparateur n’attribue aucune note : il vous aide à confronter des faits, pas à désigner
+        un gagnant. Les informations ont été relevées en {LAST_VERIFIED} sur les sites des éditeurs :
+        indicatives, hors taxes, à confirmer chez l’éditeur. Pour en savoir plus, consultez
+        <a href={path('methodologie')}>notre méthodologie</a>.
       </p>
 
       <h2>Comparaisons de CRM populaires</h2>
@@ -204,15 +198,15 @@ const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
     <div class="prose">
       <h2>Les {CRMS.length} CRM comparés en un coup d’œil</h2>
       <p>
-        Voici les logiciels couverts par le comparateur, avec leur note globale, leur positionnement
-        et leur tarif d’entrée. Ils vont des plateformes d’entreprise aux outils français tout-en-un,
+        Voici les logiciels couverts par le comparateur, avec leur positionnement, leur tarif
+        d’entrée et les principaux faits à connaître. Ils vont des plateformes d’entreprise aux outils français tout-en-un,
         en passant par les CRM de vente épurés.
       </p>
     </div>
 
     <ul class="fiches" role="list">
       {
-        fiches.map(({ c, note }) => (
+        fiches.map(({ c }) => (
           <li class="fiche" style={`--c:${c.color}`}>
             <div class="fiche__head">
               <span class="fiche__mono" aria-hidden="true">
@@ -229,10 +223,6 @@ const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
                 <p class="fiche__name">{c.name}</p>
                 <p class="fiche__cat">{c.categorie}</p>
               </div>
-              <span class="fiche__note is-data">
-                {note.toLocaleString('fr-FR')}
-                <small>/10</small>
-              </span>
             </div>
             <dl class="fiche__facts">
               <div>
@@ -503,21 +493,6 @@ const fiches = CRMS.map((c) => ({ c, note: globalScore(c) }));
   .fiche__cat {
     font-size: var(--text-2xs);
     color: var(--text-muted);
-  }
-  .fiche__note {
-    flex: none;
-    font-family: var(--font-data);
-    font-feature-settings: var(--num-tabular);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--text-2xl);
-    line-height: 1;
-    color: var(--c);
-  }
-  .fiche__note small {
-    font-family: var(--font-ui);
-    font-size: var(--text-2xs);
-    font-weight: var(--font-weight-regular);
-    color: var(--text-faint);
   }
   .fiche__facts {
     display: grid;

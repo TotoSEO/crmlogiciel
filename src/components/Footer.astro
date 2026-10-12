@@ -6,7 +6,7 @@
  * Les intitulés de colonnes ne sont pas des Hn (pas de signal de titre concurrent).
  */
 import { pillars, getPage, UTILITY_LINKS } from '../config/content-map';
-import { path, SITE } from '../config/site';
+import { path, SITE, DISCLOSURE_SITE, TRANSPARENCE_HREF } from '../config/site';
 
 const pillarLinks = pillars();
 const methodo = getPage('methodologie');
@@ -18,10 +18,12 @@ const year = new Date().getFullYear();
     <div class="site-footer__brand">
       <a href={path('')} class="footer-brand">crm-logiciel<span>.fr</span></a>
       <p class="site-footer__pitch">
-        Le site de conseil en CRM n°1 en France depuis 2007. Comprendre, apprendre, comparer,
-        choisir. Bienvenue sur notre site.
+        Comprendre, apprendre, comparer, choisir : des guides et des classements pour trouver le
+        bon logiciel CRM.
       </p>
-      <p class="site-footer__since is-data">Nom de domaine actif depuis 2007</p>
+      <p class="site-footer__disclosure">
+        {DISCLOSURE_SITE} <a href={TRANSPARENCE_HREF}>Liens d'intérêts</a>
+      </p>
     </div>
 
     <nav class="site-footer__col" aria-label="Nos guides">
@@ -96,10 +98,16 @@ const year = new Date().getFullYear();
     font-size: var(--text-sm);
     color: var(--text-muted);
   }
-  .site-footer__since {
+  .site-footer__disclosure {
     margin-top: var(--space-5);
+    max-width: 44ch;
     font-size: var(--text-xs);
+    line-height: 1.5;
     color: var(--text-muted);
+  }
+  .site-footer__disclosure a {
+    color: var(--ink-80);
+    text-decoration: underline;
   }
   .site-footer__title {
     font-family: var(--font-ui);

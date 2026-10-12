@@ -51,7 +51,7 @@ Quatre familles structurent le tableau : ce qui entre, ce qui se transforme, ce 
 | Activités en retard              | Tâches dont l'échéance est dépassée               | Quotidien  | Le traiter comme un reproche : c'est une alerte de charge               |
 | Affaires sans prochaine action   | Opportunités ouvertes sans tâche datée            | Hebdo      | L'ignorer : c'est le meilleur prédicteur d'un pipe qui ment             |
 
-Deux lectures de ce tableau valent la peine d'être faites à voix haute. La prévision pondérée n'est fiable que si [votre pipeline](/pipeline-commercial/) a des étapes à critères de sortie et des probabilités issues de l'historique : le tableau de bord hérite de la qualité du pipe, jamais l'inverse. Et les deux dernières lignes, les indicateurs d'hygiène, sont les plus prédictives du lot : **une affaire sans prochaine action est une affaire que personne ne travaille**, et un pipe rempli d'affaires que personne ne travaille produira un trimestre vide avec trois mois de préavis. C'est le chiffre que je regarde en premier dans un CRM que je découvre.
+Deux lectures de ce tableau valent la peine d'être faites à voix haute. La prévision pondérée n'est fiable que si [votre pipeline](/pipeline-commercial/) a des étapes à critères de sortie et des probabilités issues de l'historique : le tableau de bord hérite de la qualité du pipe, jamais l'inverse. Et les deux dernières lignes, les indicateurs d'hygiène, sont les plus prédictives du lot : **une affaire sans prochaine action est une affaire que personne ne travaille**, et un pipe rempli d'affaires que personne ne travaille produira un trimestre vide avec trois mois de préavis. C'est un chiffre à regarder en premier quand on découvre un CRM.
 
 ## Trois rythmes, trois écrans
 

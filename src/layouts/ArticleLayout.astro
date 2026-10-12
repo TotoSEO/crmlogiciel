@@ -9,10 +9,16 @@
  *                           avec les blocs validés insérés là où le contenu les appelle)
  *   3. Sommaire latéral    (<aside><nav> sticky, sans Hn — composant Toc)
  *   4. Barre de progression (ReadingProgress, CSS scroll-driven, sans JS)
- *   5. FAQ en accordéon HTML (composant Faq) puis bloc auteur (AuthorBio)
+ *   5. FAQ en accordéon HTML (composant Faq)
  *
- * Tout le contenu est rendu dans le HTML source. Le JSON-LD (Article + Person +
- * BreadcrumbList + FAQPage) est construit ici et injecté via le slot « head ».
+ * Pages classement (cluster « meilleurs ») : mention du lien d'intérêt de
+ * l'éditeur en clair dans le hero, avant le contenu, et rappel en fin d'article
+ * avec l'adresse de correction. Pas de signature nominative : l'auteur déclaré
+ * est le site (Organization).
+ *
+ * Tout le contenu est rendu dans le HTML source. Le JSON-LD (Article +
+ * Organization + BreadcrumbList + FAQPage + ItemList) est construit ici et
+ * injecté via le slot « head ».
  */
 import BaseLayout from './BaseLayout.astro';
 import JsonLd from '../components/JsonLd.astro';
@@ -22,11 +28,10 @@ import Faq from '../components/blocks/Faq.astro';
 import Button from '../components/blocks/Button.astro';
 import Toc from '../components/article/Toc.astro';
 import ReadingProgress from '../components/article/ReadingProgress.astro';
-import AuthorBio from '../components/article/AuthorBio.astro';
 
-import { absoluteUrl, DISCLOSURE_CLASSEMENTS } from '../config/site';
+import { SITE, absoluteUrl, DISCLOSURE_CLASSEMENTS, TRANSPARENCE_HREF } from '../config/site';
 import { getCluster, type ClusterId, type Crumb } from '../config/content-map';
-import { article, organization, person, breadcrumbList, faqPage, itemList, graph } from '../lib/schema';
+import { article, organization, breadcrumbList, faqPage, itemList, graph } from '../lib/schema';
 
 interface TocItem {
   id: string;
@@ -50,7 +55,6 @@ interface Props {
   /** Slug sans slash (canonical auto-référent). */
   slug: string;
   cluster: ClusterId;
-  author: string;
   datePublished: Date;
   dateModified?: Date;
   featuredImage?: string;
@@ -83,7 +87,6 @@ const {
   excerpt,
   slug,
   cluster,
-  author,
   datePublished,
   dateModified,
   featuredImage,
@@ -101,7 +104,8 @@ const {
   noindex = false,
 } = Astro.props;
 
-const isClassement = cluster === 'meilleurs';
+// Page qui déclare un classement : encadré de transparence en tête d'article.
+const hasClassement = !!classement && classement.length > 0;
 
 const palette = getCluster(cluster)?.palette ?? 'blue';
 
@@ -130,10 +134,8 @@ const nodes = [
     slug,
     datePublished: isoPublished,
     dateModified: isoModified,
-    authorName: author,
     image: featuredImage,
   }),
-  person(author),
   organization(),
   breadcrumbList(crumbs, currentUrl),
 ];
@@ -175,7 +177,7 @@ const pageSchema = graph(...nodes);
           <h1 class="article-hero__title">{h1}</h1>
           <p class="article-hero__excerpt">{excerpt}</p>
           <p class="article-hero__meta is-data">
-            <span>Par {author}</span>
+            <span>Par {SITE.name}</span>
             <span aria-hidden="true">·</span>
             <span>
               Publié le <time datetime={isoPublished}>{frDate(datePublished)}</time>
@@ -221,6 +223,17 @@ const pageSchema = graph(...nodes);
     {/* 2-3. Corps + sommaire latéral */}
     <div class="container article-body">
       <div class="article-body__main">
+        {
+          hasClassement && (
+            <aside class="article-transparence not-prose" aria-label="Transparence">
+              <p>
+                <strong>Transparence.</strong> {DISCLOSURE_CLASSEMENTS}{' '}
+                <a href={TRANSPARENCE_HREF}>Notre méthode</a>
+              </p>
+            </aside>
+          )
+        }
+
         {enBref && enBref.length > 0 && <EnBref points={enBref} />}
 
         {
@@ -270,9 +283,16 @@ const pageSchema = graph(...nodes);
           )
         }
 
-        <AuthorBio name={author} hideMethodoLink={slug === 'methodologie'} />
-
-        {isClassement && <p class="article-disclosure">{DISCLOSURE_CLASSEMENTS}</p>}
+        {
+          hasClassement && (
+            <p class="article-disclosure">
+              Une information inexacte ou dépassée ? Les éditeurs cités peuvent demander la correction
+              d'une information ou le retrait d'un visuel en écrivant à{' '}
+              <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a> : chaque demande
+              justifiée est traitée rapidement.
+            </p>
+          )
+        }
       </div>
 
       <Toc items={tocAll} />
@@ -478,12 +498,29 @@ const pageSchema = graph(...nodes);
     }
   }
 
-  /* Mention de transparence des classements : discrète, en pied d'article. */
+  /* Transparence des classements : encadré sobre et lisible, avant « En bref ». */
+  .article-transparence {
+    margin-bottom: var(--space-6);
+    padding: var(--space-4) var(--space-5);
+    border: var(--rule-hair) solid color-mix(in srgb, var(--cluster-color) 35%, var(--border-default));
+    border-left: var(--rule-medium) solid var(--cluster-color);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--cluster-color) 6%, var(--surface-card));
+    font-size: var(--text-sm);
+    line-height: 1.55;
+    color: var(--ink-80);
+  }
+  .article-transparence a {
+    white-space: nowrap;
+    text-decoration: underline;
+  }
+
+  /* Rappel en fin d'article, avec l'adresse de correction. */
   .article-disclosure {
-    margin-top: var(--space-8);
+    margin-top: var(--space-12);
     padding-top: var(--space-4);
     border-top: var(--rule-hair) solid var(--border-default);
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
     line-height: 1.5;
     color: var(--text-muted);
   }

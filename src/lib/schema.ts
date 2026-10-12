@@ -10,7 +10,7 @@
  *   WebSite      : `${SITE.url}/#website`
  */
 
-import { SITE, DEFAULT_AUTHOR, absoluteUrl } from '../config/site';
+import { SITE, absoluteUrl } from '../config/site';
 import type { Crumb } from '../config/content-map';
 
 const ORG_ID = `${SITE.url}/#organization`;
@@ -42,16 +42,17 @@ export function website(): Json {
   };
 }
 
-/** Person — auteur éditorial (E-E-A-T : bio + rattachement à la marque). */
-export function person(name: string = DEFAULT_AUTHOR.name): Json {
+/** AboutPage : page À propos (qui publie, méthode, liens d'intérêts). */
+export function aboutPage(url: string, name: string, description: string): Json {
   return {
-    '@type': 'Person',
+    '@type': 'AboutPage',
+    '@id': `${url}#webpage`,
+    url,
     name,
-    url: DEFAULT_AUTHOR.url,
-    jobTitle: DEFAULT_AUTHOR.jobTitle,
-    description: DEFAULT_AUTHOR.bio,
-    worksFor: { '@id': ORG_ID },
-    image: new URL(DEFAULT_AUTHOR.photo, SITE.url).href,
+    description,
+    inLanguage: SITE.lang,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
   };
 }
 
@@ -62,12 +63,14 @@ export interface ArticleInput {
   slug: string;
   datePublished: string; // ISO 8601
   dateModified: string; // ISO 8601
-  authorName?: string;
   /** Chemin ou URL de l'image à la une. */
   image?: string;
 }
 
-/** Article — pages de guides (clusters). */
+/**
+ * Article — pages de guides (clusters). Pas d'auteur personne physique :
+ * l'auteur déclaré est le site lui-même (Organization), qui est aussi l'éditeur.
+ */
 export function article(input: ArticleInput): Json {
   const url = absoluteUrl(input.slug);
   const obj: Json = {
@@ -79,7 +82,7 @@ export function article(input: ArticleInput): Json {
     url,
     datePublished: input.datePublished,
     dateModified: input.dateModified,
-    author: person(input.authorName),
+    author: { '@type': 'Organization', '@id': ORG_ID, name: SITE.name, url: `${SITE.url}/` },
     publisher: { '@id': ORG_ID },
   };
   if (input.image) obj.image = new URL(input.image, SITE.url).href;
@@ -104,9 +107,9 @@ export function faqPage(items: FaqItem[]): Json {
 }
 
 /**
- * ItemList — ordre d'un classement (pages « meilleurs CRM »). Volontairement
- * sans note ni avis (pas de Review/AggregateRating) : l'ordre suffit et reste
- * conforme aux règles des données structurées.
+ * ItemList : ordre d'un classement (pages « meilleurs CRM »), chaque entrée
+ * étant une SoftwareApplication. Volontairement sans note ni avis (pas de
+ * Review ni d'aggregateRating) : l'ordre reflète une appréciation éditoriale.
  */
 export function itemList(name: string, items: string[], url: string): Json {
   return {
@@ -118,7 +121,11 @@ export function itemList(name: string, items: string[], url: string): Json {
     itemListElement: items.map((item, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      name: item,
+      item: {
+        '@type': 'SoftwareApplication',
+        name: item,
+        applicationCategory: 'BusinessApplication',
+      },
     })),
   };
 }
