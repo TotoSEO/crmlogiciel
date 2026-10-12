@@ -196,16 +196,19 @@ const guides = [
           ))
         }
 
-        {/* Étape finale : le comparatif (différé). */}
+        {/* Étape finale : le classement des meilleurs CRM (hub du cluster « meilleurs »). */}
         <li class="tl-item tl-item--final" data-reveal>
           <span class="tl-pastille tl-pastille--final anim-pulse" aria-hidden="true">★</span>
           <div class="tl-card tl-card--final glass">
-            <Badge tone="accent" pop>Prochainement</Badge>
-            <h3 class="tl-card__title">Notre comparatif des meilleurs CRM pour 2027</h3>
+            <Badge tone="accent" pop>Nouveau</Badge>
+            <h3 class="tl-card__title">Les meilleurs CRM en 2026</h3>
             <p class="tl-card__text">
-              L'aboutissement de votre recherche : le classement complet des meilleurs CRM, testés
-              un par un. En préparation, disponible très bientôt.
+              L'aboutissement de votre recherche : notre classement des meilleurs CRM, puis un
+              classement par profil (PME, ETI, industrie, négoce, commerciaux terrain, SAV…).
             </p>
+            <a class="tl-card__link" href={path('meilleurs-crm')}>
+              Voir le classement <span aria-hidden="true">→</span>
+            </a>
           </div>
         </li>
       </ol>

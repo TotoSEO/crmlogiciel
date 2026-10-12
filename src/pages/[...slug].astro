@@ -46,12 +46,19 @@ const clusterLabel =
   data.cluster !== 'transverse' ? getCluster(data.cluster as ClusterId)?.label : undefined;
 
 // Pilier : hub des autres guides de l'univers (maillage de structure).
+// Classements : chaque sous-page renvoie aussi vers les autres classements.
+const isClassement = data.cluster === 'meilleurs';
 const pillarGuides =
-  data.type === 'pilier'
+  data.type === 'pilier' || isClassement
     ? pagesOf(data.cluster as ClusterId)
         .filter((p) => p.slug !== slug)
         .map((p) => ({ label: p.label, href: path(p.slug) }))
     : undefined;
+const guidesTitle = isClassement
+  ? data.type === 'pilier'
+    ? 'Nos classements par profil'
+    : 'Les autres classements'
+  : undefined;
 
 const noindex = !INDEXABLE || data.draft;
 ---
@@ -75,6 +82,8 @@ const noindex = !INDEXABLE || data.draft;
   toc={toc}
   readingTime={readingTime}
   pillarGuides={pillarGuides}
+  guidesTitle={guidesTitle}
+  classement={data.classement}
   clusterLabel={clusterLabel}
   noindex={noindex}
 >

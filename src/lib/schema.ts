@@ -104,6 +104,26 @@ export function faqPage(items: FaqItem[]): Json {
 }
 
 /**
+ * ItemList — ordre d'un classement (pages « meilleurs CRM »). Volontairement
+ * sans note ni avis (pas de Review/AggregateRating) : l'ordre suffit et reste
+ * conforme aux règles des données structurées.
+ */
+export function itemList(name: string, items: string[], url: string): Json {
+  return {
+    '@type': 'ItemList',
+    '@id': `${url}#classement`,
+    name,
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: items.length,
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item,
+    })),
+  };
+}
+
+/**
  * BreadcrumbList — à partir du fil d'Ariane (helper content-map).
  * `currentUrl` est l'URL absolue de la page courante (dernier élément sans href).
  */

@@ -1,0 +1,326 @@
+---
+/**
+ * CrmFiche — fiche visuelle d'un outil dans un classement « Les meilleurs CRM ».
+ *
+ * Volontairement sans titre Hn : le H3 de l'outil est écrit dans le MDX, juste
+ * au-dessus (hiérarchie de titres propre, sommaire et ancres corrects). La fiche
+ * résume ; le texte autour argumente.
+ *
+ * Faits (logo, prix, hébergement, capture) : catalogue `src/data/classements.ts`.
+ * Avis (verdict, idéal pour, points forts / de vigilance) : propres à la page,
+ * passés en props pour que chaque classement garde son angle.
+ */
+import { getCrm, type Capture } from '../data/classements';
+
+interface Props {
+  id: string;
+  rang: number;
+  verdict: string;
+  idealPour: string;
+  forces: string[];
+  limites: string[];
+  /** Surcharges ponctuelles des faits du catalogue. */
+  nom?: string;
+  prix?: string;
+  hebergement?: string;
+  /** false : pas de capture ; objet : capture spécifique à la page. */
+  capture?: false | Capture;
+}
+
+const { id, rang, verdict, idealPour, forces, limites, nom, prix, hebergement, capture } = Astro.props;
+const crm = getCrm(id);
+const nomAffiche = nom ?? crm.nom;
+const visuel = capture === false ? undefined : (capture ?? crm.capture);
+const heberg = hebergement ?? crm.hebergement;
+---
+
+<div class:list={['fiche', 'not-prose', { 'fiche--top': rang === 1 }]} style={`--fiche-color: ${crm.color}`}>
+  <div class="fiche__head">
+    <span class="fiche__rang is-data" aria-label={`Rang ${rang}`}>{rang}</span>
+    {
+      crm.logo ? (
+        <img class="fiche__logo" src={crm.logo} alt="" width="48" height="48" loading="lazy" decoding="async" />
+      ) : (
+        <span class="fiche__mono" aria-hidden="true">
+          {crm.monogram}
+        </span>
+      )
+    }
+    <div class="fiche__id">
+      <p class="fiche__nom">{nomAffiche}</p>
+      <p class="fiche__meta">{crm.editeur} · {crm.origine}</p>
+    </div>
+    {rang === 1 && <span class="fiche__badge">Notre n°1</span>}
+  </div>
+
+  <p class="fiche__verdict">{verdict}</p>
+
+  <dl class="fiche__facts">
+    <div>
+      <dt>Idéal pour</dt>
+      <dd>{idealPour}</dd>
+    </div>
+    <div>
+      <dt>Prix</dt>
+      <dd>{prix ?? crm.prix}</dd>
+    </div>
+    {
+      heberg && (
+        <div>
+          <dt>Hébergement</dt>
+          <dd>{heberg}</dd>
+        </div>
+      )
+    }
+  </dl>
+
+  <div class="fiche__pc">
+    <div class="fiche__col fiche__col--plus">
+      <p class="fiche__col-title">Points forts</p>
+      <ul>
+        {forces.map((f) => <li>{f}</li>)}
+      </ul>
+    </div>
+    <div class="fiche__col fiche__col--minus">
+      <p class="fiche__col-title">Points de vigilance</p>
+      <ul>
+        {limites.map((l) => <li>{l}</li>)}
+      </ul>
+    </div>
+  </div>
+
+  {
+    visuel && (
+      <figure class="fiche__capture">
+        <img
+          src={visuel.src}
+          alt={visuel.alt}
+          width={visuel.width}
+          height={visuel.height}
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          {visuel.legende} <span class="fiche__credit">Capture : © {visuel.credit}</span>
+        </figcaption>
+      </figure>
+    )
+  }
+</div>
+
+<style>
+  .fiche {
+    margin-block: var(--space-4) var(--space-6);
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+    border: var(--rule-hair) solid var(--border-default);
+    background: var(--surface-card);
+    box-shadow: var(--shadow-soft);
+  }
+  .fiche--top {
+    border: var(--rule-medium) solid color-mix(in srgb, var(--minium) 55%, var(--border-default));
+    background:
+      radial-gradient(80% 60% at 100% 0%, var(--minium-tint), transparent 60%),
+      var(--surface-card);
+  }
+
+  /* ---- En-tête ---- */
+  .fiche__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .fiche__rang {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-full);
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--font-data);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-base);
+  }
+  .fiche--top .fiche__rang {
+    background: var(--grad-sunset);
+  }
+  .fiche__logo,
+  .fiche__mono {
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-md);
+  }
+  .fiche__logo {
+    object-fit: contain;
+    background: #fff;
+    border: var(--rule-hair) solid var(--border-default);
+    padding: 4px;
+  }
+  .fiche__mono {
+    display: grid;
+    place-items: center;
+    background: var(--fiche-color);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-sm);
+  }
+  .fiche__id {
+    flex: 1;
+    min-width: 0;
+  }
+  .fiche__nom {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .fiche__meta {
+    margin-top: 2px;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  .fiche__badge {
+    flex: none;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    background: var(--minium-tint);
+    color: var(--minium-ink);
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-bold);
+    white-space: nowrap;
+  }
+
+  .fiche__verdict {
+    margin-top: var(--space-4);
+    font-family: var(--font-ui);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-base);
+    line-height: 1.45;
+    color: var(--ink-80);
+  }
+
+  /* ---- Faits clés ---- */
+  .fiche__facts {
+    margin: var(--space-4) 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+  .fiche__facts > div {
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    background: var(--surface-sunk);
+  }
+  .fiche__facts dt {
+    font-family: var(--font-ui);
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .fiche__facts dd {
+    margin: var(--space-1) 0 0;
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    color: var(--ink);
+  }
+
+  /* ---- Points forts / de vigilance ---- */
+  .fiche__pc {
+    margin-top: var(--space-4);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+  .fiche__col-title {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+  .fiche__col--plus .fiche__col-title {
+    color: var(--green-ink);
+  }
+  .fiche__col--minus .fiche__col-title {
+    color: var(--orange-ink);
+  }
+  .fiche__col ul {
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .fiche__col li {
+    position: relative;
+    padding-left: 1.35rem;
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    color: var(--text-body);
+  }
+  .fiche__col li::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: var(--font-weight-bold);
+  }
+  .fiche__col--plus li::before {
+    content: '✓';
+    color: var(--green);
+  }
+  .fiche__col--minus li::before {
+    content: '!';
+    left: 0.3rem;
+    color: var(--orange);
+  }
+
+  /* ---- Capture ---- */
+  .fiche__capture {
+    margin: var(--space-5) 0 0;
+  }
+  .fiche__capture img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    border: var(--rule-hair) solid var(--border-default);
+  }
+  .fiche__capture figcaption {
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    line-height: 1.45;
+    color: var(--text-muted);
+  }
+  .fiche__credit {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .fiche {
+      padding: var(--space-4);
+    }
+    .fiche__facts {
+      grid-template-columns: 1fr;
+    }
+    .fiche__pc {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 420px) {
+    .fiche__head {
+      flex-wrap: wrap;
+    }
+    .fiche__badge {
+      order: 5;
+    }
+  }
+</style>

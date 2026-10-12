@@ -51,7 +51,7 @@ Les budgets ci-dessous croisent licences, mise en route et formation, pour une p
 | PME, 20 utilisateurs                            | 30 à 70 €                               | 12 000 à 30 000 €           |
 | PME structurée, 50 utilisateurs et intégrations | 50 à 120 €                              | 50 000 à 120 000 €          |
 
-La première ligne mérite une précision : à l'échelle d'un indépendant ou d'une très petite équipe, les meilleurs CRM gratuits couvrent réellement le besoin, sans astérisque, tant que le volume et les automatisations restent modestes. Le passage au payant se déclenche par l'usage, pas par principe.
+La première ligne mérite une précision : à l'échelle d'un indépendant ou d'une très petite équipe, [les meilleurs CRM gratuits](/crm-gratuit/) couvrent réellement le besoin, sans astérisque, tant que le volume et les automatisations restent modestes. Le passage au payant se déclenche par l'usage, pas par principe. Pour les lignes du milieu, notre classement des [meilleurs CRM pour PME](/meilleurs-crm-pme/) chiffre la facture annuelle de licences de sept outils pour une équipe de huit personnes.
 
 ## Les sept mécanismes qui gonflent la facture
 

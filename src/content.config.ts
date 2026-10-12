@@ -16,7 +16,7 @@ import { z } from 'astro:schema';
 import { glob } from 'astro/loaders';
 import { DEFAULT_AUTHOR } from './config/site';
 
-const clusterEnum = z.enum(['comprendre', 'choisir', 'utiliser', 'transverse']);
+const clusterEnum = z.enum(['meilleurs', 'comprendre', 'choisir', 'utiliser', 'transverse']);
 const typeEnum = z.enum(['pilier', 'satellite', 'methodologie', 'accueil']);
 const schemaTypeEnum = z.enum(['Article', 'FAQPage', 'WebSite', 'WebPage']);
 
@@ -60,6 +60,8 @@ const pages = defineCollection({
         note: z.string().optional(),
       })
       .optional(),
+    /** Pages classement : noms des outils dans l'ordre (JSON-LD ItemList, sans note). */
+    classement: z.array(z.string()).optional(),
     /** Exclure de l'indexation (pages techniques / brouillons). */
     draft: z.boolean().default(false),
   }),

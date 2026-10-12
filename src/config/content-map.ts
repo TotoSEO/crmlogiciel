@@ -18,7 +18,7 @@
 
 import { path } from './site';
 
-export type ClusterId = 'comprendre' | 'choisir' | 'utiliser' | 'transverse';
+export type ClusterId = 'meilleurs' | 'comprendre' | 'choisir' | 'utiliser' | 'transverse';
 
 export interface PageNode {
   /** Slug = nom de fichier Markdown, sans slash. '' pour l'accueil. */
@@ -32,7 +32,7 @@ export interface PageNode {
   pillar?: boolean;
 }
 
-export type Palette = 'blue' | 'teal' | 'orange' | 'green';
+export type Palette = 'blue' | 'teal' | 'orange' | 'green' | 'minium';
 
 export interface Cluster {
   id: ClusterId;
@@ -53,6 +53,15 @@ export interface Cluster {
 /* -------------------------------------------------------------------------- */
 
 export const CLUSTERS: Cluster[] = [
+  // Classements : premier onglet du menu (section phare du site).
+  {
+    id: 'meilleurs',
+    label: 'Les meilleurs CRM',
+    pillarSlug: 'meilleurs-crm',
+    pillarLabel: 'Le classement des meilleurs CRM',
+    inNav: true,
+    palette: 'minium',
+  },
   {
     id: 'comprendre',
     label: 'Comprendre',
@@ -95,6 +104,28 @@ export const CLUSTERS: Cluster[] = [
 export const PAGES: PageNode[] = [
   // Accueil (racine)
   { slug: '', label: 'Accueil', cluster: 'transverse' },
+
+  // Les meilleurs CRM (classements)
+  {
+    slug: 'meilleurs-crm',
+    label: 'Les meilleurs CRM en 2026',
+    breadcrumbLabel: 'Les meilleurs CRM',
+    cluster: 'meilleurs',
+    pillar: true,
+  },
+  { slug: 'meilleurs-crm-pme', label: 'CRM pour PME', cluster: 'meilleurs' },
+  { slug: 'meilleurs-crm-eti', label: 'CRM pour ETI', cluster: 'meilleurs' },
+  { slug: 'meilleurs-crm-industrie', label: "CRM pour l'industrie", cluster: 'meilleurs' },
+  { slug: 'meilleurs-crm-negoce', label: 'CRM pour le négoce', cluster: 'meilleurs' },
+  {
+    slug: 'meilleurs-crm-commerciaux-terrain',
+    label: 'CRM pour commerciaux terrain',
+    cluster: 'meilleurs',
+  },
+  { slug: 'meilleurs-crm-francais', label: 'CRM français', cluster: 'meilleurs' },
+  { slug: 'meilleurs-crm-erp', label: 'CRM intégrés à un ERP', cluster: 'meilleurs' },
+  { slug: 'meilleurs-crm-b2b', label: 'CRM B2B', cluster: 'meilleurs' },
+  { slug: 'meilleurs-crm-sav', label: 'CRM pour le SAV', cluster: 'meilleurs' },
 
   // Transverse
   { slug: 'methodologie', label: 'Notre méthodologie de test', cluster: 'transverse' },
@@ -228,7 +259,7 @@ export const PAGES: PageNode[] = [
     slug: 'crm-gratuit',
     label: 'Les meilleurs CRM gratuits',
     breadcrumbLabel: 'CRM gratuits',
-    cluster: 'choisir',
+    cluster: 'meilleurs',
   },
 
   // Utiliser (10)
