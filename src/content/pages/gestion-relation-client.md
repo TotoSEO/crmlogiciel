@@ -67,7 +67,7 @@ S'il fallait résumer quarante ans de littérature sur la relation client en une
 
 L'étude de référence date de 1990. Dans la Harvard Business Review, [Frederick Reichheld et W. Earl Sasser](https://hbr.org/1990/09/zero-defections-quality-comes-to-services) ont mesuré l'effet de la rétention sur les profits d'entreprises de services. Réduire de 5 points le taux de départ des clients augmentait les profits de 30 % dans l'entretien automobile, de 50 % dans le courtage d'assurance et de 85 % dans la banque de détail. La version populaire de cette idée, « fidéliser coûte cinq fois moins cher qu'acquérir », n'a jamais eu de source fiable ; l'étude d'origine, elle, est solide.
 
-Le mécanisme est simple. Un client fidèle achète davantage, coûte moins cher à servir et recommande autour de lui. Reste à savoir où se gagne la fidélité, et ce n'est pas là où on l'imagine. Elle se joue surtout au moment où quelque chose se passe mal. Une réclamation traitée vite et bien pèse plus lourd que dix newsletters. Parmi les entreprises que je vois durer, celles qui retiennent le mieux leurs clients ont rarement le plus beau programme de points : elles ont un délai de réponse, et elles le tiennent.
+Le mécanisme est simple. Un client fidèle achète davantage, coûte moins cher à servir et recommande autour de lui. Reste à savoir où se gagne la fidélité, et ce n'est pas là où on l'imagine. Elle se joue surtout au moment où quelque chose se passe mal. Une réclamation traitée vite et bien pèse plus lourd que dix newsletters. Les entreprises qui retiennent le mieux leurs clients n'ont pas forcément le plus beau programme de points : elles ont un délai de réponse, et elles le tiennent.
 
 ## Les indicateurs de la relation client
 

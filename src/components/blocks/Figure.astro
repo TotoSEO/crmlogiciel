@@ -1,17 +1,19 @@
 ---
 /**
- * Figure — image avec légende (charte §04 / roadmap §3), dans un cadre de verre.
- * Image responsive, lazy par défaut, légende optionnelle.
+ * Figure : image avec légende (charte §04 / roadmap §3), dans un cadre de verre.
+ * Image responsive, lazy par défaut, légende optionnelle. `credit` : titulaire
+ * des droits d'une capture d'éditeur, affiché « Capture : © Éditeur ».
  */
 interface Props {
   src: string;
   alt: string;
   caption?: string;
+  credit?: string;
   width?: number;
   height?: number;
   eager?: boolean;
 }
-const { src, alt, caption, width, height, eager = false } = Astro.props;
+const { src, alt, caption, credit, width, height, eager = false } = Astro.props;
 ---
 
 <figure class="figure glass not-prose" style="--glass-tint: var(--teal)">
@@ -23,7 +25,14 @@ const { src, alt, caption, width, height, eager = false } = Astro.props;
     loading={eager ? 'eager' : 'lazy'}
     decoding="async"
   />
-  {caption && <figcaption class="figure__caption">{caption}</figcaption>}
+  {
+    (caption || credit) && (
+      <figcaption class="figure__caption">
+        {caption}
+        {credit && <span class="figure__credit"> Capture : © {credit}</span>}
+      </figcaption>
+    )
+  }
 </figure>
 
 <style>

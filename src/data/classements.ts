@@ -57,7 +57,8 @@ export const CATALOGUE: Record<string, CrmClasse> = {
       height: 800,
     },
     prix: 'À partir de 40 € par licence et par mois (profil Standard), 3 licences minimum',
-    hebergement: 'Données hébergées en France pour les clients européens',
+    hebergement:
+      "Données hébergées en France pour les clients européens ; serveurs gérés avec des partenaires « Cloud et Microsoft », selon l'éditeur",
   },
   salesforce: {
     id: 'salesforce',

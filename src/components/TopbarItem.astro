@@ -65,7 +65,7 @@ const isCurrent = (href: string): boolean => href === currentPath;
     <li class="tb-item">
       <a
         href={item.href}
-        class="tb-link tb-link--featured"
+        class:list={['tb-link', { 'tb-link--featured': item.featured }]}
         aria-current={isCurrent(item.href) ? 'page' : undefined}
       >
         <span class="tb-ico" aria-hidden="true">

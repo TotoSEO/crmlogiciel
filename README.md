@@ -1,6 +1,6 @@
 # crm-logiciel.fr
 
-Média de référence sur les logiciels CRM en France. Site statique **Astro**,
+Guides et classements pour choisir un logiciel CRM. Site statique **Astro**,
 déployé sur **Cloudflare Pages**, optimisé pour la performance, le SEO et le GEO
 (tout le contenu essentiel dans le HTML source, sans JavaScript).
 

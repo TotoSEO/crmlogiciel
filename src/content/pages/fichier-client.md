@@ -102,7 +102,7 @@ Un fichier se dégrade sans qu'on y touche : vos contacts changent de poste, d'e
 
 6.  **Nommer un responsable** : un fichier dont tout le monde s'occupe n'appartient à personne, et il se dégrade vite.
 
-Sur les bases que j'ai vues passer en audit, le premier nettoyage sérieux retire ou fusionne couramment 15 à 30 % des fiches. C'est impressionnant sur le moment, et c'est une bonne nouvelle : tout ce qui reste est exploitable.
+Un premier nettoyage sérieux retire ou fusionne souvent une part importante des fiches. C'est impressionnant sur le moment, et c'est une bonne nouvelle : tout ce qui reste est exploitable.
 
 ## L'import dans le CRM, sans casse
 

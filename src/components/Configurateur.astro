@@ -165,7 +165,7 @@ import { STEPS } from '../data/configurateur-crm';
             ${rank === 0 ? '<span class="cfg-card__badge">Recommandé</span>' : ''}
             <p class="cfg-card__name">${esc(r.name)}</p>
           </div>
-          <span class="cfg-card__pct is-data">${r.pct}%<small>d’adéquation</small></span>
+          <span class="cfg-card__pct is-data">${rank + 1}<small>${rank === 0 ? 'er' : 'e'} choix</small></span>
         </div>
         <ul class="cfg-card__reasons">${reasons}</ul>
         <p class="cfg-card__soon"><a class="cfg-link" href="/comparatif-crm/">Comparer ${esc(r.name)} en détail →</a></p>

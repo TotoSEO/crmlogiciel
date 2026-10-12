@@ -65,7 +65,7 @@ Le fil rouge saute aux yeux une fois la liste posée : neuf anti-patterns sur di
 
 La dérive se mesure des mois avant d'être visible en réunion, à condition de regarder trois chiffres. Le taux de connexion hebdomadaire d'abord : quand moins des deux tiers des utilisateurs ouvrent l'outil chaque semaine, la décrue est engagée, et elle s'accélère. La part d'affaires ouvertes sans activité depuis quinze jours ensuite : quand elle dépasse le tiers du pipe, l'outil ne reflète plus la réalité, et chacun le sait sans le dire. Le retour des fichiers personnels enfin, le signal qualitatif roi : le jour où un commercial tient « sa » liste à côté, l'outil officiel est devenu une formalité, et ce jour-là arrive en silence.
 
-Sur les projets que j'ai vus dériver, ces trois signaux étaient visibles un trimestre avant que quiconque ne prononce le mot d'échec. Personne ne les regardait : le tableau de bord suivait les ventes, jamais l'outil lui-même.
+Dans un projet qui dérive, ces trois signaux sont souvent visibles bien avant que quiconque ne prononce le mot d'échec. Personne ne les regardait : le tableau de bord suivait les ventes, jamais l'outil lui-même.
 
 ## Redresser : on rétrécit, on n'ajoute jamais
 

@@ -3,9 +3,10 @@
  * Comparateur CRM — module interactif (île Astro).
  *
  * À gauche on choisit un CRM, à droite un autre : le panneau central affiche la
- * comparaison (note globale, 6 critères en « faders », fiche factuelle, forces/
- * limites). Neutre par principe : il COMPARE, il ne recommande pas (le choix
- * personnalisé, c'est le configurateur de /comment-choisir-crm/).
+ * comparaison factuelle (fiche : catégorie, profil, tailles, prix, offre gratuite,
+ * essai, hébergement, support ; points forts et points d'attention). Aucune note
+ * chiffrée. L'outil COMPARE, il ne recommande pas (le choix personnalisé, c'est
+ * le configurateur de /comment-choisir-crm/).
  *
  * Rendu côté serveur : la paire par défaut est déjà dans la source (lisible sans
  * JS, sans saut de mise en page). Le <script> ne fait que reconstruire le panneau
@@ -43,10 +44,10 @@ const DEFAULT_B = 'salesforce';
   <div class="cmp-panel" set:html={panelHTML(DEFAULT_A, DEFAULT_B)}></div>
 
   <p class="cmp-legend">
-    Notes sur 10 : synthèse éditoriale calibrée au marché (elles situent, elles ne tranchent pas).
-    Tarifs indicatifs, HT, hors promotions, <strong>relevés en {LAST_VERIFIED}</strong>, à vérifier
-    sur le site de l'éditeur. Ce comparateur aide à <em>comparer</em> : pour savoir lequel est fait
-    pour vous, passez par le <a href="/comment-choisir-crm/">formulaire</a>.
+    Informations relevées sur les sites des éditeurs en <strong>{LAST_VERIFIED}</strong>. Tarifs
+    indicatifs, HT, hors promotions, à vérifier sur le site de l'éditeur. Ce comparateur aide à
+    <em>comparer</em> : pour savoir lequel est fait pour vous, passez par le
+    <a href="/comment-choisir-crm/">formulaire</a>.
   </p>
 </section>
 
@@ -211,7 +212,6 @@ const DEFAULT_B = 'salesforce';
 
 <style>
   .cmp {
-    --cmp-track: 0.62rem;
     position: relative;
     padding: clamp(var(--space-4), 3.5vw, var(--space-8));
     border-radius: var(--radius-2xl);
@@ -352,21 +352,6 @@ const DEFAULT_B = 'salesforce';
     color: var(--text-muted);
     text-wrap: balance;
   }
-  .cmp-panel :global(.cmp-head__global) {
-    margin-top: var(--space-2);
-    font-family: var(--font-data);
-    font-feature-settings: var(--num-tabular);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--text-4xl);
-    line-height: 1;
-    color: var(--c);
-  }
-  .cmp-panel :global(.cmp-head__global small) {
-    font-family: var(--font-ui);
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-regular);
-    color: var(--text-faint);
-  }
   .cmp-panel :global(.cmp-vs) {
     display: grid;
     place-items: center;
@@ -380,88 +365,6 @@ const DEFAULT_B = 'salesforce';
     font-weight: var(--font-weight-bold);
     font-size: var(--text-xs);
     color: var(--text-muted);
-  }
-
-  /* ---------- Critères notés (faders) ---------- */
-  .cmp-panel :global(.cmp-criteria) {
-    list-style: none;
-    margin: 0 0 var(--space-8);
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-  .cmp-panel :global(.cmp-crit) {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(8rem, auto) minmax(0, 1fr);
-    align-items: center;
-    gap: var(--space-3);
-  }
-  .cmp-panel :global(.cmp-crit__label) {
-    text-align: center;
-    font-family: var(--font-ui);
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--ink-80);
-    text-wrap: balance;
-  }
-  .cmp-panel :global(.cmp-fader) {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-  }
-  .cmp-panel :global(.cmp-fader__who) {
-    display: none; /* visible en mobile uniquement */
-    flex: none;
-    width: 1.6rem;
-    height: 1.6rem;
-    padding: 2px;
-    place-items: center;
-    border-radius: var(--radius-sm);
-    background: #fff;
-    border: var(--rule-hair) solid var(--border-default);
-  }
-  .cmp-panel :global(.cmp-fader__track) {
-    position: relative;
-    flex: 1;
-    height: var(--cmp-track);
-    border-radius: var(--radius-full);
-    background: var(--surface-sunk);
-    overflow: hidden;
-  }
-  .cmp-panel :global(.cmp-fader__fill) {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: var(--v);
-    border-radius: var(--radius-full);
-    background: var(--c);
-  }
-  .cmp-panel :global(.cmp-fader__val) {
-    flex: none;
-    min-width: 1.6rem;
-    font-family: var(--font-data);
-    font-feature-settings: var(--num-tabular);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--text-base);
-    color: var(--c);
-  }
-  /* A = à gauche, remplissage vers le centre (droite de sa cellule) */
-  .cmp-panel :global(.cmp-fader--a) {
-    flex-direction: row-reverse;
-  }
-  .cmp-panel :global(.cmp-fader--a .cmp-fader__fill) {
-    right: 0;
-  }
-  .cmp-panel :global(.cmp-fader--a .cmp-fader__val) {
-    text-align: left;
-  }
-  /* B = à droite, remplissage vers le centre (gauche de sa cellule) */
-  .cmp-panel :global(.cmp-fader--b .cmp-fader__fill) {
-    left: 0;
-  }
-  .cmp-panel :global(.cmp-fader--b .cmp-fader__val) {
-    text-align: right;
   }
 
   /* ---------- Fiche factuelle ---------- */
@@ -591,21 +494,6 @@ const DEFAULT_B = 'salesforce';
     font-weight: var(--font-weight-semibold);
   }
 
-  /* ---------- Animation de remplissage (amélioration progressive) ---------- */
-  @media (prefers-reduced-motion: no-preference) {
-    .cmp-panel :global(.cmp-fader__fill) {
-      animation: cmp-grow 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-    @keyframes cmp-grow {
-      from {
-        width: 0;
-      }
-      to {
-        width: var(--v);
-      }
-    }
-  }
-
   /* ---------- Responsive ---------- */
   @media (max-width: 680px) {
     .cmp-pickers {
@@ -618,36 +506,6 @@ const DEFAULT_B = 'salesforce';
     }
     .cmp-pick--b .cmp-pick__label {
       text-align: left;
-    }
-
-    /* Faders : empilés, pleine largeur, remplissage classique (gauche→droite). */
-    .cmp-panel :global(.cmp-crit) {
-      grid-template-columns: 1fr;
-      gap: var(--space-1);
-      padding: var(--space-3) 0;
-      border-top: var(--rule-hair) solid var(--border-default);
-    }
-    .cmp-panel :global(.cmp-crit:first-child) {
-      border-top: none;
-    }
-    .cmp-panel :global(.cmp-crit__label) {
-      text-align: left;
-      margin-bottom: var(--space-1);
-    }
-    .cmp-panel :global(.cmp-fader--a) {
-      flex-direction: row;
-    }
-    .cmp-panel :global(.cmp-fader--a .cmp-fader__fill),
-    .cmp-panel :global(.cmp-fader--b .cmp-fader__fill) {
-      left: 0;
-      right: auto;
-    }
-    .cmp-panel :global(.cmp-fader--a .cmp-fader__val),
-    .cmp-panel :global(.cmp-fader--b .cmp-fader__val) {
-      text-align: right;
-    }
-    .cmp-panel :global(.cmp-fader__who) {
-      display: grid;
     }
 
     /* Fiche factuelle : label au-dessus, deux valeurs côte à côte. */
@@ -668,9 +526,6 @@ const DEFAULT_B = 'salesforce';
     }
     .cmp-panel :global(.cmp-head__name) {
       font-size: var(--text-lg);
-    }
-    .cmp-panel :global(.cmp-head__global) {
-      font-size: var(--text-3xl);
     }
   }
 </style>

@@ -1,13 +1,18 @@
 /**
- * Constantes globales du site — crm-logiciel.fr
- * Source unique de vérité pour l'identité, l'URL et l'auteur par défaut.
+ * Constantes globales du site : crm-logiciel.fr
+ * Source unique de vérité pour l'identité, l'URL et les mentions de transparence.
+ *
+ * Règle éditoriale : aucune affirmation invérifiable sur le site lui-même
+ * (« n°1 », « référence », « indépendant », « testé », ancienneté de l'éditeur).
+ * Le nom de domaine a hébergé un autre site dès 2007, mais l'enregistrement
+ * actuel date de juin 2026 (registre AFNIC) : on ne revendique pas cet historique.
  */
 
 export const SITE = {
   /** Nom de marque (titres, JSON-LD Organization/WebSite). */
   name: 'crm-logiciel.fr',
   /** Nom long pour les contextes éditoriaux. */
-  longName: 'crm-logiciel.fr, le média de référence sur les logiciels CRM',
+  longName: 'crm-logiciel.fr : guides et classements pour choisir son CRM',
   /** URL de production, sans slash final (l'helpers ajoute les slashs). */
   url: 'https://crm-logiciel.fr',
   /** Langue unique au lancement. */
@@ -15,19 +20,30 @@ export const SITE = {
   lang: 'fr',
   /** Description par défaut (fallback meta description / OpenGraph). */
   description:
-    'Le média de référence sur les logiciels CRM en France : comprendre, choisir et utiliser un CRM, méthodes et comparatifs indépendants.',
-  /** Image OpenGraph par défaut (à fournir ; placeholder pour l'instant). */
+    'Comprendre, choisir et utiliser un logiciel CRM : guides pratiques, méthodes et classements des CRM par profil d’entreprise, avec sources et tarifs datés.',
+  /** Image OpenGraph par défaut. */
   defaultOgImage: '/images/og-default.png',
   /** Compte Twitter/X de la marque (laisser vide tant qu'inexistant). */
   twitter: '',
+  /** Adresse de contact publique (questions, demandes de correction). */
+  contactEmail: 'contact@crm-logiciel.fr',
 } as const;
 
 /**
- * Mention de transparence des pages classement (cluster « meilleurs »).
- * Affichée discrètement tout en bas de l'article, en petit texte.
+ * Liens d'intérêts de l'éditeur, en formulation générique (choix de l'éditeur) :
+ * - DISCLOSURE_CLASSEMENTS : encadré en tête de chaque page qui déclare un
+ *   classement (frontmatter `classement`), avant l'encart « En bref » ;
+ * - DISCLOSURE_SITE : pied de page de toutes les pages.
+ * Le détail figure sur /a-propos/#transparence et dans les mentions légales.
  */
 export const DISCLOSURE_CLASSEMENTS =
-  "Transparence : l'éditeur de crm-logiciel.fr travaille chez Divalto, éditeur de Divalto weavy, l'un des logiciels présentés dans nos classements.";
+  "Classement établi selon les critères décrits dans cet article. L'éditeur du site entretient des liens professionnels avec l'un des éditeurs de logiciels présentés.";
+
+export const DISCLOSURE_SITE =
+  "L'éditeur du site entretient des liens professionnels avec l'un des éditeurs de logiciels présentés dans nos classements.";
+
+/** Ancre de la section « Liens d'intérêts » de la page À propos. */
+export const TRANSPARENCE_HREF = '/a-propos/#transparence';
 
 /**
  * Interrupteur d'indexation global. Tant que le site est en phase de chauffe,
@@ -36,23 +52,6 @@ export const DISCLOSURE_CLASSEMENTS =
  * techniques pourraient rester en noindex en dur, indépendamment de ce flag.
  */
 export const INDEXABLE = true;
-
-/**
- * Auteur éditorial par défaut (roadmap §4). Réutilisé dans le frontmatter
- * et le JSON-LD Person/Article.
- */
-export const DEFAULT_AUTHOR = {
-  name: 'Julien Lefèvre',
-  /** URL de la page auteur (page À propos). */
-  url: `${SITE.url}/a-propos/`,
-  jobTitle: 'Expert CRM et logiciels de gestion commerciale',
-  /** Initiales (repli si la photo est absente). */
-  initials: 'JL',
-  /** Photo de l'auteur (portrait carré). */
-  photo: '/images/julien-lefevre.webp',
-  /** Bio courte affichée dans le bloc auteur de fin d'article (EEAT). */
-  bio: "Consultant CRM depuis plus de quinze ans, Julien Lefèvre a déployé des dizaines d'outils pour des entreprises de toutes tailles. Il a relancé crm-logiciel.fr avec une idée simple : aider chacun à trouver le bon logiciel, gratuitement et sans parti pris.",
-} as const;
 
 /**
  * Construit une URL de chemin avec slash final (politique de slash du site).

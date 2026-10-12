@@ -14,7 +14,6 @@
 import { defineCollection } from 'astro:content';
 import { z } from 'astro:schema';
 import { glob } from 'astro/loaders';
-import { DEFAULT_AUTHOR } from './config/site';
 
 const clusterEnum = z.enum(['meilleurs', 'comprendre', 'choisir', 'utiliser', 'transverse']);
 const typeEnum = z.enum(['pilier', 'satellite', 'methodologie', 'accueil']);
@@ -38,7 +37,6 @@ const pages = defineCollection({
     excerpt: z.string(),
     cluster: clusterEnum,
     type: typeEnum,
-    author: z.string().default(DEFAULT_AUTHOR.name),
     datePublished: z.coerce.date(),
     /** Défaut : identique à la date de publication si absente. */
     dateModified: z.coerce.date().optional(),
