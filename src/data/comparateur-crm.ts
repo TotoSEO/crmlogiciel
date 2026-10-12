@@ -70,7 +70,7 @@ export const CRMS: CrmEntry[] = [
     prix_note: 'Sales Hub Starter 15 €/util./mois ; les paliers Pro/Enterprise grimpent vite',
     gratuit: { dispo: true, note: 'CRM gratuit et illimité dans le temps (jusqu’à 2 utilisateurs)' },
     essai_jours: 0,
-    hebergement_ue: { dispo: true, note: 'Hébergement UE (Allemagne) au choix à la création' },
+    hebergement_ue: { dispo: true, note: 'Datacenter UE (Allemagne), attribué selon la localisation à l’inscription' },
     support_fr: true,
     points_forts: [
       'CRM gratuit très complet',
@@ -217,7 +217,7 @@ export const CRMS: CrmEntry[] = [
     prix_note: 'Par entreprise : socle ~34,99 €/mois (1 utilisateur) + 29,99 €/utilisateur en plus',
     gratuit: { dispo: false, note: 'Pas d’offre gratuite (essai 15 jours)' },
     essai_jours: 15,
-    hebergement_ue: { dispo: true, note: 'Données hébergées en France' },
+    hebergement_ue: { dispo: true, note: 'Données hébergées dans l’UE, selon l’éditeur' },
     support_fr: true,
     points_forts: [
       'Tout inclus : CRM, factures, compta, trésorerie, stock',
@@ -322,7 +322,7 @@ export const CRMS: CrmEntry[] = [
     prix_note: 'Sales Professional 56,30 € HT/util./mois ; Enterprise 91 €, Premium 130 €',
     gratuit: { dispo: false, note: 'Pas d’offre gratuite (essai 30 jours)' },
     essai_jours: 30,
-    hebergement_ue: { dispo: true, note: 'Datacenters Azure en France (résidence paramétrable)' },
+    hebergement_ue: { dispo: true, note: 'Région Europe ; datacenters en France avec l’option Advanced Data Residency' },
     support_fr: true,
     points_forts: [
       'Intégration native Microsoft 365, Teams, Power BI',
@@ -343,7 +343,7 @@ export const CRMS: CrmEntry[] = [
     prix_note: '1 app (dont CRM) gratuite ; suite complète 19,90 € HT/util./mois (Standard)',
     gratuit: { dispo: true, note: 'Offre « One App Free » : 1 application, utilisateurs illimités' },
     essai_jours: 15,
-    hebergement_ue: { dispo: true, note: 'Éditeur belge (UE), Odoo Online hébergé en Europe' },
+    hebergement_ue: { dispo: true, note: 'Éditeur belge (UE), région d’hébergement Odoo Online au choix (dont l’Europe)' },
     support_fr: true,
     points_forts: [
       'Suite très complète (CRM, ventes, compta, stock) à bas prix',

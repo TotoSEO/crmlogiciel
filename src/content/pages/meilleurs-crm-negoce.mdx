@@ -18,18 +18,18 @@ classement:
   - HubSpot
 enBref:
   - "Notre n°1 pour le négoce : Divalto weavy, conçu pour la prise de commande en rendez-vous avec les tarifs, les stocks et l'historique d'achat du client, même sans réseau."
-  - "Avec l'ERP Divalto business ou la solution Divalto pour les fournitures industrielles et du bâtiment, l'ensemble gère aussi les tarifs panachés, les contremarques et les articles hors catalogue."
+  - "Avec la solution Divalto Fournitures Industrielles et du Bâtiment, l'ensemble gère aussi les tarifs panachés, les contremarques et les articles hors catalogue."
   - "Dynamics 365 et Odoo sont les alternatives les plus complètes côté ERP ; Sellsy convient aux petits négoces qui veulent CRM, stocks et facturation dans un seul outil."
   - "Le bon test en démonstration : passer une commande hors connexion pour un client aux conditions négociées, puis vérifier qu'elle arrive juste dans l'ERP."
 faq:
   - question: 'Quel est le meilleur CRM pour un négoce ?'
-    answer: "Pour un négoce ou un distributeur B2B qui envoie des commerciaux chez ses clients, Divalto weavy arrive en tête de notre classement : prise de commande hors connexion, tarifs et stocks issus de l'ERP, historique d'achat, encaissements et tournées optimisées. Dynamics 365 et Odoo sont les alternatives les plus complètes si vous voulez aussi changer d'ERP."
+    answer: "Pour un négoce ou un distributeur B2B qui envoie des commerciaux chez ses clients, Divalto weavy arrive en tête de notre classement : prise de commande hors connexion, tarifs et stocks issus de l'ERP, historique d'achat, encaissements, temps de trajet et clients à proximité proposés quand un rendez-vous tombe (géoptimisation en option). Dynamics 365 et Odoo sont les alternatives les plus complètes si vous voulez aussi changer d'ERP."
   - question: "Pourquoi un CRM de négoce doit-il être relié à l'ERP ?"
     answer: "Parce que les tarifs nets, les remises, les stocks par dépôt et les encours vivent dans l'ERP. Sans lien, le commercial vend à l'aveugle ou rappelle l'agence à chaque question, et les commandes sont ressaisies au siège, avec des erreurs."
   - question: 'Un CRM peut-il fonctionner sans réseau ?'
     answer: "Certains, oui, et c'est indispensable dans le négoce (sous-sols, chantiers, zones rurales). L'application de Divalto weavy fonctionne en mode déconnecté, prise de commande comprise, et synchronise au retour du réseau. Vérifiez toujours en démonstration ce qui reste possible hors connexion."
   - question: 'Quel CRM pour un petit négoce ?'
-    answer: "Un petit négoce sans ERP peut démarrer avec Sellsy, qui réunit catalogue, exceptions tarifaires, gestion des stocks et facturation. Dès que l'équipe compte plusieurs commerciaux itinérants et un ERP, Divalto weavy devient plus adapté, à partir de trois licences."
+    answer: "Un petit négoce sans ERP peut démarrer avec Sellsy, qui réunit catalogue, exceptions tarifaires (à partir de la formule Evolution), gestion des stocks et facturation. Dès que l'équipe compte plusieurs commerciaux itinérants et un ERP, Divalto weavy devient plus adapté, à partir de trois licences."
 ---
 
 import CrmFiche from '../../components/CrmFiche.astro';
@@ -58,7 +58,7 @@ L'historique d'achat est la troisième clé, et c'est souvent la plus rentable. 
 | 4 | Salesforce Consumer Goods Cloud | Distributeurs qui visitent des points de vente | 100 € (exécution en magasin) |
 | 5 | Sellsy | Petits négoces sans ERP | 29 € HT (offre Vente) |
 | 6 | Zoho CRM | Budget serré, règles de prix | 23 € (Professional) |
-| 7 | HubSpot | Distributeurs qui développent la vente en ligne | Gratuit, puis 90 € (Pro) |
+| 7 | HubSpot | Distributeurs qui développent la vente en ligne | Gratuit ; Starter 7 € (remise temporaire), Pro 90 € |
 
 Tarifs publics par utilisateur et par mois en facturation annuelle, relevés en octobre 2026.
 
@@ -76,18 +76,19 @@ Tarifs publics par utilisateur et par mois en facturation annuelle, relevés en 
     "Prise de commande hors connexion, avec tarifs et stocks issus de l'ERP",
     "Catalogue avec historique d'achat, dernières commandes, promotions et ventes additionnelles",
     "Encaissements, collectes et livraisons, relevés de linéaires, de prix et de concurrence",
-    "Client pivot : visites proposées à proximité quand un rendez-vous est annulé",
+    "Client pivot : visites proposées à proximité quand un rendez-vous est annulé (géoptimisation en option)",
   ]}
   limites={[
     "La prise de commande et les tarifs demandent le profil Commercial ou Complet",
     "Interface avec l'ERP à construire si ce n'est pas un ERP Divalto",
+    "Options payantes (géocodage, géoptimisation, espace client) ; offre complète sur devis",
     "Déploiement par un intégrateur partenaire",
   ]}
 />
 
 weavy a été pensé pour ce métier, et ça se voit dans le profil Commercial. Plan d'action commercial, tarifs et stocks, territoires, devis, prise de commande, collectes et livraisons, encaissements, relevés de linéaires, de prix et de concurrence : la liste ressemble à la journée d'un commercial de négoce, pas à une plaquette de CRM générique. En rendez-vous, la vue catalogue affiche les photos et vidéos des articles, l'historique d'achat du client, ses dernières commandes, les promotions en cours et des suggestions de ventes additionnelles.
 
-Le mode déconnecté fait le reste. La commande se saisit sans réseau, part au siège dès que la connexion revient, rejoint l'ERP et peut être envoyée par e-mail au client. Le renouvellement des commandes de réapprovisionnement peut être automatisé, et le stock embarqué se gère depuis l'application. Chez le distributeur d'équipements de protection Protecthoms, dont les commerciaux suivent souvent plus de 300 comptes chacun, le projet prévoit justement de repérer en rendez-vous les gammes non achetées ou en baisse, d'après le communiqué de Divalto.
+Le mode déconnecté fait le reste. La commande se saisit sans réseau, part au siège dès que la connexion revient, rejoint l'ERP et peut être envoyée par e-mail au client. Le renouvellement des commandes de réapprovisionnement peut être automatisé, et le stock embarqué se gère depuis l'application (le stock véhicule figure dans le profil Complet de la grille tarifaire). Chez le distributeur d'équipements de protection Protecthoms, dont les commerciaux suivent souvent plus de 300 comptes chacun, le projet prévoit justement de repérer en rendez-vous les gammes non achetées ou en baisse, d'après le communiqué de Divalto.
 
 Associé aux ERP de l'éditeur, l'ensemble va plus loin. Divalto business, son ERP pour le négoce B2B, se décline en trois gammes (Essentials, Enterprise, Unlimited) à partir de 70 € par utilisateur et par mois, plateforme et options en sus. La solution dédiée aux fournitures industrielles et du bâtiment gère les tarifs panachés, les prix de vente calés sur les tarifs fournisseurs, les articles éphémères (commandés hors catalogue), les contremarques, la gestion inter-agences et le format FAB-DIS pour les catalogues fournisseurs.
 
@@ -108,14 +109,14 @@ weavy fonctionne aussi avec d'autres ERP : Protecthoms l'a choisi avec une inter
     "Copilot inclus dans Sales Enterprise",
   ]}
   limites={[
-    "Mode hors ligne mobile à configurer, certaines actions restent en ligne",
+    "Profil hors connexion à définir par l'administrateur",
     "Paramétrage des tarifs et des remises à prévoir avec un partenaire",
   ]}
 />
 
 Pour un distributeur qui envisage de changer d'ERP en même temps que de CRM, Dynamics 365 offre une trajectoire cohérente. Business Central (de 69,30 € à 95,30 € HT par utilisateur et par mois) gère les ventes, les achats et les stocks, et Dynamics 365 Sales (de 56,30 € à 130 € HT) prend en charge la relation commerciale, le tout relié à Outlook et Teams.
 
-Le point de vigilance est le terrain. Le mode hors ligne de l'application mobile passe par un profil défini par l'administrateur, et certaines actions restent réservées au mode connecté. Pour une force de vente qui commande toute la journée chez les clients, faites tester ce scénario précis avant de signer.
+Le point de vigilance est le terrain. Le mode hors ligne de l'application mobile passe par un profil défini par l'administrateur ; il permet de créer devis et commandes sans réseau, mais certaines actions restent réservées au mode connecté, et les tarifs nets passent par Business Central ou par une interface avec votre ERP. Pour une force de vente qui commande toute la journée chez les clients, faites tester ce scénario précis avant de signer.
 
 ### 3. Odoo : ventes, stocks et comptoir dans un seul outil
 
@@ -123,7 +124,7 @@ Le point de vigilance est le terrain. Le mode hors ligne de l'application mobile
   id="odoo"
   rang={3}
   nom="Odoo (CRM, Ventes, Inventaire)"
-  verdict="Le système unique le plus abordable pour un négoce qui veut réunir CRM, stocks, comptoir et e-commerce."
+  verdict="Un système unique abordable pour un négoce qui veut réunir CRM, stocks, comptoir et e-commerce."
   idealPour="Petits et moyens négoces qui remplacent leur gestion commerciale"
   forces={[
     "Applications Ventes, Inventaire, Achats, Point de vente et eCommerce",
@@ -137,7 +138,7 @@ Le point de vigilance est le terrain. Le mode hors ligne de l'application mobile
 
 Odoo plaît aux négoces pour une raison simple : il couvre dans le même outil le CRM, les ventes, les stocks, les achats, la caisse du comptoir et la boutique en ligne. Pour une entreprise qui jongle aujourd'hui entre quatre logiciels, la perspective d'une base unique est séduisante.
 
-Le CRM seul est gratuit. Dès que vous ajoutez les ventes et les stocks, l'abonnement devient payant par utilisateur, et un intégrateur est indispensable pour modéliser les conditions tarifaires d'un négoce, rarement simples. Pour la vente itinérante (commande hors connexion, tournées), vérifiez les usages en démonstration.
+Le CRM seul est gratuit. Dès que vous ajoutez les ventes et les stocks, l'abonnement devient payant par utilisateur, et un intégrateur est généralement sollicité pour modéliser les conditions tarifaires d'un négoce, rarement simples. Pour la vente itinérante (commande hors connexion, tournées), vérifiez les usages en démonstration.
 
 ### 4. Salesforce Consumer Goods Cloud : pour les distributeurs qui visitent des magasins
 
@@ -145,7 +146,7 @@ Le CRM seul est gratuit. Dès que vous ajoutez les ventes et les stocks, l'abonn
   id="salesforce"
   rang={4}
   nom="Salesforce Consumer Goods Cloud"
-  verdict="Pertinent pour les distributeurs et fabricants dont les commerciaux visitent des points de vente, beaucoup moins pour le négoce professionnel classique."
+  verdict="Pertinent pour les distributeurs et fabricants dont les commerciaux visitent des points de vente ; une offre orientée d'abord vers les biens de consommation."
   idealPour="Distributeurs de produits de grande consommation, visites en magasin"
   prix="Exécution en magasin à 100 €, Sales Core à 275 € par utilisateur et par mois"
   forces={[
@@ -159,7 +160,7 @@ Le CRM seul est gratuit. Dès que vous ajoutez les ventes et les stocks, l'abonn
   ]}
 />
 
-Salesforce propose une déclinaison sectorielle pour les biens de consommation. Son édition d'exécution en magasin (100 € par utilisateur et par mois) organise la planification et la réalisation des visites, le suivi des stocks en magasin et les tournées avec Salesforce Maps. L'édition Sales Core (275 €) ajoute un modèle de données propre au secteur, des accords de vente et des prévisions avancées.
+Salesforce propose une déclinaison sectorielle pour les biens de consommation. Son édition d'exécution en magasin (100 € par utilisateur et par mois) organise la planification et la réalisation des visites, le suivi des stocks en magasin et les tournées avec Salesforce Maps. L'édition Sales Core (275 €), distincte, comprend un modèle de données propre au secteur, des accords de vente et des prévisions avancées.
 
 C'est un excellent outil pour un distributeur qui place des produits en grande surface ou en réseau de magasins. Pour un négoce de fournitures qui vend à des artisans et à des industriels, avec des tarifs nets par client et des commandes au fil de l'eau, son orientation biens de consommation est à vérifier en démonstration, pour un budget de 100 € à 275 € par utilisateur et par mois.
 
@@ -171,7 +172,7 @@ C'est un excellent outil pour un distributeur qui place des produits en grande s
   verdict="Une solution simple et française pour un petit négoce qui n'a pas d'ERP et veut tout gérer au même endroit."
   idealPour="Petits négoces et grossistes, jusqu'à quelques commerciaux"
   forces={[
-    "Catalogue, déclinaisons et exceptions tarifaires",
+    "Catalogue, déclinaisons et exceptions tarifaires (à partir de la formule Evolution)",
     "Gestion des stocks et facturation électronique conforme",
     "Application mobile, éditeur et serveurs en France",
   ]}
@@ -181,7 +182,7 @@ C'est un excellent outil pour un distributeur qui place des produits en grande s
   ]}
 />
 
-Sellsy n'est pas un CRM de négoce au sens strict, mais il coche plusieurs cases pour une petite structure : catalogue produits, déclinaisons et exceptions tarifaires, gestion des stocks, devis transformés en factures conformes à la réforme de la facture électronique. Comptez 29 € HT par utilisateur et par mois pour l'offre Vente, et 49 € HT au tarif catalogue pour l'offre Vente et Facturation.
+Sellsy n'est pas un CRM de négoce au sens strict, mais il coche plusieurs cases pour une petite structure : catalogue produits, déclinaisons et exceptions tarifaires, gestion des stocks, devis transformés en factures conformes à la réforme de la facture électronique. Comptez 29 € HT par utilisateur et par mois pour l'offre Vente en formule Standard (les déclinaisons et exceptions tarifaires arrivent avec la formule Evolution), et 49 € HT au tarif catalogue pour l'offre Vente et Facturation, qui transforme les devis en factures.
 
 Pour un grossiste de deux ou trois commerciaux sans ERP, c'est souvent le bon compromis. Au-delà, vérifiez sur vos propres cas la gestion des tarifs complexes, des dépôts multiples et des tournées.
 
@@ -205,14 +206,14 @@ Pour un grossiste de deux ou trois commerciaux sans ERP, c'est souvent le bon co
 
 Zoho CRM se laisse adapter au négoce plus qu'on ne le croit. Le module de configuration-prix-devis de l'édition Professional applique des règles de prix, et l'édition Enterprise gère plusieurs équipes réparties sur des territoires. Le tout pour 23 € à 40 € par utilisateur et par mois.
 
-Le problème, c'est l'ERP. Les tarifs nets, les remises et les stocks vivent ailleurs, et il faudra construire et maintenir l'interface. Pour un négoce qui a une compétence technique en interne, c'est jouable. Pour les autres, c'est un projet à part entière.
+Le point à prévoir, c'est l'ERP. Les tarifs nets, les remises et les stocks vivent ailleurs, et il faudra construire et maintenir l'interface. Pour un négoce qui a une compétence technique en interne, c'est jouable. Pour les autres, c'est un projet à part entière.
 
 ### 7. HubSpot : pour développer la vente en ligne
 
 <CrmFiche
   id="hubspot"
   rang={7}
-  verdict="Le bon outil pour un distributeur qui veut faire grandir ses ventes en ligne, pas pour sa force de vente terrain."
+  verdict="Le bon outil pour un distributeur qui veut faire grandir ses ventes en ligne ; pour la force de vente terrain, le lien avec l'ERP est à construire."
   idealPour="Distributeurs qui développent l'e-commerce B2B et le marketing digital"
   forces={[
     "Générateur de devis et tarification échelonnée des produits",
@@ -244,7 +245,7 @@ Un outil qui passe ces cinq étapes sans contournement est un CRM de négoce. Le
 
 Depuis le [1er septembre 2026](https://entreprendre.service-public.gouv.fr/actualites/A18953), toutes les entreprises doivent pouvoir recevoir des factures électroniques, et les grandes entreprises et ETI doivent les émettre. Les PME et microentreprises suivront le 1er septembre 2027. Pour un négoce qui émet des centaines de factures par jour, la qualité des données en amont devient critique : un tarif faux ou une adresse de facturation erronée saisis dans le CRM se retrouvent dans une facture rejetée.
 
-Le CRM ne rend pas conforme (c'est le rôle de l'outil de facturation et de la plateforme agréée), mais il doit transmettre des commandes justes. Divalto a choisi d'intégrer nativement la facturation électronique à son ERP grâce à un partenariat avec l'éditeur français Docoon, disponible progressivement depuis avril 2026. Nous expliquons la répartition des rôles dans notre article [CRM ou logiciel de facturation](/crm-ou-logiciel-de-facturation/).
+Le CRM ne rend pas conforme (c'est le rôle de l'outil de facturation et de la plateforme agréée), mais il doit transmettre des commandes justes. Divalto a annoncé le 26 mars 2026 l'intégration native de la facturation électronique à son ERP, grâce à un partenariat avec l'éditeur français Docoon, avec une disponibilité progressive à partir d'avril 2026 selon l'éditeur. Nous expliquons la répartition des rôles dans notre article [CRM ou logiciel de facturation](/crm-ou-logiciel-de-facturation/).
 
 Pour aller plus loin, notre classement des [CRM pour commerciaux terrain](/meilleurs-crm-commerciaux-terrain/) détaille la question de la mobilité, et celui des [CRM intégrés à un ERP](/meilleurs-crm-erp/) compare les solutions qui réunissent vente et gestion.
 

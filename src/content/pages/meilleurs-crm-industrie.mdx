@@ -20,16 +20,16 @@ enBref:
   - "Notre n°1 pour l'industrie : Divalto weavy, surtout associé à l'ERP Divalto industry, pour suivre l'affaire du premier rendez-vous jusqu'au SAV du parc installé."
   - "Dynamics 365 offre l'écosystème le plus large (CRM, ERP, service terrain) ; Salesforce Manufacturing Cloud vise les industriels qui vendent sur contrats et prévisions, à partir de 275 € par utilisateur et par mois."
   - "Un CRM industriel se juge sur trois points : le suivi d'affaires longues, la fiabilité des délais promis (donc le lien avec l'ERP) et la gestion du parc installé."
-  - "Odoo et Zoho sont les options les plus économiques, à condition d'avoir quelqu'un pour paramétrer."
+  - "Odoo et Zoho sont des options économiques, à condition d'avoir quelqu'un pour paramétrer."
 faq:
   - question: "Quel est le meilleur CRM pour l'industrie ?"
     answer: "Pour un industriel français qui vend des équipements ou des produits techniques en B2B, Divalto weavy arrive en tête de notre classement, notamment parce qu'il couvre la vente terrain et le suivi du parc installé, et qu'il fonctionne nativement avec l'ERP Divalto industry. Dans l'univers Microsoft, Dynamics 365 offre l'alternative la plus large, du CRM au service terrain."
   - question: "Quelle différence entre un CRM et une GPAO ?"
     answer: "La GPAO (gestion de production assistée par ordinateur) planifie et suit la fabrication : ordres de fabrication, nomenclatures, charge des ateliers. Le CRM gère la relation client : prospection, affaires, devis, visites, SAV. Les deux doivent échanger, sinon le commercial promet des délais que l'atelier ne peut pas tenir."
   - question: "Un CRM peut-il gérer le parc installé ?"
-    answer: "Certains, oui. Divalto weavy gère les parcs, les équipements et les interventions avec son profil Technicien, puis les contrats et garanties avec le profil Complet. Dynamics 365 et Salesforce le font via leurs modules de service terrain, Odoo via son application de maintenance."
+    answer: "Certains, oui. Divalto weavy gère les parcs, les équipements et les interventions avec son profil Technicien, puis les contrats et garanties avec le profil Complet. Dynamics 365 et Salesforce le font via leurs modules de service terrain, Odoo via son application Field Service (son application Maintenance concerne les équipements de l'entreprise elle-même)."
   - question: "Combien coûte un CRM pour une entreprise industrielle ?"
-    answer: "De 23 € par utilisateur et par mois (Zoho CRM Professional) à 275 € pour l'entrée de gamme de Salesforce Manufacturing Cloud, avec Divalto weavy à partir de 70 € pour le profil Commercial. Si le CRM s'accompagne d'un ERP industriel, comptez l'abonnement ERP en plus, par exemple à partir de 80 € par utilisateur et par mois pour Divalto industry, plateforme et options en sus."
+    answer: "De 0 € avec les versions gratuites (HubSpot, Zoho, une application Odoo) à 650 € par utilisateur et par mois pour l'édition Sales Max de Salesforce Manufacturing Cloud. Divalto weavy démarre à 50 € pour le profil Technicien et à 70 € pour le profil Commercial. Si le CRM s'accompagne d'un ERP industriel, comptez l'abonnement ERP en plus, par exemple à partir de 80 € par utilisateur et par mois pour Divalto industry, plateforme et options en sus."
 ---
 
 import CrmFiche from '../../components/CrmFiche.astro';
@@ -56,13 +56,13 @@ Les fonctions de base (fiches clients, pipeline, agenda) se ressemblent toutes. 
 
 | Rang | Solution | Idéal pour | Prix public |
 | --- | --- | --- | --- |
-| 1 | Divalto weavy | Industriels B2B avec commerciaux terrain et parc installé | À partir de 40 € par licence et par mois |
+| 1 | Divalto weavy | Industriels B2B avec commerciaux terrain et parc installé | 70 € (Commercial) pour la vente, 50 € (Technicien) à 90 € (Complet) pour le parc installé |
 | 2 | Microsoft Dynamics 365 | Industriels équipés Microsoft, besoin CRM + ERP + service | 56,30 € HT (Sales Professional) |
 | 3 | Salesforce Manufacturing Cloud | Ventes sur contrats-cadres et prévisions de volumes | 275 € (Sales Core) |
 | 4 | Efficy E-deal | Industriels qui veulent un éditeur européen spécialisé | Sur devis |
 | 5 | Odoo | PME industrielles qui veulent CRM et fabrication dans un seul outil | Une application gratuite |
 | 6 | Zoho CRM | Budget serré, produits configurables | 23 € (Professional, avec CPQ) |
-| 7 | HubSpot | Génération de prospects en ligne et salons | Gratuit, puis 90 € (Pro) |
+| 7 | HubSpot | Génération de prospects en ligne et salons | Gratuit ; Starter 7 € (remise temporaire), Pro 90 € |
 
 Tarifs publics par utilisateur et par mois en facturation annuelle, relevés en octobre 2026.
 
@@ -75,6 +75,7 @@ Tarifs publics par utilisateur et par mois en facturation annuelle, relevés en 
   rang={1}
   verdict="Notre premier choix pour un industriel qui veut suivre ses clients du premier rendez-vous à la maintenance du parc installé, avec un lien solide vers l'ERP."
   idealPour="Fabricants d'équipements et de produits techniques, mécanique, métallurgie, plasturgie, mobilier"
+  prix="Commercial 70 € (devis, commandes), Technicien 50 € (parcs, interventions), Complet 90 € (contrats, planification) par licence et par mois ; 3 licences minimum"
   forces={[
     "Parcs, équipements et interventions (profil Technicien), contrats et garanties (profil Complet)",
     "Fonctionnement natif avec l'ERP Divalto industry (gestion à l'affaire, délais, coûts)",
@@ -83,14 +84,15 @@ Tarifs publics par utilisateur et par mois en facturation annuelle, relevés en 
   ]}
   limites={[
     "Toute sa valeur avec Divalto industry ou une interface ERP bien construite",
+    "Plusieurs licences à assembler : profils weavy, ERP Divalto industry (plateforme et options en sus), options du CRM",
     "Le configurateur de produits est une extension de l'ERP, pas du CRM seul",
     "Trois licences minimum et un intégrateur à prévoir",
   ]}
 />
 
-Divalto a un avantage rare dans ce classement : l'éditeur fait aussi l'ERP industriel. Divalto industry gère la production à l'affaire, à la commande et sur stock, avec la planification (du plan directeur de production au calcul des besoins nets), la traçabilité par lot et numéro de série, l'EDI et l'intégration des données techniques de la CAO ou du PLM. En gestion à l'affaire, le budget est fixé dès le chiffrage avec une marge théorique, puis les coûts réels (conception, achats, temps passés) sont suivis au fil de la fabrication.
+Comme Microsoft et Odoo, Divalto édite aussi un ERP industriel. Divalto industry gère la production à l'affaire, à la commande et sur stock, avec la planification (du plan directeur de production au calcul des besoins nets), la traçabilité par lot et numéro de série, l'EDI et l'intégration des données techniques de la CAO ou du PLM. En gestion à l'affaire, le budget est fixé dès le chiffrage avec une marge théorique, puis les coûts réels (conception, achats, temps passés) sont suivis au fil de la fabrication.
 
-Le CRM weavy se branche sur cet ensemble. Côté vente, le commercial prépare ses rendez-vous avec l'historique du client, consulte tarifs et stocks, crée devis et commandes sur place, et le directeur commercial suit le chiffre d'affaires par article, par famille ou par client. Côté service, weavy ajoute ce qui manque à la plupart des CRM. Le profil Technicien gère les parcs et équipements, les retours de matériel et les interventions, et le profil Complet y ajoute les contrats et garanties, les demandes clients et la planification des interventions. Pour un fabricant dont le SAV pèse lourd, c'est un argument décisif.
+Le CRM weavy se branche sur cet ensemble. Côté vente, le commercial prépare ses rendez-vous avec l'historique du client, consulte tarifs et stocks, crée devis et commandes sur place, et le directeur commercial suit le chiffre d'affaires par article, par famille ou par client. Côté service, weavy gère aussi le parc installé et les interventions. Le profil Technicien couvre les parcs et équipements, les retours de matériel et les interventions, et le profil Complet y ajoute les contrats et garanties, les demandes clients et la planification des interventions. Pour un fabricant dont le SAV pèse lourd, c'est un argument de poids.
 
 weavy n'impose pas l'ERP maison. L'éditeur indique qu'il se synchronise en quasi-temps réel avec un grand nombre d'ERP du marché. Mais soyons francs : c'est avec Divalto industry que l'ensemble prend tout son sens, et les fonctions les plus industrielles (configurateur, ordonnancement, MES) restent du côté de l'ERP. Le fabricant de sièges professionnels Sokoa utilise weavy pour avoir une vision complète de chaque dossier client. Côté ERP, Divalto cite des industriels comme TCEM, qui conçoit des équipements pour les industries nucléaire, pétrochimique et thermique, ou OSSABOIS, qui pilote trois sites de production.
 
@@ -150,7 +152,7 @@ Le ticket d'entrée est élevé : 275 € par utilisateur et par mois pour l'éd
   id="efficy"
   rang={4}
   nom="Efficy E-deal"
-  verdict="Une déclinaison sectorielle sérieuse pour les industriels qui veulent un éditeur européen et un hébergement en Europe."
+  verdict="Une offre sectorielle sérieuse pour les industriels qui veulent un éditeur européen et un hébergement en Europe."
   idealPour="Équipements industriels, emballage, verre, métallurgie, plasturgie, agroalimentaire"
   prix="Sur devis"
   hebergement="Hébergé en Europe, en SaaS ou sur site, selon l'éditeur"
@@ -165,7 +167,7 @@ Le ticket d'entrée est élevé : 275 € par utilisateur et par mois pour l'éd
   ]}
 />
 
-E-deal est la déclinaison d'Efficy pour plusieurs secteurs, dont l'industrie. L'éditeur belge la destine aux fabricants d'équipements industriels, d'emballages et de verre, à la métallurgie, à la plasturgie et à l'agroalimentaire. Selon l'éditeur, elle synchronise devis, commandes et factures avec l'ERP par API ou par fichiers, priorise les demandes de devis, centralise les réclamations et non-conformités, et aide à mesurer ce que rapportent les salons professionnels.
+E-deal est un CRM d'origine française qui appartient aujourd'hui au groupe belge Efficy, avec une offre dédiée à l'industrie. L'éditeur la destine aux fabricants d'équipements industriels, d'emballages et de verre, à la métallurgie, à la plasturgie et à l'agroalimentaire. Selon l'éditeur, elle synchronise devis, commandes et factures avec l'ERP par API ou par fichiers, priorise les demandes de devis, centralise les réclamations et non-conformités, et aide à mesurer ce que rapportent les salons professionnels.
 
 C'est une option cohérente pour un industriel qui a déjà un ERP et cherche un CRM spécialisé indépendant de son éditeur de gestion. Pour comparer les coûts, il faudra demander un devis : nous n'avons pas trouvé de grille publique propre à E-deal.
 
@@ -175,7 +177,7 @@ C'est une option cohérente pour un industriel qui a déjà un ERP et cherche un
   id="odoo"
   rang={5}
   nom="Odoo (CRM et Fabrication)"
-  verdict="La voie la plus économique vers un système unique, pour une PME industrielle prête à s'appuyer sur un intégrateur."
+  verdict="Une voie économique vers un système unique, pour une PME industrielle prête à s'appuyer sur un intégrateur."
   idealPour="PME industrielles qui partent de zéro ou remplacent un ERP vieillissant"
   forces={[
     "Applications Fabrication, PLM, Qualité et Maintenance sur la même base que le CRM",
@@ -190,7 +192,7 @@ C'est une option cohérente pour un industriel qui a déjà un ERP et cherche un
 
 Odoo propose dans le même outil un CRM et des applications industrielles : fabrication, gestion du cycle de vie des produits (PLM), qualité, maintenance. Pour une PME industrielle, la promesse est séduisante : une seule base de données, de la prospection à l'ordre de fabrication.
 
-Le CRM seul est gratuit à vie. Dès que vous ajoutez la fabrication ou les stocks, vous passez sur un abonnement par utilisateur, et un intégrateur devient indispensable pour paramétrer les nomenclatures, les gammes et les flux. Le CRM d'Odoo est simple à prendre en main, ce qui convient à beaucoup de PME ; pour une force de vente terrain nombreuse, vérifiez la commande hors connexion et les tournées en démonstration.
+Le CRM seul est gratuit à vie. Dès que vous ajoutez la fabrication ou les stocks, vous passez sur un abonnement par utilisateur, et un intégrateur est généralement sollicité pour paramétrer les nomenclatures, les gammes et les flux. Le CRM d'Odoo est simple à prendre en main, ce qui convient à beaucoup de PME ; pour une force de vente terrain nombreuse, vérifiez la commande hors connexion et les tournées en démonstration.
 
 ### 6. Zoho CRM : le budget serré, même pour des produits configurables
 
@@ -212,14 +214,14 @@ Le CRM seul est gratuit à vie. Dès que vous ajoutez la fabrication ou les stoc
 
 Zoho CRM est un CRM généraliste, qui se laisse façonner. Dès l'édition Professional (23 € par utilisateur et par mois), un module de configuration-prix-devis applique des règles de prix aux produits configurables. Avec les modules personnalisés, vous créez vos propres objets, une affaire industrielle ou un équipement installé par exemple.
 
-Tout reste à construire, et rien ne viendra de l'ERP sans interface. Pour une PME qui a un profil technique en interne, c'est une base économique très solide. Pour une entreprise qui veut un outil métier prêt à l'emploi, Divalto weavy ou Dynamics 365 iront plus vite.
+Le paramétrage et l'interface avec l'ERP sont à prévoir : les tarifs, les stocks et les délais ne remonteront pas sans elle. Pour une PME qui a un profil technique en interne, c'est une base économique très solide. Si vous cherchez un outil déjà orienté métier, comparez en démonstration le temps de mise en place de chaque solution.
 
 ### 7. HubSpot : pour le marketing industriel
 
 <CrmFiche
   id="hubspot"
   rang={7}
-  verdict="Le meilleur outil de ce classement pour générer des prospects en ligne, le moins adapté à l'après-vente industrielle."
+  verdict="Un outil fort pour générer des prospects en ligne, sans lien natif avec un ERP industriel ni module de parc installé."
   idealPour="Industriels qui investissent dans le web, les contenus techniques et les salons"
   forces={[
     "Formulaires, emails et suivi des visites reliés aux fiches commerciales",
@@ -233,13 +235,13 @@ Tout reste à construire, et rien ne viendra de l'ERP sans interface. Pour une P
 
 De plus en plus d'industriels génèrent leurs prospects en ligne : fiches techniques téléchargeables, configurateurs sur le site, webinaires. HubSpot excelle sur ce terrain. Il relie chaque visite, chaque formulaire et chaque email au travail du commercial, et sa version gratuite suffit pour démarrer sans budget.
 
-Il s'arrête là où commence le métier industriel : pas de lien natif avec un ERP pour les délais et les stocks, pas de gestion du parc installé. Certains industriels l'utilisent pour le marketing, aux côtés d'un CRM métier pour la vente et le service. C'est une organisation qui se défend, à condition de bien synchroniser les deux.
+HubSpot ne propose en revanche ni lien natif avec un ERP pour les délais et les stocks, ni module dédié au parc installé ; son offre service gère les tickets et les engagements de délai (SLA). Certains industriels l'utilisent pour le marketing, aux côtés d'un CRM métier pour la vente et le service. C'est une organisation qui se défend, à condition de bien synchroniser les deux.
 
 ## CRM intégré à l'ERP ou CRM connecté ?
 
 C'est la vraie question de l'industriel, avant même le choix de l'éditeur. Deux voies existent.
 
-La première consiste à prendre CRM et ERP chez le même éditeur : Divalto (weavy et Divalto industry), Microsoft (Dynamics 365 Sales et Business Central) ou Odoo. Les données circulent nativement, les montées de version sont coordonnées, et il n'y a qu'un interlocuteur quand quelque chose coince.
+La première consiste à prendre CRM et ERP chez le même éditeur : Divalto (weavy et Divalto industry), Microsoft (Dynamics 365 Sales et Business Central) ou Odoo. Les données circulent nativement et les montées de version sont coordonnées. Le projet reste souvent mené avec un intégrateur partenaire de l'éditeur, qu'il faut choisir avec autant de soin que le logiciel.
 
 La seconde consiste à choisir le meilleur CRM pour votre force de vente et à le connecter à votre ERP existant. C'est souvent la seule option raisonnable quand l'ERP est récent, ou quand il est trop personnalisé pour être remplacé. Comptez alors sur une interface à construire et à maintenir, et vérifiez en démonstration que les tarifs, les stocks et les délais remontent vraiment dans le CRM.
 

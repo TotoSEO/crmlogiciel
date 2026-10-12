@@ -56,7 +56,7 @@ export const CATALOGUE: Record<string, CrmClasse> = {
       width: 1280,
       height: 800,
     },
-    prix: 'À partir de 40 € par licence et par mois (profil Standard), 3 licences minimum',
+    prix: 'De 40 € (profil Standard) à 90 € (profil Complet) par licence et par mois ; devis et commandes dès le profil Commercial (70 €) ; 3 licences minimum',
     hebergement:
       "Données hébergées en France pour les clients européens ; serveurs gérés avec des partenaires « Cloud et Microsoft », selon l'éditeur",
   },
@@ -87,8 +87,8 @@ export const CATALOGUE: Record<string, CrmClasse> = {
       width: 1320,
       height: 694,
     },
-    prix: "Gratuit jusqu'à 2 utilisateurs ; Pro à 90 € et Entreprise à 175 € par licence et par mois",
-    hebergement: 'Hébergement en Europe (Allemagne) au choix',
+    prix: "Gratuit jusqu'à 2 utilisateurs ; Starter à 7 € (remise temporaire), Pro à 90 € et Entreprise à 175 € par licence et par mois",
+    hebergement: "Datacenter européen (Allemagne), attribué selon la localisation lors de l'inscription",
   },
   dynamics: {
     id: 'dynamics',
@@ -107,7 +107,7 @@ export const CATALOGUE: Record<string, CrmClasse> = {
       height: 733,
     },
     prix: 'De 56,30 € (Professional) à 130 € (Premium) HT par utilisateur et par mois',
-    hebergement: 'Datacenters Azure en France disponibles',
+    hebergement: "Région Europe ; datacenters en France avec l'option Advanced Data Residency",
   },
   pipedrive: {
     id: 'pipedrive',
@@ -167,7 +167,7 @@ export const CATALOGUE: Record<string, CrmClasse> = {
     monogram: 'A',
     color: '#6c3ff5',
     prix: 'De 38,80 € (engagement 3 ans) à 97 € HT par mois pour 1 utilisateur, puis 29,99 € par utilisateur',
-    hebergement: 'Données hébergées en France',
+    hebergement: "Données hébergées dans l'Union européenne, selon l'éditeur",
   },
   odoo: {
     id: 'odoo',
@@ -177,16 +177,8 @@ export const CATALOGUE: Record<string, CrmClasse> = {
     logo: '/images/crm/odoo.png',
     monogram: 'O',
     color: '#714b67',
-    capture: {
-      src: '/images/crm/odoo.jpg',
-      alt: "Aperçu de l'interface d'Odoo CRM",
-      legende: "Le tableau de bord d'Odoo CRM.",
-      credit: 'Odoo',
-      width: 1122,
-      height: 900,
-    },
     prix: 'Une application gratuite (utilisateurs illimités), puis abonnement par utilisateur',
-    hebergement: 'Odoo Online hébergé en Europe',
+    hebergement: "Odoo Online : région d'hébergement au choix (dont l'Europe), selon l'éditeur",
   },
   nocrm: {
     id: 'nocrm',
@@ -229,7 +221,7 @@ export const CATALOGUE: Record<string, CrmClasse> = {
     capture: {
       src: '/images/crm/brevo.jpg',
       alt: "Aperçu de l'interface de Brevo",
-      legende: 'Le tableau de bord de Brevo.',
+      legende: 'Le pipeline de ventes de Brevo.',
       credit: 'Brevo',
       width: 1002,
       height: 430,
@@ -244,7 +236,7 @@ export const CATALOGUE: Record<string, CrmClasse> = {
     origine: 'Allemagne',
     monogram: 'SAP',
     color: '#0070f2',
-    prix: 'Sur devis, auprès de SAP ou de ses partenaires',
+    prix: 'Abonnement par utilisateur et par mois, selon la formule ; tarifs présentés sur le site de SAP',
   },
   'sap-b1': {
     id: 'sap-b1',
@@ -272,7 +264,7 @@ export const CATALOGUE: Record<string, CrmClasse> = {
     origine: 'Belgique',
     monogram: 'E',
     color: '#d6006e',
-    prix: "À partir de 59 € par utilisateur et par mois, selon l'éditeur",
+    prix: "Abonnement par utilisateur et par mois ; grille à consulter sur le site de l'éditeur",
     hebergement: "SaaS, cloud souverain ou serveur dédié, selon l'éditeur",
   },
   praxedo: {
@@ -303,7 +295,7 @@ export const CATALOGUE: Record<string, CrmClasse> = {
     monogram: 'Eu',
     color: '#e8553f',
     prix: 'Sur devis',
-    hebergement: "Plateforme présentée comme « 100 % souveraine » par l'éditeur",
+    hebergement: "CRM présenté par l'éditeur comme « 100% souverain »",
   },
 };
 

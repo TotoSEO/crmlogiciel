@@ -17,19 +17,19 @@ classement:
   - SAP Sales Cloud
   - HubSpot
 enBref:
-  - "Notre n°1 pour les commerciaux terrain : Divalto weavy, qui fonctionne hors connexion de série, commande comprise, et réorganise la tournée quand un rendez-vous tombe."
+  - "Notre n°1 pour les commerciaux terrain : Divalto weavy, qui fonctionne hors connexion, commande comprise, et propose des visites à proximité quand un rendez-vous tombe (géoptimisation en option)."
   - "Le critère qui départage le plus les applications est le mode hors ligne : de la saisie complète sans réseau (Divalto weavy, Pipedrive) à la simple consultation de fiches récentes (HubSpot)."
-  - "Salesforce et Dynamics 365 fonctionnent aussi hors connexion, mais le mode doit être activé et configuré par un administrateur."
+  - "Salesforce et Dynamics 365 fonctionnent aussi hors connexion : chez Salesforce, la modification sans réseau s'active côté administrateur ; chez Dynamics, l'administrateur définit un profil hors connexion."
   - "Un bon CRM terrain fait gagner du temps au commercial avant d'en faire gagner au manager : compte-rendu rapide, commande sur place, trajets calculés."
 faq:
   - question: 'Quel est le meilleur CRM pour les commerciaux terrain ?'
-    answer: "Divalto weavy arrive en tête de notre classement : application native iOS et Android qui fonctionne en mode déconnecté, prise de commande avec les tarifs et stocks de l'ERP, calcul des temps de trajet et réorganisation des visites en cas d'annulation. Pour une petite équipe sans ERP, Pipedrive est une bonne alternative."
+    answer: "Divalto weavy arrive en tête de notre classement : application native iOS et Android qui fonctionne en mode déconnecté, prise de commande avec les tarifs et stocks de l'ERP, calcul des temps de trajet et visites proposées à proximité en cas d'annulation (géoptimisation en option). Pour une petite équipe sans ERP, Pipedrive est une bonne alternative."
   - question: 'Un CRM peut-il fonctionner sans connexion internet ?'
-    answer: "Oui, mais à des degrés très différents. Avec certaines applications, on saisit tout hors connexion ; avec d'autres, on consulte seulement des fiches mises en cache ; d'autres encore demandent qu'un administrateur active et configure le mode hors ligne. Testez toujours en mode avion pendant la démonstration."
+    answer: "Oui, mais à des degrés très différents. Avec certaines applications, on saisit tout hors connexion ; avec d'autres, on consulte seulement des fiches mises en cache ; d'autres encore demandent qu'un administrateur active la modification hors ligne ou définisse un profil hors connexion. Testez toujours en mode avion pendant la démonstration."
   - question: 'Un CRM peut-il géolocaliser les commerciaux ?'
-    answer: "Optimiser une tournée à partir des adresses des clients ne pose pas de difficulté. Suivre en permanence la position d'un salarié est autre chose : la CNIL exclut notamment la géolocalisation permanente des employés libres d'organiser leurs déplacements, comme les VRP. Faites valider tout dispositif de localisation par votre DPO."
+    answer: "Optimiser une tournée à partir des adresses des clients ne pose pas de difficulté. Suivre la position d'un salarié est autre chose : selon la CNIL, un dispositif de géolocalisation installé dans un véhicule professionnel ne peut pas servir à contrôler un employé en permanence, ni être utilisé dans le véhicule d'un employé libre d'organiser ses déplacements, comme un VRP. Faites valider tout dispositif de localisation par votre DPO."
   - question: 'Combien coûte un CRM pour commerciaux terrain ?'
-    answer: "De 14 € par utilisateur et par mois (Pipedrive Lite) à plus de 500 € pour les éditions haut de gamme de Salesforce. Divalto weavy démarre à 70 € par licence et par mois pour le profil Commercial, qui inclut la prise de commande, les tarifs et les stocks."
+    answer: "De 0 € avec les versions gratuites de Zoho ou HubSpot, ou 14 € par utilisateur et par mois (Pipedrive Lite), à plus de 500 € pour les éditions haut de gamme de Salesforce. Divalto weavy démarre à 70 € par licence et par mois pour le profil Commercial, qui inclut la prise de commande, les tarifs et les stocks."
 ---
 
 import CrmFiche from '../../components/CrmFiche.astro';
@@ -56,11 +56,11 @@ C'est le critère le plus mal compris, et celui qui départage le plus les outil
 
 | Application | Mode hors connexion | Saisie sans réseau |
 | --- | --- | --- |
-| Divalto weavy | Mode déconnecté de série, synchronisation au retour du réseau | Oui, commandes et comptes-rendus compris |
+| Divalto weavy | Mode déconnecté natif, synchronisation au retour du réseau | Oui, commandes et comptes-rendus compris |
 | Pipedrive | Applications utilisables hors connexion, synchronisation automatique | Oui : affaires, notes, activités |
 | Zoho CRM | Mises à jour hors ligne, synchronisées ensuite | Oui |
-| Salesforce | À activer par l'administrateur, cache des fiches récentes | Oui avec la modification hors ligne, certaines actions exclues |
-| Dynamics 365 Sales | Profil hors connexion défini par l'administrateur | Oui, certaines actions restent en ligne uniquement |
+| Salesforce | Fiches récentes en cache par défaut ; modification hors ligne à activer par l'administrateur | Oui une fois la modification hors ligne activée, certaines actions exclues |
+| Dynamics 365 Sales | Profil hors connexion défini par l'administrateur | Oui, devis et commandes compris ; certaines actions restent en ligne uniquement |
 | HubSpot | Lecture seule, 50 fiches récentes par type d'objet (200 au total) | Non |
 
 Source : documentations officielles des éditeurs, consultées en octobre 2026. SAP ne détaille pas ce point dans la documentation publique que nous avons consultée : à vérifier en démonstration.
@@ -70,12 +70,12 @@ Source : documentations officielles des éditeurs, consultées en octobre 2026. 
 | Rang | CRM | Idéal pour | Prix public |
 | --- | --- | --- | --- |
 | 1 | Divalto weavy | Forces de vente itinérantes B2B, prise de commande | 70 € (profil Commercial) |
-| 2 | Salesforce Sales Cloud | Grandes équipes terrain, cartographie avancée | 195 € (édition Core) |
+| 2 | Salesforce Sales Cloud | Grandes équipes terrain, cartographie avancée | Dès 25 € (Suite Starter) ; Core 195 € |
 | 3 | Microsoft Dynamics 365 Sales | Équipes terrain dans l'univers Microsoft | 56,30 € HT |
 | 4 | Pipedrive | Petites équipes, adoption rapide | 14 € (formule Lite) |
 | 5 | Zoho CRM | Budget serré | Gratuit, puis 14 € |
-| 6 | SAP Sales Cloud | Entreprises sous SAP | Sur devis |
-| 7 | HubSpot | Commerciaux qui vendent surtout à distance | Gratuit, puis 90 € (Pro) |
+| 6 | SAP Sales Cloud | Entreprises sous SAP | Par utilisateur, à confirmer auprès de SAP |
+| 7 | HubSpot | Commerciaux qui vendent surtout à distance | Gratuit ; Starter 7 € (remise temporaire), Pro 90 € |
 
 Tarifs publics par utilisateur et par mois en facturation annuelle, relevés en octobre 2026.
 
@@ -86,7 +86,7 @@ Tarifs publics par utilisateur et par mois en facturation annuelle, relevés en 
 <CrmFiche
   id="divalto"
   rang={1}
-  verdict="Notre premier choix : il réunit le mode déconnecté complet, la prise de commande avec les données de l'ERP et la réorganisation des tournées."
+  verdict="Notre premier choix : il réunit le mode déconnecté complet, la prise de commande avec les données de l'ERP et l'aide à la réorganisation des tournées."
   idealPour="Commerciaux itinérants B2B, délégués technico-commerciaux, binômes terrain et sédentaire"
   prix="Profil Commercial à partir de 70 € par licence et par mois, 3 licences minimum"
   forces={[
@@ -98,7 +98,8 @@ Tarifs publics par utilisateur et par mois en facturation annuelle, relevés en 
   limites={[
     "Certaines fonctions avancées de paramétrage et d'analyse sont réservées à la version web",
     "Géocodage et géoptimisation proposés en option",
-    "Trois licences minimum",
+    "Tarifs et stocks via l'ERP : interface à construire avec un ERP d'un autre éditeur",
+    "Trois licences minimum, déploiement par un intégrateur partenaire",
   ]}
   capture={{
     src: '/images/crm/captures/divalto-weavy-mobile.jpg',
@@ -110,11 +111,11 @@ Tarifs publics par utilisateur et par mois en facturation annuelle, relevés en 
   }}
 />
 
-Divalto a lancé weavy en 2019 en le présentant comme « le CRM connecté au terrain », et c'est resté sa marque de fabrique. Les applications sont natives sur iOS et Android, et le mode déconnecté n'est pas une option à configurer : le commercial consulte ses fiches, saisit ses commandes et ses comptes-rendus sans réseau, et tout se synchronise quand la connexion revient. Chaque licence donne accès à l'application web et à l'application mobile sur deux appareils, un smartphone et une tablette par exemple.
+Divalto a lancé weavy en 2019 en le présentant comme « le CRM connecté au terrain », et c'est resté sa marque de fabrique. Les applications sont natives sur iOS et Android, avec un mode déconnecté intégré : le commercial consulte ses fiches, saisit ses commandes et ses comptes-rendus sans réseau, et tout se synchronise quand la connexion revient. Chaque licence donne accès à l'application web et à l'application mobile sur deux appareils, un smartphone et une tablette par exemple.
 
-La gestion de la tournée est le point le plus original. weavy calcule le temps de trajet entre deux rendez-vous et l'affiche dans les agendas de l'équipe. Quand un client annule, la fonction « client pivot » propose des clients ou des prospects situés à proximité et régénère les visites. L'outil gère aussi les objectifs de visite, les formulaires et enquêtes mobiles, les notes de frais et le stock embarqué.
+La gestion de la tournée est le point le plus original. weavy calcule le temps de trajet entre deux rendez-vous et l'affiche dans les agendas de l'équipe. Quand un client annule, la fonction « client pivot » propose des clients ou des prospects situés à proximité et les visites se réorganisent ; le géocodage et la géoptimisation font partie des options payantes. L'outil gère aussi les objectifs de visite, les formulaires et enquêtes mobiles, les notes de frais et le stock embarqué (le stock véhicule relève du profil Complet).
 
-Chez le client, le profil Commercial donne accès au catalogue, aux tarifs et aux stocks issus de l'ERP, à la prise de commande, aux devis, aux encaissements et aux relevés de linéaires et de prix. Les pièces saisies remontent automatiquement dans l'ERP interfacé et partent par e-mail au client. Chez Dexter, d'après le témoignage publié par Divalto, les délégués technico-commerciaux ont ainsi repris l'habitude de prendre leurs commandes directement en rendez-vous.
+Chez le client, le profil Commercial donne accès au catalogue, aux tarifs et aux stocks issus de l'ERP, à la prise de commande, aux devis, aux encaissements et aux relevés de linéaires et de prix. Les pièces saisies remontent automatiquement dans l'ERP interfacé et partent par e-mail au client. Avec un ERP d'un autre éditeur, c'est une interface qui alimente les tarifs et les stocks : elle est à construire, comme pour les autres CRM de ce classement. Chez Dexter, d'après le témoignage publié par Divalto, les délégués technico-commerciaux ont ainsi repris l'habitude de prendre leurs commandes directement en rendez-vous.
 
 Pour le compte-rendu, l'assistant IA intégré accepte des demandes en langage naturel : créer un rendez-vous, un contact ou une opportunité, rédiger un compte-rendu, générer un rapport d'activité. Divalto a aussi annoncé, à partir de la rentrée 2026, des agents IA métier intégrés à ses logiciels, pensés notamment pour le commerce terrain et l'optimisation des tournées, avec des mécanismes de validation humaine.
 
@@ -125,16 +126,16 @@ La limite, l'éditeur l'indique lui-même : certaines fonctions avancées de par
 <CrmFiche
   id="salesforce"
   rang={2}
-  verdict="Une application mobile solide et une cartographie avancée, mais un mode hors ligne qui demande un vrai travail d'administration."
+  verdict="Une application mobile solide et une cartographie avancée ; la modification hors ligne s'active et se prépare côté administrateur."
   idealPour="Grandes équipes terrain, territoires complexes, organisations déjà sous Salesforce"
-  prix="Éditions Core 195 €, Avancé 395 €, Max 550 € (avec Salesforce Maps) par utilisateur et par mois"
+  prix="Suite Starter à 25 € ; éditions Core 195 €, Avancé 395 €, Max 550 € (avec Salesforce Maps) par utilisateur et par mois"
   forces={[
     "Salesforce Maps inclus dans l'édition Max pour les tournées et territoires",
-    "Modification hors ligne possible une fois le mode activé",
-    "Écosystème et personnalisation sans équivalent",
+    "Modification hors ligne possible une fois activée",
+    "Écosystème et personnalisation très étendus",
   ]}
   limites={[
-    "Mode hors ligne à activer et configurer par l'administrateur",
+    "Création et modification hors ligne à activer par l'administrateur",
     "Hors ligne limité par défaut aux fiches récentes",
     "Salesforce Maps inclus dans l'édition Max (550 €)",
   ]}
@@ -142,7 +143,7 @@ La limite, l'éditeur l'indique lui-même : certaines fonctions avancées de par
 
 L'application mobile de Salesforce est riche, et l'éditeur pousse depuis des années ses outils pour les équipes terrain. Salesforce Maps, qui optimise tournées et territoires, fait partie de l'édition Sales Max, à 550 € par utilisateur et par mois.
 
-Le mode hors ligne mérite une lecture attentive. Il s'active côté administrateur. Par défaut, l'application garde en cache les enregistrements récents (30 enregistrements des 5 derniers objets consultés, conservés 30 jours), et la modification hors ligne sert à créer, modifier et supprimer, avec des actions non prises en charge sans réseau. Pour aller plus loin, l'outil Briefcase Builder prépare jusqu'à 50 000 enregistrements, une fonction surtout documentée pour le service terrain. Bref, c'est faisable, mais ça se configure.
+Le mode hors ligne mérite une lecture attentive. Par défaut, l'application garde en cache les enregistrements récents (30 enregistrements des 5 derniers objets consultés, conservés 30 jours). La modification hors ligne, qui sert à créer, modifier et supprimer sans réseau, s'active côté administrateur, et certaines actions ne sont pas prises en charge sans connexion. Pour aller plus loin, l'outil Briefcase Builder prépare jusqu'à 50 000 enregistrements, une fonction surtout documentée pour le service terrain. Bref, c'est faisable, mais ça se configure.
 
 ### 3. Microsoft Dynamics 365 Sales : le terrain dans l'univers Microsoft
 
@@ -164,7 +165,7 @@ Le mode hors ligne mérite une lecture attentive. Il s'active côté administrat
 
 Pour un commercial qui gère déjà ses rendez-vous dans Outlook, Dynamics 365 Sales a un avantage évident : il n'y a pas de double agenda. L'édition Enterprise (91 € HT par utilisateur et par mois) inclut Copilot, utile pour résumer une opportunité ou préparer un e-mail avant une visite.
 
-Le mode hors connexion repose sur un profil défini par l'administrateur, qui choisit les données disponibles sans réseau. Certaines actions restent réservées au mode connecté, comme l'attribution d'un enregistrement ou les flux de processus. C'est souvent suffisant pour consulter et noter. Pour commander chez le client avec les tarifs de l'ERP, il faudra un projet plus large, Business Central compris.
+Le mode hors connexion repose sur un profil défini par l'administrateur, qui choisit les données disponibles sans réseau. Certaines actions restent réservées au mode connecté, comme l'attribution d'un enregistrement ou les flux de processus. Le profil hors connexion permet en revanche de créer devis et commandes sans réseau ; les tarifs nets de l'ERP passent par Business Central ou par une interface.
 
 ### 4. Pipedrive : simple, et vraiment utilisable sans réseau
 
@@ -215,28 +216,28 @@ L'application est complète : prenez le temps de simplifier les écrans pour les
 <CrmFiche
   id="sap"
   rang={6}
-  verdict="Une vraie logique de planification des visites, à réserver aux entreprises déjà dans l'univers SAP."
+  verdict="Une vraie logique de planification des visites, pensée d'abord pour les entreprises déjà dans l'univers SAP."
   idealPour="Forces de vente d'entreprises équipées de SAP S/4HANA"
   forces={[
     "Planification dynamique des visites avec recommandations de l'IA",
     "Applications mobiles dédiées à la vente terrain",
   ]}
   limites={[
-    "Tarifs sur devis",
+    "Montant en euros et conditions à faire confirmer par SAP",
     "Fonctionnement hors ligne à vérifier en démonstration",
   ]}
 />
 
 SAP Sales Cloud propose une fonction de planification dynamique des visites : l'outil fournit des recommandations pour organiser les visites, optimiser les itinéraires et couvrir le portefeuille. Les applications mobiles sont dédiées à la vente, et le copilote Joule assiste les commerciaux.
 
-L'intérêt est maximal quand l'ERP est SAP, puisque les données de commande et de facturation sont déjà dans la maison. Hors de cet univers, l'absence de tarif public rend la comparaison plus difficile en amont.
+L'intérêt est maximal quand l'ERP est SAP, puisque les données de commande et de facturation sont déjà dans la maison. SAP présente une tarification par utilisateur et par mois : faites confirmer le montant en euros et les conditions pour votre équipe.
 
 ### 7. HubSpot : pour les commerciaux qui vendent surtout à distance
 
 <CrmFiche
   id="hubspot"
   rang={7}
-  verdict="Excellent pour la vente à distance et l'inbound, insuffisant pour une journée de visites en zone blanche."
+  verdict="Excellent pour la vente à distance et l'inbound ; hors connexion, l'application se limite à la consultation des fiches récentes."
   idealPour="Commerciaux qui alternent visio, téléphone et quelques visites"
   forces={[
     "Application agréable, fiches claires",
@@ -254,7 +255,7 @@ Pour un commercial qui vend surtout par téléphone et en visio, ce n'est pas un
 
 ## Géolocalisation et tournées : ce que dit la CNIL
 
-Optimiser une tournée à partir des adresses des clients et suivre la position d'un salarié sont deux choses très différentes. La [CNIL](https://www.cnil.fr/fr/la-geolocalisation-des-vehicules-des-salaries) rappelle qu'un dispositif de géolocalisation dans un véhicule professionnel ne peut pas servir à contrôler un employé en permanence, en particulier lorsqu'il est libre d'organiser ses déplacements, comme un VRP. Les données de localisation ne doivent en principe pas être conservées plus de deux mois, et jusqu'à un an lorsqu'elles servent à optimiser les tournées.
+Optimiser une tournée à partir des adresses des clients et suivre la position d'un salarié sont deux choses très différentes. La [CNIL](https://www.cnil.fr/fr/la-geolocalisation-des-vehicules-des-salaries) rappelle qu'un dispositif de géolocalisation installé dans un véhicule professionnel ne peut pas servir à contrôler un employé en permanence, et qu'il ne peut pas être utilisé dans le véhicule d'un employé libre d'organiser ses déplacements, comme un VRP. Les données de localisation ne doivent en principe pas être conservées plus de deux mois, et jusqu'à un an lorsqu'elles servent à optimiser les tournées.
 
 Concrètement, un CRM qui calcule les trajets entre les rendez-vous de l'agenda ne pose pas de difficulté. Une fonction qui enregistre la position du commercial tout au long de la journée doit être examinée par votre DPO avant d'être activée. Notre article sur le [CRM et le RGPD](/crm-rgpd/) détaille les autres obligations.
 
