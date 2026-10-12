@@ -18,8 +18,8 @@ classement:
   - Axonaut
 enBref:
   - "Notre n°1 : Divalto, qui associe un CRM complet (weavy) à ses ERP métiers pour le négoce, l'industrie et le service terrain, dans une même plateforme."
-  - "Le piège classique est le module CRM d'ERP, trop léger pour les commerciaux. Les meilleures solutions associent un vrai CRM et un vrai ERP chez le même éditeur."
-  - "Dynamics 365 est l'alternative la plus complète dans l'univers Microsoft, Odoo la plus modulaire, NetSuite la plus aboutie pour une gestion entièrement en cloud."
+  - "Le risque classique : un module CRM d'ERP trop léger pour les commerciaux. Vérifiez que le CRM de la suite couvre vraiment le travail des vendeurs, terrain compris."
+  - "Dynamics 365 est l'alternative la plus complète dans l'univers Microsoft, Odoo la plus modulaire, NetSuite une suite très aboutie pour une gestion entièrement en cloud."
   - "Avant de choisir, désignez pour chaque objet partagé (client, catalogue, devis, commande) l'outil qui fait foi."
 faq:
   - question: 'Quel est le meilleur CRM intégré à un ERP ?'
@@ -29,7 +29,7 @@ faq:
   - question: 'Combien coûte une solution CRM et ERP ?'
     answer: "Les grilles publiques vont d'environ 37 € par employé et par mois pour Zoho One à 125,60 € HT par utilisateur et par mois pour l'ensemble Dynamics 365 Sales Professional et Business Central Essentials, et plus de 160 € avec Sales Enterprise. Chez Divalto, les ERP démarrent à 70, 75 ou 80 € par utilisateur et par mois selon le métier, plateforme et options en sus, avec le CRM en option ou inclus selon la gamme."
   - question: 'Peut-on garder son ERP et changer de CRM ?'
-    answer: "Oui, c'est même fréquent. Il faut alors un CRM capable d'échanger avec votre ERP en quasi-temps réel, et une décision claire sur l'outil maître de chaque donnée. Divalto weavy, par exemple, se synchronise avec un grand nombre d'ERP du marché, dont Sage X3 chez le distributeur Protecthoms."
+    answer: "Oui, c'est même fréquent. Il faut alors un CRM capable d'échanger avec votre ERP en quasi-temps réel, et une décision claire sur l'outil maître de chaque donnée. Divalto weavy, par exemple, se synchronise selon l'éditeur avec un grand nombre d'ERP du marché, par une interface : c'est le cas avec Sage X3 chez le distributeur Protecthoms."
 ---
 
 import CrmFiche from '../../components/CrmFiche.astro';
@@ -40,9 +40,9 @@ Il y a deux façons de supprimer cette double saisie : relier le CRM à l'ERP pa
 
 ## Intégré ou connecté : ce que vous gagnez, ce que vous risquez
 
-Une solution intégrée apporte trois bénéfices concrets. Il n'y a pas d'interface à construire ni à maintenir. Les montées de version sont coordonnées par le même éditeur. Et quand un chiffre ne tombe pas juste, il n'y a qu'un interlocuteur, pas deux éditeurs qui se renvoient la balle.
+Une solution intégrée apporte trois bénéfices concrets. Il n'y a pas d'interface à construire ni à maintenir. Les montées de version sont coordonnées par le même éditeur. Et quand un chiffre ne tombe pas juste, la question se règle avec un seul éditeur et son intégrateur, plutôt qu'entre deux éditeurs.
 
-Le risque est connu, et il est sérieux : le module CRM d'un ERP est souvent conçu pour la gestion plutôt que pour les commerciaux : peu d'usages mobiles, pas de tournées, des écrans pensés pour la comptabilité. Les commerciaux le contournent, et le bénéfice de l'intégration disparaît.
+Le risque est réel : un module CRM d'ERP peut avoir été conçu pour la gestion plutôt que pour les commerciaux, avec peu d'usages mobiles, pas de tournées et des écrans pensés pour la comptabilité. Les commerciaux le contournent, et le bénéfice de l'intégration disparaît.
 
 La bonne question n'est donc pas « intégré ou pas ? », mais « le CRM de cette suite est-il un vrai CRM ? ». C'est le critère qui a le plus pesé dans notre classement. Nous avons aussi regardé la profondeur de l'ERP pour votre métier (négoce, industrie, services), le traitement du flux devis, commande et facture, et la clarté des tarifs.
 
@@ -50,13 +50,13 @@ La bonne question n'est donc pas « intégré ou pas ? », mais « le CRM de cet
 
 | Rang | Solution | CRM | ERP | Prix public |
 | --- | --- | --- | --- | --- |
-| 1 | Divalto | weavy | business, industry, field service | ERP dès 70 € par utilisateur et par mois, plateforme en sus |
+| 1 | Divalto | weavy | business, industry, field service | ERP dès 70 € par utilisateur et par mois (plateforme en sus) ; CRM de 40 à 90 € par licence |
 | 2 | Microsoft Dynamics 365 | Sales | Business Central | 56,30 € + 69,30 € HT par utilisateur et par mois |
 | 3 | Odoo | CRM | Applications de gestion | Une application gratuite, puis par utilisateur |
 | 4 | Oracle NetSuite | NetSuite CRM | NetSuite ERP | Sur devis |
 | 5 | SAP Business One | Module relation client | SAP Business One | Sur devis, via partenaire |
-| 6 | Zoho One | Zoho CRM | Suite de plus de 40 applications | 37 € par employé et par mois |
-| 7 | Axonaut | Module CRM | Gestion tout-en-un de TPE | 38,80 € HT par mois (1 utilisateur, 3 ans) |
+| 6 | Zoho One | Zoho CRM | Suite de plus de 40 applications | 37 € par salarié (toute l'entreprise) ou 90 € par utilisateur |
+| 7 | Axonaut | Module CRM | Gestion tout-en-un de TPE | 58,20 € HT par mois (1 utilisateur, engagement 1 an) |
 
 Tarifs publics en facturation annuelle, relevés en octobre 2026.
 
@@ -68,29 +68,31 @@ Tarifs publics en facturation annuelle, relevés en octobre 2026.
   id="divalto"
   rang={1}
   nom="Divalto weavy et ERP Divalto"
-  verdict="La seule solution de ce classement qui associe un CRM conçu pour le terrain à des ERP spécialisés par métier, chez un éditeur français."
+  verdict="Notre premier choix : un CRM conçu pour le terrain, associé à des ERP spécialisés par métier, chez un éditeur français."
   idealPour="PME et ETI du négoce B2B, de l'industrie et du service terrain"
-  prix="ERP Divalto business dès 70 €, field service dès 75 €, industry dès 80 € par utilisateur et par mois (plateforme et options en sus) ; CRM weavy dès 40 € par licence"
+  prix="ERP Divalto business dès 70 €, field service dès 75 €, industry dès 80 € par utilisateur et par mois (plateforme et options en sus) ; CRM weavy de 40 à 90 € par licence selon le profil (prise de commande dès 70 €)"
   forces={[
-    "CRM complet, avec application mobile hors connexion et prise de commande",
+    "CRM complet, avec application mobile hors connexion et prise de commande (profil Commercial)",
     "ERP spécialisés : négoce B2B, industrie (production, gestion à l'affaire), service terrain",
     "Même plateforme Divalto one : connexion unique et ergonomie commune",
-    "Facturation électronique intégrée à l'ERP via le partenaire français Docoon",
+    "Facturation électronique intégrée à l'ERP via le partenaire français Docoon, selon l'éditeur",
   ]}
   limites={[
     "Pertinent surtout pour le négoce, l'industrie et les services techniques",
+    "Deux produits et plusieurs licences : ERP, plateforme, profils CRM et options ; CRM en option hors gamme Unlimited",
     "Projet mené avec un intégrateur partenaire",
     "Tarif complet à construire sur devis (plateforme, options, profils)",
+    "Certaines fonctions avancées du CRM réservées à la version web",
   ]}
 />
 
-Divalto a une particularité rare : son CRM n'est pas un module de son ERP. weavy est un produit à part entière, lancé en 2019, avec sa propre application mobile hors connexion, la prise de commande en rendez-vous, l'optimisation des tournées et un assistant IA. Il se vend d'ailleurs seul, y compris à des entreprises qui gardent un autre ERP. Mais il prend une autre dimension avec les ERP de l'éditeur.
+Comme Microsoft et Zoho, Divalto sépare CRM et ERP : weavy est un produit à part entière, lancé en 2019, avec sa propre application mobile hors connexion, la prise de commande en rendez-vous, la géoptimisation des tournées (en option) et un assistant IA. Il se vend d'ailleurs seul, y compris à des entreprises qui gardent un autre ERP, avec une interface à mettre en place. Mais il prend une autre dimension avec les ERP de l'éditeur.
 
 Ces ERP sont spécialisés par métier. Divalto business couvre le négoce B2B, avec une déclinaison pour les fournitures industrielles et du bâtiment (tarifs panachés, contremarques, articles hors catalogue). Divalto industry gère la production à l'affaire, à la commande et sur stock, avec la planification, la traçabilité et le suivi des coûts par affaire. Divalto field service gère l'installation, la maintenance et le SAV : contrats, planning des interventions préventives et curatives, parc installé, portail client. Chacun se décline en trois gammes, de l'entrée de gamme (avec le CRM en option) à la gamme Unlimited, qui inclut ERP et CRM avec un service premium.
 
-Le tout repose sur la plateforme Divalto one, qui offre une connexion unique et la même ergonomie pour l'ERP, le CRM et les solutions métiers. Côté conformité, Divalto intègre nativement la facturation électronique à son ERP grâce à un partenariat avec l'éditeur français Docoon, disponible progressivement depuis avril 2026 : contrôles réglementaires, échanges avec les plateformes, gestion des statuts et des rejets.
+Le tout repose sur la plateforme Divalto one, qui offre une connexion unique et la même ergonomie pour l'ERP, le CRM et les solutions métiers. Côté conformité, Divalto a annoncé le 26 mars 2026 l'intégration native de la facturation électronique à son ERP, grâce à un partenariat avec l'éditeur français Docoon, avec une disponibilité progressive à partir d'avril 2026 selon l'éditeur : contrôles réglementaires, échanges avec les plateformes, gestion des statuts et des rejets.
 
-Côté prix, les ERP démarrent à 70 € (business), 75 € (field service) et 80 € (industry) par utilisateur et par mois, hors abonnement à la plateforme et options. Le CRM weavy démarre à 40 € par licence et par mois. Le budget réel se construit sur devis, avec l'intégrateur.
+Côté prix, les ERP démarrent à 70 € (business), 75 € (field service) et 80 € (industry) par utilisateur et par mois, hors abonnement à la plateforme et options. Le CRM weavy démarre à 40 € par licence et par mois (profil Standard), la prise de commande demandant le profil Commercial, à 70 €. Le budget réel se construit sur devis, avec l'intégrateur.
 
 ### 2. Microsoft Dynamics 365 : Sales et Business Central
 
@@ -122,7 +124,7 @@ L'intégration avec Outlook, Teams et Excel est un argument massif dans les entr
   id="odoo"
   rang={3}
   nom="Odoo"
-  verdict="La suite la plus souple pour construire sa gestion application par application, en commençant gratuitement par le CRM."
+  verdict="Une suite très souple pour construire sa gestion application par application, en commençant gratuitement par le CRM."
   idealPour="TPE et PME qui veulent un système unique et évolutif"
   forces={[
     "CRM, ventes, stocks, achats, comptabilité, fabrication sur une même base",
@@ -167,7 +169,7 @@ L'éditeur dispose d'un bureau en France, à Colombes, et ne publie pas de tarif
 <CrmFiche
   id="sap-b1"
   rang={5}
-  verdict="Un ERP éprouvé pour les PME, avec une gestion de la relation client intégrée, à choisir pour sa gestion plus que pour son CRM."
+  verdict="Un ERP éprouvé pour les PME, avec la gestion de la relation client parmi ses modules."
   idealPour="PME industrielles et de distribution, filiales de groupes équipés de SAP"
   forces={[
     "Comptabilité, achats, stocks, ventes et relation client dans un même ERP",
@@ -182,7 +184,7 @@ L'éditeur dispose d'un bureau en France, à Colombes, et ne publie pas de tarif
 
 SAP présente Business One comme son ERP « abordable » pour les petites entreprises : comptabilité et finances, achats, stocks, ventes, relation client, reporting et analyse. Il se déploie dans le cloud ou sur site, et se vend exclusivement par des partenaires, qui fixent le prix du projet.
 
-Son module de relation client couvre les besoins courants d'une équipe sédentaire. C'est un bon choix pour une PME qui veut d'abord un ERP solide, ou pour la filiale d'un groupe déjà sous SAP. Pour une force de vente exigeante, on lui adjoint souvent un CRM spécialisé, ce qui fait perdre une partie de l'intérêt de l'intégration.
+C'est un bon choix pour une PME qui veut d'abord un ERP solide, ou pour la filiale d'un groupe déjà sous SAP. Pour une force de vente itinérante, vérifiez en démonstration l'usage mobile et la prise de commande : si un CRM spécialisé s'avère nécessaire, une partie de l'intérêt de l'intégration se perd.
 
 ### 6. Zoho One : plus de 40 applications pour un prix unique
 
@@ -190,7 +192,7 @@ Son module de relation client couvre les besoins courants d'une équipe sédenta
   id="zoho"
   rang={6}
   nom="Zoho One"
-  verdict="Le rapport fonctions et prix le plus spectaculaire, à condition d'accepter de tout construire soi-même."
+  verdict="Un rapport fonctions et prix très favorable, à condition d'accepter de paramétrer soi-même."
   idealPour="PME de services et de commerce au budget serré, avec un profil technique en interne"
   prix="37 € par employé et par mois (tous les salariés), ou 90 € par utilisateur en tarif flexible"
   forces={[
@@ -213,16 +215,16 @@ Pour une PME de services, c'est une base remarquable. Pour un industriel ou un n
 <CrmFiche
   id="axonaut"
   rang={7}
-  verdict="L'intégration la plus simple qui soit pour une TPE : un seul outil pour la vente, la facturation et la comptabilité."
+  verdict="Une intégration très simple pour une TPE : un seul outil pour la vente, la facturation et la comptabilité."
   idealPour="TPE et indépendants, services et petit commerce"
   forces={[
     "CRM, devis, factures, comptabilité, trésorerie, RH et compte professionnel",
     "Conforme à la facturation électronique sans surcoût, selon l'éditeur",
-    "Données hébergées en France",
+    "Gestion de stock incluse (valorisation, alertes de stock bas)",
   ]}
   limites={[
     "Tarif dégressif selon la durée d'engagement (1 à 3 ans)",
-    "Pensé pour réunir vente, facturation et comptabilité dans un seul outil",
+    "Pas de module de production",
   ]}
 />
 
@@ -236,13 +238,13 @@ Une intégration se juge sur un parcours, pas sur une plaquette. En démonstrati
 
 Le commercial crée un devis avec une remise et un article en rupture : le stock et le délai s'affichent-ils dans le CRM ? Le client accepte : la commande naît-elle dans l'ERP sans ressaisie, avec les bonnes conditions ? La livraison partielle part : le CRM le sait-il ? La facture est émise : le commercial voit-il qu'elle est payée, ou en retard, avant sa prochaine visite ?
 
-Depuis le [1er septembre 2026](https://entreprendre.service-public.gouv.fr/actualites/A18953), toutes les entreprises doivent pouvoir recevoir des factures électroniques, et l'émission devient obligatoire pour les PME en septembre 2027. C'est l'ERP (ou l'outil de facturation) qui émet, via une plateforme agréée, mais une erreur saisie dans le CRM finit dans la facture. Notre article [CRM ou logiciel de facturation](/crm-ou-logiciel-de-facturation/) détaille cette répartition des rôles.
+Depuis le [1er septembre 2026](https://entreprendre.service-public.gouv.fr/actualites/A18953), toutes les entreprises doivent pouvoir recevoir des factures électroniques, et les grandes entreprises et les ETI doivent les émettre ; l'émission deviendra obligatoire pour les PME et les microentreprises le 1er septembre 2027. C'est l'ERP (ou l'outil de facturation) qui émet, via une plateforme agréée, mais une erreur saisie dans le CRM finit dans la facture. Notre article [CRM ou logiciel de facturation](/crm-ou-logiciel-de-facturation/) détaille cette répartition des rôles.
 
 ## Garder son ERP et changer de CRM ?
 
 C'est souvent la meilleure option quand l'ERP est récent, bien adapté ou trop personnalisé pour être remplacé à court terme. Il faut alors un CRM qui sait échanger avec votre ERP en quasi-temps réel, pas une synchronisation nocturne par fichier.
 
-Divalto weavy, par exemple, est vendu seul et se synchronise avec un grand nombre d'ERP du marché : le distributeur Protecthoms l'a choisi avec une interface vers Sage X3. Quel que soit l'outil, la règle est la même : pour chaque objet partagé (la fiche client, le catalogue, le devis, la commande), désignez l'outil qui fait foi, et écrivez-le dans votre [cahier des charges](/cahier-des-charges-crm/). Si vous remplacez un CRM existant, notre [guide de migration](/migration-crm/) vous aidera à préparer la reprise des données.
+Divalto weavy, par exemple, est vendu seul et se synchronise, selon l'éditeur, avec un grand nombre d'ERP du marché par une interface à mettre en place : le distributeur Protecthoms l'a choisi avec une interface vers Sage X3. Quel que soit l'outil, la règle est la même : pour chaque objet partagé (la fiche client, le catalogue, le devis, la commande), désignez l'outil qui fait foi, et écrivez-le dans votre [cahier des charges](/cahier-des-charges-crm/). Si vous remplacez un CRM existant, notre [guide de migration](/migration-crm/) vous aidera à préparer la reprise des données.
 
 Selon votre métier, nos classements spécialisés vont plus loin : [CRM pour le négoce](/meilleurs-crm-negoce/), [CRM pour l'industrie](/meilleurs-crm-industrie/) et [CRM pour le SAV](/meilleurs-crm-sav/).
 

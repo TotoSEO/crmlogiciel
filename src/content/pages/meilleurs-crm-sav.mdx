@@ -17,17 +17,17 @@ classement:
   - Zoho FSM
   - Zendesk
 enBref:
-  - "Notre n°1 pour le SAV : Dynamics 365 Field Service, le plus complet (planification, contrats, assistance à distance, optimisation des plannings), à 91 € HT par utilisateur et par mois."
+  - "Notre n°1 pour le SAV : Dynamics 365 Field Service, le plus complet (planification, contrats, retours, sous-traitants), à 91 € HT par utilisateur et par mois, avec l'optimisation automatique des plannings en complément payant."
   - "Divalto est n°2, et notre choix pour les PME et ETI françaises de l'installation et de la maintenance : contrats, parc installé, application technicien hors connexion, portail client et facturation dès la validation des interventions."
   - "Praxedo est la référence française spécialisée dans la gestion d'interventions ; Zendesk est le meilleur choix pour un SAV à distance, sans techniciens sur la route."
-  - "Pour 18 techniciens et 2 planificateurs, les licences vont d'environ 13 000 € par an (Divalto weavy) à 42 000 € (Salesforce Field Service)."
+  - "Pour 18 techniciens et 2 planificateurs, les licences seules vont d'environ 8 400 € par an (Praxedo Basic) à 42 000 € (Salesforce Field Service), pour des périmètres fonctionnels différents."
 faq:
   - question: 'Quel est le meilleur logiciel pour le SAV ?'
-    answer: "Pour un SAV avec techniciens sur le terrain, Dynamics 365 Field Service arrive en tête de notre classement pour sa couverture fonctionnelle. Divalto, avec weavy et son ERP field service, est le plus adapté aux PME et ETI françaises de l'installation et de la maintenance. Pour un SAV à distance, par téléphone et par e-mail, Zendesk est le plus simple."
+    answer: "Pour un SAV avec techniciens sur le terrain, Dynamics 365 Field Service arrive en tête de notre classement pour sa couverture fonctionnelle. Divalto, avec weavy et son ERP field service, est notre choix pour les PME et ETI françaises de l'installation et de la maintenance. Pour un SAV à distance, par téléphone et par e-mail, Zendesk est une référence."
   - question: 'Quelle différence entre un logiciel de SAV et un logiciel de helpdesk ?'
     answer: "Un logiciel de helpdesk gère des tickets traités à distance (e-mail, téléphone, chat). Un logiciel de service terrain, ou FSM, gère des interventions physiques : planning des techniciens, ordres de mission, pièces détachées, rapports signés chez le client, contrats de maintenance et parc installé."
   - question: 'Combien coûte un logiciel de gestion des interventions ?'
-    answer: "Comptez de 35 € par technicien et par mois (Praxedo Basic, à partir de 5 utilisateurs) à 175 € (Salesforce Field Service Technician). Divalto weavy démarre à 50 € pour le profil Technicien, et Dynamics 365 Field Service coûte 91 € HT. Zoho FSM propose un plan gratuit limité à 30 rendez-vous par mois."
+    answer: "Comptez de 35 € par technicien et par mois (Praxedo Basic, à partir de 5 utilisateurs) à 175 € (Salesforce Field Service Technician), voire 230 € pour Field Service Plus. Divalto weavy démarre à 50 € pour le profil Technicien (90 € pour le profil Complet, avec les contrats et la planification), et Dynamics 365 Field Service coûte 91 € HT. Zoho FSM propose un plan gratuit limité à 30 rendez-vous par mois."
   - question: 'Le SAV doit-il être relié au CRM commercial ?'
     answer: "Oui, et c'est souvent là que se trouve la marge. Le technicien est la personne que le client voit le plus souvent : il repère l'équipement vieillissant, le besoin d'un contrat de maintenance, la pièce à renouveler. Si l'information remonte au commercial, le SAV devient une source de chiffre d'affaires."
 ---
@@ -63,7 +63,7 @@ Deux fonctions font souvent la différence en pratique : la facturation déclenc
 | Rang | Logiciel | Idéal pour | Prix public |
 | --- | --- | --- | --- |
 | 1 | Dynamics 365 Field Service | Organisations de service structurées, univers Microsoft | 91 € HT |
-| 2 | Divalto (weavy et field service) | PME et ETI de l'installation, de la maintenance et du SAV | 50 € (weavy Technicien) |
+| 2 | Divalto (weavy et field service) | PME et ETI de l'installation, de la maintenance et du SAV | 50 € (weavy Technicien) ; ERP field service dès 75 € |
 | 3 | Salesforce Field Service | Grandes organisations de service sous Salesforce | 175 € (Technician) |
 | 4 | Praxedo | Spécialiste français de la gestion d'interventions | 35 € (dès 5 utilisateurs) |
 | 5 | Odoo | PME qui veulent assistance, interventions et maintenance dans un seul outil | Une application gratuite |
@@ -80,17 +80,18 @@ Tarifs publics par utilisateur et par mois en facturation annuelle, relevés en 
   id="dynamics"
   rang={1}
   nom="Microsoft Dynamics 365 Field Service"
-  verdict="Le logiciel de service terrain le plus complet de ce classement, de la planification à l'assistance à distance des techniciens."
+  verdict="Le logiciel de service terrain le plus complet de ce classement, de la planification à la gestion des sous-traitants."
   idealPour="ETI et grandes organisations de service, équipes internes et sous-traitants"
   prix="91 € HT par utilisateur et par mois ; licence technicien externe à 43,30 € HT ; optimisation des plannings à 26 € HT par ressource"
   forces={[
     "Planification et répartition des ressources, contrats de maintenance planifiée",
-    "Assistance d'experts à distance (Remote Assist) et guides étape par étape",
+    "Traitement des retours et gestion des fournisseurs",
     "Gestion des sous-traitants avec une licence dédiée",
     "Copilot et analyse des performances des techniciens",
   ]}
   limites={[
-    "Plusieurs licences et compléments à combiner",
+    "Plusieurs licences et compléments à combiner, dont l'optimisation automatique des plannings (26 € HT par ressource)",
+    "Remote Assist et Guides : plus vendus depuis le 1er novembre 2025, fin du support le 31 décembre 2026",
     "Déploiement à mener avec un partenaire Microsoft",
   ]}
   capture={false}
@@ -98,7 +99,7 @@ Tarifs publics par utilisateur et par mois en facturation annuelle, relevés en 
 
 Dynamics 365 Field Service occupe la première place parce qu'il couvre, sans module tiers, presque tout ce qu'une organisation de service peut demander. Planification et répartition des ressources, contrats de maintenance planifiée, traitement des retours, gestion des fournisseurs et sous-traitants, analyse des performances des techniciens : la base est très complète, à 91 € HT par utilisateur et par mois.
 
-Deux fonctions le distinguent. L'assistance d'experts à distance (Remote Assist) permet à un technicien bloqué de montrer la panne à un collègue expérimenté, et les guides étape par étape structurent les interventions complexes. Le complément Resource Scheduling Optimization (26 € HT par ressource et par mois) construit automatiquement des plannings optimisés. Les techniciens externes disposent d'une licence dédiée à 43,30 € HT.
+Le complément Resource Scheduling Optimization (26 € HT par ressource et par mois) construit automatiquement des plannings optimisés, et les techniciens externes disposent d'une licence dédiée à 43,30 € HT. Un point à connaître : la page tarifs mentionne encore l'assistance d'experts à distance et les guides étape par étape, mais Microsoft a cessé de vendre Remote Assist et Guides le 1er novembre 2025 et en arrête le support le 31 décembre 2026, selon son calendrier de cycle de vie.
 
 La contrepartie est celle de tout l'univers Dynamics : un empilement de licences à bien dimensionner, et un projet qui repose sur la compétence du partenaire. Pour une ETI ou un grand compte qui a ces moyens, c'est la référence.
 
@@ -118,8 +119,9 @@ La contrepartie est celle de tout l'univers Dynamics : un empilement de licences
     "Facturation déclenchée dès la validation des interventions",
   ]}
   limites={[
-    "Planification des interventions dans le profil Complet ou l'ERP field service",
-    "Contrats et planning préventif les plus poussés côté ERP Divalto field service",
+    "Contrats, planification et stock véhicule : profil Complet (90 €) ou ERP field service, pas dans le profil Technicien",
+    "Portail client, facturation et planning préventif : côté ERP Divalto field service (plateforme et options en sus)",
+    "Plusieurs licences à combiner : profils weavy, ERP, plateforme et options",
     "Déploiement par un intégrateur partenaire",
   ]}
   capture={{
@@ -138,7 +140,7 @@ Côté gestion, l'ERP Divalto field service vise les entreprises d'installation,
 
 Deux fonctions parlent directement à la trésorerie et à la relation client. La facturation est déclenchée dès la validation des interventions. Et un portail extranet, accessible 24 heures sur 24, permet aux clients de déclarer un incident et de suivre leurs demandes, dates de passage et rapports. L'éditeur met aussi en avant le respect des obligations réglementaires en mobilité (CERFA, Trackdéchets) et la maintenance prédictive à partir des données de capteurs.
 
-Pourquoi deuxième et pas premier ? Parce que Dynamics 365 Field Service offre en standard une couverture plus large pour les grandes organisations de service : assistance d'experts à distance, guides pas à pas, optimisation automatique des plannings, licences dédiées aux sous-traitants. Pour une PME ou une ETI française du métier, Divalto est notre choix le plus cohérent : ERP de service, CRM et application technicien chez le même éditeur.
+Pourquoi deuxième et pas premier ? Parce que Dynamics 365 Field Service couvre un périmètre plus large pour les grandes organisations de service : gestion des sous-traitants avec une licence dédiée, traitement des retours, gestion des fournisseurs, analyse des performances des techniciens, et optimisation automatique des plannings en complément payant. Pour une PME ou une ETI française du métier, Divalto est notre choix le plus cohérent : ERP de service, CRM et application technicien chez le même éditeur.
 
 ### 3. Salesforce Field Service : la puissance pour les grandes organisations
 
@@ -155,39 +157,39 @@ Pourquoi deuxième et pas premier ? Parce que Dynamics 365 Field Service offre e
     "Devis et encaissements sur le terrain, portail pour les prestataires",
   ]}
   limites={[
-    "Prix d'entrée le plus élevé de ce classement : 175 € par utilisateur et par mois",
-    "Contrat annuel obligatoire",
+    "Licences Dispatcher et Technician à 175 € par utilisateur et par mois",
+    "Au moins une licence Service Cloud requise, contrat annuel obligatoire",
   ]}
   capture={false}
 />
 
 Salesforce Field Service se découpe en licences par rôle. Le Dispatcher (175 € par utilisateur et par mois) planifie et optimise les itinéraires avec l'aide de l'IA et réaffecte les tâches. Le Technician (175 €) consulte et met à jour ses ordres de travail même hors ligne, établit des devis et encaisse sur le terrain. Contractor Plus (80 € par utilisateur, ou 32 € par connexion) équipe les prestataires externes, et Field Service Plus (230 €) réunit les deux rôles avec Service Cloud et Sales Cloud.
 
-La solution gère aussi le cycle de vie de la base installée, de la demande de devis aux campagnes de service. C'est un excellent choix pour une organisation déjà sous Salesforce. Pour une PME, comparez ce budget à celui des solutions qui démarrent à 35 € ou 50 € par utilisateur.
+Le module complémentaire Asset Lifecycle Management (75 $ par utilisateur et par mois) gère le cycle de vie de la base installée, de la demande de devis aux campagnes de service, et l'ensemble nécessite au moins une licence Service Cloud. C'est un excellent choix pour une organisation déjà sous Salesforce. Pour une PME, comparez ce budget à celui des solutions qui démarrent à 35 € ou 50 € par utilisateur.
 
 ### 4. Praxedo : le spécialiste français de la gestion d'interventions
 
 <CrmFiche
   id="praxedo"
   rang={4}
-  verdict="Le meilleur pur spécialiste de la gestion d'interventions, à relier à votre CRM et à votre ERP."
+  verdict="Un pur spécialiste de la gestion d'interventions, très complet, à relier à votre CRM et à votre ERP."
   idealPour="Entreprises de maintenance et d'intervention, de la PME à l'ETI"
   prix="Basic 35 €, Advanced 59 €, Optimized 89 €, Automated 129 € par utilisateur et par mois, dès 5 utilisateurs"
   forces={[
-    "Planification sur carte, prise de rendez-vous optimisée sous contraintes",
-    "Portail donneurs d'ordres et portail de prise de rendez-vous",
-    "Visio-assistance et lecture des photos terrain par l'IA",
+    "Planification sur carte, prise de rendez-vous optimisée sous contraintes (selon la formule)",
+    "Portail donneurs d'ordres et portail de prise de rendez-vous (modules complémentaires)",
+    "Visio-assistance en module complémentaire, contrôle des photos terrain par l'IA",
   ]}
   limites={[
-    "CRM commercial et ERP : à relier par API",
+    "CRM commercial et ERP : à relier par connecteurs prêts à l'emploi ou par API",
     "Cinq utilisateurs minimum",
   ]}
   capture={false}
 />
 
-Praxedo fait une seule chose : la gestion des interventions, et il la fait très bien. Planification par glisser-déposer sur une carte, prise de rendez-vous optimisée sous contraintes, application mobile pour les techniciens avec suivi des temps et parcours optimisé, portail pour les donneurs d'ordres, portail de prise de rendez-vous pour les clients finaux, visio-assistance : la couverture est remarquable.
+Praxedo fait une seule chose : la gestion des interventions, et il la fait très bien. Planification par glisser-déposer sur une carte, prise de rendez-vous optimisée sous contraintes, application mobile pour les techniciens avec suivi des temps et parcours optimisé, portail pour les donneurs d'ordres, portail de prise de rendez-vous pour les clients finaux, visio-assistance : la couverture est remarquable, certaines fonctions dépendant de la formule ou d'un module complémentaire.
 
-Les quatre formules vont de 35 € à 129 € par utilisateur et par mois, à partir de cinq utilisateurs. Praxedo n'est ni un CRM commercial ni un ERP : il se connecte aux autres logiciels par ses API. Si vous avez déjà un CRM et un ERP qui vous conviennent, c'est le complément idéal. Si vous partez de zéro, une solution intégrée vous évitera deux interfaces.
+Les quatre formules vont de 35 € à 129 € par utilisateur et par mois, à partir de cinq utilisateurs. Praxedo n'est ni un CRM commercial ni un ERP : il se connecte aux autres logiciels par des connecteurs prêts à l'emploi (Microsoft Business Central, Sage 100, EBP, Salesforce…) ou par ses API. Si vous avez déjà un CRM et un ERP qui vous conviennent, c'est le complément idéal. Si vous partez de zéro, une solution intégrée vous évitera deux interfaces.
 
 ### 5. Odoo : assistance, interventions et maintenance dans un seul outil
 
@@ -215,13 +217,13 @@ Odoo propose des applications d'assistance (tickets), d'interventions sur site e
   id="zoho"
   rang={6}
   nom="Zoho FSM"
-  verdict="Le moyen le plus simple de passer du papier à un logiciel d'interventions pour une petite équipe."
+  verdict="Un moyen simple de passer du papier à un logiciel d'interventions pour une petite équipe."
   idealPour="TPE et petites PME de dépannage ou d'installation"
   prix="Gratuit jusqu'à 30 rendez-vous par mois, puis abonnement selon le volume de rendez-vous"
   forces={[
     "Plan gratuit avec demandes, devis, bons de travail, rapports et facturation",
-    "Application mobile et console de répartition",
-    "Relié à Zoho CRM",
+    "Gestion des actifs et plans de maintenance dès le forfait Professional",
+    "Application mobile, console de répartition, lien avec Zoho CRM",
   ]}
   limites={[
     "Tarification au volume de rendez-vous, à surveiller quand l'activité grandit",
@@ -251,7 +253,7 @@ Zoho FSM a une particularité : sa tarification dépend du nombre de rendez-vous
 
 Zendesk est la référence du service client à distance. L'édition Support Team (19 € par agent et par mois) gère les tickets par e-mail, le routage et les réponses pré-rédigées. La Suite Team (55 €) ajoute les agents IA, la base de connaissances, le chat, la messagerie et la téléphonie, et la Suite Professional (115 €) le routage par compétences et le serveur vocal.
 
-Si votre SAV se joue à distance, c'est souvent le meilleur choix. Dès qu'il faut envoyer un technicien avec la bonne pièce, il faudra lui adjoindre un vrai logiciel d'interventions.
+Si votre SAV se joue à distance, c'est souvent le meilleur choix. Dès qu'il faut envoyer un technicien avec la bonne pièce, il faudra lui adjoindre un logiciel de gestion d'interventions.
 
 ## Quel budget pour 18 techniciens et 2 planificateurs ?
 
@@ -259,12 +261,13 @@ Prenons une entreprise de maintenance de vingt utilisateurs : dix-huit technicie
 
 | Logiciel | Base de calcul | Licences par an |
 | --- | --- | --- |
+| Praxedo Basic | 20 × 35 € | 8 400 € |
 | Divalto weavy | 18 Technicien, 2 Complet | à partir de 12 960 € |
 | Praxedo Advanced | 20 × 59 € | 14 160 € |
 | Dynamics 365 Field Service | 20 × 91 € HT | 21 840 € HT |
-| Salesforce Field Service | 18 Technician, 2 Dispatcher | 42 000 € |
+| Salesforce Field Service | 18 Technician, 2 Dispatcher | 42 000 €, plus au moins une licence Service Cloud |
 
-Ces montants ne comprennent ni l'ERP (indispensable pour les stocks de pièces, la facturation et les contrats dans la plupart des cas), ni le déploiement, ni les compléments comme l'optimisation automatique des plannings. Chez Divalto, l'ERP field service démarre à 75 € par utilisateur et par mois, plateforme et options en sus. Faites chiffrer l'ensemble sur la base du même cahier des charges, notre [modèle](/cahier-des-charges-crm/) vous y aidera.
+Ces montants ne couvrent pas le même périmètre. Chez Divalto, le profil Technicien ne comprend ni les contrats, ni la planification, ni le stock véhicule, réservés au profil Complet, et le portail client, la facturation et le planning préventif des contrats relèvent de l'ERP Divalto field service, qui démarre à 75 € par utilisateur et par mois, plateforme et options en sus. Les formules d'entrée de Praxedo réservent elles aussi une partie des fonctions aux formules supérieures ou aux modules complémentaires. Aucun de ces montants ne comprend l'ERP, le déploiement ou des compléments comme l'optimisation automatique des plannings. Faites chiffrer l'ensemble sur la base du même cahier des charges, notre [modèle](/cahier-des-charges-crm/) vous y aidera.
 
 ## Trois conseils pour un projet SAV réussi
 
@@ -276,4 +279,5 @@ Enfin, reliez le SAV au commerce. Un technicien qui signale qu'une machine a qui
 
 ## Nos sources
 
+- [Microsoft Lifecycle, fin du support de Dynamics 365 Guides et Remote Assist](https://learn.microsoft.com/fr-fr/lifecycle/announcements/dynamics-365-guides-remote-assist-end-of-support) : dates de fin de commercialisation et de support.
 - Documentation officielle et grilles tarifaires publiques des éditeurs présentés, consultées en octobre 2026.
