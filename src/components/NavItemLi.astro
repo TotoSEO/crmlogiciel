@@ -141,6 +141,12 @@ const clusterVars = (palette: string): string =>
       transform 0.18s ease,
       visibility 0.18s;
   }
+  /* Dernier onglet (avant le groupe mobile masqué) : le déroulant s'ouvre vers la
+     gauche, sinon il sort de l'écran entre 861 px et ~1 200 px. */
+  .nav-item--has-children:nth-last-child(2) .submenu {
+    left: auto;
+    right: 0;
+  }
   .nav-item--has-children:hover .submenu,
   .nav-item--has-children:focus-within .submenu {
     opacity: 1;

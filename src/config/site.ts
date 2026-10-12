@@ -23,6 +23,13 @@ export const SITE = {
 } as const;
 
 /**
+ * Mention de transparence des pages classement (cluster « meilleurs »).
+ * Affichée discrètement tout en bas de l'article, en petit texte.
+ */
+export const DISCLOSURE_CLASSEMENTS =
+  "Transparence : l'éditeur de crm-logiciel.fr travaille chez Divalto, éditeur de Divalto weavy, l'un des logiciels présentés dans nos classements.";
+
+/**
  * Interrupteur d'indexation global. Tant que le site est en phase de chauffe,
  * toutes les pages éditoriales restent en `noindex`. Passer à `true` au moment
  * du lancement (Phase 5) pour ouvrir l'indexation d'un coup. Les pages purement

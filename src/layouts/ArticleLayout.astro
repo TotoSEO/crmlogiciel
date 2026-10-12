@@ -24,9 +24,9 @@ import Toc from '../components/article/Toc.astro';
 import ReadingProgress from '../components/article/ReadingProgress.astro';
 import AuthorBio from '../components/article/AuthorBio.astro';
 
-import { absoluteUrl } from '../config/site';
+import { absoluteUrl, DISCLOSURE_CLASSEMENTS } from '../config/site';
 import { getCluster, type ClusterId, type Crumb } from '../config/content-map';
-import { article, organization, person, breadcrumbList, faqPage, graph } from '../lib/schema';
+import { article, organization, person, breadcrumbList, faqPage, itemList, graph } from '../lib/schema';
 
 interface TocItem {
   id: string;
@@ -67,6 +67,10 @@ interface Props {
   readingTime: string;
   /** Pilier uniquement : guides satellites de l'univers (hub interne). */
   pillarGuides?: PillarGuide[];
+  /** Titre du bloc de guides (défaut : « Les guides de cet univers »). */
+  guidesTitle?: string;
+  /** Pages classement : outils dans l'ordre (JSON-LD ItemList). */
+  classement?: string[];
   /** Libellé court de l'univers (eyebrow). */
   clusterLabel?: string;
   noindex?: boolean;
@@ -91,9 +95,13 @@ const {
   toc,
   readingTime,
   pillarGuides,
+  guidesTitle = 'Les guides de cet univers',
+  classement,
   clusterLabel,
   noindex = false,
 } = Astro.props;
+
+const isClassement = cluster === 'meilleurs';
 
 const palette = getCluster(cluster)?.palette ?? 'blue';
 
@@ -108,7 +116,7 @@ const showModified = dateModified && dateModified.getTime() !== datePublished.ge
 const tocAll: TocItem[] = [
   ...toc,
   ...(pillarGuides && pillarGuides.length > 0
-    ? [{ id: 'guides-univers', text: 'Les guides de cet univers' }]
+    ? [{ id: 'guides-univers', text: guidesTitle }]
     : []),
   ...(faq && faq.length > 0 ? [{ id: 'faq', text: 'Questions fréquentes' }] : []),
 ];
@@ -130,6 +138,7 @@ const nodes = [
   breadcrumbList(crumbs, currentUrl),
 ];
 if (faq && faq.length > 0) nodes.push(faqPage(faq));
+if (classement && classement.length > 0) nodes.push(itemList(h1, classement, currentUrl));
 const pageSchema = graph(...nodes);
 ---
 
@@ -238,7 +247,7 @@ const pageSchema = graph(...nodes);
         {
           pillarGuides && pillarGuides.length > 0 && (
             <section id="guides-univers" class="cluster-guides not-prose">
-              <h2 class="cluster-guides__title">Les guides de cet univers</h2>
+              <h2 class="cluster-guides__title">{guidesTitle}</h2>
               <ul class="cluster-guides__list">
                 {pillarGuides.map((g) => (
                   <li>
@@ -262,6 +271,8 @@ const pageSchema = graph(...nodes);
         }
 
         <AuthorBio name={author} hideMethodoLink={slug === 'methodologie'} />
+
+        {isClassement && <p class="article-disclosure">{DISCLOSURE_CLASSEMENTS}</p>}
       </div>
 
       <Toc items={tocAll} />
@@ -465,5 +476,15 @@ const pageSchema = graph(...nodes);
     .cluster-guides__list {
       grid-template-columns: 1fr;
     }
+  }
+
+  /* Mention de transparence des classements : discrète, en pied d'article. */
+  .article-disclosure {
+    margin-top: var(--space-8);
+    padding-top: var(--space-4);
+    border-top: var(--rule-hair) solid var(--border-default);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    color: var(--text-muted);
   }
 </style>

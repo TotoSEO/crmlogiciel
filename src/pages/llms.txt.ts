@@ -10,13 +10,14 @@ import { SITE, absoluteUrl } from '../config/site';
 import { pagesOf, type ClusterId } from '../config/content-map';
 
 const SECTION_TITLE: Record<ClusterId, string> = {
+  meilleurs: 'Les meilleurs CRM (classements par profil)',
   comprendre: 'Comprendre le CRM',
   choisir: 'Choisir son CRM',
   utiliser: 'Utiliser son CRM',
   transverse: 'Méthodologie et outils',
 };
 
-const ORDER: ClusterId[] = ['comprendre', 'choisir', 'utiliser', 'transverse'];
+const ORDER: ClusterId[] = ['meilleurs', 'comprendre', 'choisir', 'utiliser', 'transverse'];
 
 export const GET: APIRoute = async () => {
   const pages = await getCollection('pages');
