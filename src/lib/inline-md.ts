@@ -6,7 +6,11 @@
  * À utiliser avec `set:html`.
  */
 export function inlineMd(input: string): string {
-  const escaped = input.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  // Espaces insécables à la française : milliers (« 9 600 ») et unités (« 70 € »).
+  let text = input;
+  for (let i = 0; i < 3; i++) text = text.replace(/(^|[^\d])(\d{1,3}) (\d{3})(?!\d)/g, '$1$2\u202F$3');
+  text = text.replace(/(\d) (€|%|k€|M€|HT|TTC|\$)(?=[\s.,;:!?)]|$)/g, '$1\u00A0$2');
+  const escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
   return escaped
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
