@@ -111,7 +111,11 @@ export function faqPage(items: FaqItem[]): Json {
  * étant une SoftwareApplication. Volontairement sans note ni avis (pas de
  * Review ni d'aggregateRating) : l'ordre reflète une appréciation éditoriale.
  */
-export function itemList(name: string, items: string[], url: string): Json {
+export function itemList(
+  name: string,
+  items: { name: string; description?: string }[],
+  url: string,
+): Json {
   return {
     '@type': 'ItemList',
     '@id': `${url}#classement`,
@@ -123,7 +127,8 @@ export function itemList(name: string, items: string[], url: string): Json {
       position: i + 1,
       item: {
         '@type': 'SoftwareApplication',
-        name: item,
+        name: item.name,
+        ...(item.description ? { description: item.description } : {}),
         applicationCategory: 'BusinessApplication',
       },
     })),

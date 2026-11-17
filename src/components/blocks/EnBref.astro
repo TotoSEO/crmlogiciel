@@ -2,16 +2,26 @@
 /**
  * EnBref — encart « En bref » en tête d'article (roadmap §4), en verre dépoli.
  * Liste de 3 à 5 points clés, accent de marque.
+ *
+ * Pages classement : la réponse vient d'abord, sous forme de liste numérotée
+ * « N. Nom : une phrase » (un <ol> réel : l'ordre reste lisible une fois le
+ * texte extrait par un moteur ou un assistant), chaque nom renvoyant à sa fiche.
  */
 import { inlineMd } from '../../lib/inline-md';
+import type { ClassementItem } from '../../data/classements';
 
 interface Props {
   points: string[];
   title?: string;
+  /** Classement à afficher en liste numérotée, avant les points clés. */
+  classement?: ClassementItem[];
+  /** Chapeau de la liste numérotée (ex. « Notre classement des meilleurs CRM pour ETI en 2026 : »). */
+  classementTitre?: string;
   /** Note discrète en pied d'encart (ex. : liens d'intérêts d'un classement). */
   note?: { text: string; href: string; label: string };
 }
-const { points, title = 'En bref', note } = Astro.props;
+const { points, title = 'En bref', classement, classementTitre = 'Notre classement :', note } = Astro.props;
+const aClassement = !!classement && classement.length > 0;
 ---
 
 <aside class="enbref glass not-prose" style="--glass-tint: var(--blue)" aria-label={title}>
@@ -19,7 +29,20 @@ const { points, title = 'En bref', note } = Astro.props;
     <span class="enbref__dot" aria-hidden="true"></span>
     {title}
   </p>
-  <ul class="enbref__list">
+  {
+    aClassement && (
+      <>
+        <p class="enbref__lead">{classementTitre}</p>
+        <ol class="enbref__rank" role="list">
+          {/* Sur une ligne : pas d'espace parasite dans le lien ; espace insécable avant « : ». */}
+          {classement!.map((outil) => (
+            <li>{outil.ancre ? <a class="enbref__nom" href={`#${outil.ancre}`}>{outil.nom}</a> : <strong class="enbref__nom">{outil.nom}</strong>}<span set:html={`\u00A0: ${inlineMd(outil.resume)}`} /></li>
+          ))}
+        </ol>
+      </>
+    )
+  }
+  <ul class:list={['enbref__list', { 'enbref__list--suite': aClassement }]}>
     {points.map((p) => <li set:html={inlineMd(p)} />)}
   </ul>
   {
@@ -60,6 +83,69 @@ const { points, title = 'En bref', note } = Astro.props;
     background: var(--grad-brand);
     box-shadow: var(--shadow-glow);
   }
+  /* ---------- Classement numéroté ---------- */
+  .enbref__lead {
+    margin: 0 0 var(--space-3);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-strong);
+  }
+  .enbref__rank {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: rang;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .enbref__rank li {
+    counter-increment: rang;
+    position: relative;
+    padding-left: var(--space-8);
+    color: var(--text-body);
+    font-size: var(--text-base);
+    line-height: 1.5;
+  }
+  .enbref__rank li::before {
+    content: counter(rang);
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--radius-full);
+    background: var(--blue-tint);
+    color: var(--blue-ink);
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-bold);
+    font-variant-numeric: tabular-nums;
+  }
+  .enbref__rank li:first-child::before {
+    background: var(--grad-brand);
+    color: #fff;
+  }
+  .enbref__nom {
+    font-weight: var(--font-weight-bold);
+    color: var(--text-strong);
+  }
+  a.enbref__nom {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--blue) 45%, transparent);
+    text-underline-offset: 0.2em;
+  }
+  a.enbref__nom:hover {
+    color: var(--blue-ink);
+    text-decoration-color: currentColor;
+  }
+  .enbref__list.enbref__list--suite {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: var(--rule-hair) solid var(--border-default);
+  }
+
   .enbref__list {
     margin: 0;
     padding: 0;

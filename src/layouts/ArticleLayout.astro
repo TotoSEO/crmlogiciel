@@ -24,6 +24,7 @@ import BaseLayout from './BaseLayout.astro';
 import JsonLd from '../components/JsonLd.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import EnBref from '../components/blocks/EnBref.astro';
+import type { ClassementItem } from '../data/classements';
 import Faq from '../components/blocks/Faq.astro';
 import Button from '../components/blocks/Button.astro';
 import Toc from '../components/article/Toc.astro';
@@ -73,8 +74,8 @@ interface Props {
   pillarGuides?: PillarGuide[];
   /** Titre du bloc de guides (défaut : « Les guides de cet univers »). */
   guidesTitle?: string;
-  /** Pages classement : outils dans l'ordre (JSON-LD ItemList). */
-  classement?: string[];
+  /** Pages classement : outils dans l'ordre (liste numérotée de l'encart + JSON-LD ItemList). */
+  classement?: ClassementItem[];
   /** Libellé court de l'univers (eyebrow). */
   clusterLabel?: string;
   noindex?: boolean;
@@ -106,6 +107,12 @@ const {
 
 // Page qui déclare un classement : encadré de transparence en tête d'article.
 const hasClassement = !!classement && classement.length > 0;
+// Chapeau de la liste numérotée, tiré du H1 : « Les meilleurs CRM pour ETI en 2026 »
+// devient « Notre classement des meilleurs CRM pour ETI en 2026 : ».
+const sujetClassement = h1.split(' : ')[0];
+const classementTitre = /^Les meilleurs /.test(sujetClassement)
+  ? `Notre classement des ${sujetClassement.slice(4)} :`
+  : 'Notre classement :';
 
 const palette = getCluster(cluster)?.palette ?? 'blue';
 
@@ -140,7 +147,14 @@ const nodes = [
   breadcrumbList(crumbs, currentUrl),
 ];
 if (faq && faq.length > 0) nodes.push(faqPage(faq));
-if (classement && classement.length > 0) nodes.push(itemList(h1, classement, currentUrl));
+if (classement && classement.length > 0)
+  nodes.push(
+    itemList(
+      h1,
+      classement.map((c) => ({ name: c.nom, description: c.resume })),
+      currentUrl,
+    ),
+  );
 const pageSchema = graph(...nodes);
 ---
 
@@ -235,6 +249,8 @@ const pageSchema = graph(...nodes);
           enBref && enBref.length > 0 && (
             <EnBref
               points={enBref}
+              classement={classement}
+              classementTitre={classementTitre}
               note={
                 hasClassement
                   ? { text: DISCLOSURE_CLASSEMENTS, href: TRANSPARENCE_HREF, label: 'Notre méthode' }

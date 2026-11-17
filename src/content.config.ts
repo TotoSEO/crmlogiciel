@@ -44,8 +44,8 @@ const pages = defineCollection({
     featuredImage: z.string().optional(),
     featuredImageAlt: z.string().optional(),
     schemaType: schemaTypeEnum.default('Article'),
-    /** Encart « En bref » : 3 à 5 puces. */
-    enBref: z.array(z.string()).min(3).max(5).optional(),
+    /** Encart « En bref » : 3 à 5 puces (2 suffisent sur un classement, dont la liste numérotée fait l'essentiel). */
+    enBref: z.array(z.string()).min(2).max(5).optional(),
     /** FAQ en accordéon (génère aussi le JSON-LD FAQPage). */
     faq: z.array(faqItem).optional(),
     /** Ressource téléchargeable (lead magnet) liée à la page. */
@@ -58,8 +58,20 @@ const pages = defineCollection({
         note: z.string().optional(),
       })
       .optional(),
-    /** Pages classement : noms des outils dans l'ordre (JSON-LD ItemList, sans note). */
-    classement: z.array(z.string()).optional(),
+    /**
+     * Pages classement : outils dans l'ordre. Alimente la liste numérotée en tête
+     * de l'encart « En bref » et le JSON-LD ItemList (sans note chiffrée).
+     */
+    classement: z
+      .array(
+        z.object({
+          /** Nom de l'outil, tel qu'il apparaît dans le H3 de sa fiche. */
+          nom: z.string(),
+          /** Une phrase factuelle : pour qui, et pourquoi (sans superlatif non sourcé). */
+          resume: z.string(),
+        }),
+      )
+      .optional(),
     /** Exclure de l'indexation (pages techniques / brouillons). */
     draft: z.boolean().default(false),
   }),

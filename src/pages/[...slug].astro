@@ -38,6 +38,15 @@ const { Content, headings } = await render(entry);
 // Sommaire = titres de niveau 2 du contenu (avec leurs ancres générées au build).
 const toc = headings.filter((h) => h.depth === 2).map((h) => ({ id: h.slug, text: h.text }));
 
+// Classement : chaque outil renvoie vers sa fiche, le H3 « N. Nom : … » du corps.
+const fiches = headings.filter((h) => h.depth === 3);
+const classement = data.classement?.map((outil, i) => {
+  const fiche = fiches.find(
+    (h) => h.text.startsWith(`${i + 1}. `) && h.text.includes(outil.nom.split(' ')[0]),
+  );
+  return { ...outil, ancre: fiche?.slug };
+});
+
 const readingTime = readingTimeLabel(entry.body ?? '');
 const crumbs = breadcrumb(slug);
 
@@ -82,7 +91,7 @@ const noindex = !INDEXABLE || data.draft;
   readingTime={readingTime}
   pillarGuides={pillarGuides}
   guidesTitle={guidesTitle}
-  classement={data.classement}
+  classement={classement}
   clusterLabel={clusterLabel}
   noindex={noindex}
 >

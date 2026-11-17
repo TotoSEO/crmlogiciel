@@ -14,6 +14,18 @@
 
 export const TARIFS_RELEVES = 'octobre 2026';
 
+/**
+ * Entrée d'un classement (frontmatter `classement` d'une page « meilleurs ») :
+ * liste numérotée de l'encart « En bref » et JSON-LD ItemList.
+ */
+export interface ClassementItem {
+  nom: string;
+  /** Une phrase factuelle : pour qui, et pourquoi. */
+  resume: string;
+  /** Ancre du H3 de la fiche dans la page (résolue au build). */
+  ancre?: string;
+}
+
 export interface Capture {
   src: string;
   alt: string;
