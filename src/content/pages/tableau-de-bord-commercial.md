@@ -35,9 +35,8 @@ La règle de conception qui élimine le superflu : **un indicateur n'entre au ta
 
 Quatre familles structurent le tableau : ce qui entre, ce qui se transforme, ce que ça vaut, et la fiabilité de la donnée elle-même. La quatrième famille est systématiquement oubliée, et c'est pourtant elle qui garantit les trois autres.
 
-|                                  |                                                   |            |                                                                         |
+| Indicateur | Formule | Rythme | Le piège |
 | -------------------------------- | ------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
-| **Indicateur**                   | **Formule**                                       | **Rythme** | **Le piège**                                                            |
 | Affaires nouvelles               | Nombre d'opportunités créées sur la période       | Hebdo      | Compter les contacts au lieu des affaires qualifiées                    |
 | Valeur du pipe par étape         | Somme des montants, par étape                     | Hebdo      | Laisser les zombies gonfler le total                                    |
 | Prévision pondérée               | Somme des montants × probabilité d'étape          | Hebdo      | Des probabilités à l'humeur plutôt qu'à l'historique                    |

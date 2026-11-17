@@ -8,8 +8,10 @@ import { inlineMd } from '../../lib/inline-md';
 interface Props {
   points: string[];
   title?: string;
+  /** Note discrète en pied d'encart (ex. : liens d'intérêts d'un classement). */
+  note?: { text: string; href: string; label: string };
 }
-const { points, title = 'En bref' } = Astro.props;
+const { points, title = 'En bref', note } = Astro.props;
 ---
 
 <aside class="enbref glass not-prose" style="--glass-tint: var(--blue)" aria-label={title}>
@@ -20,6 +22,13 @@ const { points, title = 'En bref' } = Astro.props;
   <ul class="enbref__list">
     {points.map((p) => <li set:html={inlineMd(p)} />)}
   </ul>
+  {
+    note && (
+      <p class="enbref__note">
+        {note.text} <a href={note.href}>{note.label}</a>
+      </p>
+    )
+  }
 </aside>
 
 <style>
@@ -64,6 +73,19 @@ const { points, title = 'En bref' } = Astro.props;
     padding-left: var(--space-6);
     color: var(--text-body);
     font-size: var(--text-base);
+  }
+  .enbref__note {
+    margin: var(--space-5) 0 0;
+    padding-top: var(--space-3);
+    border-top: var(--rule-hair) solid var(--border-default);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+  .enbref__note a {
+    color: inherit;
+    text-decoration: underline;
+    white-space: nowrap;
   }
   .enbref__list li::before {
     content: '';

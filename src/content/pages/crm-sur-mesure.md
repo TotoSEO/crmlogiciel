@@ -1,11 +1,12 @@
 ---
-title: 'CRM sur mesure : coûts réels, risques et alternatives'
-metaDescription: 'Développer un CRM sur mesure coûte 3 à 4 fois le devis initial sur cinq ans. Le calcul complet, les risques (dette, bus factor) et les entre-deux.'
+title: 'CRM sur mesure : prix, délais, prestataires et alternatives'
+metaDescription: 'Faire développer un CRM sur mesure : coût sur cinq ans, délais, étapes, choix du prestataire, clauses du contrat, et les cas où un CRM standard suffit.'
 h1: 'Développer un CRM sur mesure : le calcul que personne ne vous montre'
 excerpt: "Le sur-mesure se justifie dans une minorité de cas précis. Le calcul complet sur cinq ans, les risques que les devis ne mentionnent jamais, et les voies intermédiaires à regarder d'abord."
 cluster: choisir
 type: satellite
 datePublished: 2026-06-14
+dateModified: 2026-11-17
 enBref:
   - 'Un CRM sur mesure coûte son devis de développement, plus 15 à 20 % de ce montant chaque année en maintenance, plus chaque évolution.'
   - "Sur cinq ans, comptez **3 à 4 fois le devis initial** : c'est ce chiffre qu'il faut comparer à un abonnement, pas le devis seul."
@@ -67,9 +68,8 @@ Quant à l'IA, qui a réellement fait chuter les prix d'entrée : elle a fait ba
 
 Le tableau pose les ordres de grandeur pour une équipe de 10 utilisateurs, hors coût interne du temps projet. Ce sont des fourchettes constatées, à affiner avec vos devis réels.
 
-|                                   |                                 |                                         |                                   |
+| Option | Mise de départ | Coût annuel récurrent | Sur 5 ans, en gros |
 | --------------------------------- | ------------------------------- | --------------------------------------- | --------------------------------- |
-| **Option**                        | **Mise de départ**              | **Coût annuel récurrent**               | **Sur 5 ans, en gros**            |
 | CRM du marché, plan intermédiaire | 0 à 2 000 € de paramétrage      | 4 000 à 7 000 € de licences             | 20 000 à 37 000 €                 |
 | Plateforme no-code                | 1 000 à 5 000 € de construction | 2 000 à 4 000 €                         | 11 000 à 25 000 €                 |
 | Open source auto-hébergé          | 5 000 à 15 000 € d'adaptation   | 3 000 à 8 000 €                         | 20 000 à 55 000 €                 |
@@ -83,6 +83,36 @@ La lecture honnête : face au [prix d'un CRM classique](/prix-crm/) sur la même
 La dette technique d'abord. Un logiciel sur mesure vieillit comme une maison dont vous êtes l'unique propriétaire : chaque modification se paie un peu plus cher que la précédente. Les fondations datent, les technologies bougent, et les raccourcis pris au début finissent par se rappeler à vous. Les éditeurs du marché absorbent ce vieillissement pour des milliers de clients à la fois ; vous l'absorberez seul.
 
 Le bus factor ensuite, du nom d'une question que les développeurs se posent sérieusement : **combien de personnes doivent passer sous un bus** pour que plus personne ne sache maintenir votre outil ? Pour un CRM développé par une petite agence ou un freelance, la réponse est presque toujours : une. Le développeur change de vie, l'agence ferme ou monte ses tarifs, et vous voilà avec un logiciel critique que personne ne sait ouvrir. Un CRM sur mesure vieillit sereinement quand son développeur est salarié à plein temps, et que c'est assumé dans le budget.
+
+## Faire développer un CRM sur mesure : les 6 étapes
+
+Si votre besoin entre dans l'un des cas légitimes, le projet se déroule comme tout développement logiciel sérieux. Six étapes, dans cet ordre :
+
+1. **Rédiger le besoin** : vos processus réels, les objets à gérer (comptes, contacts, affaires, devis), les rôles et les droits, les intégrations attendues. Notre [modèle de cahier des charges CRM](/cahier-des-charges-crm/) sert aussi de base à un projet sur mesure.
+2. **Consulter trois prestataires** sur ce même document, pour obtenir des devis comparables, avec le coût de maintenance annuel chiffré à part.
+3. **Commencer petit** : un premier périmètre utilisable en quelques semaines (contacts, affaires, relances), plutôt qu'un cahier des charges complet livré dans un an.
+4. **Tester avec les utilisateurs** à chaque livraison : deux ou trois commerciaux qui travaillent réellement dans l'outil et font remonter ce qui coince.
+5. **Reprendre les données** et basculer à date fixe, comme pour un CRM du marché : notre méthode de [mise en place d'un CRM](/mise-en-place-crm/) s'applique telle quelle.
+6. **Organiser la maintenance** : corrections, mises à jour de sécurité, évolutions, avec un budget annuel et un interlocuteur nommé.
+
+## Agence, freelance, no-code : quel prestataire choisir ?
+
+| Option | Pour quel projet | Points de vigilance |
+| --- | --- | --- |
+| Agence ou entreprise de services numériques | CRM complet, intégrations multiples, plusieurs années de maintenance | Coût le plus élevé, dépendance à l'équipe qui a développé |
+| Développeur indépendant | Périmètre limité, besoin bien défini | Continuité si le développeur n'est plus disponible : documentation indispensable |
+| Plateforme no-code ou low-code | Outil interne simple, équipe capable de le faire évoluer | Abonnement à la plateforme, limites de performance et de sécurité à vérifier |
+| CRM du marché personnalisé | Besoin couvert en grande partie par un outil standard | Paramétrage à documenter, montées de version à suivre |
+
+La quatrième ligne est souvent la plus raisonnable : un CRM du marché, paramétré et complété par quelques développements ou intégrations, couvre la plupart des besoins dits « uniques » pour une fraction du coût. Nos [classements des meilleurs CRM](/meilleurs-crm/) aident à trouver la base la plus proche de votre besoin.
+
+## Les clauses à exiger dans le contrat
+
+- **La propriété du code source** et des données, avec la remise du code et de la documentation à chaque livraison.
+- **Le coût et le périmètre de la maintenance** : corrections, sécurité, compatibilité avec les nouvelles versions des navigateurs et des systèmes.
+- **La réversibilité** : export complet des données dans un format ouvert, et assistance en cas de changement de prestataire.
+- **L'hébergement** : où sont hébergées les données, par qui, et avec quelles garanties ; notre article [où sont stockées les données d'un CRM](/ou-sont-stockees-donnees-crm/) liste les questions à poser.
+- **La conformité RGPD** : s'il héberge ou traite vos données, le prestataire est sous-traitant au sens du RGPD, et le contrat doit le prévoir, comme le détaille notre guide [CRM et RGPD](/crm-rgpd/).
 
 ## La décision, posée froidement
 

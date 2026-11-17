@@ -126,6 +126,12 @@ export const PAGES: PageNode[] = [
   { slug: 'meilleurs-crm-erp', label: 'CRM intégrés à un ERP', cluster: 'meilleurs' },
   { slug: 'meilleurs-crm-b2b', label: 'CRM B2B', cluster: 'meilleurs' },
   { slug: 'meilleurs-crm-sav', label: 'CRM pour le SAV', cluster: 'meilleurs' },
+  { slug: 'meilleurs-crm-btp', label: 'CRM pour le BTP', cluster: 'meilleurs' },
+  {
+    slug: 'meilleurs-crm-agroalimentaire',
+    label: "CRM pour l'agroalimentaire",
+    cluster: 'meilleurs',
+  },
 
   // Transverse
   { slug: 'methodologie', label: 'Notre méthodologie', cluster: 'transverse' },

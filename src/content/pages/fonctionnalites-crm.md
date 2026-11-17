@@ -47,9 +47,8 @@ La mobilité est vitale pour des équipes terrain (compte rendu dicté entre deu
 
 ## Must-have ou superflu : la grille par profil
 
-|                        |                                               |                                             |                                         |
+| Profil | Indispensable dès le départ | Utile rapidement | Peut attendre |
 | ---------------------- | --------------------------------------------- | ------------------------------------------- | --------------------------------------- |
-| **Profil**             | **Indispensable dès le départ**               | **Utile rapidement**                        | **Peut attendre**                       |
 | Indépendant            | Contacts + historique, relances datées        | Pipeline visuel, modèles d'emails           | Automatisation, reporting               |
 | TPE, 3 à 10 personnes  | Le socle complet, intégration email et agenda | Automatisation simple, reporting de base    | Téléphonie, IA, devis intégrés          |
 | PME, 10 à 50 personnes | Le socle, intégrations profondes, reporting   | Automatisation avancée, droits d'accès fins | Selon métier : mobilité, IA, téléphonie |

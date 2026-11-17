@@ -23,7 +23,7 @@ export const GET: APIRoute = async () => {
   const pages = await getCollection('pages');
   const bySlug = new Map(pages.map((p) => [p.id, p]));
 
-  let out = `# ${SITE.name}\n\n> ${SITE.description}\n\n${DISCLOSURE_SITE} Critères des classements, liens d'intérêts et corrections : ${absoluteUrl('a-propos')}\n`;
+  let out = `# ${SITE.name}\n\n> ${SITE.description}\n`;
 
   for (const cid of ORDER) {
     const lines: string[] = [];
@@ -42,7 +42,12 @@ export const GET: APIRoute = async () => {
         `- [Test de connaissances CRM](${absoluteUrl('test-connaissance-crm')}): Quiz gratuit de 42 questions pour évaluer son niveau en CRM, avec un score détaillé par thème.`,
       );
     }
-    if (lines.length) out += `\n## ${SECTION_TITLE[cid]}\n${lines.join('\n')}\n`;
+    if (!lines.length) continue;
+    const intro =
+      cid === 'meilleurs'
+        ? `${DISCLOSURE_SITE} Critères des classements, liens d'intérêts et corrections : ${absoluteUrl('a-propos')}\n\n`
+        : '';
+    out += `\n## ${SECTION_TITLE[cid]}\n${intro}${lines.join('\n')}\n`;
   }
 
   return new Response(out, {

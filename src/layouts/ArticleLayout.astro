@@ -224,17 +224,25 @@ const pageSchema = graph(...nodes);
     <div class="container article-body">
       <div class="article-body__main">
         {
-          hasClassement && (
-            <aside class="article-transparence not-prose" aria-label="Transparence">
-              <p>
-                <strong>Transparence.</strong> {DISCLOSURE_CLASSEMENTS}{' '}
-                <a href={TRANSPARENCE_HREF}>Notre méthode</a>
-              </p>
-            </aside>
+          hasClassement && !(enBref && enBref.length > 0) && (
+            <p class="article-transparence">
+              {DISCLOSURE_CLASSEMENTS} <a href={TRANSPARENCE_HREF}>Notre méthode</a>
+            </p>
           )
         }
 
-        {enBref && enBref.length > 0 && <EnBref points={enBref} />}
+        {
+          enBref && enBref.length > 0 && (
+            <EnBref
+              points={enBref}
+              note={
+                hasClassement
+                  ? { text: DISCLOSURE_CLASSEMENTS, href: TRANSPARENCE_HREF, label: 'Notre méthode' }
+                  : undefined
+              }
+            />
+          )
+        }
 
         {
           download && (
@@ -498,21 +506,17 @@ const pageSchema = graph(...nodes);
     }
   }
 
-  /* Transparence des classements : encadré sobre et lisible, avant « En bref ». */
+  /* Liens d'intérêts d'un classement sans « En bref » : note discrète. */
   .article-transparence {
     margin-bottom: var(--space-6);
-    padding: var(--space-4) var(--space-5);
-    border: var(--rule-hair) solid color-mix(in srgb, var(--cluster-color) 35%, var(--border-default));
-    border-left: var(--rule-medium) solid var(--cluster-color);
-    border-radius: var(--radius-md);
-    background: color-mix(in srgb, var(--cluster-color) 6%, var(--surface-card));
-    font-size: var(--text-sm);
-    line-height: 1.55;
-    color: var(--ink-80);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    color: var(--text-muted);
   }
   .article-transparence a {
-    white-space: nowrap;
+    color: inherit;
     text-decoration: underline;
+    white-space: nowrap;
   }
 
   /* Rappel en fin d'article, avec l'adresse de correction. */

@@ -1,6 +1,6 @@
 ---
-title: 'CRM sur Excel : modèle gratuit, méthode et limites'
-metaDescription: 'CRM sur Excel : un modèle gratuit à télécharger, la méthode pas à pas pour construire votre suivi, les astuces qui le rendent pro et ses limites réelles.'
+title: 'Modèle CRM Excel gratuit : à télécharger, mode d’emploi'
+metaDescription: 'Un modèle de CRM Excel gratuit à télécharger sans e-mail, importable dans Google Sheets : onglets, colonnes, mode d’emploi pas à pas et limites du tableur.'
 h1: 'CRM sur Excel : le guide complet (avec modèle gratuit)'
 excerpt: "Excel reste le premier CRM de beaucoup d'entreprises : gratuit, déjà installé, familier. Voici comment en faire un véritable outil de suivi, avec un modèle prêt à télécharger, la méthode pas à pas, et le moment où il faut passer à autre chose."
 cluster: comprendre
