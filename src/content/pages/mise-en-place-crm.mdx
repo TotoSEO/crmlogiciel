@@ -1,18 +1,27 @@
 ---
-title: "Mise en place d'un CRM : méthode, planning et 90 jours"
-metaDescription: "Cadrage, données, paramétrage, formation, adoption : la méthode de mise en place d'un CRM, avec le planning type sur 90 jours et les pièges."
-h1: 'Mettre en place un CRM dans son entreprise en 90 jours'
-excerpt: "La mise en place d'un CRM se joue en cinq phases sur 90 jours : cadrage, données, paramétrage, formation, adoption. Le planning type, les rôles et les pièges, dans l'ordre."
+title: "Mise en place d'un CRM : 7 étapes et planning sur 90 jours"
+metaDescription: 'Mettre en place un CRM en 7 étapes : cadrage, données, paramétrage, formation, adoption. Planning sur 90 jours, rôles, budget et rétroplanning gratuit.'
+h1: 'Mise en place d’un CRM : les 7 étapes pour réussir en 90 jours'
+excerpt: "La mise en place d'un CRM se joue en sept étapes sur 90 jours : cadrage, données, paramétrage, connexions, formation, bascule et adoption. Le planning type, les rôles, le budget et les pièges, dans l'ordre."
 cluster: utiliser
 type: pilier
 datePublished: 2026-06-14
+dateModified: 2026-11-16
+download:
+  label: 'Rétroplanning de mise en place d’un CRM'
+  file: 'retroplanning-mise-en-place-crm.xlsx'
+  note: 'Fichier Excel gratuit : 17 tâches sur 13 semaines, responsables, livrables et jalons à J+15, J+30, J+45 et J+90.'
 enBref:
-  - "Un déploiement CRM se boucle en 90 jours pour une PME : au-delà de six mois, le projet s'enlise."
-  - "Cinq phases dans l'ordre : cadrage, préparation des données, paramétrage, formation, adoption."
+  - "Un déploiement CRM se boucle en 90 jours pour une PME : au-delà, l'attention de la direction s'use et le projet risque de s'enliser."
+  - "Sept étapes dans l'ordre : cadrage, données, paramétrage, connexions, formation, bascule, adoption."
   - "La règle d'or : démarrer simple, avec les contacts, le pipeline et les relances. Le reste s'active après."
-  - "Un sponsor au niveau direction est non négociable : sans lui, l'outil meurt en trois mois."
+  - "Un sponsor au niveau direction est indispensable : c'est lui qui arbitre quand la saisie devient une corvée."
   - "Le succès se mesure à une seule chose : ce que l'équipe saisit chaque jour sans qu'on le lui demande."
 faq:
+  - question: "Quelles sont les étapes de la mise en place d'un CRM ?"
+    answer: "Sept étapes, dans cet ordre : cadrer le projet (sponsor, périmètre, date de bascule), préparer et nettoyer les données, paramétrer le strict nécessaire, connecter la messagerie et l'agenda, former l'équipe, basculer à date fixe, puis installer l'adoption avec des rituels et un tableau de bord. Pour une PME, l'ensemble tient en 90 jours."
+  - question: "Combien coûte la mise en place d'un CRM ?"
+    answer: "Le budget de la première année réunit les licences, le paramétrage, la reprise des données, la formation et les éventuelles intégrations, plus le temps passé en interne, souvent le poste le plus sous-estimé. Une petite équipe sur un outil standard peut tout faire elle-même ; au-delà, ou avec un ERP à relier, un intégrateur s'ajoute au budget. Notre guide sur le prix d'un CRM donne des ordres de grandeur par taille d'entreprise."
   - question: "Combien de temps dure la mise en place d'un CRM ?"
     answer: "Comptez deux à quatre semaines pour un indépendant ou une très petite équipe, 60 à 90 jours pour une PME jusqu'à 30 utilisateurs, et davantage seulement au-delà ou avec des intégrations complexes. La configuration logicielle ne représente qu'une fraction de ce délai : le gros du délai se partage entre la préparation des données et l'installation des habitudes."
   - question: 'Faut-il un intégrateur ou peut-on déployer seul ?'
@@ -31,21 +40,23 @@ import Callout from '../../components/blocks/Callout.astro';
 import Columns from '../../components/blocks/Columns.astro';
 import MediaText from '../../components/blocks/MediaText.astro';
 
-La mise en place d'un CRM est un projet de 60 à 90 jours qui se déroule en cinq phases : cadrer le besoin et les rôles, préparer les données, paramétrer le strict nécessaire, former l'équipe, puis installer l'usage quotidien. La partie logicielle est la plus simple ; un outil se configure en quelques jours. Ce qui prend trois mois, c'est le reste : des données propres et une équipe qui change ses habitudes.
+Mise en place, installation, implantation ou déploiement d'un CRM : quel que soit le mot employé, c'est un projet de 60 à 90 jours qui se déroule en sept étapes : cadrer le besoin et les rôles, préparer les données, paramétrer le strict nécessaire, connecter les outils du quotidien, former l'équipe, basculer à date fixe, puis installer l'usage quotidien. La partie logicielle est la plus simple ; un outil se configure en quelques jours. Ce qui prend trois mois, c'est le reste : des données propres et une équipe qui change ses habitudes.
 
 Cette page suppose l'outil déjà sélectionné. Si ce n'est pas votre cas, commencez par [bien choisir votre CRM](/comment-choisir-crm/), ou par notre [classement des meilleurs CRM](/meilleurs-crm/) : aucune méthode de déploiement ne rattrape un mauvais casting. Pour tous les autres, voici l'enchaînement complet, le planning type et les signaux d'alerte qui annoncent les dérapages. Chaque grande étape a sa page dédiée sur ce site : ce guide donne l'ordre et les arbitrages, les pages d'étape donnent la profondeur.
 
-Une dernière chose avant de dérouler : vous prenez de l'avance : seules 25 % des petites entreprises européennes étaient équipées en 2025 (Eurostat). La différence entre celles qui en tirent quelque chose et les autres se joue dans les 90 jours qui viennent.
+Une dernière chose avant de dérouler : vous prenez de l'avance, puisque seules 25 % des petites entreprises européennes de 10 salariés et plus utilisaient un CRM en 2025, selon [Eurostat](https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Digital_economy_and_society_statistics_-_enterprises). La différence entre celles qui en tirent quelque chose et les autres se joue dans les 90 jours qui viennent.
 
-## Le cadrage : un sponsor, un périmètre, une date
+## Les 7 étapes de la mise en place d'un CRM
 
-La moitié du succès se décide avant même d'ouvrir l'outil, et elle tient en trois décisions.
+1. **Cadrer le projet** : un sponsor, un périmètre minimal, une date de bascule.
+2. **Préparer les données** : dédoublonner, choisir les champs utiles, importer proprement.
+3. **Paramétrer le strict nécessaire** : le pipeline, les relances, les droits et les règles RGPD.
+4. **Connecter les outils du quotidien** : la messagerie et l'agenda d'abord, la facturation ou l'ERP ensuite.
+5. **Former l'équipe** : une demi-journée sur les gestes de base, puis des points courts chaque semaine.
+6. **Basculer à date fixe** : l'ancien système s'arrête le jour annoncé.
+7. **Installer l'adoption** : des rituels, un tableau de bord et des jalons à J+15, J+30, J+45 et J+90.
 
-Un sponsor, d'abord. Pas un chef de projet : un dirigeant ou un directeur commercial qui utilisera l'outil lui-même et qui arbitrera quand un commercial expliquera, vers la semaine 5, qu'il n'a « pas le temps de saisir ». Sans sponsor, un projet s'essouffle souvent en quelques mois : le temps que le quotidien reprenne le dessus et que la saisie s'arrête.
-
-Vient le périmètre, et il doit être minimal. La version 1 de votre CRM tient en trois capacités : les contacts, le pipeline, les relances. Pas les devis, pas le scoring, pas les automatisations sophistiquées : tout cela viendra, et viendra mieux, sur un socle utilisé. Chaque fonction ajoutée trop tôt complique la formation et finit en champs vides.
-
-Reste la date de bascule, annoncée à l'équipe dès le premier jour : le jour où l'ancien système (le tableur, les boîtes mail, le carnet) s'arrête pour de bon. Sans date officielle, chacun travaille sur les deux systèmes à la fois, et cette double saisie tue plus de CRM que n'importe quel défaut logiciel.
+Le détail de chaque étape suit, avec le planning type, la répartition des rôles et le budget. Le rétroplanning Excel proposé plus bas reprend ces sept étapes semaine par semaine.
 
 ## Le planning type sur 90 jours
 
@@ -59,11 +70,21 @@ Le tableau vaut pour une PME jusqu'à une trentaine d'utilisateurs ; en dessous 
 | 7 à 8        | Formation et bascule | Toute l'équipe saisit dans l'outil  | L'ancien tableur survit                |
 | 9 à 13       | Adoption et mesure   | Rituels installés, reporting fiable | La saisie retombe après trois semaines |
 
-Je tiens à ces 90 jours, et c'est un parti pris qu'on me conteste régulièrement : les intégrateurs vendent volontiers des déploiements de six à douze mois. Mon constat est l'inverse : passé le troisième mois, l'attention de la direction se déplace, l'élan retombe, et le projet rejoint la pile des chantiers ouverts. Un déploiement court et minimal qui s'enrichit ensuite bat un déploiement complet qui n'arrive jamais.
+Nous tenons à ces 90 jours, et c'est un parti pris : des déploiements de six à douze mois se vendent aussi. Notre raisonnement est simple : passé le troisième mois, l'attention de la direction se déplace, l'élan retombe, et le projet risque de rejoindre la pile des chantiers ouverts. Un déploiement court et minimal qui s'enrichit ensuite bat un déploiement complet qui n'arrive jamais.
 
 Les jalons à viser, en clair : à J+15, les relances sur devis partent automatiquement ; à J+30, plus aucune double saisie ; à J+45, une première prévision de pipeline présentable en réunion ; à J+90, un reporting sur lequel la direction s'appuie vraiment.
 
-## Les données avant l'outil
+## Étape 1 : cadrer le projet (sponsor, périmètre, date)
+
+La moitié du succès se décide avant même d'ouvrir l'outil, et elle tient en trois décisions.
+
+Un sponsor, d'abord. Pas un chef de projet : un dirigeant ou un directeur commercial qui utilisera l'outil lui-même et qui arbitrera quand un commercial expliquera, vers la semaine 5, qu'il n'a « pas le temps de saisir ». Sans sponsor, un projet s'essouffle souvent en quelques mois : le temps que le quotidien reprenne le dessus et que la saisie s'arrête.
+
+Vient le périmètre, et il doit être minimal. La version 1 de votre CRM tient en trois capacités : les contacts, le pipeline, les relances. Pas les devis, pas le scoring, pas les automatisations sophistiquées : tout cela viendra, et viendra mieux, sur un socle utilisé. Chaque fonction ajoutée trop tôt complique la formation et finit en champs vides.
+
+Reste la date de bascule, annoncée à l'équipe dès le premier jour : le jour où l'ancien système (le tableur, les boîtes mail, le carnet) s'arrête pour de bon. Sans date officielle, chacun travaille sur les deux systèmes à la fois, et cette double saisie tue plus de CRM que n'importe quel défaut logiciel.
+
+## Étape 2 : préparer les données avant l'outil
 
 Importer des données sales, c'est déménager les poubelles avec les meubles : le tri devra se faire de toute façon, et il sera deux fois plus pénible une fois tout en place.
 
@@ -71,7 +92,7 @@ Avant tout import, prenez le temps de [préparer votre fichier client](/fichier-
 
 Si vous migrez depuis un ancien outil plutôt que de partir d'une page blanche, [une checklist de migration](/checklist-migration-crm/) vous évite les oublis au moment de l'import.
 
-## Le paramétrage utile (et celui qui attendra)
+## Étape 3 : paramétrer le strict nécessaire
 
 Deux semaines suffisent, à condition de résister à la tentation de tout configurer.
 
@@ -79,7 +100,21 @@ Le cœur du paramétrage, c'est de [construire votre pipeline commercial](/pipel
 
 Tout le reste attendra d'être justifié par l'usage. Si vous générez du volume entrant, [mettre en place un lead scoring](/lead-scoring/) priorisera l'effort commercial, mais il se règle sur votre historique d'activité : attendez le deuxième mois pour l'activer, avant vous n'aurez pas les données. Même logique pour les [automatisations commerciales](/automatisation-commerciale/) : relances simples d'abord, séquences complètes ensuite, une fois que l'équipe maîtrise le geste manuel qu'on automatise. Automatiser un processus que personne n'applique, c'est industrialiser le vide.
 
-## L'adoption : tout se joue dans les 30 premiers jours
+## Étape 4 : connecter les outils du quotidien
+
+Un CRM isolé oblige à recopier ce qui se passe ailleurs, et c'est ce qui épuise les équipes. La messagerie et l'agenda se connectent en premier : les échanges remontent dans la fiche client, les rendez-vous s'inscrivent d'eux-mêmes, et la saisie se réduit d'autant. La téléphonie suit si l'équipe vend beaucoup au téléphone.
+
+Les connexions plus lourdes, avec la facturation ou l'ERP, se préparent dès maintenant mais se livrent dans un second temps : elles demandent de décider quel outil fait foi pour la fiche client, le catalogue, le devis et la commande. Notre article [CRM vs ERP](/crm-vs-erp/) détaille ces arbitrages.
+
+## Étape 5 : former l'équipe
+
+Une demi-journée suffit pour les gestes de base : créer une fiche, faire avancer une affaire, planifier une relance, retrouver un historique. Remettez à chacun un guide d'une page avec ces gestes et les règles de saisie de l'entreprise. Puis, pendant le premier mois, tenez chaque semaine un point de quinze minutes sur les vrais cas rencontrés : ce format court et répété ancre bien mieux les habitudes qu'une journée complète dont on oublie l'essentiel.
+
+## Étape 6 : basculer à date fixe
+
+Le jour annoncé au cadrage, l'ancien système s'arrête : le tableur passe en lecture seule, les fichiers personnels disparaissent. Deux semaines de recouvrement suffisent pour vérifier que rien ne manque ; au-delà, la double saisie épuise l'équipe et chacun retourne à ses habitudes. Une bascule franche, préparée et assumée réussit bien plus souvent qu'une transition douce qui s'éternise.
+
+## Étape 7 : installer l'adoption (les 30 premiers jours)
 
 <MediaText src="/images/articles/mise-en-place-crm-media.jpg" alt="Un calendrier avec une série de jours cochés, métaphore de l'habitude quotidienne d'utilisation du CRM" reverse>
 
@@ -99,6 +134,43 @@ Et puis il y a l'exemplarité, le levier dont personne ne parle. Si le sponsor c
   sur une affaire. Pas de reproche, pas de relance sur la saisie : juste cette phrase. L'équipe
   comprend vite que ce qui n'est pas dans le CRM n'existe pas.
 </Callout>
+
+## Qui fait quoi dans un projet CRM
+
+| Rôle | Qui, en général | Ce qu'il fait |
+| --- | --- | --- |
+| Sponsor | Dirigeant ou directeur commercial | Fixe le cap, tranche les arbitrages, utilise l'outil lui-même |
+| Chef de projet | Un manager ou un profil commercial organisé | Tient le planning, anime les points, fait remonter les blocages |
+| Référent données | Assistant commercial, ADV ou contrôle de gestion | Nettoie et importe la base, fait respecter les règles de saisie |
+| Administrateur | Un profil à l'aise avec les outils, ou l'informatique | Paramètre les champs, les droits, les relances et les connexions |
+| Utilisateurs clés | Deux ou trois commerciaux volontaires | Testent le paramétrage, relaient auprès de l'équipe |
+| Intégrateur | Prestataire, si besoin | Intégrations complexes, reprise de gros volumes, ERP |
+
+Dans une petite équipe, une même personne cumule plusieurs rôles : le dirigeant est sponsor et chef de projet, un assistant est référent données et administrateur. L'essentiel est que chaque rôle ait un nom.
+
+## Quel budget pour la mise en place ?
+
+Le budget de la première année ne se limite pas aux licences. Il réunit :
+
+- **les licences**, par utilisateur et par mois, avec parfois un minimum d'utilisateurs ;
+- **le paramétrage**, fait en interne ou par un prestataire ;
+- **la reprise des données**, souvent sous-estimée quand les sources sont nombreuses ;
+- **la formation**, courte mais répétée ;
+- **les intégrations**, de la messagerie (souvent incluse) à l'ERP (souvent un projet à part) ;
+- **le temps interne**, le poste le plus oublié : celui du chef de projet, du référent données et des utilisateurs clés.
+
+Notre guide sur [le prix d'un CRM](/prix-crm/) donne des ordres de grandeur par taille d'entreprise et liste les coûts cachés à négocier avant de signer.
+
+## Les indicateurs d'adoption à suivre
+
+| Jalon | Objectif | Indicateur à suivre |
+| --- | --- | --- |
+| J+15 | Les relances sur devis partent automatiquement | Relances planifiées dans le CRM |
+| J+30 | Plus aucune double saisie | Ancien tableur arrêté, affaires créées chaque semaine |
+| J+45 | Une première prévision de pipeline présentable en réunion | Pipeline pondéré à jour |
+| J+90 | Un reporting sur lequel la direction s'appuie | Tableau de bord consulté chaque semaine |
+
+Fixez vous-même la cible de chaque indicateur au cadrage : elle dépend de votre activité, et c'est la tendance d'une semaine sur l'autre qui compte. Un signal d'alerte ne trompe pas : une saisie qui retombe trois semaines après la bascule annonce un retour aux anciennes habitudes, et appelle une réaction du sponsor.
 
 ## Les deux angles morts
 

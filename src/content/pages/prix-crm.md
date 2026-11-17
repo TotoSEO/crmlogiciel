@@ -11,7 +11,7 @@ enBref:
   - 'Le prix payé est presque toujours supérieur au prix affiché : facturation annuelle déguisée en mensuel, paliers, minimums de sièges, compteurs de contacts.'
   - 'La première année coûte souvent **1,5 à 2 fois les licences seules**, une fois la formation et la reprise de données comptées.'
   - 'Le mécanisme le plus coûteux du marché : changer de palier entier pour une seule fonctionnalité manquante.'
-  - 'Les tarifs bougent sans cesse : les chiffres frais, outil par outil, vivent dans notre baromètre.'
+  - 'Les tarifs bougent sans cesse : les prix publics relevés outil par outil figurent dans nos classements des meilleurs CRM, avec leur date de relevé.'
 faq:
   - question: "Quel est le prix d'un CRM pour une petite entreprise ?"
     answer: "Entre 0 et 40 € par utilisateur et par mois pour l'immense majorité des TPE, soit 1 500 à 4 500 € la première année pour une équipe de cinq, formation comprise. En dessous de trois utilisateurs avec un besoin simple, les plans gratuits du marché couvrent le besoin sans dépense."
@@ -29,7 +29,7 @@ featuredImageAlt: "Calculatrice, pièces empilées et carnet, métaphore du prix
 
 À la question directe, réponse directe : un CRM coûte entre 0 et 25 € par utilisateur et par mois pour les outils d'entrée de gamme et les plans gratuits, 30 à 70 € pour les solutions qui équipent la plupart des PME, et 80 à 150 € pour les suites les plus avancées. Voilà pour l'affiche. Le vrai sujet de cette page commence après, parce qu'entre le tarif publié et ce que vous paierez réellement, il existe une série de mécanismes parfaitement légaux et remarquablement efficaces.
 
-Le prix n'est d'ailleurs qu'un des cinq critères pour [comment choisir son CRM](/comment-choisir-crm/), et rarement le premier. Mais c'est celui où l'asymétrie d'information est la plus forte entre l'éditeur et vous : cette page la réduit. Les mécanismes et les ordres de grandeur sont ici ; les tarifs frais, relevés outil par outil, vivent dans notre baromètre des prix CRM, mis à jour à chaque vague de relevés.
+Le prix n'est d'ailleurs qu'un des cinq critères pour [comment choisir son CRM](/comment-choisir-crm/), et rarement le premier. Mais c'est celui où l'asymétrie d'information est la plus forte entre l'éditeur et vous : cette page la réduit. Les mécanismes et les ordres de grandeur sont ici ; les prix publics relevés outil par outil, avec leur date, figurent dans notre [classement des meilleurs CRM](/meilleurs-crm/) et dans le [comparateur de CRM](/comparatif-crm/).
 
 ## Les modèles tarifaires, décodés
 
@@ -43,9 +43,8 @@ Le freemium complète le paysage, et HubSpot en reste l'exemple le plus célèbr
 
 Les budgets ci-dessous croisent licences, mise en route et formation, pour une première année complète. Ce sont des ordres de grandeur constatés sur les pages tarifs publiques des éditeurs et les projets observés, pas des promesses.
 
-|                                                 |                                         |                             |
+| Profil | Licence par utilisateur et par mois | Budget réaliste année 1 |
 | ----------------------------------------------- | --------------------------------------- | --------------------------- |
-| **Profil**                                      | **Licence par utilisateur et par mois** | **Budget réaliste année 1** |
 | Indépendant                                     | 0 à 25 €                                | 0 à 600 €                   |
 | TPE, 5 utilisateurs                             | 15 à 40 €                               | 1 500 à 4 500 €             |
 | PME, 20 utilisateurs                            | 30 à 70 €                               | 12 000 à 30 000 €           |

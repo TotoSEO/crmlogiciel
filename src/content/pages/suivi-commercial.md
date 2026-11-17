@@ -47,9 +47,8 @@ Le vendredi, trente minutes seul avec son portefeuille : on remonte les [étapes
 
 La question « quand relancer » a des réponses plus précises que « régulièrement ». Les cadences ci-dessous sont des points de départ éprouvés, à ajuster à vos cycles.
 
-|                      |                |                                                                                                          |
+| Contexte | Rythme | Canal et angle |
 | -------------------- | -------------- | -------------------------------------------------------------------------------------------------------- |
-| **Contexte**         | **Rythme**     | **Canal et angle**                                                                                       |
 | Lead entrant         | Dans l'heure   | Téléphone, puis email si injoignable                                                                     |
 | Après un rendez-vous | Sous 24 h      | Email : récapitulatif et engagements de chacun                                                           |
 | Devis envoyé         | J+3, J+8, J+15 | Appel d'abord, puis email avec un élément nouveau, puis fermeture polie                                  |

@@ -1,6 +1,6 @@
 ---
 title: 'Gestion de la relation client (GRC) : définition et enjeux'
-metaDescription: 'La gestion de la relation client (GRC) expliquée : définition claire, trois dimensions, chantiers concrets, indicateurs à suivre et place réelle du logiciel CRM.'
+metaDescription: 'La gestion de la relation client (GRC) : définition, trois dimensions, chantiers concrets, indicateurs à suivre et place réelle du logiciel CRM.'
 h1: 'Gestion de la relation client : la discipline avant le logiciel'
 excerpt: 'La GRC organise chaque interaction entre une entreprise et ses clients, du premier contact à la fidélisation. Définition, dimensions, chantiers concrets et indicateurs pour la piloter.'
 cluster: comprendre

@@ -1,11 +1,16 @@
 ---
-title: 'Fichier client : structure type, modèle et bonnes pratiques'
-metaDescription: 'Structure type champ par champ, collecte conforme au RGPD, nettoyage en six gestes : la méthode pour construire un fichier client fiable qui prend de la valeur.'
-h1: 'Créer un fichier client qui vaut quelque chose (et le garder propre)'
+title: 'Fichier client : modèle Excel gratuit, champs et RGPD'
+metaDescription: 'Un modèle de fichier client Excel gratuit, sans e-mail : structure champ par champ, durées de conservation CNIL et six gestes pour le garder propre.'
+h1: 'Fichier client : le modèle Excel gratuit et la méthode pour bien le tenir'
 excerpt: "Un fichier client rassemble tout ce que vous savez de vos clients et prospects. Les données à y mettre, la collecte conforme au RGPD, la structure type et la méthode pour l'entretenir."
 cluster: utiliser
 type: satellite
 datePublished: 2026-06-14
+dateModified: 2026-11-16
+download:
+  label: 'Modèle de fichier client à télécharger'
+  file: 'modele-fichier-client.xlsx'
+  note: 'Fichier Excel gratuit, sans inscription : listes déroulantes, champs RGPD, alerte sur les relances en retard.'
 enBref:
   - "Un fichier client bien tenu est un **actif incorporel** : il entre dans la valeur de l'entreprise et se cède avec elle."
   - 'Dix champs bien remplis valent mieux que trente champs vides ; la structure type tient sur une page.'
@@ -82,9 +87,19 @@ Le principe est simple : moins de champs, mieux remplis. Un champ facultatif est
 | Prochaine action | Date et texte court   | Le champ qui fait vivre le fichier                  |
 | Notes            | Texte libre           | Tout le reste va ici, daté                          |
 
-Deux précisions d'expérience. Si vous travaillez encore hors CRM, [notre modèle Excel](/crm-excel/) reprend exactement cette structure, prête à remplir, avec le suivi des affaires en plus. Et soignez les champs Statut et Source en liste fermée : ce sont eux qui permettront plus tard de [segmenter vos clients](/segmentation-client/) sans tout reprendre. Ils se décident maintenant, pas au moment d'envoyer la première campagne.
+Deux précisions utiles. Notre **modèle de fichier client Excel**, à télécharger gratuitement sur cette page, reprend cette structure avec des listes déroulantes, et y ajoute le SIREN, la ville, le responsable du compte, la base légale RGPD et la date de collecte de chaque contact ; la date de prochaine action passe en orange dès qu'elle est dépassée. Si vous voulez aussi suivre vos affaires, [notre modèle de CRM sur Excel](/crm-excel/) ajoute un pipeline et un tableau de bord. Et soignez les champs Statut et Source en liste fermée : ce sont eux qui permettront plus tard de [segmenter vos clients](/segmentation-client/) sans tout reprendre. Ils se décident maintenant, pas au moment d'envoyer la première campagne.
 
 Une nuance selon votre marché. En B2B, la fiche tourne autour de l'entreprise et de l'interlocuteur : société, fonction, décideur ou non. En B2C, ces champs s'effacent au profit du comportement d'achat : fréquence, panier moyen, produits préférés, canal de contact. La logique ne change pas, seuls les champs qui comptent diffèrent. Calez votre structure sur le type de client que vous suivez vraiment.
+
+## Quel logiciel pour gérer un fichier client ?
+
+Trois paliers se succèdent, et le bon dépend du nombre de personnes qui travaillent sur le fichier.
+
+- **Le tableur**, pour démarrer seul ou à deux, avec quelques centaines de contacts : notre modèle Excel suffit, à condition de tenir les listes fermées et de dater chaque échange.
+- **Le CRM gratuit**, dès que plusieurs personnes partagent le fichier ou que les relances se multiplient : l'historique, les rappels et le travail à plusieurs sont inclus. Notre sélection des [meilleurs CRM gratuits](/crm-gratuit/) compare leurs plafonds.
+- **Le CRM payant**, quand le fichier sert à piloter une équipe commerciale, à préparer des devis ou à échanger avec la facturation et l'ERP : notre [comparatif des meilleurs logiciels CRM](/meilleurs-crm/) les classe selon votre profil.
+
+Dans tous les cas, la structure décrite plus haut reste la même : c'est elle qui fait la valeur du fichier, quel que soit l'outil qui l'héberge.
 
 ## L'hygiène : le nettoyage en six gestes
 

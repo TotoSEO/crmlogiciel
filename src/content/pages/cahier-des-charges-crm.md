@@ -1,6 +1,6 @@
 ---
-title: 'Cahier des charges CRM : méthode complète et modèle'
-metaDescription: "Cahier des charges CRM : pourquoi et comment le rédiger, ce qu'il doit contenir rubrique par rubrique, la méthode pour hiérarchiser vos besoins et un modèle à télécharger."
+title: 'Cahier des charges CRM : méthode complète et modèle Word'
+metaDescription: 'Un modèle de cahier des charges CRM à télécharger (Word) et la méthode rubrique par rubrique pour décrire vos besoins et comparer les éditeurs.'
 h1: 'Comment rédiger un cahier des charges pour votre CRM'
 excerpt: "Consulter des éditeurs sans cahier des charges, c'est comparer des offres incomparables. Ce document met tout le monde d'accord, à commencer par vous. Voici comment le rédiger, ce qu'il doit contenir, et un modèle prêt à remplir."
 cluster: choisir
