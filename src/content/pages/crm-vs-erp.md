@@ -97,15 +97,15 @@ Si les deux outils existent déjà, le chantier prioritaire n'est ni l'un ni l'a
 
 ## Les logiciels qui réunissent CRM et ERP
 
-Entre les deux mondes, des éditeurs proposent un CRM et un ERP qui fonctionnent nativement ensemble, soit dans un même produit, soit dans deux produits de la même famille. Les principaux, sur le marché français :
+Entre les deux mondes, des éditeurs proposent un CRM et un ERP qui fonctionnent nativement ensemble, soit dans un même produit, soit dans deux produits de la même famille. Quelques exemples présents sur le marché français, par ordre alphabétique :
 
+- **Axonaut**, qui réunit CRM, facturation et comptabilité pour les TPE et les PME ;
 - **Divalto**, qui associe son CRM weavy à ses ERP métiers pour le négoce, l'industrie et le service terrain ;
 - **Microsoft Dynamics 365**, avec Sales pour la relation client et Business Central pour la gestion ;
 - **Odoo**, une suite modulaire où le CRM est une application parmi d'autres ;
 - **Oracle NetSuite**, un ERP en cloud avec un CRM natif ;
 - **SAP Business One**, l'ERP de SAP pour les PME, avec un module de relation client ;
-- **Zoho One**, une suite de plus de 40 applications dont Zoho CRM ;
-- **Axonaut**, qui réunit CRM, facturation et comptabilité pour les TPE.
+- **Zoho One**, une suite de plus de 45 applications dont Zoho CRM.
 
 La promesse de ces suites est tenue sur le périmètre, moins souvent sur la profondeur : il faut vérifier que la partie CRM convient vraiment aux commerciaux, mobilité comprise. Un signe ne trompe pas : si les commerciaux tiennent leurs affaires dans **un tableur à côté du module CRM de l'ERP**, le module ne sert pas, quel que soit ce qu'affirme la plaquette. Notre classement des [meilleurs CRM intégrés à un ERP](/meilleurs-crm-erp/) compare ces solutions, leurs prix et leurs limites.
 

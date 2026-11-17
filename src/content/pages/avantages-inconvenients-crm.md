@@ -12,7 +12,7 @@ enBref:
   - "Il a aussi **huit inconvénients** : coût total, saisie quotidienne, adoption, dépendance à l'éditeur, rigidité, qualité des données, intégrations et délai de mise en place."
   - "Presque toutes les conditions se ramènent à une seule : l'usage régulier de l'outil par l'équipe."
   - "La rentabilité se calcule en trois lignes sur vos propres chiffres, pas sur les études publiées par ceux qui vendent l'outil."
-  - "En 2025, 28,5 % des entreprises européennes de 10 salariés et plus utilisaient un CRM, mais seulement 25 % des petites (Eurostat)."
+  - "En 2025, 28,5 % des entreprises de l'Union européenne d'au moins 10 personnes utilisaient un CRM, contre 24,7 % de celles de 10 à 49 personnes (Eurostat)."
 faq:
   - question: "Quels sont les avantages d'un CRM ?"
     answer: "Les huit principaux : une mémoire client partagée par toute l'équipe, des relances qui ne s'oublient plus, une prévision de chiffre d'affaires crédible, un client mieux servi, du temps gagné sur les recherches et les ressaisies, un pilotage sur des chiffres, un ciblage commercial plus fin et une conformité RGPD documentée. Chacun dépend d'une condition, presque toujours la même : que l'équipe utilise réellement l'outil."
@@ -70,7 +70,7 @@ Les deux derniers avantages sont souvent sous-estimés. Le ciblage, d'abord : un
 
 ## Les avantages d'un CRM pour une TPE ou une PME
 
-Selon [Eurostat](https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Digital_economy_and_society_statistics_-_enterprises), 28,5 % des entreprises de l'Union européenne de 10 salariés et plus utilisaient un logiciel CRM en 2025, mais seulement 25 % des petites entreprises, contre 65 % des grandes. Les plus petites structures sont donc celles qui en profitent le moins, alors qu'elles perdent leurs affaires aux mêmes endroits que les autres.
+Selon [Eurostat](https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Digital_economy_and_society_statistics_-_enterprises), 28,5 % des entreprises de l'Union européenne d'au moins 10 personnes utilisaient un logiciel CRM en 2025 : 24,7 % des petites entreprises (10 à 49 personnes), 43,8 % des moyennes et 65,4 % des grandes. Plus l'entreprise est petite, moins elle est équipée, alors qu'elle perd ses affaires aux mêmes endroits que les autres ; Eurostat ne publie pas ce taux en dessous de 10 personnes.
 
 Pour une TPE, l'avantage principal est la mémoire et les relances : un indépendant ou une équipe de trois personnes cesse de dépendre de sa boîte mail et de son agenda pour savoir qui relancer. Le risque financier est faible, car plusieurs [CRM gratuits](/crm-gratuit/) couvrent ce besoin de base, et un [modèle de CRM sur Excel](/crm-excel/) peut même dépanner quelques mois.
 

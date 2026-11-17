@@ -49,7 +49,7 @@ Cette page fait donc deux choses. Elle explique proprement la typologie, pour qu
 | Indicateurs suivis | Activité, relances en retard, taux de transformation | Chiffre d'affaires par segment, valeur client, prévision | Délai de réponse, demandes traitées sans transfert |
 | Dépend de | La discipline de saisie | La qualité de la saisie opérationnelle | L'usage de la même base par tous les services |
 
-Le découpage a été popularisé par les cabinets d'analystes à la fin des années 1990, le META Group en tête, racheté depuis par Gartner. À l'époque, ces fonctions correspondaient vraiment à des logiciels séparés qu'il fallait acheter et relier entre eux. Les produits ont fusionné depuis, mais le vocabulaire est resté, et il garde sa valeur pour comprendre ce qu'un CRM fait réellement.
+Le découpage a été popularisé par les cabinets d'analystes à la fin des années 1990 ; on l'attribue le plus souvent au META Group, racheté par Gartner en 2005. À l'époque, ces fonctions correspondaient vraiment à des logiciels séparés qu'il fallait acheter et relier entre eux. Les produits ont fusionné depuis, mais le vocabulaire est resté, et il garde sa valeur pour comprendre ce qu'un CRM fait réellement.
 
 ## CRM opérationnel : définition et exemples
 
@@ -57,7 +57,7 @@ C'est la couche du quotidien, celle qui exécute la relation client. Elle regrou
 
 Un exemple simple : un client appelle pour un litige, le conseiller ouvre sa fiche, voit la commande et le dernier échange, et traite la demande sans le faire répéter. Tout cela, c'est de l'opérationnel. Autre exemple, très fréquent en B2B : un commercial en rendez-vous consulte l'historique d'achat du client, prépare un devis et le fait partir avant de remonter en voiture.
 
-**Quels logiciels ?** Tous les CRM du marché ont une couche opérationnelle, mais certains en font leur cœur. Pipedrive est construit autour du pipeline de vente, Sellsy autour du devis et de la facture, Divalto weavy autour de la prise de commande sur le terrain. Notre [pipeline commercial](/pipeline-commercial/) détaille la pièce maîtresse de cette couche, et nos classements des [CRM pour commerciaux terrain](/meilleurs-crm-commerciaux-terrain/) et des [CRM pour PME](/meilleurs-crm-pme/) comparent les outils sur ces usages.
+**Quels logiciels ?** Tous les CRM du marché ont une couche opérationnelle, mais certains en font leur cœur. Pipedrive est construit autour du pipeline de vente, Sellsy autour du devis et de la facture, Divalto weavy ou Nomadia Sales autour de la visite et de la prise de commande sur le terrain. Notre [pipeline commercial](/pipeline-commercial/) détaille la pièce maîtresse de cette couche, et nos classements des [CRM pour commerciaux terrain](/meilleurs-crm-commerciaux-terrain/) et des [CRM pour PME](/meilleurs-crm-pme/) comparent les outils sur ces usages.
 
 ## CRM analytique : définition et exemples
 
